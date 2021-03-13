@@ -1,7 +1,8 @@
 <?php
 
-use App\Http\Controllers\CategoryController;
+
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,15 +35,17 @@ Route::prefix('admin')->group(function (){
         Route::post('/store', [CategoryController::class, 'store'])
             ->name('categories.store');
 
-        Route::get('/edit', [CategoryController::class, 'edit'])
+        Route::get('/edit/{id}', [CategoryController::class, 'edit'])
             ->name('categories.edit');
 
-        Route::post('/update', [CategoryController::class, 'update'])
+        Route::post('/update/{id}', [CategoryController::class, 'update'])
             ->name('categories.update');
 
-        Route::post('/destroy', [CategoryController::class, 'destroy'])
+        Route::post('/destroy/{id}', [CategoryController::class, 'destroy'])
             ->name('categories.destroy');
 
     });
+
+
 });
 
