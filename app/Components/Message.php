@@ -28,6 +28,10 @@ class Message
         switch ($this->type){
             case __('type_success'):
 
+                if ($action == 'create'){
+                    return __('success_create_message', ['name'=>$name]);
+                }
+
                 if ($action == 'update'){
                     return __('success_update_message', ['name'=>$name]);
                 }

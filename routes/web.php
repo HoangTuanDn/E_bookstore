@@ -3,6 +3,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\MenuController;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,6 +47,27 @@ Route::prefix('admin')->group(function (){
 
     });
 
+    Route::prefix('menus')->group(function (){
+
+        Route::get('/index', [MenuController::class, 'index'])
+            ->name('menus.index');
+
+        Route::get('/create', [MenuController::class, 'create'])
+            ->name('menus.create');
+
+        Route::post('/store', [MenuController::class, 'store'])
+            ->name('menus.store');
+
+        Route::get('/edit/{id}', [MenuController::class, 'edit'])
+            ->name('menus.edit');
+
+        Route::post('/update/{id}', [MenuController::class, 'update'])
+            ->name('menus.update');
+
+        Route::post('/destroy/{id}', [MenuController::class, 'destroy'])
+            ->name('menus.destroy');
+
+    });
 
 });
 

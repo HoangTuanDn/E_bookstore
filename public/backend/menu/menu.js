@@ -5,6 +5,7 @@ $(function (){
 
     type = type == 1 ? 'success' : 'error';
     if (message){
+
         var toastConfig = {
             message: message,
             type: type,
@@ -12,7 +13,7 @@ $(function (){
         }
 
         app.getToastr(toastConfig);
-        $("#session-message").attr('data-message', '')
+        //$("#session-message").attr('data-message', '')
     }
 
 

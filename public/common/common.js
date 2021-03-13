@@ -25,16 +25,9 @@ var Web = {
     },
 }
 
-//*toastr*/\
+//*toastr*//
 var app = {
     getToastr : function ({title = '', message = '', type = 'info', duration = 3000}){
-
-        // toastr.options.progressBar = true
-        // toastr.options.closeButton = true
-        // toastr.options.newestOnTop = false
-        // toastr.options.positionClass = "toast-top-right"
-        // toastr.options.showDuration = duration
-
 
         toastr.options = {
             "closeButton": true,

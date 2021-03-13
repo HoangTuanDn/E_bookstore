@@ -7,11 +7,16 @@ use App\Models\Category;
 class Recursive
 {
     private $data;
-    private $htmlSelect = '';
+    private $htmlSelect;
+    public function __construct()
+    {
+        $this->htmlSelect = '';
+    }
 
     public function setData($data)
     {
         $this->data = $data;
+
     }
 
     public function categoryRecursive( int $parent_id = 0, int $id = 0, string $text = '')

@@ -1,9 +1,11 @@
 {
   "category" : "danh mục sản phẩm",
+  "menu" : "menu",
   "type_error" : "error",
   "type_warning" : "warning",
   "type_success" : "success",
   "success_update_message" : "Cập nhật :name thành công",
+  "success_create_message" : "Tạo :name thành công",
   "warning_update_message" : "Không có :name nào được cập nhật",
   "success_delete_message" : "Xóa :name thành công",
   "error_message" : "Đã có lỗi xảy ra"

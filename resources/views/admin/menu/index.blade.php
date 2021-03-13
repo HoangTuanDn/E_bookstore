@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('title')
-    <title>Categories</title>
+    <title>Menus</title>
 @endsection
 
 @section('css')
@@ -10,10 +10,9 @@
 
 
 @section('js_link')
-
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-    <script src="{{asset('backend/category/category.js')}}"></script>
     <script src="{{asset('common/toastr.min.js')}}"></script>
+    <script src="{{asset('backend/menu/menu.js')}}"></script>
 @endsection
 
 
@@ -25,12 +24,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Categories</h1>
+                        <h1>Menus</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">Categories</li>
+                            <li class="breadcrumb-item active">Menus</li>
                         </ol>
                     </div>
                 </div>
@@ -43,7 +42,7 @@
             <!-- Default box -->
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">Danh mục sản phẩm</h3>
+                    <h3 class="card-title">Danh sách menu</h3>
                     @if(session('message') && session('type'))
                         <p id="session-message" data-message="{{session('message')}}" data-type="{{session('type')}}"></p>
                     @endif
@@ -52,7 +51,7 @@
                         <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
                             <i class="fas fa-minus"></i>
                         </button>
-                        <a href="{{route('categories.create')}}" class="btn btn-success">
+                        <a href="{{route('menus.create')}}" class="btn btn-success">
                            Add
                         </a>
                     </div>
@@ -65,7 +64,7 @@
                                 #
                             </th>
                             <th style="width: 20%">
-                                Tên danh mục
+                                Tên menu
                             </th>
 
                             <th style="float: right; margin-right: 10px">
@@ -74,25 +73,25 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @if($latestCategories )
-                            @foreach($latestCategories as $category)
+                        @if($latestMenus )
+                            @foreach($latestMenus as $menu)
                                 <tr>
                                     <td>
-                                        {{$category->id}}
+                                        {{$menu->id}}
                                     </td>
                                     <td>
                                         <a>
-                                            {{$category->name}}
+                                            {{$menu->name}}
                                         </a>
                                     </td>
 
                                     <td class="project-actions text-right">
-                                        <a class="btn btn-info btn-sm" href="{{route('categories.edit', ['id' => $category->id])}}">
+                                        <a class="btn btn-info btn-sm" href="{{route('menus.edit', ['id' => $menu->id])}}">
                                             <i class="fas fa-pencil-alt">
                                             </i>
 
                                         </a>
-                                        <a class="btn btn-danger btn-sm" data-action="btnDelete" data-name="{{$category->name}}" data-url="{{route('categories.destroy', ['id'=> $category->id])}}" >
+                                        <a class="btn btn-danger btn-sm" data-action="btnDelete" data-name="{{$menu->name}}" data-url="{{route('menus.destroy', ['id'=> $menu->id])}}" >
                                             <i class="fas fa-trash">
                                             </i>
 
