@@ -1,6 +1,7 @@
 <?php
 
 
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\MenuController;
@@ -16,15 +17,21 @@ use App\Http\Controllers\MenuController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Route::get('/admin', function () {
     return view('admin.home');
 });
 
 Route::prefix('admin')->group(function (){
+
+    Route::prefix('auth')->group(function (){
+
+        Route::get('/login', [AuthController::class, 'loginForm'])
+            ->name('auth.adminLogin');
+
+        Route::post('/login', [AuthController::class, 'loginAction'])
+           ->name('auth.admin_login');
+    });
+
     Route::prefix('categories')->group(function (){
 
         Route::get('/index', [CategoryController::class, 'index'])
