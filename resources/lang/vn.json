@@ -1,6 +1,9 @@
 {
   "category" : "danh mục sản phẩm",
+  "slider" : "slider",
   "menu" : "menu",
+  "product" : "sản phẩm",
+  "setting" : "cấu hình",
   "type_error" : "error",
   "type_warning" : "warning",
   "type_success" : "success",
@@ -8,7 +11,8 @@
   "success_create_message" : "Tạo :name thành công",
   "warning_update_message" : "Không có :name nào được cập nhật",
   "success_delete_message" : "Xóa :name thành công",
-  "error_message" : "Đã có lỗi xảy ra"
+  "error_message" : "Đã có lỗi xảy ra",
+  "currency_unit" : " <strong> vnđ</strong>"
 
 
 

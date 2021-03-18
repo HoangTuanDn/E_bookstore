@@ -27,7 +27,7 @@
                     <div class="col-md-7">
                         <div class="card card-primary">
                             <div class="card-header">
-                                <h3 class="card-title">Cập nhật danh mục</h3>
+                                <h3 class="card-title">Cập nhật menu</h3>
 
                                 <div class="card-tools">
                                     <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
@@ -57,7 +57,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-12">
+                    <div class="col-12 mb-2">
                         <input type="submit" value="Cập nhật" class="btn btn-success float-left">
                     </div>
                 </div>

@@ -7,6 +7,7 @@ use App\Components\Recursive;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use phpDocumentor\Reflection\Type;
 
@@ -59,19 +60,11 @@ class CategoryController extends Controller
     }
 
 
-    public function show(Category $category)
-    {
-        //
-    }
-
-
     public function edit(Request $request, $id)
     {
 
         $category = $this->category->select('id', 'name', 'parent_id')->find($id);
-        //dd($category);
         $htmlOption = $this->getHtmlOption($category->parent_id);
-        //dd($htmlOption);
 
         return view('admin.category.edit', compact('category', 'htmlOption'));
     }
@@ -87,6 +80,7 @@ class CategoryController extends Controller
             $isUpdate = $this->category->find($id)->update($collection->all());
 
         } catch (\Exception $e) {
+            Log::error('message: ' . $e->getMessage() . 'Line : ' . $e->getLine());
             $isUpdate = false;
         }
 
@@ -110,6 +104,7 @@ class CategoryController extends Controller
             $isDelete = $this->category->find($id)->delete();
 
         } catch (\Exception $e) {
+            Log::error('message: ' . $e->getMessage() . 'Line : ' . $e->getLine());
             $isDelete = false;
         }
 

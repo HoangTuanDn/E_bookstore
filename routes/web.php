@@ -2,9 +2,13 @@
 
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\SettingController;
+use App\Http\Controllers\SliderController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\MenuController;
+use App\Http\Controllers\ProductController;
+use UniSharp\LaravelFilemanager\Lfm;
 
 /*
 |--------------------------------------------------------------------------
@@ -74,6 +78,78 @@ Route::prefix('admin')->group(function (){
         Route::post('/destroy/{id}', [MenuController::class, 'destroy'])
             ->name('menus.destroy');
 
+    });
+
+
+    Route::prefix('products')->group(function (){
+
+        Route::get('/index', [ProductController::class, 'index'])
+            ->name('products.index');
+
+        Route::get('/create', [ProductController::class, 'create'])
+            ->name('products.create');
+
+        Route::post('/store', [ProductController::class, 'store'])
+            ->name('products.store');
+
+        Route::get('/edit/{id}', [ProductController::class, 'edit'])
+            ->name('products.edit');
+
+        Route::post('/update/{id}', [ProductController::class, 'update'])
+            ->name('products.update');
+
+        Route::post('/destroy/{id}', [ProductController::class, 'destroy'])
+            ->name('products.destroy');
+
+    });
+
+    Route::prefix('sliders')->group(function (){
+
+        Route::get('/index', [SliderController::class, 'index'])
+            ->name('sliders.index');
+
+        Route::get('/create', [SliderController::class, 'create'])
+            ->name('sliders.create');
+
+        Route::post('/store', [SliderController::class, 'store'])
+            ->name('sliders.store');
+
+        Route::get('/edit/{id}', [SliderController::class, 'edit'])
+            ->name('sliders.edit');
+
+        Route::post('/update/{id}', [SliderController::class, 'update'])
+            ->name('sliders.update');
+
+        Route::post('/destroy/{id}', [SliderController::class, 'destroy'])
+            ->name('sliders.destroy');
+
+    });
+
+    Route::prefix('settings')->group(function (){
+
+        Route::get('/index', [SettingController::class, 'index'])
+            ->name('settings.index');
+
+        Route::get('/create', [SettingController::class, 'create'])
+            ->name('settings.create');
+
+        Route::post('/store', [SettingController::class, 'store'])
+            ->name('settings.store');
+
+        Route::get('/edit/{id}', [SettingController::class, 'edit'])
+            ->name('settings.edit');
+
+        Route::post('/update/{id}', [SettingController::class, 'update'])
+            ->name('settings.update');
+
+        Route::post('/destroy/{id}', [SettingController::class, 'destroy'])
+            ->name('settings.destroy');
+
+    });
+
+//    'middleware' => ['web', 'auth']
+    Route::group(['prefix' => 'filemanager'], function () {
+        Lfm::routes();
     });
 
 });

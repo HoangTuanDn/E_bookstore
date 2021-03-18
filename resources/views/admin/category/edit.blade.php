@@ -57,7 +57,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-12">
+                    <div class="col-12 mb-2">
                         <input type="submit" value="Cập nhật" class="btn btn-success float-left">
                     </div>
                 </div>

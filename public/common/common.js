@@ -48,7 +48,62 @@ var app = {
         }
 
         toastr[type](message, title)
+    },
+
+    select2Tag : function (selector){
+        selector.select2({
+            tags: true,
+            tokenSeparators: [',']
+        })
+    },
+
+    select2Option : function (selector){
+        selector.select2({
+            placeholder: "Chọn danh mục",
+        })
+    },
+
+    deleteObject : function (name, url, currentElement){
+
+        Swal.fire({
+            title: 'Bạn có chắc không?',
+            text: `Danh mục sản phẩm ${name} sẽ bị xóa ?`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#dd3333',
+            confirmButtonText: 'Đồng ý',
+            cancelButtonText: 'Hủy bỏ',
+
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url     : url,
+                    type    : 'post',
+                    dataType: 'json',
+                    headers : {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+
+                    success: function (json) {
+                        Swal.fire(
+                            'Deleted!',
+                            'Danh mục đã được xóa',
+                            'success'
+                        )
+                        currentElement.closest('tr').css('background','tomato');
+                        currentElement.closest('tr').fadeOut(800,function(){
+                            $(this).remove();
+                        });
+                    },
+
+                });
+
+            }
+        })
+
     }
+
 }
 
 

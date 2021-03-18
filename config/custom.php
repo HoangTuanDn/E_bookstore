@@ -1,6 +1,7 @@
 <?php
 
 return [
-
-    'limit' => 10
+    'folder_store'=> 'product',
+    'folder_slider'=> 'slider',
+    'limit' => 5
 ];

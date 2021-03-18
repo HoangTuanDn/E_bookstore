@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -12,7 +11,7 @@ class AuthController extends Controller
 {
 
     public function loginForm() {
-        if (auth()->check()){
+        if (auth()->guard('admin')->check()){
             return redirect()->to('admin');
         }
         return view('admin.auth.login');
@@ -22,7 +21,8 @@ class AuthController extends Controller
         $remember = $request->has('remember_me') ? true: false;
 
         if (
-            auth()->attempt($request->only('email', 'password'),
+            auth()->guard('admin')
+                  ->attempt($request->only('email', 'password'),
             $remember
         )){
             return redirect()->to('admin');

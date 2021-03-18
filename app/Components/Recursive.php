@@ -19,17 +19,34 @@ class Recursive
 
     }
 
-    public function categoryRecursive( int $parent_id = 0, int $id = 0, string $text = '')
+    public function categoryRecursive( int $selected_id = 0, int $id = 0, string $text = '')
     {
         foreach ($this->data as $value) {
             if ($value->parent_id == $id) {
-                if ($parent_id != 0 &&  $value->id == $parent_id) {
+                if ($selected_id != 0 &&  $value->id == $selected_id) {
                     $this->htmlSelect .= '<option selected value=' . $value->id . '>' . $text . $value['name'] . "</option>";
                 } else {
                     $this->htmlSelect .= '<option value=' . $value->id . '>' . $text . $value['name'] . "</option>";
 
                 }
-                $this->categoryRecursive($value->parent_id, $value->id, $text . '--');
+                $this->categoryRecursive($selected_id, $value->id, $text . '--');
+            }
+        }
+
+        return $this->htmlSelect;
+    }
+
+    public function categoryMultipleSelectRecursive($selected_id, int $id = 0, string $text = '')
+    {
+        foreach ($this->data as $value) {
+            if ($value->parent_id == $id) {
+                if (in_array($value->id, $selected_id )) {
+                    $this->htmlSelect .= '<option selected value=' . $value->id . '>' . $text . $value['name'] . "</option>";
+                } else {
+                    $this->htmlSelect .= '<option value=' . $value->id . '>' . $text . $value['name'] . "</option>";
+
+                }
+                $this->categoryMultipleSelectRecursive($selected_id, $value->id, $text . '--');
             }
         }
 

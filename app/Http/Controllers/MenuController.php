@@ -7,6 +7,7 @@ use App\Components\Message;
 use App\Models\Menu;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Log;
 
 class MenuController extends Controller
 {
@@ -47,6 +48,7 @@ class MenuController extends Controller
             $isCreated = $this->menu->create($collection->all());
 
         }catch (\Exception $e){
+            Log::error('message: ' . $e->getMessage() . 'Line : ' . $e->getLine());
             $isCreated = false;
         }
 
@@ -85,6 +87,7 @@ class MenuController extends Controller
             $isUpdate = $this->menu->find($id)->update($collection->all());
 
         } catch (\Exception $e) {
+            Log::error('message: ' . $e->getMessage() . 'Line : ' . $e->getLine());
             $isUpdate = false;
         }
 
@@ -108,6 +111,7 @@ class MenuController extends Controller
             $isDelete = $this->menu->find($id)->delete();
 
         } catch (\Exception $e) {
+            Log::error('message: ' . $e->getMessage() . 'Line : ' . $e->getLine());
             $isDelete = false;
         }
 

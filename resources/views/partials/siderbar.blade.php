@@ -23,7 +23,7 @@
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-item">
                     <a href="{{route('categories.index')}}" class="nav-link">
-                        <i class="nav-icon fas fa-th"></i>
+                        <i class="nav-icon fas fa-divide"></i>
                         <p>
                             Danh mục sản phẩm
                         </p>
@@ -36,9 +36,48 @@
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-item">
                     <a href="{{route('menus.index')}}" class="nav-link">
-                        <i class="nav-icon fas fa-th"></i>
+                        <i class="nav-icon fas fa-bars"></i>
                         <p>
                             Menus
+                        </p>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <li class="nav-item">
+                    <a href="{{route('products.index')}}" class="nav-link">
+                        <i class="nav-icon fas fa-boxes"></i>
+                        <p>
+                            Sản phẩm
+                        </p>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <li class="nav-item">
+                    <a href="{{route('sliders.index')}}" class="nav-link">
+                        <i class="nav-icon fas fa-image"></i>
+                        <p>
+                            slider
+                        </p>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <li class="nav-item">
+                    <a href="{{route('settings.index')}}" class="nav-link">
+                        <i class="nav-icon fas fa-cogs"></i>
+                        <p>
+                            cài đặt
                         </p>
                     </a>
                 </li>
