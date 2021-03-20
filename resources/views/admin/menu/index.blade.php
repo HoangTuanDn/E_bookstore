@@ -20,23 +20,10 @@
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
-        <section class="content-header">
-            <div class="container-fluid">
-                <div class="row mb-2">
-                    <div class="col-sm-6">
-                        <h1>Menus</h1>
-                    </div>
-                    <div class="col-sm-6">
-                        <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">Menus</li>
-                        </ol>
-                    </div>
-                </div>
-            </div><!-- /.container-fluid -->
-        </section>
+    @include('partials.breadcrumb',['module' => 'menus'])
 
-        <!-- Main content -->
+
+    <!-- Main content -->
         <section class="content">
 
             <!-- Default box -->
@@ -60,14 +47,14 @@
                     <table class="table table-striped projects">
                         <thead>
                         <tr>
-                            <th style="width: 1%">
+                            <th class="border-right" style="width: 1%">
                                 #
                             </th>
-                            <th style="width: 20%">
+                            <th  style="width: 20%; text-align: center">
                                 Tên menu
                             </th>
 
-                            <th style="float: right; margin-right: 10px">
+                            <th class="border-left" style="float: right; margin-right: 10px">
                                 Action
                             </th>
                         </tr>
@@ -79,7 +66,7 @@
                                     <td>
                                         {{$menu->id}}
                                     </td>
-                                    <td>
+                                    <td class="text-center">
                                         <a>
                                             {{$menu->name}}
                                         </a>

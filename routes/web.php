@@ -2,8 +2,11 @@
 
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SliderController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\MenuController;
@@ -35,6 +38,14 @@ Route::prefix('admin')->group(function (){
         Route::post('/login', [AuthController::class, 'loginAction'])
            ->name('auth.admin_login');
     });
+
+    Route::group(['prefix' => 'filemanager'], function () {
+        Lfm::routes();
+    });
+
+    Route::get('/', function () {
+        return view('admin.home');
+    })->name('home');
 
     Route::prefix('categories')->group(function (){
 
@@ -147,10 +158,72 @@ Route::prefix('admin')->group(function (){
 
     });
 
-//    'middleware' => ['web', 'auth']
-    Route::group(['prefix' => 'filemanager'], function () {
-        Lfm::routes();
+    Route::prefix('users')->group(function (){
+
+        Route::get('/index', [UserController::class, 'index'])
+            ->name('users.index');
+
+        Route::get('/create', [UserController::class, 'create'])
+            ->name('users.create');
+
+        Route::post('/store', [UserController::class, 'store'])
+            ->name('users.store');
+
+        Route::get('/edit/{id}', [UserController::class, 'edit'])
+            ->name('users.edit');
+
+        Route::post('/update/{id}', [UserController::class, 'update'])
+            ->name('users.update');
+
+        Route::post('/destroy/{id}', [UserController::class, 'destroy'])
+            ->name('users.destroy');
+
     });
+
+    Route::prefix('roles')->group(function (){
+
+        Route::get('/index', [RoleController::class, 'index'])
+            ->name('roles.index');
+
+        Route::get('/create', [RoleController::class, 'create'])
+            ->name('roles.create');
+
+        Route::post('/store', [RoleController::class, 'store'])
+            ->name('roles.store');
+
+        Route::get('/edit/{id}', [RoleController::class, 'edit'])
+            ->name('roles.edit');
+
+        Route::post('/update/{id}', [RoleController::class, 'update'])
+            ->name('roles.update');
+
+        Route::post('/destroy/{id}', [RoleController::class, 'destroy'])
+            ->name('roles.destroy');
+
+    });
+
+    Route::prefix('permissions')->group(function (){
+
+        Route::get('/index', [PermissionController::class, 'index'])
+            ->name('permissions.index');
+
+        Route::get('/create', [PermissionController::class, 'create'])
+            ->name('permissions.create');
+
+        Route::post('/store', [PermissionController::class, 'store'])
+            ->name('permissions.store');
+
+        Route::get('/edit/{id}', [PermissionController::class, 'edit'])
+            ->name('permissions.edit');
+
+        Route::post('/update/{id}', [PermissionController::class, 'update'])
+            ->name('permissions.update');
+
+        Route::post('/destroy/{id}', [PermissionController::class, 'destroy'])
+            ->name('permissions.destroy');
+
+    });
+
 
 });
 

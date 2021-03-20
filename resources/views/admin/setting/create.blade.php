@@ -14,25 +14,9 @@
 @endsection
 
 @section('content')
-    <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
-        <section class="content-header">
-            <div class="container-fluid">
-                <div class="row mb-2">
-                    <div class="col-sm-6">
-                        <h1>Setting add</h1>
-                    </div>
-                    <div class="col-sm-6">
-                        <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">setting add</li>
-                        </ol>
-                    </div>
-                </div>
-            </div><!-- /.container-fluid -->
-        </section>
+    @include('partials.breadcrumb',['module' => 'settings', 'action' => 'add'])
 
-        <!-- Main content -->
+    <!-- Main content -->
         <section class="content">
             <form action="{{route('settings.store')}}" method="post" >
                 @csrf

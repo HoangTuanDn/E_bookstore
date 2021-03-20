@@ -22,21 +22,7 @@
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
-        <section class="content-header">
-            <div class="container-fluid">
-                <div class="row mb-2">
-                    <div class="col-sm-6">
-                        <h1>Products</h1>
-                    </div>
-                    <div class="col-sm-6">
-                        <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">Products</li>
-                        </ol>
-                    </div>
-                </div>
-            </div><!-- /.container-fluid -->
-        </section>
+    @include('partials.breadcrumb',['module' => 'products'])
 
         <!-- Main content -->
         <section class="content">
@@ -63,14 +49,14 @@
                     <table class="table table-striped projects">
                         <thead>
                         <tr>
-                            <th style="width: 1%">
+                            <th class="border-right" style="width: 1%">
                                 #
                             </th>
                             <th style="width: 20%">
                                 Tên sản phẩm
                             </th>
 
-                            <th style="width: 25%">
+                            <th style="width: 25%; text-align: center">
                                 Hình ảnh
                             </th>
 
@@ -82,7 +68,7 @@
                                 Danh mục
                             </th>
 
-                            <th style="float: right; margin-right: 10px">
+                            <th class="border-left" style="float: right; margin-right: 10px">
                                 Action
                             </th>
                         </tr>
@@ -104,10 +90,9 @@
                                         <span>{{number_format($product->price)}}</span>
                                     </td>
 
-                                    <td>
+                                    <td class="text-center">
                                         @foreach($product->categories as $category)
-                                            <span class="product-category">{{$category->name}}</span>
-
+                                            <span class="mt-1 bg-gradient-indigo p-1 bord rounded d-inline-block">{{$category->name}}</span>
                                         @endforeach
                                     </td>
 

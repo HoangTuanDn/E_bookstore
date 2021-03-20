@@ -37,16 +37,6 @@ class CategoryController extends Controller
         return view('admin.category.create', compact('htmlOption'));
     }
 
-    private function getHtmlOption(int $paren_id = 0)
-    {
-        $categories = $this->category->get(['id', 'name', 'parent_id']);
-        $this->recursive->setData($categories);
-
-        $htmlOption = $this->recursive->categoryRecursive($paren_id);
-
-        return $htmlOption;
-    }
-
 
     public function store(Request $request)
     {
@@ -137,6 +127,16 @@ class CategoryController extends Controller
     {
         $message = new Message($type, $text);
         return $message->getText($action, $name);
+    }
+
+    private function getHtmlOption(int $paren_id = 0)
+    {
+        $categories = $this->category->get(['id', 'name', 'parent_id']);
+        $this->recursive->setData($categories);
+
+        $htmlOption = $this->recursive->categoryRecursive($paren_id);
+
+        return $htmlOption;
     }
 
 }

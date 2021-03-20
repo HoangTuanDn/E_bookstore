@@ -14,10 +14,17 @@ class User extends Authenticatable
     use SoftDeletes;
 
 
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
+    protected $guarded = [
+        'id',
+        'remember_token',
+        'email_verified_at',
+
+    ];
+
+    protected $attributes = [
+        'email_verified_at' => '',
+        'remember_token'    => '',
+        'image_path'    => '',
     ];
 
     protected $hidden = [
@@ -30,5 +37,18 @@ class User extends Authenticatable
     ];
 
     protected $table = 'users';
+
+    public function products()
+    {
+        return $this
+            ->hasMany(Product::class, 'user_id');
+    }
+
+    public function roles()
+    {
+        return $this
+            ->belongsToMany(Role::class, 'user_role', 'user_id', 'role_id')
+            ->withTimestamps();
+    }
 
 }

@@ -1,4 +1,5 @@
-@extends('layouts.admin')
+    @include('partials.breadcrumb',['module' => 'settings', 'action' => 'add'])
+
 
 @section('title')
     <title>Settings</title>
@@ -21,21 +22,8 @@
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
-        <section class="content-header">
-            <div class="container-fluid">
-                <div class="row mb-2">
-                    <div class="col-sm-6">
-                        <h1>Settings</h1>
-                    </div>
-                    <div class="col-sm-6">
-                        <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">Settings</li>
-                        </ol>
-                    </div>
-                </div>
-            </div><!-- /.container-fluid -->
-        </section>
+            @include('partials.breadcrumb',['module' => 'settings'])
+
 
         <!-- Main content -->
         <section class="content">
@@ -69,18 +57,18 @@
                     <table class="table table-striped projects">
                         <thead>
                         <tr>
-                            <th style="width: 1%">
+                            <th class="border-right" style="width: 1%">
                                 #
                             </th>
-                            <th style="width: 20%">
+                            <th class="text-center" style="width: 20%">
                                 Khóa
                             </th>
 
-                            <th style="width: 20%">
+                            <th class="text-center" style="width: 20%">
                                 Giá trị
                             </th>
 
-                            <th style="float: right; margin-right: 10px">
+                            <th class="border-left" style="float: right; margin-right: 10px">
                                 Action
                             </th>
                         </tr>
@@ -92,13 +80,13 @@
                                     <td>
                                         {{$setting->id}}
                                     </td>
-                                    <td>
+                                    <td class="text-center">
                                         <a>
                                             {{$setting->config_key}}
                                         </a>
                                     </td>
 
-                                    <td>
+                                    <td class="text-center">
                                         <a>
                                             {{$setting->config_value}}
                                         </a>

@@ -23,9 +23,9 @@
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-item">
                     <a href="{{route('categories.index')}}" class="nav-link">
-                        <i class="nav-icon fas fa-divide"></i>
+                        <i class="nav-icon fas fa-th"></i>
                         <p>
-                            Danh mục sản phẩm
+                            Danh mục
                         </p>
                     </a>
                 </li>
@@ -78,6 +78,45 @@
                         <i class="nav-icon fas fa-cogs"></i>
                         <p>
                             cài đặt
+                        </p>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <li class="nav-item">
+                    <a href="{{route('users.index')}}" class="nav-link">
+                        <i class="nav-icon fas fa-user-friends"></i>
+                        <p>
+                            Quản trị viên
+                        </p>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <li class="nav-item">
+                    <a href="{{route('roles.index')}}" class="nav-link">
+                        <i class="nav-icon fas fa-user-tag"></i>
+                        <p>
+                            Vai trò
+                        </p>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <li class="nav-item">
+                    <a href="{{route('permissions.index')}}" class="nav-link">
+                        <i class="nav-icon fas fa-eye-slash"></i>
+                        <p>
+                            Quyền truy cập
                         </p>
                     </a>
                 </li>

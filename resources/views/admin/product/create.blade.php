@@ -20,23 +20,10 @@
 @section('content')
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
-        <section class="content-header">
-            <div class="container-fluid">
-                <div class="row mb-2">
-                    <div class="col-sm-6">
-                        <h1>Product add</h1>
-                    </div>
-                    <div class="col-sm-6">
-                        <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">product add</li>
-                        </ol>
-                    </div>
-                </div>
-            </div><!-- /.container-fluid -->
-        </section>
+    @include('partials.breadcrumb',['module' => 'products', 'action' => 'add'])
 
-        <!-- Main content -->
+
+    <!-- Main content -->
         <section class="content">
             <form action="{{route('products.store')}}" method="post" enctype="multipart/form-data">
                 @csrf
@@ -71,14 +58,19 @@
 
                                     <div class="form-group">
                                         <label for="inputPrice">Giá sản phẩm</label>
-
-                                        <input
-                                                type="text"
-                                                name="price"
-                                                id="inputPrice"
-                                                class="form-control"
-                                                placeholder="Nhập giá sản phẩm"
-                                        >
+                                        <div class="input-group">
+                                            <input type="text"
+                                                   name="price"
+                                                   id="inputPrice"
+                                                   class="form-control"
+                                                   placeholder="Nhập giá sản phẩm"
+                                                   class="form-control"
+                                                   aria-label="Amount (to the nearest dollar)"
+                                            >
+                                            <div class="input-group-append">
+                                                <span class="input-group-text">{!! __('currency_unit') !!}</span>
+                                            </div>
+                                        </div>
                                     </div>
 
                                     <div class="form-group">

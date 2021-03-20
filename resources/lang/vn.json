@@ -1,6 +1,9 @@
 {
   "category" : "danh mục sản phẩm",
   "slider" : "slider",
+  "admin" : "quản trị viên",
+  "role" : "vai trò",
+  "permission" : "quyền truy cập",
   "menu" : "menu",
   "product" : "sản phẩm",
   "setting" : "cấu hình",
@@ -12,7 +15,7 @@
   "warning_update_message" : "Không có :name nào được cập nhật",
   "success_delete_message" : "Xóa :name thành công",
   "error_message" : "Đã có lỗi xảy ra",
-  "currency_unit" : " <strong> vnđ</strong>"
+  "currency_unit" : " <strong>vnd</strong>"
 
 
 

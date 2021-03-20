@@ -16,7 +16,7 @@ $(function (){
     /*select 2 use */
 
     app.select2Tag($("#inputTag"))
-    app.select2Option($("#inputStatus"))
+    app.select2Option($("#inputStatus"), 'Chọn danh mục')
 
     /*tinyMCE config*/
     var editor_config = {

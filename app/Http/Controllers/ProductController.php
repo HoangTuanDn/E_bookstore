@@ -246,7 +246,11 @@ class ProductController extends Controller
 
     public function destroy(Request $request, $id){
         try {
-            $isDelete = $this->product->find($id)->delete();
+            $product = $this->product->find($id);
+            $isDelete = $product->delete();
+            $product->categories()->detach();
+            $product->tags()->detach();
+
 
         } catch (\Exception $e) {
             Log::error('message: ' . $e->getMessage() . 'Line : ' . $e->getLine());

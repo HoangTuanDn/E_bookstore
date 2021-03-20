@@ -57,9 +57,9 @@ var app = {
         })
     },
 
-    select2Option : function (selector){
+    select2Option : function (selector, text){
         selector.select2({
-            placeholder: "Chọn danh mục",
+            placeholder: text,
         })
     },
 
