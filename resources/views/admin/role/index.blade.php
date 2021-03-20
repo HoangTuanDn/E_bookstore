@@ -85,6 +85,14 @@
 
                                     <td class="text-left ">
                                        @if($role->permissions)
+{{--                                           @foreach($dataCount as $key=> $data)--}}
+{{--                                                @if($role->permissions->where('parent_id', $key)->count() == $data)--}}
+{{--                                                    <span class="mr-1 mt-1 d-inline-block bg-gradient-indigo p-1 bord rounded">{{$dataGroup[$key]}}</span>--}}
+{{--                                                @else--}}
+{{--                                                    --}}
+{{--                                                @endif--}}
+{{--                                            @endforeach--}}
+
                                             @foreach($role->permissions as $permission)
                                                 <span class="mr-1 mt-1 d-inline-block bg-gradient-indigo p-1 bord rounded">{{$permission->name}}</span>
                                             @endforeach

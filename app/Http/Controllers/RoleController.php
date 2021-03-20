@@ -14,19 +14,38 @@ use Illuminate\Support\Facades\Log;
 class RoleController extends Controller
 {
     private $role;
-    private $permisson;
+    private $permission;
     /**
      * RoleController constructor.
      */
     public function __construct(Role $role, Permission $permission)
     {
         $this->role = $role;
-        $this->permisson = $permission;
+        $this->permission = $permission;
     }
 
     public function index(){
+        $groupPermissions = $this->permission->where('parent_id','=', 0)->get(['id','name']);
+        $childrenPermissions = $this->permission->where('parent_id','!=', 0)->get(['id', 'parent_id']);
+
+        $dataCount = [];
+        foreach ($childrenPermissions as $children){
+            if (!isset($data[$children->parent_id])){
+                $dataCount[$children->parent_id] = 1;
+            }else if (array_key_exists($children->parent_id, $data)){
+                $dataCount[$children->parent_id] += 1;
+            }
+        }
+
+        $dataGroup = [];
+
+        foreach ($groupPermissions as $group){
+            $dataGroup[$group->id] = $group->name;
+        }
+
+
         $roles = $this->role->select('id', 'name','display_name')->paginate(config('custom.limit'));
-            return view('admin.role.index', compact('roles'));
+            return view('admin.role.index', compact('roles', 'dataGroup', 'dataCount'));
     }
 
     public function create(Request $request){
@@ -63,7 +82,7 @@ class RoleController extends Controller
     }
 
     public function edit(Request $request, $id){
-        $permissions = $this->permisson->where('parent_id', 0)->get(['id', 'name', 'display_name', 'key_code']);
+        $permissions = $this->permission->where('parent_id', 0)->get(['id', 'name', 'display_name', 'key_code']);
         $role = $this->role->find($id);
 
         return view('admin.role.edit', compact('role', 'permissions'));

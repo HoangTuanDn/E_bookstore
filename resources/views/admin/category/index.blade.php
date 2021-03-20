@@ -39,11 +39,15 @@
                         <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
                             <i class="fas fa-minus"></i>
                         </button>
-                        <a href="{{route('categories.create')}}" class="btn btn-success">
-                           Add
-                        </a>
+                        @can('category-create')
+                            <a href="{{route('categories.create')}}" class="btn btn-success">
+                                Add
+                            </a>
+                        @endcan
+
                     </div>
                 </div>
+                @can('category-viewAny')
                 <div class="card-body p-0">
                     <table class="table table-striped projects">
                         <thead>
@@ -74,25 +78,29 @@
                                     </td>
 
                                     <td class="project-actions text-right">
-                                        <a class="btn btn-info btn-sm" href="{{route('categories.edit', ['id' => $category->id])}}">
-                                            <i class="fas fa-pencil-alt">
-                                            </i>
+                                        @can('category-update')
+                                            <a class="btn btn-info btn-sm" href="{{route('categories.edit', ['id' => $category->id])}}">
+                                                <i class="fas fa-pencil-alt">
+                                                </i>
 
-                                        </a>
-                                        <a class="btn btn-danger btn-sm" data-action="btnDelete" data-name="{{$category->name}}" data-url="{{route('categories.destroy', ['id'=> $category->id])}}" >
-                                            <i class="fas fa-trash">
-                                            </i>
+                                            </a>
+                                        @endcan
+                                        @can('category-delete')
+                                                <a class="btn btn-danger btn-sm" data-action="btnDelete" data-name="{{$category->name}}" data-url="{{route('categories.destroy', ['id'=> $category->id])}}" >
+                                                    <i class="fas fa-trash">
+                                                    </i>
+                                                </a>
+                                        @endcan
 
-                                        </a>
                                     </td>
                                 </tr>
                             @endforeach
                         @endif
 
-
                         </tbody>
                     </table>
                 </div>
+                @endcan
                 <!-- /.card-body -->
             </div>
             <!-- /.card -->

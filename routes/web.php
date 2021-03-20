@@ -24,52 +24,52 @@ use UniSharp\LaravelFilemanager\Lfm;
 |
 */
 
-Route::get('/admin', function () {
-    return view('admin.home');
+
+Route::prefix('admins')->group(function (){
+
 });
 
 Route::prefix('admin')->group(function (){
 
-    Route::prefix('auth')->group(function (){
+    Route::get('/login', [AuthController::class, 'loginForm'])
+        ->name('auth.adminLogin');
 
-        Route::get('/login', [AuthController::class, 'loginForm'])
-            ->name('auth.adminLogin');
-
-        Route::post('/login', [AuthController::class, 'loginAction'])
-           ->name('auth.admin_login');
-    });
-
-    Route::group(['prefix' => 'filemanager'], function () {
-        Lfm::routes();
-    });
+    Route::post('/login', [AuthController::class, 'loginAction'])
+        ->name('auth.admin_login');
 
     Route::get('/', function () {
         return view('admin.home');
-    })->name('home');
+    })->middleware('auth_admin')->name('home');
 
-    Route::prefix('categories')->group(function (){
+    Route::get('/logout', [AuthController::class, 'logout'])
+        ->name('auth.admin_logout');
 
+    Route::prefix('categories')->middleware('auth_admin')->group(function (){
         Route::get('/index', [CategoryController::class, 'index'])
+            ->middleware('can:category-viewAny')
             ->name('categories.index');
 
         Route::get('/create', [CategoryController::class, 'create'])
+            ->middleware('can:category-create')
             ->name('categories.create');
 
         Route::post('/store', [CategoryController::class, 'store'])
             ->name('categories.store');
 
         Route::get('/edit/{id}', [CategoryController::class, 'edit'])
+            ->middleware('can:category-update')
             ->name('categories.edit');
 
         Route::post('/update/{id}', [CategoryController::class, 'update'])
             ->name('categories.update');
 
         Route::post('/destroy/{id}', [CategoryController::class, 'destroy'])
+            ->middleware('can:category-delete')
             ->name('categories.destroy');
 
     });
 
-    Route::prefix('menus')->group(function (){
+    Route::prefix('menus')->middleware('auth_admin')->group(function (){
 
         Route::get('/index', [MenuController::class, 'index'])
             ->name('menus.index');
@@ -92,7 +92,7 @@ Route::prefix('admin')->group(function (){
     });
 
 
-    Route::prefix('products')->group(function (){
+    Route::prefix('products')->middleware('auth_admin')->group(function (){
 
         Route::get('/index', [ProductController::class, 'index'])
             ->name('products.index');
@@ -114,7 +114,7 @@ Route::prefix('admin')->group(function (){
 
     });
 
-    Route::prefix('sliders')->group(function (){
+    Route::prefix('sliders')->middleware('auth_admin')->group(function (){
 
         Route::get('/index', [SliderController::class, 'index'])
             ->name('sliders.index');
@@ -136,7 +136,7 @@ Route::prefix('admin')->group(function (){
 
     });
 
-    Route::prefix('settings')->group(function (){
+    Route::prefix('settings')->middleware('auth_admin')->group(function (){
 
         Route::get('/index', [SettingController::class, 'index'])
             ->name('settings.index');
@@ -158,7 +158,7 @@ Route::prefix('admin')->group(function (){
 
     });
 
-    Route::prefix('users')->group(function (){
+    Route::prefix('users')->middleware('auth_admin')->group(function (){
 
         Route::get('/index', [UserController::class, 'index'])
             ->name('users.index');
@@ -180,7 +180,7 @@ Route::prefix('admin')->group(function (){
 
     });
 
-    Route::prefix('roles')->group(function (){
+    Route::prefix('roles')->middleware('auth_admin')->group(function (){
 
         Route::get('/index', [RoleController::class, 'index'])
             ->name('roles.index');
@@ -202,7 +202,7 @@ Route::prefix('admin')->group(function (){
 
     });
 
-    Route::prefix('permissions')->group(function (){
+    Route::prefix('permissions')->middleware('auth_admin')->group(function (){
 
         Route::get('/index', [PermissionController::class, 'index'])
             ->name('permissions.index');
@@ -224,6 +224,9 @@ Route::prefix('admin')->group(function (){
 
     });
 
+    Route::group(['prefix' => 'filemanager'], function () {
+        Lfm::routes();
+    });
 
 });
 

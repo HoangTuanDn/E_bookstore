@@ -1,5 +1,4 @@
-    @include('partials.breadcrumb',['module' => 'settings', 'action' => 'add'])
-
+@extends('layouts.admin')
 
 @section('title')
     <title>Settings</title>
@@ -22,8 +21,7 @@
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
-            @include('partials.breadcrumb',['module' => 'settings'])
-
+    @include('partials.breadcrumb',['module' => 'settings'])
 
         <!-- Main content -->
         <section class="content">

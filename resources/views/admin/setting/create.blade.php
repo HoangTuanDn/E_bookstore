@@ -14,9 +14,12 @@
 @endsection
 
 @section('content')
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+
     @include('partials.breadcrumb',['module' => 'settings', 'action' => 'add'])
 
-    <!-- Main content -->
+        <!-- Main content -->
         <section class="content">
             <form action="{{route('settings.store')}}" method="post" >
                 @csrf
