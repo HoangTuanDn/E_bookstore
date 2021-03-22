@@ -1,0 +1,13 @@
+/*********************************************************************************
+
+	Template Name: Boighor Bookshop Responsive Bootstrap4 Template  
+	Description: Template description
+	Version: 1.0
+	Note: This is custom css. All custom styles (user styles) declare here.
+
+**********************************************************************************/
+
+.header__area .header__sidebar__right > li.shop_search {
+    padding-left: 25px;
+    padding-right: 25px;
+}

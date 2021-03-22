@@ -15,8 +15,33 @@
   "warning_update_message" : "Không có :name nào được cập nhật",
   "success_delete_message" : "Xóa :name thành công",
   "error_message" : "Đã có lỗi xảy ra",
-  "currency_unit" : " <strong>vnd</strong>"
+  "currency_unit" : " <strong>vnd</strong>",
 
-
-
+  "home" : "TRANG CHỦ",
+  "shop" : "CỬA HÀNG",
+  "books" : "SÁCH",
+  "contact" : "LIÊN HỆ",
+  "categories" : "THỂ LOẠI",
+  "favourite" : "YÊU THÍCH",
+  "collections": "BỘ SƯU TẬP",
+  "new_product" : "SẢN PHẨM MỚI",
+  "all_products" : "TẤT CẢ SẢN PHẨM",
+  "best_seller": "BÁN CHẠY NHẤT",
+  "trending" : "Xu hướng",
+  "wishlist" : "Danh sách yêu thích",
+  "contact_l" : "Liên hệ",
+  "all_products_l": "Tất cả sản phẩm",
+  "all" : "TẤT CẢ",
+  "biographic" : "DANH NHÂN",
+  "adventure" : "PHIÊU LƯU",
+  "children" : "TRẺ EM",
+  "cook" : "NẤU ĂN",
+  "language" : "Ngôn ngữ",
+  "vn_language" : "Tiếng việt",
+  "my_account" : "Tài khoản của tôi",
+  "sign_in" : "Đăng nhập",
+  "sign_up" : "Đăng Ký tài khoản",
+  "my_wish_list" : "Sách yêu thích",
+  "stay_with_us" : "LIÊN HỆ VỚI CHÚNG TÔI",
+  "currency" : "Tiền tệ"
 }

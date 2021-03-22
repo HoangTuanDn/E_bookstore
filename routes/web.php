@@ -2,16 +2,22 @@
 
 
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\PermissionController;
-use App\Http\Controllers\RoleController;
-use App\Http\Controllers\SettingController;
-use App\Http\Controllers\SliderController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\Backend\PermissionController;
+use App\Http\Controllers\Backend\RoleController;
+use App\Http\Controllers\Backend\SettingController;
+use App\Http\Controllers\Backend\SliderController;
+use App\Http\Controllers\Backend\UserController;
+use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\fontend\CartController;
+use App\Http\Controllers\fontend\ContactController;
+use App\Http\Controllers\fontend\HomeController;
+use App\Http\Controllers\fontend\WishListController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\MenuController;
-use App\Http\Controllers\ProductController;
+use App\Http\Controllers\Backend\CategoryController;
+use App\Http\Controllers\Backend\MenuController;
+use App\Http\Controllers\Backend\ProductController;
 use UniSharp\LaravelFilemanager\Lfm;
+use App\Http\Controllers\fontend\ProductController as FdProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,9 +31,7 @@ use UniSharp\LaravelFilemanager\Lfm;
 */
 
 
-Route::prefix('admins')->group(function (){
 
-});
 
 Route::prefix('admin')->group(function (){
 
@@ -229,4 +233,35 @@ Route::prefix('admin')->group(function (){
     });
 
 });
+
+Route::prefix('home')->group(function (){
+    Route::get('/',[HomeController::class, 'index'])
+        ->name('home');
+
+    Route::prefix('account')->group(function () {
+        Route::get('/my',[CustomerController::class, 'index'])
+            ->name('account.index');
+    });
+
+    Route::get('/shop', [FdProductController::class, 'index'])
+        ->name('home.shop');
+
+    Route::get('/cart',[CartController::class, 'index'])
+        ->name('home.cart');
+
+    Route::get('/checkout',[CartController::class, 'index'])
+        ->name('home.checkout');
+
+    Route::get('/wish-list',[WishListController::class, 'index'])
+        ->name('home.wish_list');
+
+    Route::get('/contact',[ContactController::class, 'index'])
+        ->name('home.concat');
+
+    Route::get('/error',[WishListController::class, 'index'])
+        ->name('home.error');
+
+
+});
+
 
