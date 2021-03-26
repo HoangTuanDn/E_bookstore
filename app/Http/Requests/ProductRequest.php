@@ -24,12 +24,13 @@ class ProductRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|max:255|min:10',
+            'name' => 'required|max:255|min:5',
             'price' =>'required|numeric',
-            'category_id' => 'required|numeric',
+            'category_id' => 'required',
             'featured_img' => 'dimensions:min_width=270,min_height=340',
-            'image_detail' => 'dimensions:min_width=270,min_height=340',
-            'contents' => 'required'
+            'image_detail[]' => 'image',
+            'contents' => 'required',
+            'title' => 'required'
         ];
     }
 }

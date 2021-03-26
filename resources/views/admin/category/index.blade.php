@@ -52,10 +52,10 @@
                     <table class="table table-striped projects">
                         <thead>
                         <tr>
-                            <th class="border-right" style="width: 1%">
+                            <th class="border-right" style="width: 10%">
                                 #
                             </th>
-                            <th style="width: 20%; text-align: center">
+                            <th style="width: 40%; text-align: left">
                                 Tên danh mục
                             </th>
 
@@ -71,7 +71,7 @@
                                     <td>
                                         {{$category->id}}
                                     </td>
-                                    <td class="text-center">
+                                    <td class="text-left">
                                         <a>
                                             {{$category->name}}
                                         </a>
@@ -101,6 +101,9 @@
                     </table>
                 </div>
                 @endcan
+                <div class="col-md-5 mt-3">
+                    {{$latestCategories->links()}}
+                </div>
                 <!-- /.card-body -->
             </div>
             <!-- /.card -->

@@ -15,7 +15,15 @@
   "warning_update_message" : "Không có :name nào được cập nhật",
   "success_delete_message" : "Xóa :name thành công",
   "error_message" : "Đã có lỗi xảy ra",
-  "currency_unit" : " <strong>vnd</strong>",
+  "hot" : "hot",
+  "new" : "new",
+  "best" : "best",
+  "currency_unit" : " <strong>VND</strong>",
+  "biographic_slug" : "danh-nhan",
+  "adventure_slug" : "phieu-luu",
+  "humor_slug" : "hai-huoc",
+  "cook_slug" : "sach-day-nau-an",
+
 
   "home" : "TRANG CHỦ",
   "shop" : "CỬA HÀNG",

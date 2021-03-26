@@ -43,7 +43,7 @@ Route::prefix('admin')->group(function (){
 
     Route::get('/', function () {
         return view('admin.home');
-    })->middleware('auth_admin')->name('home');
+    })->middleware('auth_admin')->name('admin.home');
 
     Route::get('/logout', [AuthController::class, 'logout'])
         ->name('auth.admin_logout');
@@ -245,6 +245,9 @@ Route::prefix('home')->group(function (){
 
     Route::get('/shop', [FdProductController::class, 'index'])
         ->name('home.shop');
+
+    Route::get('/shop/{slug}', [FdProductController::class, 'index'])
+        ->name('home.shop.single_product');
 
     Route::get('/cart',[CartController::class, 'index'])
         ->name('home.cart');

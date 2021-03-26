@@ -56,7 +56,11 @@
                                 Tên sản phẩm
                             </th>
 
-                            <th style="width: 25%; text-align: center">
+                            <th style="width: 10%">
+                                Tác giả
+                            </th>
+
+                            <th style="width: 15%; text-align: center">
                                 Hình ảnh
                             </th>
 
@@ -81,6 +85,10 @@
                                     </td>
                                     <td>
                                         {{$product->name}}
+                                    </td>
+
+                                    <td>
+                                        {{$product->author}}
                                     </td>
                                     <td>
                                         <img class="product-image" src="{{$product->featured_img}}">

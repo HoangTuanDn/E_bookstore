@@ -13,7 +13,7 @@ $(function (){
         }
 
         app.getToastr(toastConfig);
-        //$("#session-message").attr('data-message', '')
+        $("#session-message").attr('data-message', '')
     }
 
 

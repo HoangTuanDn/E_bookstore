@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
-@extends('content')
-<!-- Start Bradcaump area -->
+@section('content')
+
 <div class="ht__bradcaump__area bg-image--6">
     <div class="container">
         <div class="row">
@@ -104,5 +104,127 @@
         </div>
     </div>
 </section>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBZqULsOb2GC4WTYiBjC0Lh3VFrOvJxIEE&callback=myMap" > </script>
+<script>
+    google.maps.event.addDomListener(window, 'load', init);
+
+    function init() {
+        var mapOptions = {
+            // How zoomed in you want the map to start at (always required)
+            zoom: 12,
+
+            scrollwheel: false,
+
+            // The latitude and longitude to center the map (always required)
+            center: new google.maps.LatLng(21.037750060042892, 105.7738251393719),
+            styles:
+                [
+
+                    {
+                        "featureType": "administrative",
+                        "elementType": "labels.text.fill",
+                        "stylers": [
+                            {
+                                "color": "#444444"
+                            }
+                        ]
+                    },
+                    {
+                        "featureType": "landscape",
+                        "elementType": "all",
+                        "stylers": [
+                            {
+                                "color": "#f2f2f2"
+                            }
+                        ]
+                    },
+                    {
+                        "featureType": "poi",
+                        "elementType": "all",
+                        "stylers": [
+                            {
+                                "visibility": "off"
+                            }
+                        ]
+                    },
+                    {
+                        "featureType": "road",
+                        "elementType": "all",
+                        "stylers": [
+                            {
+                                "saturation": -100
+                            },
+                            {
+                                "lightness": 45
+                            }
+                        ]
+                    },
+                    {
+                        "featureType": "road.highway",
+                        "elementType": "all",
+                        "stylers": [
+                            {
+                                "visibility": "simplified"
+                            }
+                        ]
+                    },
+                    {
+                        "featureType": "road.arterial",
+                        "elementType": "labels.icon",
+                        "stylers": [
+                            {
+                                "visibility": "off"
+                            }
+                        ]
+                    },
+                    {
+                        "featureType": "transit",
+                        "elementType": "all",
+                        "stylers": [
+                            {
+                                "visibility": "off"
+                            }
+                        ]
+                    },
+                    {
+                        "featureType": "transit.station.bus",
+                        "elementType": "labels.icon",
+                        "stylers": [
+                            {
+                                "saturation": "-16"
+                            }
+                        ]
+                    },
+                    {
+                        "featureType": "water",
+                        "elementType": "all",
+                        "stylers": [
+                            {
+                                "color": "#04b7ff"
+                            },
+                            {
+                                "visibility": "on"
+                            }
+                        ]
+                    }
+                ]
+        };
+
+        var mapElement = document.getElementById('googleMap');
+
+        // Create the Google Map using our element and options defined above
+        var map = new google.maps.Map(mapElement, mapOptions);
+
+        // Let's also add a marker while we're at it
+        var marker = new google.maps.Marker({
+            position: new google.maps.LatLng(21.037750060042892, 105.7738251393719),
+            map: map,
+            title: 'Dcare!',
+            icon: 'images/icons/map.png',
+            animation:google.maps.Animation.BOUNCE
+
+        });
+    }
+</script>
 <!-- End Contact Area -->
 @endsection

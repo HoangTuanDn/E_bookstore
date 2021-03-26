@@ -10,24 +10,41 @@ class Product extends Model
 {
     use HasFactory;
     use SoftDeletes;
+
     protected $guarded = ['id'];
+    protected $attributes = [
+        'author'        => '',
+        'title'         => '',
+        'quantity'      => '',
+        'quantity_sold' => '',
+        'discount'      => '',
+        'type'          => '',
+        'publisher'     => '',
+        'publish_date'  => '1/1/1970',
+        'page'          => '',
+        'dimensions'    => '',
+    ];
 
     protected $table = 'products';
 
-    public function images(){
+    public function images()
+    {
         return $this->hasMany(ProductImage::class, 'product_id');
     }
 
-    public function tags(){
+    public function tags()
+    {
         return $this
             ->belongsToMany(Tag::class, 'product_tag', 'product_id', 'tag_id')
             ->withTimestamps();
     }
 
-    public function categories(){
+    public function categories()
+    {
         return $this
             ->belongsToMany(Category::class, 'category_product', 'product_id', 'category_id')
             ->withTimestamps();
     }
+
 
 }

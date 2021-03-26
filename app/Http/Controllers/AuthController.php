@@ -18,14 +18,14 @@ class AuthController extends Controller
     }
 
     public function loginAction(Request $request){
-        $remember = $request->has('remember_me') ? true: false;
+        $remember = $request->has('remember_me');
 
         if (
             auth()->guard('admin')
                   ->attempt($request->only('email', 'password'),
             $remember
         )){
-            return redirect()->route('home');
+            return redirect()->route('admin.home');
         }
 
         return back()->withErrors([

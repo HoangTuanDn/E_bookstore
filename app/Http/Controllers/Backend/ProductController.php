@@ -36,7 +36,7 @@ class ProductController extends Controller
 
     public function index()
     {
-        $products = $this->product->paginate(5);
+        $products = $this->product->latest('id')->paginate(5);
         return view('admin.product.index', compact('products'));
     }
 
@@ -57,20 +57,35 @@ class ProductController extends Controller
             $isCreated = true;
 
             $dataInsert = [
-                'name'    => $request->name,
-                'slug'    => Str::slug($request->name),
-                'price'   => $request->price,
-                'content' => $request->contents,
-                'user_id' => auth()->guard('admin')->user()->id,
+                'name'          => $request->name,
+                'slug'          => Str::slug($request->name),
+                'price'         => explode(' ', $request->price)[0],
+                'author'        => $request->author,
+                'discount'      => explode(' ', $request->discount)[0],
+                'quantity'      => $request->quantity,
+                'quantity_sold' => $request->quantity_sold,
+                'publisher'     => $request->publisher,
+                'publish_date'  => date('Y-m-d', strtotime($request->publish_date)),
+                'page'          => $request->page,
+                'type'          => $request->type,
+                'title'         => $request->title,
+                'dimensions'    => $request->dimensions,
+                'content'       => $request->contents,
+                'user_id'       => auth()->guard('admin')->user()->id,
             ];
 
+            dd($dataInsert);
             if ($request->hasFile('featured_img')) {
 
-                $data = $this->storageTraitUpload(
+                $data = $this->storageTraitUploadResize(
                     $request->featured_img,
                     $dataInsert['name'],
                     config('custom.folder_store'),
-                    auth()->guard('admin')->user()->id
+                    auth()->guard('admin')->user()->id,
+                    $size = [
+                        'width'  => config('custom.image_w'),
+                        'height' => config('custom.image_h')
+                    ],
                 );
 
                 $dataInsert['featured_img'] = $data['file_path'];
@@ -81,18 +96,25 @@ class ProductController extends Controller
             $product = $this->product->create($dataInsert);
 
             if ($request->hasFile('image_detail')) {
+                $countImageDetail = count($request->image_detail);
                 foreach ($request->image_detail as $file) {
-                    $imageDataDetail = $this->storageTraitUpload(
+                    $imageDataDetail = $this->storageTraitUploadResize(
                         $file,
-                        $dataInsert['name'],
+                        $dataInsert['name'] . '-detail-' . $countImageDetail,
                         config('custom.folder_store'),
-                        auth()->guard('admin')->user()->id
+                        auth()->guard('admin')->user()->id,
+                        $size = [
+                            'width'  => config('custom.image_detail_w'),
+                            'height' => config('custom.image_detail_h')
+                        ],
                     );
 
                     $product->images()->create([
                         'image'      => $imageDataDetail['file_name'],
                         'image_path' => $imageDataDetail['file_path']
                     ]);
+
+                    $countImageDetail -= 1;
                 }
             }
 
@@ -106,8 +128,9 @@ class ProductController extends Controller
                     $tagIds [] = $tagInstance->id;
                 }
 
-                $product->tags()->attach($tagIds);
+                $product->tags()->sync($tagIds);
             }
+
 
             if ($request->has('category_id')) {
                 $product->categories()->attach($request->category_id);
@@ -158,12 +181,23 @@ class ProductController extends Controller
             DB::beginTransaction();
 
             $dataUpdate = [
-                'name'    => $request->name,
-                'slug'    => Str::slug($request->name),
-                'price'   => $request->price,
-                'content' => $request->contents,
-                'user_id' => auth()->guard('admin')->user()->id,
+                'name'          => $request->name,
+                'slug'          => Str::slug($request->name),
+                'price'         => explode(' ', $request->price)[0],
+                'author'        => $request->author,
+                'discount'      => explode(' ', $request->discount)[0],
+                'quantity'      => $request->quantity,
+                'quantity_sold' => $request->quantity_sold,
+                'publisher'     => $request->publisher,
+                'publish_date'  => date('Y-m-d', strtotime($request->publish_date)),
+                'page'          => $request->page,
+                'title'         => $request->title,
+                'type'          => $request->type,
+                'dimensions'    => $request->dimensions,
+                'content'       => $request->contents,
+                'user_id'       => auth()->guard('admin')->user()->id,
             ];
+
 
             if ($request->hasFile('featured_img')) {
 
@@ -171,7 +205,11 @@ class ProductController extends Controller
                     $request->featured_img,
                     $dataUpdate['name'],
                     config('custom.folder_store'),
-                    auth()->guard('admin')->user()->id
+                    auth()->guard('admin')->user()->id,
+                    $size = [
+                        'width'  => config('custom.image_w'),
+                        'height' => config('custom.image_h')
+                    ],
                 );
 
                 $dataUpdate['featured_img'] = $data['file_path'];
@@ -192,7 +230,11 @@ class ProductController extends Controller
                         $file,
                         $dataUpdate['name'] . '-detail-' . $countImageDetail,
                         config('custom.folder_store'),
-                        auth()->guard('admin')->user()->id
+                        auth()->guard('admin')->user()->id,
+                        $size = [
+                            'width'  => config('custom.image_detail_w'),
+                            'height' => config('custom.image_detail_h')
+                        ],
                     );
                     $product->images()->create([
                         'image'      => $imageDataDetail['file_name'],
@@ -224,7 +266,6 @@ class ProductController extends Controller
 
         } catch (\Exception $e) {
             DB::rollBack();
-           // $isUpdate = false;
             Log::error('message: ' . $e->getMessage() . '--Line : ' . $e->getLine());
         }
 
@@ -244,7 +285,8 @@ class ProductController extends Controller
 
     }
 
-    public function destroy(Request $request, $id){
+    public function destroy(Request $request, $id)
+    {
         try {
             $product = $this->product->find($id);
             $isDelete = $product->delete();
@@ -257,10 +299,10 @@ class ProductController extends Controller
             $isDelete = false;
         }
 
-        $message = $this->getMessage('success', 'delete',  __('product'));
+        $message = $this->getMessage('success', 'delete', __('product'));
 
-        if (!$isDelete){
-            $message = $this->getMessage('error', 'delete',  __('product'));
+        if (!$isDelete) {
+            $message = $this->getMessage('error', 'delete', __('product'));
 
             return response()->json([
                 'check'   => $isDelete,

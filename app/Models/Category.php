@@ -15,6 +15,19 @@ class Category extends Model
     protected $fillable = ['name', 'parent_id', 'slug', 'updated_at', 'created_at','deleted_at'];
 
     protected $table = 'categories';
+
+    public function products()
+    {
+        return $this
+            ->belongsToMany(Product::class, 'category_product', 'category_id', 'product_id')
+            ->withTimestamps();
+    }
+    public function proudctsByCatagorySlug($categorySlug){
+        $category = Category::select('id')->where('slug', $categorySlug)->first();
+        $products = Category::find($category->id)->products->chunk(2);
+
+        return $products;
+    }
     
 
 }

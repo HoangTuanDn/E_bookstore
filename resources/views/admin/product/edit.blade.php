@@ -57,16 +57,132 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="inputPrice">Giá sản phẩm</label>
+                                    <label for="inputAuthor">Người sản xất</label>
 
                                     <input
                                             type="text"
-                                            name="price"
-                                            id="inputPrice"
-                                            value="{{$product->price}}"
+                                            name="author"
+                                            id="inputAuthor"
                                             class="form-control"
-                                            placeholder="Nhập giá sản phẩm"
+                                            value="{{$product->author}}"
+                                            placeholder="Nhập người sản xuất"
                                     >
+
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label for="inputPrice">Giá sản phẩm</label>
+                                    <div class="input-group">
+                                        <input type="number"
+                                               name="price"
+                                               value="{{$product->price}}"
+                                               id="inputPrice"
+                                               class="form-control mr-1"
+                                               placeholder="Giá gốc"
+                                               class="form-control"
+
+                                        >
+
+                                        <input type="number"
+                                               name="discount"
+                                               id="inputDiscount"
+                                               class="form-control ml-1"
+                                               placeholder="Giá đã giảm"
+                                               value="{{$product->discount}}"
+                                               class="form-control"
+                                        >
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="inputQuantity">Sô lượng</label>
+                                    <div class="input-group">
+                                        <input type="number"
+                                               name="quantity"
+                                               id="inputQuantity"
+                                               value="{{$product->quantity}}"
+                                               class="form-control mr-1"
+                                               placeholder="Nhập số lượng có"
+                                               class="form-control"
+                                               min="1"
+                                               required
+                                               aria-label="Amount (to the nearest dollar)"
+                                        >
+
+                                        <input type="number"
+                                               name="quantity_sold"
+                                               id="inputQuantitySold"
+                                               class="form-control ml-1"
+                                               value="{{$product->quantity_sold}}"
+                                               placeholder="Nhập sô lượng bán"
+                                               class="form-control"
+                                               min="0"
+
+                                               aria-label="Amount (to the nearest dollar)"
+                                        >
+
+                                    </div>
+
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="inputInformation">Thông tin</label>
+                                    <div class="input-group">
+                                        <input type="text"
+                                               name="publisher"
+                                               id="inputPublisher"
+                                               class="form-control mr-1"
+                                               placeholder="Hãng sản xuất"
+                                               value="{{$product->publisher}}"
+                                               class="form-control"
+                                        >
+
+                                        <input type="number"
+                                               name="page"
+                                               id="inputQuantitySold"
+                                               class="form-control mr-1"
+                                               placeholder="Số trang"
+                                               value="{{$product->page}}"
+                                               class="form-control"
+
+                                        >
+
+                                        <input type="date"
+                                               name="publish_date"
+                                               id="inputQuantitySold"
+                                               class="form-control mr-1"
+                                               placeholder="Ngày tạo"
+                                               value="{{$product->publish_date}}"
+                                               class="form-control"
+
+
+                                        >
+
+                                        <input type="text"
+                                               name="dimensions"
+                                               id="inputDemensions"
+                                               class="form-control mr-1"
+                                               value="{{$product->dimensions}}"
+                                               placeholder="Kích thước"
+                                               class="form-control"
+
+                                        >
+
+                                        <select
+                                                id="inputType"
+                                                name="type"
+                                                class="form-control custom-select"
+                                        >
+                                            <option value="0">Chọn loại</option>
+                                            <option value="{{__('hot')}}" {{$product->type == __('hot') ? 'selected' : ''}}>{{__('hot')}}</option>
+                                            <option value="{{__('new')}}" {{$product->type == __('new') ? 'selected' : ''}}>{{__('new')}}</option>
+                                            <option value="{{__('best')}}" {{$product->type == __('best') ? 'selected' : ''}}>{{__('best')}}</option>
+                                        </select>
+
+                                    </div>
+
                                 </div>
 
                                 <div class="form-group">
@@ -98,7 +214,7 @@
                                     >
                                 </div>
 
-                                <div class="col-md-12 mb-3">
+                                <div class="col-md-12 mb-3 d-flex justify-content-between">
 
                                     @foreach($product->images as $detailImage)
                                         <div class="col-md-3 featured-img">
@@ -133,6 +249,16 @@
                                         @endforeach
 
                                     </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="inputTitle">Tiêu đề</label>
+                                    <textarea
+
+                                            id="inputTitle"
+                                            name="title"
+                                            class="form-control tiny-editor"
+                                            rows="3">{{$product->title}}</textarea>
                                 </div>
 
                                 <div class="form-group">
