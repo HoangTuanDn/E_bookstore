@@ -60,15 +60,15 @@
                         <div class="col-lg-3 col-md-4 col-sm-6 col-12">
                             <div class="product__thumb">
                                 <a class="first__img" href="{{route('home.shop.single_product', ['slug'=>$product->slug])}}"><img src="{{$product->featured_img}}" alt="product image"></a>
-                                    @if($product->type == __('best'))
+                                @if($product['type'] == __('best'))
                                     <div class="hot__box">
-                                        <span class="hot-label">BEST SALLER</span>
+                                        <span class="hot-label">{{__('best')}}</span>
                                     </div>
-                                    @elseif($product->type == __('hot'))
+                                @elseif($product['type'] == __('hot'))
                                     <div class="hot__box">
-                                        <span class="hot-label">HOT</span>
+                                        <span class="hot-label">{{__('hot')}}</span>
                                     </div>
-                                    @endif
+                                @endif
 
                             </div>
                             <div class="product__content content--center">
@@ -161,13 +161,13 @@
                                         <div class="product product__style--3">
                                             <div class="product__thumb">
                                                 <a class="first__img" href="{{route('home.shop.single_product', ['slug'=>$product->slug])}}"><img src="{{$product->featured_img}}" alt="product image"></a>
-                                                @if($product->type == __('best'))
+                                                @if($product['type'] == __('best'))
                                                     <div class="hot__box">
-                                                        <span class="hot-label">BEST SALLER</span>
+                                                        <span class="hot-label">{{__('best')}}</span>
                                                     </div>
-                                                @elseif($product->type == __('hot'))
+                                                @elseif($product['type'] == __('hot'))
                                                     <div class="hot__box">
-                                                        <span class="hot-label">HOT</span>
+                                                        <span class="hot-label">{{__('hot')}}</span>
                                                     </div>
                                                 @endif
                                             </div>
@@ -214,13 +214,13 @@
                                         <div class="product product__style--3">
                                             <div class="product__thumb">
                                                 <a class="first__img" href="{{route('home.shop.single_product', ['slug'=>$product->slug])}}"><img src="{{$product->featured_img}}" alt="product image"></a>
-                                                @if($product->type == __('best'))
+                                                @if($product['type'] == __('best'))
                                                     <div class="hot__box">
-                                                        <span class="hot-label">BEST SALLER</span>
+                                                        <span class="hot-label">{{__('best')}}</span>
                                                     </div>
-                                                @elseif($product->type == __('hot'))
+                                                @elseif($product['type'] == __('hot'))
                                                     <div class="hot__box">
-                                                        <span class="hot-label">HOT</span>
+                                                        <span class="hot-label">{{__('hot')}}</span>
                                                     </div>
                                                 @endif
                                             </div>
@@ -267,13 +267,13 @@
                                         <div class="product product__style--3">
                                             <div class="product__thumb">
                                                 <a class="first__img" href="{{route('home.shop.single_product', ['slug'=>$product->slug])}}"><img src="{{$product->featured_img}}" alt="product image"></a>
-                                                @if($product->type == __('best'))
+                                                @if($product['type'] == __('best'))
                                                     <div class="hot__box">
-                                                        <span class="hot-label">BEST SALLER</span>
+                                                        <span class="hot-label">{{__('best')}}</span>
                                                     </div>
-                                                @elseif($product->type == __('hot'))
+                                                @elseif($product['type'] == __('hot'))
                                                     <div class="hot__box">
-                                                        <span class="hot-label">HOT</span>
+                                                        <span class="hot-label">{{__('hot')}}</span>
                                                     </div>
                                                 @endif
                                             </div>
@@ -320,13 +320,13 @@
                                         <div class="product product__style--3">
                                             <div class="product__thumb">
                                                 <a class="first__img" href="{{route('home.shop.single_product', ['slug'=>$product->slug])}}"><img src="{{$product->featured_img}}" alt="product image"></a>
-                                                @if($product->type == __('best'))
+                                                @if($product['type'] == __('best'))
                                                     <div class="hot__box">
-                                                        <span class="hot-label">BEST SALLER</span>
+                                                        <span class="hot-label">{{__('best')}}</span>
                                                     </div>
-                                                @elseif($product->type == __('hot'))
+                                                @elseif($product['type'] == __('hot'))
                                                     <div class="hot__box">
-                                                        <span class="hot-label">HOT</span>
+                                                        <span class="hot-label">{{__('hot')}}</span>
                                                     </div>
                                                 @endif
                                             </div>
@@ -373,13 +373,13 @@
                                         <div class="product product__style--3">
                                             <div class="product__thumb">
                                                 <a class="first__img" href="{{route('home.shop.single_product', ['slug'=>$product->slug])}}"><img src="{{$product->featured_img}}" alt="product image"></a>
-                                                @if($product->type == __('best'))
+                                                @if($product['type'] == __('best'))
                                                     <div class="hot__box">
-                                                        <span class="hot-label">BEST SALLER</span>
+                                                        <span class="hot-label">{{__('best')}}</span>
                                                     </div>
-                                                @elseif($product->type == __('hot'))
+                                                @elseif($product['type'] == __('hot'))
                                                     <div class="hot__box">
-                                                        <span class="hot-label">HOT</span>
+                                                        <span class="hot-label">{{__('hot')}}</span>
                                                     </div>
                                                 @endif
                                             </div>

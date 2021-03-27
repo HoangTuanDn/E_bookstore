@@ -246,7 +246,7 @@ Route::prefix('home')->group(function (){
     Route::get('/shop', [FdProductController::class, 'index'])
         ->name('home.shop');
 
-    Route::get('/shop/{slug}', [FdProductController::class, 'index'])
+    Route::get('/shop/{slug}', [FdProductController::class, 'show'])
         ->name('home.shop.single_product');
 
     Route::get('/cart',[CartController::class, 'index'])

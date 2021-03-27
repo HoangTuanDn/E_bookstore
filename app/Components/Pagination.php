@@ -37,11 +37,11 @@ class Pagination
 
         $this->url = str_replace('%7Bpage%7D', '{page}', $this->url);
 
-        $output = '<ul class="pagination">';
+        $output = '<ul class="wn__pagination">';
 
         if ($page > 1) {
-            $output .= '<li class="page-item"><a href="' . str_replace('{page}', 1, $this->url) . '" class="page-link">' . $this->text_first . '</a></li>';
-            $output .= '<li class="page-item"><a href="' . str_replace('{page}', $page - 1, $this->url) . '" class="page-link">' . $this->text_prev . '</a></li>';
+//            $output .= '<li ><a href="' . str_replace('{page}', 1, $this->url) . '" class="page-link">' . $this->text_first . '</a></li>';
+            $output .= '<li ><a href="' . str_replace('{page}', $page - 1, $this->url) . '">' . '<i class="zmdi zmdi-chevron-left"></i>' . '</a></li>';
         }
 
         if ($num_pages > 1) {
@@ -65,16 +65,16 @@ class Pagination
 
             for ($i = $start; $i <= $end; $i++) {
                 if ($page == $i) {
-                    $output .= '<li class="page-item active" aria-current="page"><a href="javascript:;" class="page-link">' . $i . '</a></li>';
+                    $output .= '<li class="active"><a href="javascript:;">' . $i . '</a></li>';
                 } else {
-                    $output .= '<li class="page-item"><a href="' . str_replace('{page}', $i, $this->url) . '" class="page-link">' . $i . '</a></li>';
+                    $output .= '<li><a href="' . str_replace('{page}', $i, $this->url) . '">' . $i . '</a></li>';
                 }
             }
         }
 
         if ($page < $num_pages) {
-            $output .= '<li class="page-item"><a href="' . str_replace('{page}', $page + 1, $this->url) . '" class="page-link">' . $this->text_next . '</a></li>';
-            $output .= '<li class="page-item"><a href="' . str_replace('{page}', $num_pages, $this->url) . '" class="page-link">' . $this->text_last . '</a></li>';
+            $output .= '<li><a href="' . str_replace('{page}', $page + 1, $this->url) . '">' . '<i class="zmdi zmdi-chevron-right"></i>'. '</a></li>';
+//            $output .= '<li class="page-item"><a href="' . str_replace('{page}', $num_pages, $this->url) . '" class="page-link">' . $this->text_last . '</a></li>';
         }
 
         $output .= '</ul>';
@@ -101,7 +101,7 @@ class Pagination
         }
 
         try {
-            return sprintf($text, ($total) ? (($page - 1) * $limit) + 1 : 0, ((($page - 1) * $limit) > ($total - $limit)) ? $total : ((($page - 1) * $limit) + $limit), $total, ceil($total / $limit));
+            return sprintf($text, ($total) ? (($page - 1) * $limit) + 1 : 0, ((($page - 1) * $limit) > ($total - $limit)) ? $total : ((($page - 1) * $limit) + $limit), $total);
         } catch (Exception $e) {
             return $text;
         }

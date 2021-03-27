@@ -475,21 +475,22 @@
     });
 
 
-/*====== Price Slider Active ======*/ 
+/*====== Price Slider Active ======*/
     $('#slider-range').slider({
         range: true,
-        min: 10,
-        max: 500,
+        min: 20,
+        max: 900,
         values: [110, 400],
         slide: function(event, ui) {
-            $('#amount').val('$' + ui.values[0] + ' - $' + ui.values[1]);
+            $('#amount').val(ui.values[0] + ' nVND' + ' - ' + ui.values[1] + ' nVND') ;
         }
     });
-    $('#amount').val('$' + $('#slider-range').slider('values', 0) +
-        " - $" + $('#slider-range').slider('values', 1));
+    $('#amount').val( $('#slider-range').slider('values', 0) + ' nVND' +
+        " - " + $('#slider-range').slider('values', 1) + ' nVND');
 
 
-/*====== Dropdown ======*/
+
+    /*====== Dropdown ======*/
     $('.dropdown').parent('.drop').css('position' , 'relative');
 
 	

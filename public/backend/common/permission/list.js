@@ -18,7 +18,6 @@ $(function () {
 
     /*delete product*/
     $('*[data-action="btnDelete"]').click(function (){
-        console.log('a')
 
         event.preventDefault();
 
