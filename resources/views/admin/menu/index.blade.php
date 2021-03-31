@@ -87,10 +87,11 @@
                                 </tr>
                             @endforeach
                         @endif
-
-
                         </tbody>
                     </table>
+                </div>
+                <div class="col-md-5 mt-3">
+                    {{$latestMenus->links()}}
                 </div>
                 <!-- /.card-body -->
             </div>

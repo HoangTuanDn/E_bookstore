@@ -29,7 +29,7 @@
                             <h3 class="wedget__title">{{__('product_categories')}}</h3>
                             <ul>
                                 @foreach($categories as $category)
-                                    <li ><a data-action="btnFilterCategory" href="{{route('home.shop', ['category' => $category->slug])}}" data-value="{{$category->slug}}">{{$category->name}}<span>({{$category->products->count()}})</span></a>
+                                    <li ><a data-action="btnFilterCategory" href="{{route('home.shop', ['category' => $category->slug])}}" data-value="{{$category->slug}}">{{$category->name}}<span>({{$category->products()->count()}})</span></a>
                                     </li>
                                 @endforeach
 
@@ -44,7 +44,7 @@
                                         <div class="slider__range--output">
                                             <div class="price__output--wrap filter_price">
                                                 <div class="price--output">
-                                                    <span>{{__('price')}} :</span><input value="aaa" type="text" name="price" id="amount" >
+                                                    <span>{{__('price')}} :</span><input type="text" name="price" id="amount" >
                                                 </div>
                                                 <div class="price--filter">
                                                     <a data-action="btnFilterPrice" href="{{route('home.shop')}}">{{__('filter')}}</a>
@@ -73,7 +73,6 @@
                     </div>
                 </div>
                 <div class="col-lg-9 col-12 order-1 order-lg-2 product_wrapper">
-
                     {!! $inc_list !!}
                 </div>
             </div>
@@ -81,6 +80,8 @@
         </div>
     </div>
     <!-- End Shop Page -->
+{{--    quick view--}}
+    @include('fontend.quick_view')
 @endsection
 
 @section('js')

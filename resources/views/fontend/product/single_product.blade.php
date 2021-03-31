@@ -1,5 +1,9 @@
 @extends('layouts.master')
 
+@section('js')
+    <script src="{{asset('fontend/common/single_product.js')}}"></script>
+@endsection
+
 @section('content')
     <!-- Start Bradcaump area -->
     <div class="ht__bradcaump__area bg-image--4">
@@ -148,9 +152,9 @@
                                     <form action="{{route('home.shop')}}" method="GET">
                                         <div id="slider-range"></div>
                                         <div class="slider__range--output">
-                                            <div class="price__output--wrap">
+                                            <div class="price__output--wrap filter_price">
                                                 <div class="price--output">
-                                                    <span>{{__('price')}} :</span><input value="aaa" type="text" name="price" id="amount" >
+                                                    <span>{{__('price')}} :</span><input  type="text" name="price" id="amount" >
                                                 </div>
                                                 <div class="price--filter">
                                                     <a data-action="btnFilterPrice" href="{{route('home.shop')}}">{{__('filter')}}</a>
@@ -197,4 +201,10 @@
         </div>
     </div>
     <!-- End Search Popup -->
+    {{--quick view--}}
+    @include('fontend.quick_view')
+@endsection
+
+@section('js')
+    <script src="{{asset('fontend/common/custom.js')}}"></script>
 @endsection

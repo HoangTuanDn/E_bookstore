@@ -126,10 +126,10 @@ function toast({title = '', message = '', type = 'info', duration = 3000})
 
     const toastElement = document.getElementById('toast');
     const icons = {
-        success: 'fas fa-check-circle',
-        info   : 'fas fa-info-circle',
-        warning: 'fas fa-exclamation-circle',
-        error  : 'fas fa-exclamation-circle',
+        success: 'fa fa-check-circle',
+        info   : 'fa fa-info-circle',
+        warning: 'fa fa-exclamation-circle',
+        error  : 'fa fa-exclamation-circle',
     };
     const icon = icons[type];
     const time = (duration / 1000).toFixed(2)
@@ -164,7 +164,7 @@ function toast({title = '', message = '', type = 'info', duration = 3000})
                     <p class="toast__msg">${message}</p>
                  </div>
                 <div class="toast__close">
-                     <i class="fas fa-times"></i>
+                     <i class="fa fa-times"></i>
                 </div>
         `;
 

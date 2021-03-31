@@ -38,28 +38,16 @@
                             <div class="quick-desc">
                                 Designed for simplicity and made from high quality materials. Its sleek geometry and material combinations creates a modern look.
                             </div>
-                            <div class="select__color">
-                                <h2>Select color</h2>
-                                <ul class="color__list">
-                                    <li class="red"><a title="Red" href="#">Red</a></li>
-                                    <li class="gold"><a title="Gold" href="#">Gold</a></li>
-                                    <li class="orange"><a title="Orange" href="#">Orange</a></li>
-                                    <li class="orange"><a title="Orange" href="#">Orange</a></li>
-                                </ul>
-                            </div>
+
                             <div class="select__size">
-                                <h2>Select size</h2>
+                                <h2>{{__('author_text')}}</h2>
                                 <ul class="color__list">
-                                    <li class="l__size"><a title="L" href="#">L</a></li>
-                                    <li class="m__size"><a title="M" href="#">M</a></li>
-                                    <li class="s__size"><a title="S" href="#">S</a></li>
-                                    <li class="xl__size"><a title="XL" href="#">XL</a></li>
-                                    <li class="xxl__size"><a title="XXL" href="#">XXL</a></li>
+                                    <li class="l__size"><a title="L" >L</a></li>
                                 </ul>
                             </div>
                             <div class="social-sharing">
                                 <div class="widget widget_socialsharing_widget">
-                                    <h3 class="widget-title-modal">Share this product</h3>
+                                    <h3 class="widget-title-modal">{{__('share')}}</h3>
                                     <ul class="social__net social__net--2 d-flex justify-content-start">
                                         <li class="facebook"><a href="#" class="rss social-icon"><i class="zmdi zmdi-rss"></i></a></li>
                                         <li class="linkedin"><a href="#" class="linkedin social-icon"><i class="zmdi zmdi-linkedin"></i></a></li>
@@ -69,7 +57,7 @@
                                 </div>
                             </div>
                             <div class="addtocart-btn">
-                                <a href="#">Add to cart</a>
+                                <a href="#">{{__('add_to_cart_1')}}</a>
                             </div>
                         </div>
                     </div>

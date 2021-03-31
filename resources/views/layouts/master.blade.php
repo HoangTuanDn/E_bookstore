@@ -6,7 +6,11 @@
     <title>Home | Bookshop Responsive Bootstrap4 Template</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="success" content="{{ __('success_text') }}">
+    <meta name="info" content="{{ __('info_text') }}">
+    <meta name="warning" content="{{ __('success_tex') }}">
+    <meta name="error" content="{{ __('error_text') }}">
     <!-- Favicons -->
     <link rel="shortcut icon" href="{{asset('fontend/images/favicon.ico')}}">
     <link rel="apple-touch-icon" href="{{asset('fontend/images/icon.png')}}">
@@ -16,13 +20,16 @@
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,300i,400,400i,500,600,600i,700,700i,800" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
 
+
     <!-- Stylesheets -->
     <link rel="stylesheet" href="{{asset('fontend/css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{asset('fontend/css/plugins.css')}}">
     <link rel="stylesheet" href="{{asset('fontend/style.css')}}">
 
+
     <!-- Cusom css -->
     <link rel="stylesheet" href="{{asset('fontend/css/custom.css')}}">
+    <link rel="stylesheet" href="{{asset('common/common.css')}}">
 
     <!-- Modernizer js -->
     <script src="{{asset('fontend/js/vendor/modernizr-3.5.0.min.js')}}"></script>
@@ -50,9 +57,6 @@
     <!-- Footer Area -->
     @include('layouts.footer')
     <!-- //Footer Area -->
-    <!-- QUICKVIEW PRODUCT -->
-    @include('fontend.quick_view')
-    <!-- END QUICKVIEW PRODUCT -->
 </div>
 <!-- //Main wrapper -->
 
@@ -62,6 +66,7 @@
 <script src="{{asset('fontend/js/bootstrap.min.js')}}"></script>
 <script src="{{asset('fontend/js/plugins.js')}}"></script>
 <script src="{{asset('fontend/js/active.js')}}"></script>
+<script src="{{asset('common/common.js')}}"></script>
 
 @hasSection('js')
     @yield('js')

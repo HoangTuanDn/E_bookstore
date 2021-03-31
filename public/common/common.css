@@ -1,13 +1,12 @@
 /*toast message css*/
+
 body #toast {
     position: fixed;
-    top: 32px;
-    right: 32px;
+    top: 50px;
+    right: 10px;
     z-index: 999999;
     margin-top: 20px;
 }
-
-
 
 .toast {
     display: flex;
@@ -64,13 +63,12 @@ body #toast {
 }
 
 .toast--warning {
-    border-color:#ffc021;
+    border-color: #ffc021;
 }
 
 .toast--warning .toast__icon {
     color: #ffc021
 }
-
 
 
 .toast__close,
@@ -108,4 +106,11 @@ body #toast {
 
 .toast + .toast {
     margin-top: 20px;
+}
+
+@media only screen and (max-width: 420px) {
+    #toast .toast {
+        min-width: 300px;
+        max-width: 350px;
+    }
 }

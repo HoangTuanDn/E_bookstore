@@ -32,7 +32,7 @@ use App\Http\Controllers\fontend\ProductController as FdProductController;
 
 
 
-
+/*admin route*/
 Route::prefix('admin')->group(function (){
 
     Route::get('/login', [AuthController::class, 'loginForm'])
@@ -234,6 +234,8 @@ Route::prefix('admin')->group(function (){
 
 });
 
+/*font end route*/
+Route::get('/', [HomeController::class, 'index']);
 Route::prefix('home')->group(function (){
     Route::get('/',[HomeController::class, 'index'])
         ->name('home');
@@ -252,6 +254,15 @@ Route::prefix('home')->group(function (){
     Route::get('/cart',[CartController::class, 'index'])
         ->name('home.cart');
 
+    Route::post('/cart/store',[CartController::class, 'store'])
+        ->name('home.cart.store');
+
+    Route::post('/cart/update',[CartController::class, 'update'])
+        ->name('home.cart.update');
+
+    Route::post('/cart/delete',[CartController::class, 'destroy'])
+        ->name('home.cart.destroy');
+
     Route::get('/checkout',[CartController::class, 'index'])
         ->name('home.checkout');
 
@@ -263,7 +274,6 @@ Route::prefix('home')->group(function (){
 
     Route::get('/error',[WishListController::class, 'index'])
         ->name('home.error');
-
 
 });
 

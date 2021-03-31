@@ -466,4 +466,8 @@
     </section>
     <!-- Best Sale Area Area -->
 
+    {{--quick view--}}
+    @include('fontend.quick_view')
+
 @endsection
+

@@ -24,7 +24,7 @@ class Message
     }
 
 
-    public function getText(string $action ,string $name){
+    public function getText(string $action ,string $name= ''){
         switch ($this->type){
             case __('type_success'):
 
@@ -50,7 +50,7 @@ class Message
                 return __('error_message');
 
             default:
-                return $this->text;
+                return __($this->text, ['name'=> $name]);
         }
     }
 }

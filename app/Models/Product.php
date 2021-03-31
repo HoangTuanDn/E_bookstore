@@ -56,10 +56,10 @@ class Product extends Model
 
     public function filterProduct($data)
     {
-        $query = Product::select('id', 'slug', 'name', 'price', 'featured_img', 'discount', 'quantity', 'quantity_sold', 'type', 'publish_date', 'created_at');
+        $query = Product::select('id', 'slug', 'name','title', 'price', 'featured_img', 'discount', 'quantity', 'quantity_sold', 'type', 'publish_date', 'created_at');
 
         if (!empty($data['name'])) {
-            $query->where('c.name', 'like', "%{$data['name']}%");
+            $query->where('name', 'like', "%{$data['name']}%");
         }
 
         if (!empty($data['category'])) {

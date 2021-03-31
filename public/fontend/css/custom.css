@@ -11,3 +11,26 @@
     padding-left: 25px;
     padding-right: 25px;
 }
+
+#nav-list .list__view__wrapper .list__view:first-child{
+    margin-top: 0;
+
+}
+
+#nav-list .content .product_title{
+    position: relative;
+    display: block;
+    margin: 0 0 30px;
+    height: 72px;
+    width: inherit;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+/*#nav-list .content h2 > a {*/
+/*    width: 557px;*/
+/*    display: inline-block;*/
+/*    text-overflow: ellipsis;*/
+/*    white-space: nowrap;*/
+/*    overflow: hidden;*/
+/*}*/

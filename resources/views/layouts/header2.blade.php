@@ -15,30 +15,14 @@
                         <li class="drop"><a href="{{route('home.shop')}}">{{__('shop')}}</a></li>
                         <li class="drop"><a href="shop-grid.html">{{__('books')}}</a>
                             <div class="megamenu mega03">
-                                <ul class="item item03">
-                                    <li class="title">{{__('categories')}}</li>
-                                    <li><a href="shop-grid.html">Biography </a></li>
-                                    <li><a href="shop-grid.html">Business </a></li>
-                                    <li><a href="shop-grid.html">Cookbooks </a></li>
-                                    <li><a href="shop-grid.html">Health & Fitness </a></li>
-                                    <li><a href="shop-grid.html">History </a></li>
-                                </ul>
-                                <ul class="item item03">
-                                    <li class="title">{{__('favourite')}}</li>
-                                    <li><a href="shop-grid.html">Mystery</a></li>
-                                    <li><a href="shop-grid.html">Religion & Inspiration</a></li>
-                                    <li><a href="shop-grid.html">Romance</a></li>
-                                    <li><a href="shop-grid.html">Fiction/Fantasy</a></li>
-                                    <li><a href="shop-grid.html">Sleeveless</a></li>
-                                </ul>
-                                <ul class="item item03">
-                                    <li class="title">{{__('collections')}}</li>
-                                    <li><a href="shop-grid.html">Science </a></li>
-                                    <li><a href="shop-grid.html">Fiction/Fantasy</a></li>
-                                    <li><a href="shop-grid.html">Self-Improvemen</a></li>
-                                    <li><a href="shop-grid.html">Home & Garden</a></li>
-                                    <li><a href="shop-grid.html">Humor Books</a></li>
-                                </ul>
+                                @foreach($parentMenus as $key => $menus)
+                                    <ul class="item item03">
+                                        <li class="title">{{$key}}</li>
+                                        @foreach($menus as $menu)
+                                            <li><a href="{{$menu['href']}}">{{$menu['name']}}</a></li>
+                                        @endforeach
+                                    </ul>
+                                @endforeach
                             </div>
                         </li>
                         <li><a href="{{route('home.concat')}}">{{__('contact')}}</a></li>
@@ -118,7 +102,7 @@
                                     </div>
                                 </div>
                                 <div class="mini_action cart">
-                                    <a class="cart__btn" href="cart.html">View and edit cart</a>
+                                    <a class="cart__btn" href="{{route('home.cart')}}">{{__('view_cart')}}</a>
                                 </div>
                             </div>
                         </div>
@@ -148,12 +132,6 @@
                                     <div class="switcher-options">
                                         <div class="switcher-currency-trigger">
                                             <span class="currency-trigger">{{__('vn_language')}}</span>
-{{--                                            <ul class="switcher-dropdown">--}}
-{{--                                                <li>English02</li>--}}
-{{--                                                <li>English03</li>--}}
-{{--                                                <li>English04</li>--}}
-{{--                                                <li>English05</li>--}}
-{{--                                            </ul>--}}
                                         </div>
                                     </div>
                                 </div>

@@ -9,7 +9,7 @@ use App\Models\Product;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use function GuzzleHttp\Psr7\_parse_request_uri;
+
 
 class ProductController extends Controller
 {
@@ -104,6 +104,7 @@ class ProductController extends Controller
                 'id'            => $product->id,
                 'slug'          => $product->slug,
                 'name'          => $product->name,
+                'title'          => $product->title,
                 'price'         => $product->price,
                 'featured_img'  => $product->featured_img,
                 'discount'      => $product->discount,
