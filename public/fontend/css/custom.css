@@ -14,7 +14,19 @@
 
 #nav-list .list__view__wrapper .list__view:first-child{
     margin-top: 0;
+}
+.shopcart .single__items .miniproduct:first-child{
+    margin-top: 0;
+}
+/*.single__items .miniproduct .content{*/
+/*    white-space: nowrap;*/
+/*    text-overflow: ellipsis;*/
+/*    overflow: hidden;*/
+/*}*/
 
+.minicart__active  .single__items{
+    max-height: 345px;
+    overflow: auto;
 }
 
 #nav-list .content .product_title{
@@ -27,10 +39,15 @@
     overflow: hidden;
 }
 
-/*#nav-list .content h2 > a {*/
-/*    width: 557px;*/
-/*    display: inline-block;*/
-/*    text-overflow: ellipsis;*/
-/*    white-space: nowrap;*/
-/*    overflow: hidden;*/
-/*}*/
+#nav-list .content h2 > a {
+    width: 557px;
+    display: inline-block;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+.product-info .quick-desc {
+    max-height: 192px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}

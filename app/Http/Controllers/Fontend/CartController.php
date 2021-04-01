@@ -26,14 +26,27 @@ class CartController extends Controller
     {
         $data = session('cart');
         $totalPrice = 0;
+        $totalItem = 0;
         if ($data) {
             foreach ($data as $item) {
                 $totalPrice += $item['quantity'] * $item['price'];
             }
-        }
+            $totalItem = count($data);
 
-        $inc_list = view('fontend.cart.inc.list', compact('data'));
-        return view('fontend.cart.cart', compact('inc_list', 'totalPrice'));
+            if ($request->ajax()) {
+                $boxCartHtml = view('fontend.cart.inc.box', compact('data', 'totalPrice', 'totalItem'))->render();
+                return response()->json([
+                    'success' => true,
+                    'data'    => [
+                        'html'       => $boxCartHtml,
+                        'totalItem' => $totalItem,
+                    ],
+                ]);
+            }
+
+            $inc_list = view('fontend.cart.inc.list', compact('data'));
+            return view('fontend.cart.cart', compact('inc_list', 'totalPrice'));
+        }
     }
 
     public function store(Request $request)
@@ -79,6 +92,7 @@ class CartController extends Controller
         return response()->json([
             'success' => true,
             'data'    => [
+                'totalItem' =>  count($cart),
                 'type'    => $type,
                 'message' => $message,
             ]
@@ -90,18 +104,19 @@ class CartController extends Controller
 
         $data = session('cart');
         $id = $request->id;
-        $productName = null;
+        $productName = '';
         if (isset($data[$id])) {
             $productName = $data[$id]['name'];
             unset($data[$id]);
         }
 
-
         $totalPrice = 0;
+        $totalItem = 0;
         if ($data) {
             foreach ($data as $item) {
                 $totalPrice += $item['quantity'] * $item['price'];
             }
+            $totalItem =  count($data);
         }
 
         session()->put('cart', $data);
@@ -113,7 +128,8 @@ class CartController extends Controller
                 'type'    => __('type_info'),
                 'content' => [
                     'html'       => $inc_list,
-                    'totalPrice' => number_format($totalPrice) . __('currency_unit'),
+                    'totalPrice' => number_format($totalPrice, 0, ',', '.') . __('currency_unit'),
+                    'totalItem'  => $totalItem,
                 ],
                 'message' => $this->getMessage('', '', $productName, __('deleted_product_in_cart'))
             ]

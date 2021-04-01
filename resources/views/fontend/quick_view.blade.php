@@ -1,5 +1,4 @@
 <div id="quickview-wrapper">
-    <!-- Modal -->
     <div class="modal fade" id="productmodal" tabindex="-1" role="dialog">
         <div class="modal-dialog modal__container" role="document">
             <div class="modal-content">
@@ -11,12 +10,12 @@
                         <!-- Start product images -->
                         <div class="product-images">
                             <div class="main-image images">
-                                <img alt="big images" src="{{asset('fontend/images/product/big-img/1.jpg')}}">
+                                <img alt="big images" src="">
                             </div>
                         </div>
                         <!-- end product images -->
                         <div class="product-info">
-                            <h1>Simple Fabric Bags</h1>
+                            <h1></h1>
                             <div class="rating__and__review">
                                 <ul class="rating">
                                     <li><span class="ti-star"></span></li>
@@ -31,18 +30,18 @@
                             </div>
                             <div class="price-box-3">
                                 <div class="s-price-box">
-                                    <span class="new-price">$17.20</span>
-                                    <span class="old-price">$45.00</span>
+                                    <span class="new-price"></span>
+                                    <span class="old-price"></span>
                                 </div>
                             </div>
                             <div class="quick-desc">
-                                Designed for simplicity and made from high quality materials. Its sleek geometry and material combinations creates a modern look.
+
                             </div>
 
                             <div class="select__size">
                                 <h2>{{__('author_text')}}</h2>
                                 <ul class="color__list">
-                                    <li class="l__size"><a title="L" >L</a></li>
+                                    <li class="l__size"><span title="author"></span></li>
                                 </ul>
                             </div>
                             <div class="social-sharing">

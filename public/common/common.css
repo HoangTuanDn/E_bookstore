@@ -4,7 +4,7 @@ body #toast {
     position: fixed;
     top: 50px;
     right: 10px;
-    z-index: 999999;
+    z-index: 9999999999999999999999999999999999999;
     margin-top: 20px;
 }
 

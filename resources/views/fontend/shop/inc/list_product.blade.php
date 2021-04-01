@@ -44,16 +44,16 @@
                     <div class="product__content content--center">
                         <h4><a href="{{route('home.shop', ['slug' => $product['slug']])}}">{{$product['name']}}</a></h4>
                         <ul class="prize d-flex">
-                            <li>{!! number_format($product['discount']) . __('currency_unit') !!}</li>
-                            <li class="old_prize">{!! number_format($product['price']).  __('currency_unit') !!}</li>
+                            <li>{!! number_format($product['discount'], 0, ',', '.') . __('currency_unit') !!}</li>
+                            <li class="old_prize">{!! number_format($product['price'], 0, ',', '.').  __('currency_unit') !!}</li>
                         </ul>
                         <div class="action">
-                            <div class="actions_inner" data-discount="{{$product['discount']}}" data-title="{{$product['title']}}" data-price="{{$product['price']}}"  data-name="{{$product['name']}}" data-id="{{$product['id']}}" >
+                            <div class="actions_inner" data-url="{{route('home.shop.single_product',['slug' => $product['slug']])}}" data-image="{{$product['featured_img']}}" data-author="{{$product['author']}}" data-discount="{!! number_format($product['discount'], 0, ',', '.') . __('currency_unit') !!}" data-title="{{$product['title']}}" data-price="{!! number_format($product['price'], 0, ',', '.').  __('currency_unit') !!}"  data-name="{{$product['name']}}" data-id="{{$product['id']}}" >
                                 <ul class="add_to_links">
                                     <li><a class="cart" data-action="checkout" href="{{route('home.checkout',['id'=>$product['id']])}}"><i class="bi bi-shopping-bag4"></i></a></li>
                                     <li><a class="wishlist" data-name="{{$product['name']}}" data-id="{{$product['id']}}" data-action="add_to_cart"  href="{{route('home.cart.store')}}"><i class="bi bi-shopping-cart-full"></i></a></li>
-                                    <li><a class="compare" data-action="add_to_wishlist" href="{{route('home.wish_list')}}"><i class="bi bi-heart-beat"></i></a></li>
-                                    <li><a data-toggle="modal" data-action="quick_view" title="Quick View" class="quickview modal-view detail-link" href="#productmodal"><i class="bi bi-search"></i></a></li>
+                                    <li><a class="compare"  data-action="add_to_wishlist" data-exist="{{__('exist_in_wishlist',['name' => $product['name']])}}" data-add="{{__('add_to_wishlist',['name' => $product['name']])}}" href="{{route('home.wish_list')}}"><i class="bi bi-heart-beat"></i></a></li>
+                                    <li><a data-toggle="modal" data-action="quick_view" data-url="{{route('home.cart.store')}}" title="Quick View" class="quickview modal-view detail-link" href="#productmodal"><i class="bi bi-search"></i></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -91,8 +91,8 @@
                             <li><i class="fa fa-star-o"></i></li>
                         </ul>
                         <ul class="prize__box">
-                            <li>{{number_format($product['discount']) . __('currency_unit')}}</li>
-                            <li class="old__prize">{{number_format($product['price']).  __('currency_unit')}}</li>
+                            <li>{{number_format($product['discount'], 0, ',', '.') . __('currency_unit')}}</li>
+                            <li class="old__prize">{{number_format($product['price'], 0, ',', '.').  __('currency_unit')}}</li>
                         </ul>
                         <div class="product_title">{!! $product['title'] !!}</div>
                         <ul class="cart__action d-flex">

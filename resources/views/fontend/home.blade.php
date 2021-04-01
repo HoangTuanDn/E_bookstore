@@ -1,5 +1,9 @@
 @extends('layouts.master')
 
+{{--@section('js')--}}
+{{--    <script src="{{asset('fontend/common/custom.js')}}"></script>--}}
+{{--@endsection--}}
+
 @section('content')
     <!-- Start Slider area -->
     <div class="slider-area brown__nav slider--15 slide__activation slide__arrow01 owl-carousel owl-theme">
@@ -74,16 +78,16 @@
                             <div class="product__content content--center">
                                 <h4><a href="{{route('home.shop.single_product', ['slug'=>$product->slug])}}">{{$product->name}}</a></h4>
                                 <ul class="prize d-flex">
-                                    <li>{!! number_format($product->discount) . __('currency_unit') !!}</li>
-                                    <li class="old_prize">{!! number_format($product->price ).  __('currency_unit') !!}</li>
+                                    <li>{!! number_format($product->discount, 0, ',', '.') . __('currency_unit') !!}</li>
+                                    <li class="old_prize">{!! number_format($product->price, 0, ',', '.').  __('currency_unit') !!}</li>
                                 </ul>
                                 <div class="action">
-                                    <div class="actions_inner">
+                                    <div class="actions_inner" data-image="{{$product['featured_img']}}" data-author="{{$product['author']}}" data-discount="{!! number_format($product['discount'], 0, ',', '.') . __('currency_unit') !!}" data-title="{{$product['title']}}" data-price="{!! number_format($product['price'], 0, ',', '.').  __('currency_unit') !!}"  data-name="{{$product['name']}}" data-id="{{$product['id']}}">
                                         <ul class="add_to_links">
                                             <li><a class="cart" href="{{route('home.checkout')}}"><i class="bi bi-shopping-bag4"></i></a></li>
-                                            <li><a class="wishlist" href="{{route('home.cart')}}"><i class="bi bi-shopping-cart-full"></i></a></li>
+                                            <li><a class="wishlist" data-name="{{$product['name']}}" data-id="{{$product['id']}}" data-action="add_to_cart"  href="{{route('home.cart.store')}}"><i class="bi bi-shopping-cart-full"></i></a></li>
                                             <li><a class="compare" href="{{route('home.wish_list')}}"><i class="bi bi-heart-beat"></i></a></li>
-                                            <li><a data-toggle="modal" title="Quick View" class="quickview modal-view detail-link" href="#productmodal"><i class="bi bi-search"></i></a></li>
+                                            <li><a data-toggle="modal" data-action="quick_view" data-url="{{route('home.cart.store')}}" title="Quick View" class="quickview modal-view detail-link" href="#productmodal"><i class="bi bi-search"></i></a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -174,16 +178,16 @@
                                             <div class="product__content content--center content--center">
                                                 <h4><a href="{{route('home.shop.single_product', ['slug'=>$product->slug])}}">{{$product->name}}</a></h4>
                                                 <ul class="prize d-flex">
-                                                    <li>{!! number_format($product->discount) . __('currency_unit') !!}</li>
-                                                    <li class="old_prize">{!! number_format($product->price ).  __('currency_unit') !!}</li>
+                                                    <li>{!! number_format($product->discount, 0, ',', '.') . __('currency_unit') !!}</li>
+                                                    <li class="old_prize">{!!  number_format($product->price, 0, ',', '.') .  __('currency_unit') !!}</li>
                                                 </ul>
                                                 <div class="action">
-                                                    <div class="actions_inner">
+                                                    <div class="actions_inner" data-image="{{$product['featured_img']}}" data-author="{{$product['author']}}" data-discount="{!! number_format($product['discount'], 0, ',', '.') . __('currency_unit') !!}" data-title="{{$product['title']}}" data-price="{!! number_format($product['price'], 0, ',', '.').  __('currency_unit') !!}"  data-name="{{$product['name']}}" data-id="{{$product['id']}}">
                                                         <ul class="add_to_links">
                                                             <li><a class="cart" href="{{route('home.checkout')}}"><i class="bi bi-shopping-bag4"></i></a></li>
-                                                            <li><a class="wishlist" href="{{route('home.cart')}}"><i class="bi bi-shopping-cart-full"></i></a></li>
+                                                            <li><a class="wishlist" data-name="{{$product['name']}}" data-id="{{$product['id']}}" data-action="add_to_cart"  href="{{route('home.cart.store')}}"><i class="bi bi-shopping-cart-full"></i></a></li>
                                                             <li><a class="compare" href="{{route('home.wish_list')}}"><i class="bi bi-heart-beat"></i></a></li>
-                                                            <li><a data-toggle="modal" title="Quick View" class="quickview modal-view detail-link" href="#productmodal"><i class="bi bi-search"></i></a></li>
+                                                            <li><a data-toggle="modal" data-action="quick_view" data-url="{{route('home.cart.store')}}" title="Quick View" class="quickview modal-view detail-link" href="#productmodal"><i class="bi bi-search"></i></a></li>
                                                         </ul>
                                                     </div>
                                                 </div>
@@ -227,16 +231,16 @@
                                             <div class="product__content content--center content--center">
                                                 <h4><a href="{{route('home.shop.single_product', ['slug'=>$product->slug])}}">{{$product->name}}</a></h4>
                                                 <ul class="prize d-flex">
-                                                    <li>{!! number_format($product->discount) . __('currency_unit') !!}</li>
-                                                    <li class="old_prize">{!! number_format($product->price ).  __('currency_unit') !!}</li>
+                                                    <li>{!! number_format($product->discount, 0, ',', '.') . __('currency_unit') !!}</li>
+                                                    <li class="old_prize">{!! number_format($product->price , 0, ',', '.').  __('currency_unit') !!}</li>
                                                 </ul>
                                                 <div class="action">
-                                                    <div class="actions_inner">
+                                                    <div class="actions_inner" data-image="{{$product['featured_img']}}" data-author="{{$product['author']}}" data-discount="{!! number_format($product['discount'], 0, ',', '.') . __('currency_unit') !!}" data-title="{{$product['title']}}" data-price="{!! number_format($product['price'], 0, ',', '.').  __('currency_unit') !!}"  data-name="{{$product['name']}}" data-id="{{$product['id']}}">
                                                         <ul class="add_to_links">
                                                             <li><a class="cart" href="{{route('home.checkout')}}"><i class="bi bi-shopping-bag4"></i></a></li>
-                                                            <li><a class="wishlist" href="{{route('home.cart')}}"><i class="bi bi-shopping-cart-full"></i></a></li>
+                                                            <li><a class="wishlist" data-name="{{$product['name']}}" data-id="{{$product['id']}}" data-action="add_to_cart"  href="{{route('home.cart.store')}}"><i class="bi bi-shopping-cart-full"></i></a></li>
                                                             <li><a class="compare" href="{{route('home.wish_list')}}"><i class="bi bi-heart-beat"></i></a></li>
-                                                            <li><a data-toggle="modal" title="Quick View" class="quickview modal-view detail-link" href="#productmodal"><i class="bi bi-search"></i></a></li>
+                                                            <li><a data-toggle="modal" data-action="quick_view" data-url="{{route('home.cart.store')}}" title="Quick View" class="quickview modal-view detail-link" href="#productmodal"><i class="bi bi-search"></i></a></li>
                                                         </ul>
                                                     </div>
                                                 </div>
@@ -280,16 +284,16 @@
                                             <div class="product__content content--center content--center">
                                                 <h4><a href="{{route('home.shop.single_product', ['slug'=>$product->slug])}}">{{$product->name}}</a></h4>
                                                 <ul class="prize d-flex">
-                                                    <li>{!! number_format($product->discount) . __('currency_unit') !!}</li>
-                                                    <li class="old_prize">{!! number_format($product->price ).  __('currency_unit') !!}</li>
+                                                    <li>{!! number_format($product->discount, 0, ',', '.') . __('currency_unit') !!}</li>
+                                                    <li class="old_prize">{!! number_format($product->price , 0, ',', '.').  __('currency_unit') !!}</li>
                                                 </ul>
                                                 <div class="action">
-                                                    <div class="actions_inner">
+                                                    <div class="actions_inner" data-image="{{$product['featured_img']}}" data-author="{{$product['author']}}" data-discount="{!! number_format($product['discount'], 0, ',', '.') . __('currency_unit') !!}" data-title="{{$product['title']}}" data-price="{!! number_format($product['price'], 0, ',', '.').  __('currency_unit') !!}"  data-name="{{$product['name']}}" data-id="{{$product['id']}}">
                                                         <ul class="add_to_links">
                                                             <li><a class="cart" href="{{route('home.checkout')}}"><i class="bi bi-shopping-bag4"></i></a></li>
-                                                            <li><a class="wishlist" href="{{route('home.cart')}}"><i class="bi bi-shopping-cart-full"></i></a></li>
+                                                            <li><a class="wishlist" data-name="{{$product['name']}}" data-id="{{$product['id']}}" data-action="add_to_cart"  href="{{route('home.cart.store')}}"><i class="bi bi-shopping-cart-full"></i></a></li>
                                                             <li><a class="compare" href="{{route('home.wish_list')}}"><i class="bi bi-heart-beat"></i></a></li>
-                                                            <li><a data-toggle="modal" title="Quick View" class="quickview modal-view detail-link" href="#productmodal"><i class="bi bi-search"></i></a></li>
+                                                            <li><a data-toggle="modal" data-action="quick_view" data-url="{{route('home.cart.store')}}" title="Quick View" class="quickview modal-view detail-link" href="#productmodal"><i class="bi bi-search"></i></a></li>
                                                         </ul>
                                                     </div>
                                                 </div>
@@ -333,16 +337,16 @@
                                             <div class="product__content content--center content--center">
                                                 <h4><a href="{{route('home.shop.single_product', ['slug'=>$product->slug])}}">{{$product->name}}</a></h4>
                                                 <ul class="prize d-flex">
-                                                    <li>{!! number_format($product->discount) . __('currency_unit') !!}</li>
-                                                    <li class="old_prize">{!! number_format($product->price ).  __('currency_unit') !!}</li>
+                                                    <li>{!! number_format($product->discount, 0, ',', '.') . __('currency_unit') !!}</li>
+                                                    <li class="old_prize">{!! number_format($product->price, 0, ',', '.' ).  __('currency_unit') !!}</li>
                                                 </ul>
                                                 <div class="action">
-                                                    <div class="actions_inner">
+                                                    <div class="actions_inner" data-image="{{$product['featured_img']}}" data-author="{{$product['author']}}" data-discount="{!! number_format($product['discount'], 0, ',', '.') . __('currency_unit') !!}" data-title="{{$product['title']}}" data-price="{!! number_format($product['price'], 0, ',', '.').  __('currency_unit') !!}"  data-name="{{$product['name']}}" data-id="{{$product['id']}}">
                                                         <ul class="add_to_links">
                                                             <li><a class="cart" href="{{route('home.checkout')}}"><i class="bi bi-shopping-bag4"></i></a></li>
-                                                            <li><a class="wishlist" href="{{route('home.cart')}}"><i class="bi bi-shopping-cart-full"></i></a></li>
+                                                            <li><a class="wishlist" data-name="{{$product['name']}}" data-id="{{$product['id']}}" data-action="add_to_cart"  href="{{route('home.cart.store')}}"><i class="bi bi-shopping-cart-full"></i></a></li>
                                                             <li><a class="compare" href="{{route('home.wish_list')}}"><i class="bi bi-heart-beat"></i></a></li>
-                                                            <li><a data-toggle="modal" title="Quick View" class="quickview modal-view detail-link" href="#productmodal"><i class="bi bi-search"></i></a></li>
+                                                            <li><a data-toggle="modal" data-action="quick_view" data-url="{{route('home.cart.store')}}" title="Quick View" class="quickview modal-view detail-link" href="#productmodal"><i class="bi bi-search"></i></a></li>
                                                         </ul>
                                                     </div>
                                                 </div>
@@ -386,16 +390,16 @@
                                             <div class="product__content content--center content--center">
                                                 <h4><a href="{{route('home.shop.single_product', ['slug'=>$product->slug])}}">{{$product->name}}</a></h4>
                                                 <ul class="prize d-flex">
-                                                    <li>{!! number_format($product->discount) . __('currency_unit') !!}</li>
-                                                    <li class="old_prize">{!! number_format($product->price ).  __('currency_unit') !!}</li>
+                                                    <li>{!! number_format($product->discount, 0, ',', '.') . __('currency_unit') !!}</li>
+                                                    <li class="old_prize">{!! number_format($product->price , 0, ',', '.').  __('currency_unit') !!}</li>
                                                 </ul>
                                                 <div class="action">
-                                                    <div class="actions_inner">
+                                                    <div class="actions_inner" data-image="{{$product['featured_img']}}" data-author="{{$product['author']}}" data-discount="{!! number_format($product['discount'], 0, ',', '.') . __('currency_unit') !!}" data-title="{{$product['title']}}" data-price="{!! number_format($product['price'], 0, ',', '.').  __('currency_unit') !!}"  data-name="{{$product['name']}}" data-id="{{$product['id']}}">
                                                         <ul class="add_to_links">
                                                             <li><a class="cart" href="{{route('home.checkout')}}"><i class="bi bi-shopping-bag4"></i></a></li>
-                                                            <li><a class="wishlist" href="{{route('home.cart')}}"><i class="bi bi-shopping-cart-full"></i></a></li>
+                                                            <li><a class="wishlist" data-name="{{$product['name']}}" data-id="{{$product['id']}}" data-action="add_to_cart"  href="{{route('home.cart.store')}}"><i class="bi bi-shopping-cart-full"></i></a></li>
                                                             <li><a class="compare" href="{{route('home.wish_list')}}"><i class="bi bi-heart-beat"></i></a></li>
-                                                            <li><a data-toggle="modal" title="Quick View" class="quickview modal-view detail-link" href="#productmodal"><i class="bi bi-search"></i></a></li>
+                                                            <li><a data-toggle="modal" data-action="quick_view" data-url="{{route('home.cart.store')}}" title="Quick View" class="quickview modal-view detail-link" href="#productmodal"><i class="bi bi-search"></i></a></li>
                                                         </ul>
                                                     </div>
                                                 </div>
@@ -441,12 +445,12 @@
                     </div>
                     <div class="product__content content--center">
                         <div class="action">
-                            <div class="actions_inner">
+                            <div class="actions_inner" data-image="{{$product['featured_img']}}" data-author="{{$product['author']}}" data-discount="{!! number_format($product['discount'], 0, ',', '.') . __('currency_unit') !!}" data-title="{{$product['title']}}" data-price="{!! number_format($product['price'], 0, ',', '.').  __('currency_unit') !!}"  data-name="{{$product['name']}}" data-id="{{$product['id']}}">
                                 <ul class="add_to_links">
                                     <li><a class="cart" href="{{route('home.checkout')}}"><i class="bi bi-shopping-bag4"></i></a></li>
-                                    <li><a class="wishlist" href="{{route('home.cart')}}"><i class="bi bi-shopping-cart-full"></i></a></li>
+                                    <li><a class="wishlist" data-name="{{$product['name']}}" data-id="{{$product['id']}}" data-action="add_to_cart"  href="{{route('home.cart.store')}}"><i class="bi bi-shopping-cart-full"></i></a></li>
                                     <li><a class="compare" href="{{route('home.wish_list')}}"><i class="bi bi-heart-beat"></i></a></li>
-                                    <li><a data-toggle="modal" title="Quick View" class="quickview modal-view detail-link" href="#productmodal"><i class="bi bi-search"></i></a></li>
+                                    <li><a data-toggle="modal"  data-action="quick_view" data-url="{{route('home.cart.store')}}" title="Quick View" class="quickview modal-view detail-link" href="#productmodal"><i class="bi bi-search"></i></a></li>
                                 </ul>
                             </div>
                         </div>

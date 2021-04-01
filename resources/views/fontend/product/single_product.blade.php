@@ -1,8 +1,8 @@
 @extends('layouts.master')
 
-@section('js')
-    <script src="{{asset('fontend/common/single_product.js')}}"></script>
-@endsection
+{{--@section('js')--}}
+{{--    <script src="{{asset('fontend/common/custom.js')}}"></script>--}}
+{{--@endsection--}}
 
 @section('content')
     <!-- Start Bradcaump area -->
@@ -28,7 +28,9 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-9 col-12">
+
                     {!! $inc_list !!}
+
                     <div class="wn__related__product pt--80 pb--50">
                         <div class="section__title text-center">
                             <h2 class="title__be--2">{{__('related_products')}}</h2>
@@ -53,14 +55,14 @@
                                         <div class="product__content content--center">
                                             <h4><a href="{{route('home.shop.single_product', ['slug'=>$product->slug])}}">{{$product->name}}</a></h4>
                                             <ul class="prize d-flex">
-                                                <li>{!! number_format($product->discount) . __('currency_unit') !!}</li>
-                                                <li class="old_prize">{!! number_format($product->price ).  __('currency_unit') !!}</li>
+                                                <li>{!! number_format($product->discount, 0, ',', '.') . __('currency_unit') !!}</li>
+                                                <li class="old_prize">{!! number_format($product->price , 0, ',', '.').  __('currency_unit') !!}</li>
                                             </ul>
                                             <div class="action">
                                                 <div class="actions_inner">
                                                     <ul class="add_to_links">
                                                         <li><a class="cart" href="{{route('home.checkout')}}"><i class="bi bi-shopping-bag4"></i></a></li>
-                                                        <li><a class="wishlist" href="{{route('home.cart')}}"><i class="bi bi-shopping-cart-full"></i></a></li>
+                                                        <li><a class="wishlist" data-name="{{$product['name']}}" data-id="{{$product['id']}}" data-action="add_to_cart"  href="{{route('home.cart.store')}}"><i class="bi bi-shopping-cart-full"></i></a></li>
                                                         <li><a class="compare" href="{{route('home.wish_list')}}"><i class="bi bi-heart-beat"></i></a></li>
                                                         <li><a data-toggle="modal" title="Quick View" class="quickview modal-view detail-link" href="#productmodal"><i class="bi bi-search"></i></a></li>
                                                     </ul>
@@ -105,14 +107,14 @@
                                         <div class="product__content content--center">
                                             <h4><a href="{{route('home.shop.single_product', ['slug'=>$product->slug])}}">{{$product->name}}</a></h4>
                                             <ul class="prize d-flex">
-                                                <li>{!! number_format($product->discount) . __('currency_unit') !!}</li>
-                                                <li class="old_prize">{!! number_format($product->price ).  __('currency_unit') !!}</li>
+                                                <li>{!! number_format($product->discount, 0, ',', '.') . __('currency_unit') !!}</li>
+                                                <li class="old_prize">{!! number_format($product->price, 0, ',', '.' ).  __('currency_unit') !!}</li>
                                             </ul>
                                             <div class="action">
                                                 <div class="actions_inner">
                                                     <ul class="add_to_links">
                                                         <li><a class="cart" href="{{route('home.checkout')}}"><i class="bi bi-shopping-bag4"></i></a></li>
-                                                        <li><a class="wishlist" href="{{route('home.cart')}}"><i class="bi bi-shopping-cart-full"></i></a></li>
+                                                        <li><a class="wishlist" data-name="{{$product['name']}}" data-id="{{$product['id']}}" data-action="add_to_cart"  href="{{route('home.cart.store')}}"><i class="bi bi-shopping-cart-full"></i></a></li>
                                                         <li><a class="compare" href="{{route('home.wish_list')}}"><i class="bi bi-heart-beat"></i></a></li>
                                                         <li><a data-toggle="modal" title="Quick View" class="quickview modal-view detail-link" href="#productmodal"><i class="bi bi-search"></i></a></li>
                                                     </ul>
@@ -203,8 +205,4 @@
     <!-- End Search Popup -->
     {{--quick view--}}
     @include('fontend.quick_view')
-@endsection
-
-@section('js')
-    <script src="{{asset('fontend/common/custom.js')}}"></script>
 @endsection

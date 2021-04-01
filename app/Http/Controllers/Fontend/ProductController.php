@@ -53,8 +53,8 @@ class ProductController extends Controller
         }
 
         $textCategory = [];
-        foreach ($product->categories as $category){
-            $textCategory [] = '<a href="'.route('home.shop', ['category' =>$category->slug]) .'">' .$category->name .'</a>';
+        foreach ($product->categories as $category) {
+            $textCategory [] = '<a href="' . route('home.shop', ['category' => $category->slug]) . '">' . $category->name . '</a>';
         }
         $textCategory = implode(',  ', $textCategory);
 
@@ -65,7 +65,7 @@ class ProductController extends Controller
 
         $inc_list = view('fontend.product.inc.detail', compact('product', 'textCategory'));
 
-        return view('fontend.product.single_product', compact('inc_list','relatedProducts', 'upsellProducts', 'categories', 'tags'));
+        return view('fontend.product.single_product', compact('inc_list', 'relatedProducts', 'upsellProducts', 'categories', 'tags'));
     }
 
     private function _getList(Request $request)
@@ -104,7 +104,8 @@ class ProductController extends Controller
                 'id'            => $product->id,
                 'slug'          => $product->slug,
                 'name'          => $product->name,
-                'title'          => $product->title,
+                'title'         => $product->title,
+                'author'        => $product->author,
                 'price'         => $product->price,
                 'featured_img'  => $product->featured_img,
                 'discount'      => $product->discount,

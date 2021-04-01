@@ -22,7 +22,7 @@
                     </ul>
                 </div>
                 <div class="price-box">
-                    <span>{!! number_format($product->discount) . __('currency_unit') !!}</span>
+                    <span>{!! number_format($product->discount, 0, ',', '.') . __('currency_unit') !!}</span>
                 </div>
                 <div class="product__overview">
                     <p>{!! $product->title !!}</p>
@@ -31,7 +31,7 @@
                     <span>Qty</span>
                     <input id="qty" class="input-text qty" name="qty" min="1" value="1" title="Qty" type="number">
                     <div class="addtocart__actions">
-                        <button class="tocart" type="submit" title="Add to Cart">{{__('add_to_cart')}}</button>
+                        <button class="tocart" data-name="{{$product['name']}}" data-id="{{$product['id']}}" data-action="add_to_cart"  data-url="{{route('home.cart.store')}}" type="button" title="Add to Cart">{{__('add_to_cart_1')}}</button>
                     </div>
                     <div class="product-addto-links clearfix">
                         <a class="wishlist" href="{{route('home.wish_list')}}"></a>

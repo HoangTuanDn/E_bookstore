@@ -78,9 +78,12 @@
   "publisher_and_publis_date" : "Nhà xuất bản: :publisher, ngày xuất bản: :publish_date",
   "page_and_dimensions" : "Số trang: :page, kích thước: :dimensions",
   "add_to_cart" : "Cuốn sách :name đã được thêm vào giỏ hàng",
+  "add_to_wishlist" : "Cuốn sách :name đã được thêm vào danh sách yêu thích",
   "exist_in_cart" : "Cuốn sách :name đã có trong giỏ hàng",
+  "exist_in_wishlist" : "Cuốn sách :name đã có trong danh sách yêu thích",
   "larger_than_total_quantity" : "Không thể thêm :name vào giỏ hàng, số lượng quá giới hạn",
   "deleted_product_in_cart" : "Đã xóa :name khỏi giỏ hàng",
+  "delete_product_ind_wishlist" : "Đã xóa :name khỏi danh sách yêu thích",
   "increase_product_in_cart" : "Số lượng đã được cập nhật",
   "currency" : "Tiền tệ",
   "image" : "Hình ảnh",
@@ -91,5 +94,8 @@
   "grand_total_cart" : "Tổng tiền giỏ hàng",
   "update_cart" : "Cập nhật giỏ hàng",
   "author_text" : "Tác giả:",
+  "stock_status" : "Tình trạng",
+  "stock_true" : "Trong kho",
+  "stock_fale" : "Không còn",
   "view_cart" : "Xem giỏ hàng"
 }

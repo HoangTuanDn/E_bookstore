@@ -7,6 +7,7 @@ use App\Models\Menu;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\View\View;
+use function PHPUnit\Framework\isEmpty;
 
 class MasterController extends Controller
 {
@@ -17,6 +18,8 @@ class MasterController extends Controller
         $parentMenus = [];
         $categoryMatchSlug = [];
         $menuGroups = [];
+        $data = session('cart');
+        $totalItemCart =  empty($data) ? 0 : count($data);
 
 
         foreach ($categories as $category){
@@ -41,7 +44,7 @@ class MasterController extends Controller
             }
         }
 
-        $view->with('parentMenus',$parentMenus);
+        $view->with(['parentMenus' => $parentMenus, 'totalItemCart' => $totalItemCart]);
 
     }
 }

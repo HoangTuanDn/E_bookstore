@@ -40,7 +40,7 @@
                 <div class="cartbox__total__area">
                     <div class="cart__total__amount">
                         <span>{{__('grand_total_cart')}}</span>
-                        <span class="grand_total_cart">{{number_format($totalPrice) . __('currency_unit')}}</span>
+                        <span class="grand_total_cart">{{number_format($totalPrice, 0, ',', '.') . __('currency_unit')}}</span>
                     </div>
                 </div>
             </div>

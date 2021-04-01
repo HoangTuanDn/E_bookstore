@@ -14,6 +14,7 @@ class ViewServiceProvider extends ServiceProvider
     public function register()
     {
         view()->composer('layouts.master', 'App\Http\Controllers\Fontend\MasterController@index');
+        view()->composer('fontend.wish_list', 'App\Http\Controllers\Fontend\WishListController@index');
     }
 
     /**

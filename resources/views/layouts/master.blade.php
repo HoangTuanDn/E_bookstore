@@ -67,6 +67,7 @@
 <script src="{{asset('fontend/js/plugins.js')}}"></script>
 <script src="{{asset('fontend/js/active.js')}}"></script>
 <script src="{{asset('common/common.js')}}"></script>
+<script src="{{asset('fontend/common/custom.js')}}"></script>
 
 @hasSection('js')
     @yield('js')
