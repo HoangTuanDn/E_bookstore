@@ -28,46 +28,7 @@ $(function (){
 
         tableElement.find('tbody').html(dataHtml);
 
-        /*add first product to cart*/
-        $(document).on('click','*[data-action="add_to_cart"]',function (){
 
-            event.preventDefault()
-            let currentElement = $(this);
-            let url = url_store;
-
-            let data = {
-                'id'  : currentElement.attr('data-id')
-            }
-
-            $.ajax({
-                url     : url,
-                type    : 'post',
-                dataType: 'json',
-                headers : {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                data   : data,
-                success: function (json) {
-                    if (json['success']){
-                        var toastConfig = {
-                            message: json['data']['message'],
-                            type: json['data']['type'],
-                            duration: 3000
-                        }
-                        toast(toastConfig)
-                    }
-                    else {
-                        var toastConfig = {
-                            message: json['message'],
-                            type: 'error',
-                            duration: 3000
-                        }
-                        toast(toastConfig)
-                    }
-                }
-            })
-
-        })
         /*handle remove wishlist*/
         $(document).on('click','*[data-action="btnRemove"]',function (){
             event.preventDefault();

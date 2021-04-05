@@ -48,7 +48,7 @@ class Product extends Model
 
     public function upsellProducts()
     {
-        $products = Product::select('id', 'slug', 'name', 'price', 'featured_img', 'discount', 'quantity', 'quantity_sold', 'type', 'publish_date', 'created_at')
+        $products = Product::select('id', 'slug', 'name','title', 'author', 'price', 'featured_img', 'discount', 'quantity', 'quantity_sold', 'type', 'publish_date', 'created_at')
             ->orderByRaw('price - discount DESC')->limit(config('custom.limit'))->get();
 
         return $products;

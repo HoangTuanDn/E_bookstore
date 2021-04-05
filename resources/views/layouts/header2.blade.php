@@ -74,8 +74,8 @@
                                         <div class="switcher-currency-trigger">
                                             <div class="setting__menu">
                                                 <span><a href="{{route('home.wish_list')}}">{{__('my_wish_list')}}</a></span>
-                                                <span><a href="#">{{__('sign_in')}}</a></span>
-                                                <span><a href="#">{{__('sign_up')}}</a></span>
+                                                <span><a href="{{route('account.login')}}">{{__('sign_in')}}</a></span>
+                                                <span><a href="{{route('account.register')}}">{{__('sign_up')}}</a></span>
                                             </div>
                                         </div>
                                     </div>

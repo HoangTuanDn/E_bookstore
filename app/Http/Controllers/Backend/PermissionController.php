@@ -69,7 +69,7 @@ class PermissionController extends Controller
         try {
 
             $dataUpdate = $request->only(['name', 'display_name', 'parent_id', 'key_code']);
-            $this->permisson->update($dataUpdate);
+            $this->permisson->find($id)->update($dataUpdate);
 
         } catch (\Exception $e) {
             DB::rollBack();

@@ -1,6 +1,10 @@
 @extends('layouts.master')
 
-@extends('content')
+@section('js')
+    <script src="{{asset('fontend/common/ship.js')}}"></script>
+@endsection
+
+@section('content')
 <!-- Start Bradcaump area -->
 <div class="ht__bradcaump__area bg-image--4">
     <div class="container">
@@ -26,20 +30,20 @@
             <div class="col-lg-12">
                 <div class="wn_checkout_wrap">
                     <div class="checkout_info">
-                        <span>Returning customer ?</span>
-                        <a class="showlogin" href="#">Click here to login</a>
+                        <span>{{__('required_login')}}</span>
+                        <a class="showlogin" href="#">{{__('login_titile')}}</a>
                     </div>
                     <div class="checkout_login">
                         <form class="wn__checkout__form" action="#">
-                            <p>If you have shopped with us before, please enter your details in the boxes below. If you are a new customer please proceed to the Billing & Shipping section.</p>
+                            <p>{{__('checkout_title')}}</p>
 
                             <div class="input__box">
-                                <label>Username or email <span>*</span></label>
+                                <label>{{__('Username_email')}} <span>*</span></label>
                                 <input type="text">
                             </div>
 
                             <div class="input__box">
-                                <label>password <span>*</span></label>
+                                <label>{{__('passwrod')}} <span>*</span></label>
                                 <input type="password">
                             </div>
                             <div class="form__btn">
@@ -53,14 +57,14 @@
                         </form>
                     </div>
                     <div class="checkout_info">
-                        <span>Have a coupon? </span>
-                        <a class="showcoupon" href="#">Click here to enter your code</a>
+                        <span>{{__('coupon_title')}} </span>
+                        <a class="showcoupon" href="#">{{__('coupon_description')}}</a>
                     </div>
                     <div class="checkout_coupon">
-                        <form action="#">
+                        <form action="{{route('home.checkout')}}">
                             <div class="form__coupon">
-                                <input type="text" placeholder="Coupon code">
-                                <button>Apply coupon</button>
+                                <input type="text" name="coupon_code" value="{{$order['coupon_code'] ?? ''}}" placeholder="{{__('coupon_code')}}">
+                                <button data-action="apply-coupon">{{__('apply_coupon')}}</button>
                             </div>
                         </form>
                     </div>
@@ -70,66 +74,50 @@
         <div class="row">
             <div class="col-lg-6 col-12">
                 <div class="customer_details">
-                    <h3>Billing details</h3>
-                    <div class="customar__field">
+                    <h3>{{__('billing_details')}}</h3>
+                    <div class="customar__field" data-action="store-data" data-url="{{route('home.checkout')}}">
                         <div class="margin_between">
-                            <div class="input_box space_between">
-                                <label>First name <span>*</span></label>
-                                <input type="text">
-                            </div>
-                            <div class="input_box space_between">
-                                <label>last name <span>*</span></label>
-                                <input type="text">
+                            <div class="input_box space_between" style="width: 100%">
+                                <label>{{__('full_name')}} <span>*</span></label>
+                                <input required type="text">
                             </div>
                         </div>
                         <div class="input_box">
-                            <label>Company name <span>*</span></label>
-                            <input type="text">
-                        </div>
-                        <div class="input_box">
-                            <label>Country<span>*</span></label>
-                            <select class="select__option">
-                                <option>Select a country…</option>
-                                <option>Afghanistan</option>
-                                <option>American Samoa</option>
-                                <option>Anguilla</option>
-                                <option>American Samoa</option>
-                                <option>Antarctica</option>
-                                <option>Antigua and Barbuda</option>
+                            <label>{{__('province')}}<span>*</span></label>
+                            <select required id="province" name="province_id" data-type="province" data-action="select-address" class="select__option">
+                                <option>{{__('select_province')}}</option>
+                                @foreach($provinces as $province)
+                                    <option value="{{$province->id}}">{{$province->name}}</option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="input_box">
-                            <label>Address <span>*</span></label>
-                            <input type="text" placeholder="Street address">
+                            <label>{{__('district')}}<span>*</span></label>
+                            <select required id="district" name="district_id" data-type="district" data-action="select-address" class="select__option">
+                                <option value="">{{__('select_district')}}</option>
+                            </select>
                         </div>
+
                         <div class="input_box">
-                            <input type="text" placeholder="Apartment, suite, unit etc. (optional)">
-                        </div>
-                        <div class="input_box">
-                            <label>District<span>*</span></label>
-                            <select class="select__option">
-                                <option>Select a country…</option>
-                                <option>Afghanistan</option>
-                                <option>American Samoa</option>
-                                <option>Anguilla</option>
-                                <option>American Samoa</option>
-                                <option>Antarctica</option>
-                                <option>Antigua and Barbuda</option>
+                            <label>{{__('ward')}}<span>*</span></label>
+                            <select required id="ward" name="ward_id" data-type="ward" data-action="select-address" class="select__option">
+                                <option value="">{{__('select_ward')}}</option>
                             </select>
                         </div>
                         <div class="input_box">
-                            <label>Postcode / ZIP <span>*</span></label>
-                            <input type="text">
+                            <label>{{__('address')}} <span>*</span></label>
+                            <input required type="text" placeholder="{{__('placeholder_address')}}">
                         </div>
+
                         <div class="margin_between">
                             <div class="input_box space_between">
-                                <label>Phone <span>*</span></label>
-                                <input type="text">
+                                <label>{{__('phone')}} <span>*</span></label>
+                                <input required type="text">
                             </div>
 
                             <div class="input_box space_between">
-                                <label>Email address <span>*</span></label>
-                                <input type="email">
+                                <label>{{__('email')}} <span>*</span></label>
+                                <input required type="email">
                             </div>
                         </div>
                     </div>
@@ -215,37 +203,7 @@
                 </div>
             </div>
             <div class="col-lg-6 col-12 md-mt-40 sm-mt-40">
-                <div class="wn__order__box">
-                    <h3 class="onder__title">Your order</h3>
-                    <ul class="order__total">
-                        <li>Product</li>
-                        <li>Total</li>
-                    </ul>
-                    <ul class="order_product">
-                        <li>Buscipit at magna × 1<span>$48.00</span></li>
-                        <li>Buscipit at magna × 1<span>$48.00</span></li>
-                        <li>Buscipit at magna × 1<span>$48.00</span></li>
-                        <li>Buscipit at magna × 1<span>$48.00</span></li>
-                    </ul>
-                    <ul class="shipping__method">
-                        <li>Cart Subtotal <span>$48.00</span></li>
-                        <li>Shipping
-                            <ul>
-                                <li>
-                                    <input name="shipping_method[0]" data-index="0" value="legacy_flat_rate" checked="checked" type="radio">
-                                    <label>Flat Rate: $48.00</label>
-                                </li>
-                                <li>
-                                    <input name="shipping_method[0]" data-index="0" value="legacy_flat_rate" checked="checked" type="radio">
-                                    <label>Flat Rate: $48.00</label>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                    <ul class="total__amount">
-                        <li>Order Total <span>$223.00</span></li>
-                    </ul>
-                </div>
+                <div class="wn__order__box">{!! $inc_cart !!}</div>
                 <div id="accordion" class="checkout_accordion mt--30" role="tablist">
                     <div class="payment">
                         <div class="che__header" role="tab" id="headingOne">
@@ -280,7 +238,7 @@
                     <div class="payment">
                         <div class="che__header" role="tab" id="headingFour">
                             <a class="collapsed checkout__title" data-toggle="collapse" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                                <span>PayPal <img src="images/icons/payment.png" alt="payment images"> </span>
+                                <span>PayPal <img src="{{asset('fontend/images/icons/payment.png')}}" alt="payment images"> </span>
                             </a>
                         </div>
                         <div id="collapseFour" class="collapse" role="tabpanel" aria-labelledby="headingFour" data-parent="#accordion">

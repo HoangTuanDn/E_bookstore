@@ -18,6 +18,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link rel="stylesheet" href="{{asset('backend/plugins/fontawesome-free/css/all.min.css')}}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{asset('backend/dist/css/adminlte.min.css')}}">
+    <link href="{{asset('/common/toastr.min.css')}}" rel='stylesheet' type='text/css' />
     <!-- custom css -->
     @hasSection('css')
         @yield('css')
@@ -48,6 +49,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="{{asset('backend/dist/js/adminlte.min.js')}}"></script>
 <!-- custom jss -->
 <script src="{{asset('/common/common.js')}}"></script>
+<script src="{{asset('common/toastr.min.js')}}"></script>
 @hasSection('js_link')
     @yield('js_link')
 @endif

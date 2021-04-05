@@ -74,7 +74,6 @@ class ProductController extends Controller
                 'user_id'       => auth()->guard('admin')->user()->id,
             ];
 
-            dd($dataInsert);
             if ($request->hasFile('featured_img')) {
 
                 $data = $this->storageTraitUploadResize(
@@ -266,6 +265,7 @@ class ProductController extends Controller
 
         } catch (\Exception $e) {
             DB::rollBack();
+            $isUpdate = false;
             Log::error('message: ' . $e->getMessage() . '--Line : ' . $e->getLine());
         }
 

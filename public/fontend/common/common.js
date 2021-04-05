@@ -1,82 +1,11 @@
-$(function () {
-
+$(function (){
     /*create toast element*/
     createTostElement();
-
-   /******************** handle filter *************************/
-
-    /*filter by category*/
-    $('*[data-action="btnFilterCategory"]').click(function () {
-        event.preventDefault();
-        var url = $(this).attr('href');
-        var contentWrapper = $('.product_wrapper');
-
-        renderHtml(url, contentWrapper);
-
-    });
-
-    /*filter tag */
-    $('*[data-action="btnFilterTag"]').click(function () {
-        event.preventDefault();
-        var url = $(this).attr('href');
-        var contentWrapper = $('.product_wrapper')
-
-        renderHtml(url, contentWrapper)
-    });
-
-    /*filter price*/
-    $('*[data-action="btnFilterPrice"]').click(function () {
-        event.preventDefault();
-        var url = $(this).attr('href');
-        var contentWrapper = $('.product_wrapper')
-
-        let data = $(this).closest('.filter_price').find('#amount').val();
-        let number = data.match(/(\d+)/g);
-        let filterPrice = `?price_min=${number[0]}&price_max=${number[1]}`
-        url = url + filterPrice;
-
-        $.ajax({
-            url   : url,
-            method: 'get',
-
-            success: function (json) {
-                console.log(json['data']['url'])
-                if (json['success']) {
-                    contentWrapper.html(json['html']['content']);
-                    if (json['data']['url']) {
-                        window.history.pushState('object or string', 'Title', json['data']['url'])
-                    }
-                }
-
-            }
-        })
-    });
-
-    /*sort product*/
-    $(document).on('change', '*[data-action="sort_product"]', function () {
-        var url = $(this).val();
-        var contentWrapper = $('.product_wrapper')
-
-        renderHtml(url, contentWrapper);
-    });
-
-    /*pagination*/
-
-    $(document).on('click', '.wn__pagination li a', function () {
-        event.preventDefault();
-        var url = $(this).attr('href');
-        var contentWrapper = $('.product_wrapper')
-
-        renderHtml(url, contentWrapper);
-    });
-
-
-    /*****************************handle cart*****************************************/
 
     /*handle show cart box*/
     $(document).on('click', '*[data-action="show-cart-box"]', function () {
         let currentElement = $(this)
-        console.log(currentElement)
+
         $.ajax({
             url     : currentElement.attr('href'),
             type    : 'get',
@@ -90,27 +19,16 @@ $(function () {
                     currentElement.closest('li[class="shopcart"]').find('.minicart__active').html(json['data']['html']);
                     let totalItemText = json['data']['totalItem'] > 1 ? json['data']['totalItem'] + ' items' : json['data']['totalItem'] + ' item';
                     currentElement.closest('li[class="shopcart"]').find('.total-text').text(totalItemText);
-                    //$("p").css({"background-color": "yellow", "font-size": "200%"});
+
                 }
             }
         })
     })
 
-    $(document).on('click', '.micart__close', function () {
+    $(document).on('click', '.micart__close', function (){
         $('.minicart__active').removeClass('is-visible');
-    })
+    });
 
-    /*handle delete in cart box*/
-    $(document).on('click', '*[data-action="remove-item-cart-box"]', function () {
-        event.preventDefault()
-        let currentElement = $(this);
-        let url = currentElement.attr('href');
-        let data = {
-            'id' : currentElement.attr('data-id'),
-        }
-
-        removeCartElement(url, data, currentElement)
-    })
 
     /*add first product to cart*/
     $(document).on('click', '*[data-action="add_to_cart"]', function () {
@@ -157,16 +75,29 @@ $(function () {
 
     })
 
-    /*handle cart change*/
-    $(document).on('keypress change', 'input[data-action="item-quantity"]', function (e) {
-
+    /*handle remove product in box cart*/
+    $(document).on('click', '*[data-action="remove-item-in-box"]', function () {
+        event.preventDefault()
         let currentElement = $(this);
-        let quantity = currentElement.val();
-        if (e.keyCode == 13 || e.keyCode == 38 || e.keyCode == 40) {
-            quantity = currentElement.val();
-        }
+        console.log(currentElement)
 
-        let url = currentElement.attr('data-url');
+        let url = currentElement.attr('href');
+        let data = {
+            'id': currentElement.attr('data-id')
+        }
+        let type = currentElement.attr('data-type');
+        removeItemCart(url, data, currentElement, type)
+
+    })
+    /*handle update in box cart*/
+    $(document).on('click', '*[data-action="btnCartBoxUpdate"]', function (e) {
+        event.preventDefault()
+        let currentElement = $(this);
+
+        let url = currentElement.attr('href');
+        let old_quantity = currentElement.closest('.product_prize').find('span').attr('data-quantity');
+        let quantity = parseInt(old_quantity) + 1;
+
 
         $.ajax({
             url     : url,
@@ -196,50 +127,14 @@ $(function () {
                         duration: 3000
                     }
                     toast(toastConfig)
-                    $('.cart-form').html(json['data']['content']['html']);
-                    $('.grand_total_cart').text(json['data']['content']['totalPrice']);
+
+                    currentElement.closest('.product_prize').find('.qun').text(json['data']['content']['quantity_text'])
+                    currentElement.closest('.product_prize').find('.qun').attr('data-quantity', json['data']['content']['quantity'])
+                    currentElement.closest('#wrapper').find('.total_amount').html(`<span>${json['data']['content']['totalPrice']}</span>`);
                 }
             }
         })
 
-    })
-
-    /*handle delete item in cart*/
-    $(document).on('click', 'a[data-action="remove-item-in-list"]', function () {
-        event.preventDefault()
-        let currentElement = $(this);
-
-        let url = currentElement.attr('href');
-        let data = {
-            'id' : currentElement.attr('data-id')
-        }
-
-
-        $.ajax({
-            url     : url,
-            type    : 'post',
-            dataType: 'json',
-            headers : {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            data    : {
-                'id': data['id'],
-            },
-            success : function (json) {
-
-                if (json['data']['type'] == 'info') {
-                    var toastConfig = {
-                        message : json['data']['message'],
-                        type    : json['data']['type'],
-                        duration: 3000
-                    }
-                    toast(toastConfig)
-                    currentElement.closest('#wrapper').find('.product_qun').text(json['data']['content']['totalItem']);
-                    $('.cart-form').html(json['data']['content']['html']);
-                    $('.grand_total_cart').text(json['data']['content']['totalPrice']);
-                }
-            }
-        })
     })
 
     /*handle quick view*/
@@ -276,6 +171,7 @@ $(function () {
     $(document).on('click', '*[data-action="add_to_wishlist"]', function () {
         event.preventDefault();
         let currentElement = $(this);
+        console.log(currentElement)
         let dataElement = currentElement.closest('.action').find('.actions_inner');
         let data = {
             'id'       : dataElement.attr('data-id'),
@@ -314,64 +210,4 @@ $(function () {
             toast(toastConfig)
         }
     });
-
-    function removeCartElement(url, data, currentElement){
-        $.ajax({
-            url     : url,
-            type    : 'post',
-            dataType: 'json',
-            headers : {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            data    : {
-                'id': data['id'],
-            },
-            success : function (json) {
-
-                if (json['data']['type'] == 'info') {
-                    var toastConfig = {
-                        message : json['data']['message'],
-                        type    : json['data']['type'],
-                        duration: 3000
-                    }
-                    toast(toastConfig)
-
-                    currentElement.closest('.item01').fadeOut(800,function(){
-                        $(this).remove();
-                    })
-                    let totalItemText = json['data']['content']['totalItem'] > 1 ? json['data']['content']['totalItem'] + ' items' : json['data']['content']['totalItem'] + ' item'
-                    currentElement.closest('#wrapper').find('.product_qun').text(json['data']['content']['totalItem']);
-                    currentElement.closest('#wrapper').find('.total-text').text(totalItemText);
-                    currentElement.closest('#wrapper').find('.total_amount').text(json['data']['content']['totalPrice']);
-
-                    $('.cart-form').html(json['data']['content']['html']);
-                    $('.grand_total_cart').text(json['data']['content']['totalPrice']);
-                }
-            }
-        })
-    }
-
-    function hideCartBox(){
-        $('.minicart__active').removeClass('is-visible');
-    }
-
-
-    var renderHtml = function (url, elementWrapper, data = {}) {
-
-        $.ajax({
-            url    : url,
-            method : 'get',
-            data   : data,
-            success: function (json) {
-                if (json['success']) {
-                    elementWrapper.html(json['html']['content']);
-                    if (json['data']['url']) {
-                        window.history.pushState('object or string', 'Title', json['data']['url'])
-                    }
-                }
-
-            }
-        })
-    }
-
-});
+})

@@ -29,8 +29,8 @@
                 </form>
                 <div class="cartbox__btn">
                     <ul class="cart__btn__list d-flex flex-wrap flex-md-nowrap flex-lg-nowrap justify-content-between">
-                        <li><a href="#">{{__('update_cart')}}</a></li>
-                        <li><a href="#">{{__('check_out')}}</a></li>
+                {{--        <li><a href="#">{{__('update_cart')}}</a></li>--}}
+                        <li><a href="{{route('home.checkout')}}">{{__('check_out')}}</a></li>
                     </ul>
                 </div>
             </div>
@@ -51,5 +51,5 @@
 @endsection
 
 @section('js')
-    <script src="{{asset('fontend/common/custom.js')}}"></script>
+    <script src="{{asset('fontend/common/cart.js')}}"></script>
 @endsection

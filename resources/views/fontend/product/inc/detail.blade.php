@@ -29,12 +29,13 @@
                 </div>
                 <div class="box-tocart d-flex">
                     <span>Qty</span>
-                    <input id="qty" class="input-text qty" name="qty" min="1" value="1" title="Qty" type="number">
+                    <input id="qty" data-action="item-quantity" data-type="update-normal" data-id="{{$product->id}}" data-url="{{route('home.cart.update', ['id' => $product->id])}}"  class="input-text qty" name="qty" max="{{$product->quantity}}" min="1" value="1" title="Qty" type="number">
                     <div class="addtocart__actions">
                         <button class="tocart" data-name="{{$product['name']}}" data-id="{{$product['id']}}" data-action="add_to_cart"  data-url="{{route('home.cart.store')}}" type="button" title="Add to Cart">{{__('add_to_cart_1')}}</button>
                     </div>
                     <div class="product-addto-links clearfix">
-                        <a class="wishlist" href="{{route('home.wish_list')}}"></a>
+                        {{--<a class="wishlist" href="{{route('home.wish_list')}}"></a>--}}
+                        <a class="wishlist"  data-action="add_to_wishlist" data-exist="{{__('exist_in_wishlist',['name' => $product['name']])}}" data-add="{{__('add_to_wishlist',['name' => $product['name']])}}" href="{{route('home.wish_list')}}"></a>
                     </div>
                 </div>
                 <div class="product_meta">

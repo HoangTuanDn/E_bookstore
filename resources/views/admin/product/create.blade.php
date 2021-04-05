@@ -15,7 +15,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.6.2/tinymce.min.js"></script>
     <script src="{{asset('backend/common/product/create.js')}}"></script>
     <script src="{{asset('common/toastr.min.js')}}"></script>
-    <script src="{{asset('common/pcsFormatNumber.jquery.js')}}"></script>
 @endsection
 
 @section('content')

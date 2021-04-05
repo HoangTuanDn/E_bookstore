@@ -24,6 +24,7 @@ class CartController extends Controller
 
     public function index(Request $request)
     {
+//        session()->flush();
         $data = session('cart');
         $totalPrice = 0;
         $totalItem = 0;
@@ -38,7 +39,7 @@ class CartController extends Controller
                 return response()->json([
                     'success' => true,
                     'data'    => [
-                        'html'       => $boxCartHtml,
+                        'html'      => $boxCartHtml,
                         'totalItem' => $totalItem,
                     ],
                 ]);
@@ -92,14 +93,14 @@ class CartController extends Controller
         return response()->json([
             'success' => true,
             'data'    => [
-                'totalItem' =>  count($cart),
-                'type'    => $type,
-                'message' => $message,
+                'totalItem' => count($cart),
+                'type'      => $type,
+                'message'   => $message,
             ]
         ]);
     }
 
-    public function destroy(Request $request)
+    public function destroy(Request $request, $id)
     {
 
         $data = session('cart');
@@ -116,7 +117,7 @@ class CartController extends Controller
             foreach ($data as $item) {
                 $totalPrice += $item['quantity'] * $item['price'];
             }
-            $totalItem =  count($data);
+            $totalItem = count($data);
         }
 
         session()->put('cart', $data);
@@ -136,9 +137,9 @@ class CartController extends Controller
         ]);
     }
 
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
-        $id = $request->id;
+        //$id = $request->id;
         $product = $this->product
             ->select('id', 'name', 'discount', 'quantity', 'quantity_sold')
             ->find($id);
@@ -159,7 +160,6 @@ class CartController extends Controller
 
         if (isset($data[$id]) && $product) {
             $data[$id]['quantity'] = $quantityUpdate;
-            $data[$id]['price'] = $data[$id]['quantity'] * $product->discount;
         }
 
         $totalPrice = 0;
@@ -167,18 +167,22 @@ class CartController extends Controller
             foreach ($data as $item) {
                 $totalPrice += $item['quantity'] * $item['price'];
             }
+
         }
 
         session()->put('cart', $data);
-
+        $quantity_text = __('qty');
+        $quantity_text .= strlen($data[$id]['quantity']) > 2 ? sprintf('%03d', $data[$id]['quantity']) : sprintf('%02d', $data[$id]['quantity']);
         $inc_list = view('fontend.cart.inc.list', compact('data'))->render();
         return response()->json([
             'success' => true,
             'data'    => [
                 'type'    => __('type_info'),
                 'content' => [
-                    'html'       => $inc_list,
-                    'totalPrice' => number_format($totalPrice) . __('currency_unit'),
+                    'html'          => $inc_list,
+                    'quantity_text' => $quantity_text,
+                    'quantity'      => $data[$id]['quantity'],
+                    'totalPrice'    => number_format($totalPrice, 0, ',', '.') . __('currency_unit'),
                 ],
                 'message' => $this->getMessage('', '', '', __('increase_product_in_cart'))
             ]

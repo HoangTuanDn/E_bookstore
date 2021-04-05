@@ -24,6 +24,26 @@
 /*    overflow: hidden;*/
 /*}*/
 
+.wn__order__box .order_product .detail_item{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    /*align-content: center;*/
+}
+
+.wn__order__box .order_product .product_name{
+    width: 200px;
+}
+
+.wn__order__box .order_product .product_quantity{
+   padding: 0 10px;
+}
+
+.wn__order__box .order_product .product_price{
+    flex-grow: 1;
+    text-align: right;
+}
+
 .minicart__active  .single__items{
     max-height: 345px;
     overflow: auto;

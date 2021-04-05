@@ -49,7 +49,7 @@ class RoleController extends Controller
     }
 
     public function create(Request $request){
-        $permissions = $this->permisson->where('parent_id', 0)->get(['id', 'name', 'display_name', 'key_code']);
+        $permissions = $this->permission->where('parent_id', 0)->get(['id', 'name', 'display_name', 'key_code']);
         return view('admin.role.create',compact('permissions'));
     }
 

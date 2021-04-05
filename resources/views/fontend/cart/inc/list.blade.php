@@ -16,9 +16,9 @@
                 <td class="product-thumbnail"><a href="{{route('home.shop.single_product',['slug' => $item['slug']])}}"><img src="{{$item['image']}}" alt="product img"></a></td>
                 <td class="product-name"><a href="{{route('home.shop.single_product',['slug' => $item['slug']])}}">{{$item['name']}}</a></td>
                 <td class="product-price"><span class="amount">{{number_format($item['price'], 0, ',', '.') . __('currency_unit')}}</span></td>
-                <td class="product-quantity"><input data-id="{{$item['id']}}" data-url="{{route('home.cart.update')}}"  min="1" type="number" value="{{$item['quantity']}}"></td>
+                <td class="product-quantity"><input data-action="item-quantity" data-id="{{$item['id']}}" data-type="update-detail"  data-url="{{route('home.cart.update', ['id' => $item['id']])}}"  min="1" type="number" value="{{$item['quantity']}}"></td>
                 <td class="product-subtotal">{{number_format($item['price'] * $item['quantity'], 0, ',', '.') . __('currency_unit')}}</td>
-                <td class="product-remove"><a data-action="remove-item-in-list" data-id="{{$item['id']}}" href="{{route('home.cart.destroy')}}">X</a></td>
+                <td class="product-remove"><a data-action="remove-item" data-type="list" data-id="{{$item['id']}}" href="{{route('home.cart.destroy', ['id' => $item['id']])}}">X</a></td>
             </tr>
         @endforeach
         </tbody>

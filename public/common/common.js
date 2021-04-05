@@ -171,3 +171,67 @@ function toast({title = '', message = '', type = 'info', duration = 3000})
         toastElement.appendChild(toastContent);
     }
 }
+
+//*hide cart box*/
+function hideCartBox() {
+    $('.minicart__active').removeClass('is-visible');
+}
+/*render html content*/
+var renderHtml = function (url, elementWrapper, data = {}) {
+
+    $.ajax({
+        url    : url,
+        method : 'get',
+        data   : data,
+        success: function (json) {
+            if (json['success']) {
+                elementWrapper.html(json['html']['content']);
+                if (json['data']['url']) {
+                    window.history.pushState('object or string', 'Title', json['data']['url'])
+                }
+            }
+
+        }
+    })
+}
+
+/*remove cart item*/
+function removeItemCart(url, data, currentElement, type) {
+    $.ajax({
+        url     : url,
+        type    : 'post',
+        dataType: 'json',
+        headers : {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        data    : {
+            'id': data['id'],
+        },
+        success : function (json) {
+
+            if (json['data']['type'] == 'info') {
+                var toastConfig = {
+                    message : json['data']['message'],
+                    type    : json['data']['type'],
+                    duration: 3000
+                }
+                toast(toastConfig)
+                currentElement.closest('#wrapper').find('.product_qun').text(json['data']['content']['totalItem']);
+                if (type === 'box') {
+                    currentElement.closest('.item01').fadeOut(800, function () {
+                        $(this).remove();
+                    })
+                    let totalItemText = json['data']['content']['totalItem'] > 1 ? json['data']['content']['totalItem'] + ' items' : json['data']['content']['totalItem'] + ' item'
+
+                    currentElement.closest('#wrapper').find('.total-text').text(totalItemText);
+                    currentElement.closest('#wrapper').find('.total_amount').html(`<span>${json['data']['content']['totalPrice']}</span>`);
+                } else {
+                    currentElement.closest('#wrapper').find('.product_qun').text(json['data']['content']['totalItem']);
+                    $('.cart-form').html(json['data']['content']['html']);
+                    $('.grand_total_cart').text(json['data']['content']['totalPrice']);
+                }
+
+            }
+        }
+    })
+}

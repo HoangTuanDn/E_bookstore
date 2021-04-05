@@ -1,6 +1,7 @@
 <?php
 
 
+use App\Http\Controllers\Backend\CouponController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Backend\PermissionController;
 use App\Http\Controllers\Backend\RoleController;
@@ -9,9 +10,11 @@ use App\Http\Controllers\Backend\SliderController;
 use App\Http\Controllers\Backend\UserController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\fontend\CartController;
+use App\Http\Controllers\fontend\CheckOutController;
 use App\Http\Controllers\fontend\ContactController;
 use App\Http\Controllers\fontend\HomeController;
 use App\Http\Controllers\fontend\WishListController;
+use App\Http\Controllers\ShipController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\MenuController;
@@ -203,6 +206,27 @@ Route::prefix('admin')->group(function (){
 
         Route::post('/destroy/{id}', [RoleController::class, 'destroy'])
             ->name('roles.destroy');
+    });
+
+    Route::prefix('coupons')->middleware('auth_admin')->group(function (){
+
+        Route::get('/index', [CouponController::class, 'index'])
+            ->name('coupons.index');
+
+        Route::get('/create', [CouponController::class, 'create'])
+            ->name('coupons.create');
+
+        Route::post('/store', [CouponController::class, 'store'])
+            ->name('coupons.store');
+
+        Route::get('/edit/{id}', [CouponController::class, 'edit'])
+            ->name('coupons.edit');
+
+        Route::post('/update/{id}', [CouponController::class, 'update'])
+            ->name('coupons.update');
+
+        Route::post('/destroy/{id}', [CouponController::class, 'destroy'])
+            ->name('coupons.destroy');
 
     });
 
@@ -228,11 +252,35 @@ Route::prefix('admin')->group(function (){
 
     });
 
+    /*ship route*/
+    Route::prefix('ships')->middleware('auth_admin')->group(function (){
+
+        Route::get('/index', [ShipController::class, 'index'])
+            ->name('ships.index');
+
+        Route::get('/create', [ShipController::class, 'create'])
+            ->name('ships.create');
+
+        Route::post('/store', [ShipController::class, 'store'])
+            ->name('ships.store');
+
+        Route::get('/edit/{id}', [ShipController::class, 'edit'])
+            ->name('ships.edit');
+
+        Route::post('/update/{id}', [ShipController::class, 'update'])
+            ->name('ships.update');
+
+        Route::post('/destroy/{id}', [ShipController::class, 'destroy'])
+            ->name('ships.destroy');
+    });
+
     Route::group(['prefix' => 'filemanager'], function () {
         Lfm::routes();
     });
-
 });
+
+
+
 
 /*font end route*/
 Route::get('/', [HomeController::class, 'index']);
@@ -242,7 +290,13 @@ Route::prefix('home')->group(function (){
 
     Route::prefix('account')->group(function () {
         Route::get('/my',[CustomerController::class, 'index'])
-            ->name('account.index');
+            ->name('account.my');
+
+        Route::post('/login',[CustomerController::class, 'login'])
+            ->name('account.login');
+
+        Route::post('/register',[CustomerController::class, 'register'])
+            ->name('account.register');
     });
 
     Route::get('/shop', [FdProductController::class, 'index'])
@@ -257,13 +311,13 @@ Route::prefix('home')->group(function (){
     Route::post('/cart/store',[CartController::class, 'store'])
         ->name('home.cart.store');
 
-    Route::post('/cart/update',[CartController::class, 'update'])
+    Route::post('/cart/update/{id}',[CartController::class, 'update'])
         ->name('home.cart.update');
 
-    Route::post('/cart/delete',[CartController::class, 'destroy'])
+    Route::post('/cart/destroy/{id}',[CartController::class, 'destroy'])
         ->name('home.cart.destroy');
 
-    Route::get('/checkout',[CartController::class, 'index'])
+    Route::get('/checkout',[CheckOutController::class, 'index'])
         ->name('home.checkout');
 
     Route::get('/wish-list',[WishListController::class, 'index'])

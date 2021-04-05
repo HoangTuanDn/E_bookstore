@@ -84,6 +84,6 @@
     @include('fontend.quick_view')
 @endsection
 
-{{--@section('js')--}}
-{{--    <script src="{{asset('fontend/common/custom.js')}}"></script>--}}
-{{--@endsection--}}
+@section('js')
+    <script src="{{asset('fontend/common/shop.js')}}"></script>
+@endsection

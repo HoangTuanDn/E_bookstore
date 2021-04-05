@@ -1,6 +1,10 @@
 @extends('layouts.master')
 
-@extends('content')
+@section('js')
+    <script src="{{asset('fontend/common/account.js')}}"></script>
+@endsection
+
+@section('content')
 <!-- Start Bradcaump area -->
 <div class="ht__bradcaump__area bg-image--6">
     <div class="container">
@@ -23,46 +27,56 @@
 <section class="my_account_area pt--80 pb--55 bg--white">
     <div class="container">
         <div class="row">
+            {{--{!! $inc_list !!}--}}
             <div class="col-lg-6 col-12">
                 <div class="my__account__wrapper">
-                    <h3 class="account__title">Login</h3>
-                    <form action="#">
+                    <h3 class="account__title">{{__('login')}}</h3>
+                    <form action="{{route('account.login')}}">
                         <div class="account__form">
                             <div class="input__box">
-                                <label>Username or email address <span>*</span></label>
-                                <input type="text">
+                                <label>{{__('Username_email')}} <span>*</span></label>
+                                <input name="username_or_email" autofocus  type="text">
                             </div>
                             <div class="input__box">
-                                <label>Password<span>*</span></label>
-                                <input type="text">
+                                <label>{{__('password')}}<span>*</span></label>
+                                <input name="password" type="password">
                             </div>
                             <div class="form__btn">
-                                <button>Login</button>
+                                <button data-action="login">{{__('login')}}</button>
                                 <label class="label-for-checkbox">
-                                    <input id="rememberme" class="input-checkbox" name="rememberme" value="forever" type="checkbox">
-                                    <span>Remember me</span>
+                                    <input id="rememberme" class="input-checkbox" name="remember_me" value="" type="checkbox">
+                                    <span>{{__('remember_me')}}</span>
                                 </label>
                             </div>
-                            <a class="forget_pass" href="#">Lost your password?</a>
+                            <a class="forget_pass" href="#">{{__('lost_your_password')}}</a>
                         </div>
                     </form>
                 </div>
             </div>
             <div class="col-lg-6 col-12">
                 <div class="my__account__wrapper">
-                    <h3 class="account__title">Register</h3>
-                    <form action="#">
+                    <h3 class="account__title">{{__('register')}}</h3>
+                    <form action="{{route('account.register')}}">
                         <div class="account__form">
                             <div class="input__box">
-                                <label>Email address <span>*</span></label>
-                                <input type="email">
+                                <label>{{__('username')}} <span>*</span></label>
+                                <input name="name" type="text" required>
                             </div>
                             <div class="input__box">
-                                <label>Password<span>*</span></label>
-                                <input type="password">
+                                <label>{{__('email')}} <span>*</span></label>
+                                <input name="email" type="email" required>
+                            </div>
+                            <div class="input__box">
+                                <label>{{__('password')}}<span>*</span></label>
+                                <input name="password" type="password" required>
+                            </div>
+
+                            <div class="input__box">
+                                <label>{{__('re_password')}}<span>*</span></label>
+                                <input name="re_password" type="password" required>
                             </div>
                             <div class="form__btn">
-                                <button>Register</button>
+                                <button data-action="register">{{__('register')}}</button>
                             </div>
                         </div>
                     </form>

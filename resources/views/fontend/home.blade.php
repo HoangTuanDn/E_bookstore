@@ -1,8 +1,8 @@
 @extends('layouts.master')
 
-{{--@section('js')--}}
-{{--    <script src="{{asset('fontend/common/custom.js')}}"></script>--}}
-{{--@endsection--}}
+@section('js')
+    <script src="{{asset('fontend/common/shop.js')}}"></script>
+@endsection
 
 @section('content')
     <!-- Start Slider area -->
@@ -86,7 +86,7 @@
                                         <ul class="add_to_links">
                                             <li><a class="cart" href="{{route('home.checkout')}}"><i class="bi bi-shopping-bag4"></i></a></li>
                                             <li><a class="wishlist" data-name="{{$product['name']}}" data-id="{{$product['id']}}" data-action="add_to_cart"  href="{{route('home.cart.store')}}"><i class="bi bi-shopping-cart-full"></i></a></li>
-                                            <li><a class="compare" href="{{route('home.wish_list')}}"><i class="bi bi-heart-beat"></i></a></li>
+                                            <li><a class="compare"  data-action="add_to_wishlist" data-exist="{{__('exist_in_wishlist',['name' => $product['name']])}}" data-add="{{__('add_to_wishlist',['name' => $product['name']])}}" href="{{route('home.wish_list')}}"><i class="bi bi-heart-beat"></i></a></li>
                                             <li><a data-toggle="modal" data-action="quick_view" data-url="{{route('home.cart.store')}}" title="Quick View" class="quickview modal-view detail-link" href="#productmodal"><i class="bi bi-search"></i></a></li>
                                         </ul>
                                     </div>
@@ -186,7 +186,7 @@
                                                         <ul class="add_to_links">
                                                             <li><a class="cart" href="{{route('home.checkout')}}"><i class="bi bi-shopping-bag4"></i></a></li>
                                                             <li><a class="wishlist" data-name="{{$product['name']}}" data-id="{{$product['id']}}" data-action="add_to_cart"  href="{{route('home.cart.store')}}"><i class="bi bi-shopping-cart-full"></i></a></li>
-                                                            <li><a class="compare" href="{{route('home.wish_list')}}"><i class="bi bi-heart-beat"></i></a></li>
+                                                            <li><a class="compare"  data-action="add_to_wishlist" data-exist="{{__('exist_in_wishlist',['name' => $product['name']])}}" data-add="{{__('add_to_wishlist',['name' => $product['name']])}}" href="{{route('home.wish_list')}}"><i class="bi bi-heart-beat"></i></a></li>
                                                             <li><a data-toggle="modal" data-action="quick_view" data-url="{{route('home.cart.store')}}" title="Quick View" class="quickview modal-view detail-link" href="#productmodal"><i class="bi bi-search"></i></a></li>
                                                         </ul>
                                                     </div>
@@ -239,7 +239,7 @@
                                                         <ul class="add_to_links">
                                                             <li><a class="cart" href="{{route('home.checkout')}}"><i class="bi bi-shopping-bag4"></i></a></li>
                                                             <li><a class="wishlist" data-name="{{$product['name']}}" data-id="{{$product['id']}}" data-action="add_to_cart"  href="{{route('home.cart.store')}}"><i class="bi bi-shopping-cart-full"></i></a></li>
-                                                            <li><a class="compare" href="{{route('home.wish_list')}}"><i class="bi bi-heart-beat"></i></a></li>
+                                                            <li><a class="compare"  data-action="add_to_wishlist" data-exist="{{__('exist_in_wishlist',['name' => $product['name']])}}" data-add="{{__('add_to_wishlist',['name' => $product['name']])}}" href="{{route('home.wish_list')}}"><i class="bi bi-heart-beat"></i></a></li>
                                                             <li><a data-toggle="modal" data-action="quick_view" data-url="{{route('home.cart.store')}}" title="Quick View" class="quickview modal-view detail-link" href="#productmodal"><i class="bi bi-search"></i></a></li>
                                                         </ul>
                                                     </div>
@@ -292,7 +292,7 @@
                                                         <ul class="add_to_links">
                                                             <li><a class="cart" href="{{route('home.checkout')}}"><i class="bi bi-shopping-bag4"></i></a></li>
                                                             <li><a class="wishlist" data-name="{{$product['name']}}" data-id="{{$product['id']}}" data-action="add_to_cart"  href="{{route('home.cart.store')}}"><i class="bi bi-shopping-cart-full"></i></a></li>
-                                                            <li><a class="compare" href="{{route('home.wish_list')}}"><i class="bi bi-heart-beat"></i></a></li>
+                                                            <li><a class="compare"  data-action="add_to_wishlist" data-exist="{{__('exist_in_wishlist',['name' => $product['name']])}}" data-add="{{__('add_to_wishlist',['name' => $product['name']])}}" href="{{route('home.wish_list')}}"><i class="bi bi-heart-beat"></i></a></li>
                                                             <li><a data-toggle="modal" data-action="quick_view" data-url="{{route('home.cart.store')}}" title="Quick View" class="quickview modal-view detail-link" href="#productmodal"><i class="bi bi-search"></i></a></li>
                                                         </ul>
                                                     </div>
@@ -345,7 +345,7 @@
                                                         <ul class="add_to_links">
                                                             <li><a class="cart" href="{{route('home.checkout')}}"><i class="bi bi-shopping-bag4"></i></a></li>
                                                             <li><a class="wishlist" data-name="{{$product['name']}}" data-id="{{$product['id']}}" data-action="add_to_cart"  href="{{route('home.cart.store')}}"><i class="bi bi-shopping-cart-full"></i></a></li>
-                                                            <li><a class="compare" href="{{route('home.wish_list')}}"><i class="bi bi-heart-beat"></i></a></li>
+                                                            <li><a class="compare"  data-action="add_to_wishlist" data-exist="{{__('exist_in_wishlist',['name' => $product['name']])}}" data-add="{{__('add_to_wishlist',['name' => $product['name']])}}" href="{{route('home.wish_list')}}"><i class="bi bi-heart-beat"></i></a></li>
                                                             <li><a data-toggle="modal" data-action="quick_view" data-url="{{route('home.cart.store')}}" title="Quick View" class="quickview modal-view detail-link" href="#productmodal"><i class="bi bi-search"></i></a></li>
                                                         </ul>
                                                     </div>
@@ -398,7 +398,7 @@
                                                         <ul class="add_to_links">
                                                             <li><a class="cart" href="{{route('home.checkout')}}"><i class="bi bi-shopping-bag4"></i></a></li>
                                                             <li><a class="wishlist" data-name="{{$product['name']}}" data-id="{{$product['id']}}" data-action="add_to_cart"  href="{{route('home.cart.store')}}"><i class="bi bi-shopping-cart-full"></i></a></li>
-                                                            <li><a class="compare" href="{{route('home.wish_list')}}"><i class="bi bi-heart-beat"></i></a></li>
+                                                            <li><a class="compare"  data-action="add_to_wishlist" data-exist="{{__('exist_in_wishlist',['name' => $product['name']])}}" data-add="{{__('add_to_wishlist',['name' => $product['name']])}}" href="{{route('home.wish_list')}}"><i class="bi bi-heart-beat"></i></a></li>
                                                             <li><a data-toggle="modal" data-action="quick_view" data-url="{{route('home.cart.store')}}" title="Quick View" class="quickview modal-view detail-link" href="#productmodal"><i class="bi bi-search"></i></a></li>
                                                         </ul>
                                                     </div>
@@ -449,7 +449,7 @@
                                 <ul class="add_to_links">
                                     <li><a class="cart" href="{{route('home.checkout')}}"><i class="bi bi-shopping-bag4"></i></a></li>
                                     <li><a class="wishlist" data-name="{{$product['name']}}" data-id="{{$product['id']}}" data-action="add_to_cart"  href="{{route('home.cart.store')}}"><i class="bi bi-shopping-cart-full"></i></a></li>
-                                    <li><a class="compare" href="{{route('home.wish_list')}}"><i class="bi bi-heart-beat"></i></a></li>
+                                    <li><a class="compare"  data-action="add_to_wishlist" data-exist="{{__('exist_in_wishlist',['name' => $product['name']])}}" data-add="{{__('add_to_wishlist',['name' => $product['name']])}}" href="{{route('home.wish_list')}}"><i class="bi bi-heart-beat"></i></a></li>
                                     <li><a data-toggle="modal"  data-action="quick_view" data-url="{{route('home.cart.store')}}" title="Quick View" class="quickview modal-view detail-link" href="#productmodal"><i class="bi bi-search"></i></a></li>
                                 </ul>
                             </div>

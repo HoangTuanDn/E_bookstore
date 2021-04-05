@@ -16,18 +16,15 @@ class Customer extends Authenticatable
     use SoftDeletes;
 
 
-    protected $fillable = [
-        'name',
-        'email',
-        'phone',
-        'password',
-
+    protected $guarded = [
+        'id',
     ];
 
     protected $hidden = [
         'password',
         'remember_token',
     ];
+
 
     protected $casts = [
         'email_verified_at' => 'datetime',
