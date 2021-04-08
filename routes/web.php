@@ -8,11 +8,13 @@ use App\Http\Controllers\Backend\RoleController;
 use App\Http\Controllers\Backend\SettingController;
 use App\Http\Controllers\Backend\SliderController;
 use App\Http\Controllers\Backend\UserController;
+use App\Http\Controllers\backend\OrderController as BackendOrderController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\fontend\CartController;
 use App\Http\Controllers\fontend\CheckOutController;
 use App\Http\Controllers\fontend\ContactController;
 use App\Http\Controllers\fontend\HomeController;
+use App\Http\Controllers\fontend\OrderController;
 use App\Http\Controllers\fontend\WishListController;
 use App\Http\Controllers\ShipController;
 use Illuminate\Support\Facades\Route;
@@ -51,6 +53,7 @@ Route::prefix('admin')->group(function (){
     Route::get('/logout', [AuthController::class, 'logout'])
         ->name('auth.admin_logout');
 
+    /*category route*/
     Route::prefix('categories')->middleware('auth_admin')->group(function (){
         Route::get('/index', [CategoryController::class, 'index'])
             ->middleware('can:category-viewAny')
@@ -76,6 +79,7 @@ Route::prefix('admin')->group(function (){
 
     });
 
+    /*menu route*/
     Route::prefix('menus')->middleware('auth_admin')->group(function (){
 
         Route::get('/index', [MenuController::class, 'index'])
@@ -98,7 +102,7 @@ Route::prefix('admin')->group(function (){
 
     });
 
-
+    /*product route*/
     Route::prefix('products')->middleware('auth_admin')->group(function (){
 
         Route::get('/index', [ProductController::class, 'index'])
@@ -121,6 +125,7 @@ Route::prefix('admin')->group(function (){
 
     });
 
+    /*slider route*/
     Route::prefix('sliders')->middleware('auth_admin')->group(function (){
 
         Route::get('/index', [SliderController::class, 'index'])
@@ -143,6 +148,7 @@ Route::prefix('admin')->group(function (){
 
     });
 
+    /*setting route*/
     Route::prefix('settings')->middleware('auth_admin')->group(function (){
 
         Route::get('/index', [SettingController::class, 'index'])
@@ -165,6 +171,7 @@ Route::prefix('admin')->group(function (){
 
     });
 
+    /*user admin route*/
     Route::prefix('users')->middleware('auth_admin')->group(function (){
 
         Route::get('/index', [UserController::class, 'index'])
@@ -187,6 +194,7 @@ Route::prefix('admin')->group(function (){
 
     });
 
+    /*role route*/
     Route::prefix('roles')->middleware('auth_admin')->group(function (){
 
         Route::get('/index', [RoleController::class, 'index'])
@@ -208,6 +216,7 @@ Route::prefix('admin')->group(function (){
             ->name('roles.destroy');
     });
 
+    /*coupon route*/
     Route::prefix('coupons')->middleware('auth_admin')->group(function (){
 
         Route::get('/index', [CouponController::class, 'index'])
@@ -230,6 +239,7 @@ Route::prefix('admin')->group(function (){
 
     });
 
+    /*permission route*/
     Route::prefix('permissions')->middleware('auth_admin')->group(function (){
 
         Route::get('/index', [PermissionController::class, 'index'])
@@ -274,6 +284,22 @@ Route::prefix('admin')->group(function (){
             ->name('ships.destroy');
     });
 
+    /*order route*/
+    Route::prefix('orders')->middleware('auth_admin')->group(function (){
+
+        Route::get('/index', [BackendOrderController::class, 'index'])
+            ->name('orders.index');
+
+        Route::get('/show/{id}', [BackendOrderController::class, 'show'])
+            ->name('orders.show');
+
+        Route::post('/update/{id}', [BackendOrderController::class, 'update'])
+            ->name('orders.update');
+
+        Route::post('/destroy/{id}', [BackendOrderController::class, 'destroy'])
+            ->name('orders.destroy');
+    });
+
     Route::group(['prefix' => 'filemanager'], function () {
         Lfm::routes();
     });
@@ -288,6 +314,7 @@ Route::prefix('home')->group(function (){
     Route::get('/',[HomeController::class, 'index'])
         ->name('home');
 
+    /*account*/
     Route::prefix('account')->group(function () {
         Route::get('/my',[CustomerController::class, 'index'])
             ->name('account.my');
@@ -297,14 +324,19 @@ Route::prefix('home')->group(function (){
 
         Route::post('/register',[CustomerController::class, 'register'])
             ->name('account.register');
+
+        Route::post('/logout',[CustomerController::class, 'logout'])
+            ->name('account.logout');
     });
 
+    /*shop*/
     Route::get('/shop', [FdProductController::class, 'index'])
         ->name('home.shop');
 
     Route::get('/shop/{slug}', [FdProductController::class, 'show'])
         ->name('home.shop.single_product');
 
+    /*cart*/
     Route::get('/cart',[CartController::class, 'index'])
         ->name('home.cart');
 
@@ -317,12 +349,26 @@ Route::prefix('home')->group(function (){
     Route::post('/cart/destroy/{id}',[CartController::class, 'destroy'])
         ->name('home.cart.destroy');
 
-    Route::get('/checkout',[CheckOutController::class, 'index'])
+    /*checkout*/
+    Route::get('/checkout/{slug?}',[CheckOutController::class, 'index'])
         ->name('home.checkout');
 
+
+    /*order*/
+    Route::post('/order/{slug?}',[OrderController::class, 'store'])
+        ->name('home.order');
+
+    Route::get('/order',[OrderController::class, 'index'])
+        ->name('order.index');
+
+    Route::post('/order/delete/{id}',[OrderController::class, 'destroy'])
+        ->name('order.destroy');
+
+    /*wishlist*/
     Route::get('/wish-list',[WishListController::class, 'index'])
         ->name('home.wish_list');
 
+    /*contact*/
     Route::get('/contact',[ContactController::class, 'index'])
         ->name('home.concat');
 

@@ -37,12 +37,15 @@ $(function (){
         hideCartBox()
         let currentElement = $(this);
         let url = currentElement.attr('href');
+        let quantity = currentElement.closest('.box-tocart').find('input[id="qty"]').val();
+        console.log(quantity)
         if (!url) {
             url = currentElement.attr('data-url');
         }
 
         let data = {
-            'id': currentElement.attr('data-id')
+            'id': currentElement.attr('data-id'),
+            'quantity' : quantity
         }
 
         $.ajax({
@@ -79,7 +82,6 @@ $(function (){
     $(document).on('click', '*[data-action="remove-item-in-box"]', function () {
         event.preventDefault()
         let currentElement = $(this);
-        console.log(currentElement)
 
         let url = currentElement.attr('href');
         let data = {
@@ -210,4 +212,34 @@ $(function (){
             toast(toastConfig)
         }
     });
+
+    /*handle logout*/
+    $(document).on('click', '*[data-action="logout"]', function (){
+        event.preventDefault();
+        let currentElement = $(this);
+        let url = currentElement.attr('href');
+
+        $.ajax({
+            url: url,
+            type: 'post',
+            headers : {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function (json){
+                if (json['success'] === true) {
+                    var toastConfig = {
+                        message : json['data']['message'],
+                        type    : json['data']['type'],
+                        duration: 3000
+                    }
+                    toast(toastConfig)
+                    setTimeout(function (){
+                        window.location.href = json['data']['url_redirect'];
+                    }, 1000)
+
+                }
+            }
+        })
+    })
+
 })

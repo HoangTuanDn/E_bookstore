@@ -43,7 +43,7 @@ $(function (){
 
     });
 
-
+    /*handle change price*/
     $(document).on('blur', '*[data-action="change-price"]', function () {
         event.preventDefault();
         let currentElement = $(this);
@@ -108,9 +108,8 @@ $(function (){
         $("#session-message").attr('data-message', '')
     }
 
-    /*delete product*/
+    /*delete ship*/
     $('*[data-action="btnDelete"]').click(function (){
-        console.log('a')
 
         event.preventDefault();
 
@@ -118,7 +117,7 @@ $(function (){
         var url = $(this).attr('data-url');
         var currentElement = $(this);
 
-        app.deleteObject(name, url, currentElement)
+        app.deleteObject(`Địa chỉ giao hàng này sẽ bị xóa ?`, url, currentElement)
     });
 
 })

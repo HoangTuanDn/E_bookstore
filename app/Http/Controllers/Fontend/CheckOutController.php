@@ -5,6 +5,8 @@ namespace App\Http\Controllers\fontend;
 
 use App\Models\Coupon;
 use App\Models\District;
+use App\Models\Payment;
+use App\Models\Product;
 use App\Models\Province;
 use App\Models\Ship;
 use App\Models\Ward;
@@ -18,6 +20,8 @@ class CheckOutController extends Controller
     private $ward;
     private $ship;
     private $coupon;
+    private $payment;
+    private $product;
 
     /**
      * ShipController constructor.
@@ -26,31 +30,41 @@ class CheckOutController extends Controller
      * @param Ward $ward
      * @param Ship $ship
      * @param Coupon $coupon
+     * @param Payment $payment
+     * @param Product $product
      */
-    public function __construct(Province $province, District $district, Ward $ward, Ship $ship, Coupon $coupon)
+    public function __construct(Province $province, District $district, Ward $ward, Ship $ship, Coupon $coupon, Payment $payment, Product $product)
     {
         $this->province = $province;
         $this->district = $district;
         $this->ward = $ward;
         $this->ship = $ship;
         $this->coupon = $coupon;
+        $this->payment = $payment;
+        $this->product = $product;
     }
 
 
-    public function index(Request $request)
+    public function index(Request $request, $slug = null)
     {
         //session()->pull('order');
         $idCountryRequest = $request->only(['province_id', 'district_id', 'ward_id']);
-
         $provinces = $this->province->all();
-        $htmDistrictRender = '';
-        $htmlRenderWard = '';
+        $htmDistrictRender = '<option value="">' . __('select_district') . '</option>';
+        $htmlRenderWard = '<option value="">' . __('select_ward') . '</option>';
+        $couponCode = $request->input('coupon_code');
+        $couponData = [];
+        $totalPrice = 0;
         $data = session('cart');
         $order = session('order');
-        $couponCode = $request->coupon_code;
-        $totalPrice = 0;
 
-        if (isset($idCountryRequest['province_id'])) {
+        if ($slug) {
+            $data = $this->product->where('slug', $slug)->first();
+        }
+
+        if (isset($idCountryRequest['province_id'])
+            && !isset($idCountryRequest['district_id'])
+            && !isset($idCountryRequest['ward_id'])) {
             $districts = $this->district->where('province_id', $idCountryRequest['province_id'])->get();
             foreach ($districts as $district) {
                 $htmDistrictRender .= '<option value="' . $district->id . '">' . $district->name . '</option>';
@@ -67,7 +81,9 @@ class CheckOutController extends Controller
 
         }
 
-        if (isset($idCountryRequest['district_id'])) {
+        if (isset($idCountryRequest['district_id'])
+            && !isset($idCountryRequest['province_id'])
+            && !isset($idCountryRequest['ward_id'])) {
             $wards = $this->ward->where('district_id', $idCountryRequest['district_id'])->get();
             foreach ($wards as $ward) {
                 $htmlRenderWard .= '<option value="' . $ward->id . '">' . $ward->name . '</option>';
@@ -86,9 +102,14 @@ class CheckOutController extends Controller
         }
 
         if ($data) {
-            foreach ($data as $item) {
-                $data[$item['id']]['sub_price'] = $item['quantity'] * $item['price'];
-                $totalPrice += $item['quantity'] * $item['price'];
+
+            if ($slug) {
+                $totalPrice = $data->discount;
+            } else {
+                foreach ($data as $item) {
+                    $data[$item['id']]['sub_price'] = $item['quantity'] * $item['price'];
+                    $totalPrice += $item['quantity'] * $item['price'];
+                }
             }
 
             if (!isset($order)) {
@@ -96,9 +117,23 @@ class CheckOutController extends Controller
                 $order['fee_ship'] = 0;
                 $order['coupon_code'] = '';
             }
+
+
         }
 
-        if (!empty($order['coupon_code']) && $order['coupon_code'] != $couponCode) {
+        if (!empty($order['coupon_code'])) {
+            $coupon = $this->coupon->where('code', $order['coupon_code'])->first();
+
+            if ($coupon) {
+                $couponData = [
+                    'condition' => $coupon->condition,
+                    'discount'  => $coupon->count,
+                ];
+            }
+
+        }
+
+        if (!empty($order['coupon_code']) && isset($couponCode) && $order['coupon_code'] != $couponCode) {
             $json = [
                 'success' => true,
                 'data'    => [
@@ -112,7 +147,7 @@ class CheckOutController extends Controller
             }
         }
 
-        if(!empty($order['coupon_code']) && $order['coupon_code'] == $couponCode) {
+        if (!empty($order['coupon_code']) && $order['coupon_code'] == $couponCode) {
             $json = [
                 'success' => true,
                 'data'    => [
@@ -132,6 +167,11 @@ class CheckOutController extends Controller
         if ($coupon) {
             $order['coupon_code'] = $couponCode;
 
+            $couponData = [
+                'condition' => $coupon->condition,
+                'discount'  => $coupon->count,
+            ];
+
             if ($coupon->condition === 1) {
                 $order['total_price'] *= ($coupon->count / 100);
             }
@@ -140,7 +180,7 @@ class CheckOutController extends Controller
             }
 
             session()->put('order', $order);
-            $inc_cart = view('fontend.checkout.inc.checkout', compact('data', 'totalPrice', 'order'))->render();
+            $inc_cart = view('fontend.checkout.inc.checkout', compact('data', 'slug', 'totalPrice', 'order', 'couponData'))->render();
 
             $json = [
                 'success' => true,
@@ -183,12 +223,12 @@ class CheckOutController extends Controller
 
             session()->put('order', $order);
 
-            $inc_cart = view('fontend.checkout.inc.checkout', compact('data', 'totalPrice', 'order'))->render();
+            $inc_cart = view('fontend.checkout.inc.checkout', compact('data', 'slug', 'totalPrice', 'order', 'couponData'))->render();
 
             $json = [
                 'success' => true,
                 'data'    => [
-                    'type'            => 'fee_ship',
+                    'type'            => __('type_success'),
                     'detailOrderHtml' => $inc_cart,
                     'message'         => __('fee_ship')
                 ]
@@ -200,7 +240,12 @@ class CheckOutController extends Controller
         }
 
         session()->put('order');
-        $inc_cart = view('fontend.checkout.inc.checkout', compact('data', 'totalPrice', 'order'))->render();
-        return view('fontend.checkout.checkout', compact('provinces', 'inc_cart', 'order'));
+
+        if ($data){
+            $inc_cart = view('fontend.checkout.inc.checkout', compact('data', 'slug', 'totalPrice', 'order', 'couponData'))->render();
+            return view('fontend.checkout.checkout', compact('provinces', 'slug', 'inc_cart', 'order'));
+        }
+
     }
+
 }

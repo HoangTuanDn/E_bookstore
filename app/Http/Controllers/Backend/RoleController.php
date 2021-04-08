@@ -15,6 +15,7 @@ class RoleController extends Controller
 {
     private $role;
     private $permission;
+
     /**
      * RoleController constructor.
      */
@@ -24,36 +25,48 @@ class RoleController extends Controller
         $this->permission = $permission;
     }
 
-    public function index(){
-        $groupPermissions = $this->permission->where('parent_id','=', 0)->get(['id','name']);
-        $childrenPermissions = $this->permission->where('parent_id','!=', 0)->get(['id', 'parent_id']);
+    public function index()
+    {
 
-        $dataCount = [];
-        foreach ($childrenPermissions as $children){
-            if (!isset($data[$children->parent_id])){
-                $dataCount[$children->parent_id] = 1;
-            }else if (array_key_exists($children->parent_id, $data)){
-                $dataCount[$children->parent_id] += 1;
+        $roles = $this->role->select('id', 'name', 'display_name')->paginate(config('custom.limit'));
+        $permissions = $this->permission->get(['id', 'name', 'parent_id']);
+        $dataCount = collect($this->permission->get(['parent_id']));
+        $dataCount = $dataCount->countBy('parent_id');
+
+        $allNamePermission = [];
+
+        foreach ($permissions as $permission) {
+            if ($permission->parent_id === 0) {
+                $allNamePermission[$permission->id]['name'] = $permission->name;
+            }
+            if (array_key_exists($permission->parent_id, $allNamePermission)) {
+                $allNamePermission[$permission->parent_id]['id'][] = $permission->id;
             }
         }
 
-        $dataGroup = [];
+        $rolePermission = [];
 
-        foreach ($groupPermissions as $group){
-            $dataGroup[$group->id] = $group->name;
+        foreach ($roles as $role) {
+            foreach ($role->permissions as $permission) {
+                $rolePermission[$role->id][$permission->parent_id] ['name'][] = $permission->name;
+                if (count($rolePermission[$role->id][$permission->parent_id]['name']) == count($allNamePermission[$permission->parent_id]['id'])) {
+                    $rolePermission[$role->id][$permission->parent_id] ['full_name'] = $allNamePermission[$permission->parent_id]['name'];
+                }
+            }
         }
 
 
-        $roles = $this->role->select('id', 'name','display_name')->paginate(config('custom.limit'));
-            return view('admin.role.index', compact('roles', 'dataGroup', 'dataCount'));
+        return view('admin.role.index', compact('roles', 'dataCount', 'rolePermission'));
     }
 
-    public function create(Request $request){
+    public function create(Request $request)
+    {
         $permissions = $this->permission->where('parent_id', 0)->get(['id', 'name', 'display_name', 'key_code']);
-        return view('admin.role.create',compact('permissions'));
+        return view('admin.role.create', compact('permissions'));
     }
 
-    public function store(RoleRequest $request){
+    public function store(RoleRequest $request)
+    {
 
         try {
             DB::beginTransaction();
@@ -81,14 +94,16 @@ class RoleController extends Controller
             ->with('type', __('type_success'));
     }
 
-    public function edit(Request $request, $id){
+    public function edit(Request $request, $id)
+    {
         $permissions = $this->permission->where('parent_id', 0)->get(['id', 'name', 'display_name', 'key_code']);
         $role = $this->role->find($id);
 
         return view('admin.role.edit', compact('role', 'permissions'));
     }
 
-    public function update(RoleRequest $request, $id){
+    public function update(RoleRequest $request, $id)
+    {
 
         try {
             DB::beginTransaction();
@@ -117,9 +132,10 @@ class RoleController extends Controller
             ->with('type', __('type_success'));
     }
 
-    public function destroy(Request $request, $id){
+    public function destroy(Request $request, $id)
+    {
         try {
-            $role =  $this->role->find($id);
+            $role = $this->role->find($id);
             $isDelete = $role->delete();
             $role->permissions()->detach();
 
@@ -128,10 +144,10 @@ class RoleController extends Controller
             $isDelete = false;
         }
 
-        $message = $this->getMessage('success', 'delete',  __('role'));
+        $message = $this->getMessage('success', 'delete', __('role'));
 
-        if (!$isDelete){
-            $message = $this->getMessage('error', 'delete',  __('role'));
+        if (!$isDelete) {
+            $message = $this->getMessage('error', 'delete', __('role'));
 
             return response()->json([
                 'check'   => $isDelete,

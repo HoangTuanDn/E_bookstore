@@ -4,7 +4,6 @@ $(function () {
         let currentElement = $(this);
         let data = {};
         let type = currentElement.attr('data-type');
-        //console.log(currentElement.closest('[data-action="data-store"]').find('[data-action="select-district"]'))
 
 
         if (type === 'province') {
@@ -26,8 +25,8 @@ $(function () {
             }
         }
 
-        let url = currentElement.closest('*[data-action="store-data"]').attr('data-url');
-        console.log(url)
+        // let url = currentElement.closest('*[data-action="store-data"]').attr('data-url');
+        let url = window.location.href;
 
         $.ajax({
             url     : url,
@@ -67,7 +66,9 @@ $(function () {
     $(document).on('click', '*[data-action="apply-coupon"]', function () {
         event.preventDefault();
         let currentElement = $(this);
-        let url = currentElement.closest('form').attr('action');
+        /*let url = currentElement.closest('form').attr('action');*/
+        let url = window.location.href;
+
         $.ajax({
             url     : url,
             type    : 'GET',
@@ -102,6 +103,127 @@ $(function () {
                     toast(toastConfig)
                 }
             },
+        })
+
+    })
+
+    /*handle if not login*/
+    $(document).on('click', '*[data-action="login-checkout"]', function (e) {
+        event.preventDefault()
+        let currentElement = $(this);
+
+        let url = currentElement.closest('form').attr('action');
+        let data = {
+            'username_or_email': currentElement.closest('form').find('input[name="username_or_email"]').val(),
+            'password'         : currentElement.closest('form').find('input[name="password"]').val(),
+            'remember_me'      : currentElement.closest('form').find('input[name="remember_me"]').val(),
+        }
+
+        $.ajax({
+            url     : url,
+            type    : 'post',
+            data    : data,
+            dataType: 'json',
+            headers : {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success : function (json) {
+                if (json['success'] === true){
+                    var toastConfig = {
+                        message : json['data']['message'],
+                        type    : json['data']['type'],
+                        duration: 3000
+                    }
+                    toast(toastConfig)
+                    setTimeout(function (){
+                       location.reload();
+                    }, 500)
+                }
+
+            },
+            error   : function (json) {
+                if (json['responseJSON'] !== undefined) {
+                    let errors = Object.values(json['responseJSON']['errors']);
+
+                    let errormessage = [];
+                    console.log(errors);
+                    errormessage = errors.map(function (element, index) {
+                        return  element[0]
+                    })
+
+                    var toastConfig = {
+                        message : errormessage[0],
+                        type    : 'error',
+                        duration: 3000
+                    }
+                    toast(toastConfig)
+
+                }
+            }
+
+        })
+
+    })
+
+    /*handle order*/
+    $(document).on('click', '*[data-action="apply-order"]', function (e) {
+        event.preventDefault()
+        let currentElement = $(this);
+
+        let url = currentElement.attr('data-url');
+
+        let data = {
+            'coupon_code'         : currentElement.closest('#wrapper').find('input[name="coupon_code"]').val(),
+            'full_name'      : currentElement.closest('#wrapper').find('input[name="full_name"]').val(),
+            'province_id'      : currentElement.closest('#wrapper').find('#province').val(),
+            'district_id'      : currentElement.closest('#wrapper').find('#district').val(),
+            'ward_id'      : currentElement.closest('#wrapper').find('#ward').val(),
+            'address'      : currentElement.closest('#wrapper').find('input[name="address"]').val(),
+            'phone'      : currentElement.closest('#wrapper').find('input[name="phone"]').val(),
+            'email'      : currentElement.closest('#wrapper').find('input[name="email"]').val(),
+            'payment_id'      : currentElement.closest('#wrapper').find('input[name="payment"]:checked').val(),
+        }
+
+
+        $.ajax({
+            url     : url,
+            type    : 'post',
+            data    : data,
+            dataType: 'json',
+            headers : {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success : function (json) {
+                console.log(json)
+
+                var toastConfig = {
+                    message : json['data']['message'],
+                    type    : json['data']['type'],
+                    duration: 3000
+                }
+                toast(toastConfig)
+
+            },
+            error   : function (json) {
+                if (json['responseJSON'] !== undefined) {
+                    let errors = Object.values(json['responseJSON']['errors']);
+
+                    let errormessage = [];
+                    console.log(errors);
+                    errormessage = errors.map(function (element, index) {
+                        return  element[0]
+                    })
+
+                    var toastConfig = {
+                        message : errormessage[0],
+                        type    : 'error',
+                        duration: 3000
+                    }
+                    toast(toastConfig)
+
+                }
+            }
+
         })
 
     })

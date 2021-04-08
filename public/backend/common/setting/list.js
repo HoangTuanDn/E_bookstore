@@ -30,6 +30,6 @@ $(function () {
         var url = $(this).attr('data-url');
         var currentElement = $(this);
 
-        app.deleteObject(name, url, currentElement)
+        app.deleteObject(`Thiết lập ${name} sẽ bị xóa ?`, url, currentElement)
     });
 });

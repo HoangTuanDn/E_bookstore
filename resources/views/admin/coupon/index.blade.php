@@ -20,7 +20,7 @@
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
-    @include('partials.breadcrumb',['module' => 'menus'])
+    @include('partials.breadcrumb',['module' => 'coupons'])
 
 
     <!-- Main content -->
@@ -109,9 +109,9 @@
                                     <td >
                                         <a>
                                             @if($coupon->condition == 1)
-                                                Giảm {{$coupon->count}} %
+                                                {{$coupon->count .'%'}}
                                             @else
-                                                Giảm {{number_format($coupon->count, 0, ',', '.')}} nVND
+                                                {{number_format($coupon->count, 0, ',', '.')}}
                                             @endif
                                         </a>
                                     </td>

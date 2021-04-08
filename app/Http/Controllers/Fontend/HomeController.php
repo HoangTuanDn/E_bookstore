@@ -26,7 +26,7 @@ class HomeController extends Controller
     }
 
     public function index(Request $request){
-
+        //session()->flush();
         $dbProduct = $this->product
             ->get(['id', 'slug','author', 'title', 'name', 'price', 'featured_img', 'discount', 'quantity', 'quantity_sold', 'type', 'publish_date', 'created_at']);
 

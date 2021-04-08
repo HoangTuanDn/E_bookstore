@@ -10,7 +10,7 @@
         <span>{!! number_format($totalPrice, 0, ',', '.') . __('currency_unit') !!}</span>
     </div>
     <div class="mini_action checkout">
-        <a class="checkout__btn" href="cart.html">{{__('check_out')}}</a>
+        <a class="checkout__btn" href="{{route('home.checkout')}}">{{__('check_out')}}</a>
     </div>
     <div class="single__items">
         <div class="miniproduct">

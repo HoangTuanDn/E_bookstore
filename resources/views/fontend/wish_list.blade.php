@@ -57,22 +57,7 @@
                                     <td class="product-stock-status"><span class="wishlist-in-stock">In Stock</span></td>
                                     <td class="product-add-to-cart"><a href="#"> Add to Cart</a></td>
                                 </tr>
-                                <tr>
-                                    <td class="product-remove"><a href="#">×</a></td>
-                                    <td class="product-thumbnail"><a href="#"><img src="{{asset('fontend/images/product/sm-3/2.jpg')}}" alt=""></a></td>
-                                    <td class="product-name"><a href="#">Quisque fringilla</a></td>
-                                    <td class="product-price"><span class="amount">$50.00</span></td>
-                                    <td class="product-stock-status"><span class="wishlist-in-stock">In Stock</span></td>
-                                    <td class="product-add-to-cart"><a href="#"> Add to Cart</a></td>
-                                </tr>
-                                <tr>
-                                    <td class="product-remove"><a href="#">×</a></td>
-                                    <td class="product-thumbnail"><a href="#"><img src="{{asset('fontend/images/product/sm-3/3.jpg')}}" alt=""></a></td>
-                                    <td class="product-name"><a href="#">Quisque fringilla</a></td>
-                                    <td class="product-price"><span class="amount">$65.00</span></td>
-                                    <td class="product-stock-status"><span class="wishlist-in-stock">In Stock</span></td>
-                                    <td class="product-add-to-cart"><a href="#"> Add to Cart</a></td>
-                                </tr>
+
                                 </tbody>
                             </table>
                         </div>

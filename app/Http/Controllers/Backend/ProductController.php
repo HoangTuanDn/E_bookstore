@@ -305,7 +305,6 @@ class ProductController extends Controller
             $message = $this->getMessage('error', 'delete', __('product'));
 
             return response()->json([
-                'check'   => $isDelete,
                 'success' => false,
                 'data'    => [
                     'type'    => 'error',
@@ -315,7 +314,6 @@ class ProductController extends Controller
         }
 
         return response()->json([
-            'check'   => $isDelete,
             'success' => true,
             'data'    => [
                 'type'    => 'success',

@@ -134,10 +134,6 @@ function time_ago($start, $end)
     }
 }
 
-function highlight_search($input, $searchString, $css = 'is-match')
-{
-    return str_replace($searchString, "<span class=\"$css\">$searchString</span>", $input);
-}
 
 
 function hed($string, $quote_style = ENT_QUOTES, $charset = 'utf-8')
@@ -185,3 +181,19 @@ function unmark($str)
     return $str;
 }
 
+function filterEmailOrUsername($request , $field)
+{
+    $login = $request->input($field);
+    return  filter_var($login, FILTER_VALIDATE_EMAIL) ? 'email' : 'name';
+}
+
+function changeKeyCheck($array, $keyChange){
+    $data = $array;
+    foreach ($data as $key => $value){
+        if(str_contains($key, $keyChange)){
+            $data[$keyChange] = $value;
+            unset($data[$key]);
+        }
+    }
+    return $data;
+}

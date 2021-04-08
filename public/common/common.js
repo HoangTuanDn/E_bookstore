@@ -63,11 +63,11 @@ var app = {
         })
     },
 
-    deleteObject : function (name, url, currentElement){
+    deleteObject : function (text, url, currentElement){
 
         Swal.fire({
             title: 'Bạn có chắc không?',
-            text: `Danh mục sản phẩm ${name} sẽ bị xóa ?`,
+            text: text,
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
@@ -88,7 +88,7 @@ var app = {
                     success: function (json) {
                         Swal.fire(
                             'Deleted!',
-                            'Danh mục đã được xóa',
+                            json['data']['message'],
                             'success'
                         )
                         currentElement.closest('tr').css('background','tomato');

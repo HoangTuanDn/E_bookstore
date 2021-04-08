@@ -26,7 +26,9 @@ $(function () {
                         duration: 3000
                     }
                     toast(toastConfig)
-                    window.location.href = json['data']['url_redirect'];
+                    setTimeout(function (){
+                        window.location.href = json['data']['url_redirect'];
+                    }, 1000)
                 }
 
             },

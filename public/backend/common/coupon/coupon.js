@@ -40,7 +40,7 @@ $(function (){
         var url = $(this).attr('data-url');
         var currentElement = $(this);
 
-        app.deleteObject(name, url, currentElement)
+        app.deleteObject(`Mã giảm giá ${name} sẽ bị xóa ?`, url, currentElement)
     });
 
 })

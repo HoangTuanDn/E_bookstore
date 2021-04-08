@@ -25,9 +25,9 @@ class RegisterRequest extends FormRequest
     {
         return [
             'name' => 'required|min:2',
-            'email' => 'required|email',
+            'email' => 'required|email|unique:customers',
             'password' => 'required|min:6|',
-            're_password' => 'required:min:6|same:password'
+            're_password' => 'required|min:6|same:password'
         ];
     }
 
@@ -37,6 +37,7 @@ class RegisterRequest extends FormRequest
             'name.required' => __('name_required'),
             'email.required' => __('email_required'),
             'email.email' => __('email_format'),
+            'email.unique' => __('email_unique'),
             'password.required' => __('password_required'),
             'password.min' => __('password_min'),
             're_password.required' => __('password_confirmation_required'),

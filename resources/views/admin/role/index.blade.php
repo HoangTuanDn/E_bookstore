@@ -6,7 +6,7 @@
 
 @section('css')
     <link href="{{asset('/common/toastr.min.css')}}" rel='stylesheet' type='text/css' />
-{{--    <link href="{{asset('backend/common/user/user.css')}}" rel="stylesheet" />--}}
+    {{--    <link href="{{asset('backend/common/user/user.css')}}" rel="stylesheet" />--}}
 
 @endsection
 
@@ -24,7 +24,7 @@
         <!-- Content Header (Page header) -->
     @include('partials.breadcrumb',['module' => 'roles'])
 
-        <!-- Main content -->
+    <!-- Main content -->
         <section class="content">
         @if($roles)
             <!-- Default box -->
@@ -33,7 +33,8 @@
                     <div class="card-header">
                         <h3 class="card-title">Vai trò hệ thống</h3>
                         @if(session('message') && session('type'))
-                            <p id="session-message" data-message="{{session('message')}}" data-type="{{session('type')}}"></p>
+                            <p id="session-message" data-message="{{session('message')}}"
+                               data-type="{{session('type')}}"></p>
                         @endif
 
                         <div class="card-tools">
@@ -72,11 +73,11 @@
                             </thead>
                             <tbody>
                             @foreach($roles as $role)
-                                <tr >
-                                    <td >
+                                <tr>
+                                    <td>
                                         <span data-id="{{$role->id}}">{{$role->id}}</span>
                                     </td>
-                                    <td class="text-left" >
+                                    <td class="text-left">
                                         {{$role->name}}
                                     </td>
                                     <td class="text-left">
@@ -84,28 +85,29 @@
                                     </td>
 
                                     <td class="text-left ">
-                                       @if($role->permissions)
-{{--                                           @foreach($dataCount as $key=> $data)--}}
-{{--                                                @if($role->permissions->where('parent_id', $key)->count() == $data)--}}
-{{--                                                    <span class="mr-1 mt-1 d-inline-block bg-gradient-indigo p-1 bord rounded">{{$dataGroup[$key]}}</span>--}}
-{{--                                                @else--}}
-{{--                                                    --}}
-{{--                                                @endif--}}
-{{--                                            @endforeach--}}
-
-                                            @foreach($role->permissions as $permission)
-                                                <span class="mr-1 mt-1 d-inline-block bg-gradient-indigo p-1 bord rounded">{{$permission->name}}</span>
+                                        @if(isset($rolePermission[$role->id]))
+                                            @foreach($rolePermission[$role->id] as $permission)
+                                                @if(isset($permission['full_name']))
+                                                    <span class="mr-1 mt-1 d-inline-block bg-gradient-indigo p-1 bord rounded">{{$permission['full_name']}}</span>
+                                                @else
+                                                    @foreach($permission['name'] as $name)
+                                                        <span class="mr-1 mt-1 d-inline-block bg-gradient-indigo p-1 bord rounded">{{$name}}</span>
+                                                    @endforeach
+                                                @endif
                                             @endforeach
                                         @endif
                                     </td>
 
                                     <td class="project-actions text-right">
-                                        <a class="btn btn-info btn-sm" href="{{route('roles.edit', ['id' => $role->id])}}">
+                                        <a class="btn btn-info btn-sm"
+                                           href="{{route('roles.edit', ['id' => $role->id])}}">
                                             <i class="fas fa-pencil-alt">
                                             </i>
 
                                         </a>
-                                        <a class="btn btn-danger btn-sm" data-action="btnDelete" data-name="{{$role->name}}" data-url="{{route('roles.destroy', ['id'=> $role->id])}}" >
+                                        <a class="btn btn-danger btn-sm" data-action="btnDelete"
+                                           data-name="{{$role->name}}"
+                                           data-url="{{route('roles.destroy', ['id'=> $role->id])}}">
                                             <i class="fas fa-trash">
                                             </i>
                                         </a>

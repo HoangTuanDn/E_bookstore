@@ -25,55 +25,7 @@ $(function () {
         var url = $(this).attr('data-url');
         var currentElement = $(this);
 
-
-        Swal.fire({
-            title: 'Bạn có chắc không?',
-            text: `Danh mục sản phẩm ${name} sẽ bị xóa ?`,
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#dd3333',
-            confirmButtonText: 'Đồng ý',
-            cancelButtonText: 'Hủy bỏ',
-
-        }).then((result) => {
-            if (result.isConfirmed) {
-                $.ajax({
-                    url     : url,
-                    type    : 'post',
-                    dataType: 'json',
-                    headers : {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-
-                    success: function (json) {
-                        Swal.fire(
-                            'Deleted!',
-                            'Danh mục đã được xóa',
-                            'success'
-                        )
-                        if (Array.isArray(json['id'])){
-                            json['id'].forEach((item, index) => {
-                                $('*[data-id = "'+ item +'"]').css('background','tomato')
-                                $('*[data-id = "'+ item +'"]').fadeOut(800,function(){
-                                    $(this).remove();
-                                });
-                            })
-
-                        }
-                        else {
-                            currentElement.closest('tr').css('background','tomato');
-                            currentElement.closest('tr').fadeOut(800,function(){
-                                $(this).remove();
-                            });
-                        }
-
-                    },
-
-                });
-
-            }
-        })
+        app.deleteObject(`Quền truy cập ${name} sẽ bị xóa ?`, url, currentElement)
     });
 
 })

@@ -30,6 +30,39 @@
     align-items: center;
     /*align-content: center;*/
 }
+.order__form .form__btn button{
+    background: #0000 none repeat scroll 0 0;
+    border: 2px solid #333;
+    color: #333;
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 34px;
+    padding: 2px 20px 0;
+    text-transform: uppercase;
+    transition: all 0.4s ease 0s;
+}
+.order__form .form__btn button:hover {
+    background: #0000 none repeat scroll 0 0;
+    border-color: #ce7852;
+    color: #ce7852;
+}
+
+.payment-apply {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.payment-apply label {
+    padding: 0 10px 10px 10px;
+    font-weight: 500;
+}
+.payment-apply input {
+   margin-top: 5px;
+}
+
+
 
 .wn__order__box .order_product .product_name{
     width: 200px;

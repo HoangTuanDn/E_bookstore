@@ -14,7 +14,7 @@
                     <ul class="meninmenu d-flex justify-content-start">
                         <li class="drop with--one--item"><a href="{{route('home')}}">{{__('home')}}</a></li>
                         <li class="drop"><a href="{{route('home.shop')}}">{{__('shop')}}</a></li>
-                        <li class="drop"><a href="shop-grid.html">{{__('books')}}</a>
+                        <li class="drop"><a href="#">{{__('books')}}</a>
                             <div class="megamenu mega03">
                                 @foreach($parentMenus as $key => $menus)
                                     <ul class="item item03">
@@ -68,14 +68,25 @@
                                 </div>
                                 <div class="switcher-currency">
                                     <strong class="label switcher-label">
-                                        <span>{{__('my_account')}}</span>
+                                        @if(auth()->guard('customer')->guest())
+                                            <span>{{__('my_account')}}</span>
+                                        @else
+                                                <span>{{__('account_text') . auth()->guard('customer')->user()->name}}</span>
+                                        @endif
+
                                     </strong>
                                     <div class="switcher-options">
                                         <div class="switcher-currency-trigger">
                                             <div class="setting__menu">
                                                 <span><a href="{{route('home.wish_list')}}">{{__('my_wish_list')}}</a></span>
-                                                <span><a href="{{route('account.login')}}">{{__('sign_in')}}</a></span>
-                                                <span><a href="{{route('account.register')}}">{{__('sign_up')}}</a></span>
+                                                @if(auth()->guard('customer')->guest())
+                                                    <span><a href="{{route('account.my')}}">{{__('sign_in')}}</a></span>
+                                                    <span><a href="{{route('account.my')}}">{{__('sign_up')}}</a></span>
+                                                @else
+                                                    <span><a href="{{route('order.index')}}">{{__('my_order')}}</a></span>
+                                                    <span><a data-action="logout" href="{{route('account.logout')}}">{{__('logout')}}</a></span>
+                                                @endif
+
                                             </div>
                                         </div>
                                     </div>

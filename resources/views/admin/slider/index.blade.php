@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('title')
-    <title>Products</title>
+    <title>Slider</title>
 @endsection
 
 @section('css')

@@ -52,7 +52,8 @@ class CartController extends Controller
 
     public function store(Request $request)
     {
-        $id = $request->id;
+        $id = $request->input('id');
+        $quantity = $request->input('quantity');
 
         try {
 
@@ -69,10 +70,6 @@ class CartController extends Controller
         }
         $cart = session('cart');
 
-        $type = __('type_info');
-        $message = $this->getMessage('', '', $product->name, __('exist_in_cart'));
-
-
         if (!isset($cart[$id])) {
             $cart[$id] = [
                 'id'            => $product->id,
@@ -87,7 +84,17 @@ class CartController extends Controller
             $type = __('type_success');
             $message = $this->getMessage('', '', $product->name, __('add_to_cart'));
 
+            if (isset($quantity) && $quantity <= $product->quantity) {
+                $cart[$id]['quantity'] = $quantity;
+            } elseif (isset($quantity) && $quantity > $product->quantity) {
+                $type = __('type_warning');
+                $message = $this->getMessage('', '', $product->name, __('larger_than_total_quantity'));
+            }
+
             session()->put('cart', $cart);
+        }else{
+            $type = __('type_info');
+            $message = $this->getMessage('', '', $product->name, __('exist_in_cart'));
         }
 
         return response()->json([

@@ -80,19 +80,19 @@
                                     </td>
                                     <td>
                                         <a>
-                                            {{$ship->province->name}}
+                                            {{isset($ship->province->name)? $ship->province->name : 'Mặc định'}}
                                         </a>
                                     </td>
 
                                     <td >
                                         <a>
-                                            {{$ship->district->name}}
+                                            {{isset($ship->district->name) ? $ship->district->name : 'Mặc định'}}
                                         </a>
                                     </td>
 
                                     <td >
                                         <a>
-                                            {{$ship->ward->name}}
+                                            {{isset($ship->ward->name) ? $ship->ward->name : 'Mặc định'}}
                                         </a>
                                     </td>
 
