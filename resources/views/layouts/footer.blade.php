@@ -8,22 +8,20 @@
                             <a href="index.html">
                                 <img src="{{asset('fontend/images/logo/3.png')}}" alt="logo">
                             </a>
-                            <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered duskam alteration variations of passages</p>
+                            <p>{{__('footer_detail')}}</p>
                         </div>
                         <div class="footer__content">
                             <ul class="social__net social__net--2 d-flex justify-content-center">
                                 <li><a href="#"><i class="bi bi-facebook"></i></a></li>
-                                <li><a href="#"><i class="bi bi-google"></i></a></li>
                                 <li><a href="#"><i class="bi bi-twitter"></i></a></li>
-                                <li><a href="#"><i class="bi bi-linkedin"></i></a></li>
                                 <li><a href="#"><i class="bi bi-youtube"></i></a></li>
                             </ul>
                             <ul class="mainmenu d-flex justify-content-center">
-                                <li><a href="index.html">Xu hướng</a></li>
-                                <li><a href="index.html">Bán chạy</a></li>
-                                <li><a href="index.html">Tất cả</a></li>
-                                <li><a href="index.html">Yêu thích</a></li>
-                                <li><a href="index.html">Liên hệ</a></li>
+                                <li><a href="{{route('home') . '#nav-adventure'}}">{{__('trending')}}</a></li>
+                                <li><a href="{{route('home') . '#best-sell'}}">{{__('best_seller_lc')}}</a></li>
+                                <li><a href="{{route('home') . '#nav-all'}}">{{__('all_lc')}}</a></li>
+                                <li><a href="{{route('home.wish_list')}}">{{__('wishlist')}}</a></li>
+                                <li><a href="{{route('home.concat')}}">{{__('contact_l')}}</a></li>
                             </ul>
                         </div>
                     </div>
@@ -37,7 +35,7 @@
                 <div class="col-lg-6 col-md-6 col-sm-12">
                     <div class="copyright">
                         <div class="copy__right__inner text-left">
-                            <p>Copyright <i class="fa fa-copyright"></i> <a href="https://freethemescloud.com/">Free themes Cloud.</a> All Rights Reserved</p>
+                            <p>Copyright <i class="fa fa-copyright"></i> <a href="https://freethemescloud.com/">Free themes Cloud.</a> Custom by Dn</p>
                         </div>
                     </div>
                 </div>

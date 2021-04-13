@@ -3,10 +3,14 @@
 namespace App\Http\Controllers\fontend;
 
 
+use App\Http\Requests\EmailContactRequest;
 use App\Models\Category;
+use App\Models\EmailContact;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Log;
 
 class HomeController extends Controller
 {
@@ -14,15 +18,18 @@ class HomeController extends Controller
     private $product;
     private $category;
 
+
     /**
      * HomeController constructor.
      * @param $product
      * @param $category
+     * @param $emailContact
      */
-    public function __construct(Product $product, Category $category)
+    public function __construct(Product $product, Category $category, EmailContact $emailContact)
     {
         $this->product = $product;
         $this->category = $category;
+        $this->emailContact = $emailContact;
     }
 
     public function index(Request $request){
@@ -45,4 +52,5 @@ class HomeController extends Controller
 
         return view('fontend.home', compact('newProduct', 'allProducts', 'bestSellProducts','biographicProducts','adventureProducts', 'humorProducts', 'cookProducts'));
     }
+
 }

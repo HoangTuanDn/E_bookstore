@@ -14,10 +14,8 @@
                     <div class="col-lg-12">
                         <div class="slider__content">
                             <div class="contentbox">
-                                <h2>Buy <span>your </span></h2>
-                                <h2>favourite <span>Book </span></h2>
-                                <h2>from <span>Here </span></h2>
-                                <a class="shopbtn" href="#">shop now</a>
+                                {!! __('banner_header') !!}
+                                <a class="shopbtn" href="{{route('home.shop')}}">{{__('go_shop')}}</a>
                             </div>
                         </div>
                     </div>
@@ -32,10 +30,8 @@
                     <div class="col-lg-12">
                         <div class="slider__content">
                             <div class="contentbox">
-                                <h2>Buy <span>your </span></h2>
-                                <h2>favourite <span>Book </span></h2>
-                                <h2>from <span>Here </span></h2>
-                                <a class="shopbtn" href="#">shop now</a>
+                                {!! __('banner_header') !!}
+                                <a class="shopbtn" href="{{route('home.shop')}}">{{__('go_shop')}}</a>
                             </div>
                         </div>
                     </div>
@@ -51,8 +47,8 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="section__title text-center">
-                        <h2 class="title__be--2">SÁCH <span class="color--theme">MỚI NHẤT</span></h2>
-                        <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered lebmid alteration in some ledmid form</p>
+                        <h2 class="title__be--2">{!! __('new_product_header') !!}</h2>
+                        <p>{!!__('new_product_detail')!!}</p>
                     </div>
                 </div>
             </div>
@@ -82,7 +78,7 @@
                                     <li class="old_prize">{!! number_format($product->price, 0, ',', '.').  __('currency_unit') !!}</li>
                                 </ul>
                                 <div class="action">
-                                    <div class="actions_inner" data-url="{{route('home.shop.single_product',['slug' => $product['slug']])}}" data-image="{{$product['featured_img']}}" data-author="{{$product['author']}}" data-discount="{!! number_format($product['discount'], 0, ',', '.') . __('currency_unit') !!}" data-title="{{$product['title']}}" data-price="{!! number_format($product['price'], 0, ',', '.').  __('currency_unit') !!}"  data-name="{{$product['name']}}" data-id="{{$product['id']}}">
+                                    <div class="actions_inner" data-review="{{__('reviews_count', ['number' => $product->customerReviews()->count()])}}" data-url="{{route('home.shop.single_product',['slug' => $product['slug']])}}" data-image="{{$product['featured_img']}}" data-author="{{$product['author']}}" data-discount="{!! number_format($product['discount'], 0, ',', '.') . __('currency_unit') !!}" data-title="{{$product['title']}}" data-price="{!! number_format($product['price'], 0, ',', '.').  __('currency_unit') !!}"  data-name="{{$product['name']}}" data-id="{{$product['id']}}">
                                         <ul class="add_to_links">
                                             <li><a class="cart" data-action="checkout-single" href="{{route('home.checkout',['slug'=>$product['slug']])}}"><i class="bi bi-shopping-bag4"></i></a></li>
                                             <li><a class="wishlist" data-name="{{$product['name']}}" data-id="{{$product['id']}}" data-action="add_to_cart"  href="{{route('home.cart.store')}}"><i class="bi bi-shopping-cart-full"></i></a></li>
@@ -93,11 +89,15 @@
                                 </div>
                                 <div class="product__hover--content">
                                     <ul class="rating d-flex">
-                                        <li class="on"><i class="fa fa-star-o"></i></li>
-                                        <li class="on"><i class="fa fa-star-o"></i></li>
-                                        <li class="on"><i class="fa fa-star-o"></i></li>
-                                        <li><i class="fa fa-star-o"></i></li>
-                                        <li><i class="fa fa-star-o"></i></li>
+                                        @for($i = 1; $i <= 5; $i++)
+                                            @if($product->getRate($product->id) == 0)
+                                                <li><i class="fa fa-star-o"></i></li>
+                                            @elseif($product->getRate($product->id) > 0 && $i <= $product->getRate($product->id))
+                                                <li class="on"><i class="fa fa-star-o"></i></li>
+                                            @else
+                                                <li><i class="fa fa-star-o"></i></li>
+                                            @endif
+                                        @endfor
                                     </ul>
                                 </div>
                             </div>
@@ -116,14 +116,14 @@
             <div class="row">
                 <div class="col-lg-7 offset-lg-5 col-md-12 col-12 ptb--150">
                     <div class="section__title text-center">
-                        <h2>LIÊN HỆ VỚI CHÚNG TÔI</h2>
+                        <h2>{{__('stay_with_us')}}</h2>
                     </div>
                     <div class="newsletter__block text-center">
-                        <p>Subscribe to our newsletters now and stay up-to-date with new collections, the latest lookbooks and exclusive offers.</p>
-                        <form action="#">
+                        <p>{{__('stay_with_us_detail')}}</p>
+                        <form action="{{route('home.register_email')}}">
                             <div class="newsletter__box">
-                                <input type="email" placeholder="Enter your e-mail">
-                                <button>Subscribe</button>
+                                <input type="email" name="email" placeholder="{{__('enter_your_email')}}">
+                                <button data-action="subscribe">{{__('subscribe')}}</button>
                             </div>
                         </form>
                     </div>
@@ -138,19 +138,19 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="section__title text-center">
-                        <h2 class="title__be--2">TẤT CẢ <span class="color--theme">SÁCH</span></h2>
-                        <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered lebmid alteration in some ledmid form</p>
+                        <h2 class="title__be--2">{!! __('all_product_header') !!}</h2>
+                        <p>{!! __('all_product_detail') !!}</p>
                     </div>
                 </div>
             </div>
             <div class="row mt--50">
                 <div class="col-md-12 col-lg-12 col-sm-12">
                     <div class="product__nav nav justify-content-center" role="tablist">
-                        <a class="nav-item nav-link active" data-toggle="tab" href="#nav-all" role="tab">TẤT CẢ</a>
-                        <a class="nav-item nav-link" data-toggle="tab" href="#nav-biographic" role="tab">DANH NHÂN</a>
-                        <a class="nav-item nav-link" data-toggle="tab" href="#nav-adventure" role="tab">PHIÊU LƯU</a>
-                        <a class="nav-item nav-link" data-toggle="tab" href="#nav-humor" role="tab">HÀI HƯỚC</a>
-                        <a class="nav-item nav-link" data-toggle="tab" href="#nav-cook" role="tab">NẤU ĂN</a>
+                        <a class="nav-item nav-link active" data-toggle="tab" href="#nav-all" role="tab">{{__('all')}}</a>
+                        <a class="nav-item nav-link" data-toggle="tab" href="#nav-biographic" role="tab">{{__('biographic')}}</a>
+                        <a class="nav-item nav-link" data-toggle="tab" href="#nav-adventure" role="tab">{{__('adventure')}}</a>
+                        <a class="nav-item nav-link" data-toggle="tab" href="#nav-humor" role="tab">{{__('humor')}}</a>
+                        <a class="nav-item nav-link" data-toggle="tab" href="#nav-cook" role="tab">{{__('cook')}}</a>
                     </div>
                 </div>
             </div>
@@ -182,7 +182,7 @@
                                                     <li class="old_prize">{!!  number_format($product->price, 0, ',', '.') .  __('currency_unit') !!}</li>
                                                 </ul>
                                                 <div class="action">
-                                                    <div class="actions_inner" data-url="{{route('home.shop.single_product',['slug' => $product['slug']])}}" data-image="{{$product['featured_img']}}" data-author="{{$product['author']}}" data-discount="{!! number_format($product['discount'], 0, ',', '.') . __('currency_unit') !!}" data-title="{{$product['title']}}" data-price="{!! number_format($product['price'], 0, ',', '.').  __('currency_unit') !!}"  data-name="{{$product['name']}}" data-id="{{$product['id']}}">
+                                                    <div class="actions_inner" data-review="{{__('reviews_count', ['number' => $product->customerReviews()->count()])}}" data-url="{{route('home.shop.single_product',['slug' => $product['slug']])}}" data-image="{{$product['featured_img']}}" data-author="{{$product['author']}}" data-discount="{!! number_format($product['discount'], 0, ',', '.') . __('currency_unit') !!}" data-title="{{$product['title']}}" data-price="{!! number_format($product['price'], 0, ',', '.').  __('currency_unit') !!}"  data-name="{{$product['name']}}" data-id="{{$product['id']}}">
                                                         <ul class="add_to_links">
                                                             <li><a class="cart" data-action="checkout-single" href="{{route('home.checkout',['slug'=>$product['slug']])}}"><i class="bi bi-shopping-bag4"></i></a></li>
                                                             <li><a class="wishlist" data-name="{{$product['name']}}" data-id="{{$product['id']}}" data-action="add_to_cart"  href="{{route('home.cart.store')}}"><i class="bi bi-shopping-cart-full"></i></a></li>
@@ -193,11 +193,15 @@
                                                 </div>
                                                 <div class="product__hover--content">
                                                     <ul class="rating d-flex">
-                                                        <li class="on"><i class="fa fa-star-o"></i></li>
-                                                        <li class="on"><i class="fa fa-star-o"></i></li>
-                                                        <li class="on"><i class="fa fa-star-o"></i></li>
-                                                        <li><i class="fa fa-star-o"></i></li>
-                                                        <li><i class="fa fa-star-o"></i></li>
+                                                        @for($i = 1; $i <= 5; $i++)
+                                                            @if($product->getRate($product->id) == 0)
+                                                                <li><i class="fa fa-star-o"></i></li>
+                                                            @elseif($product->getRate($product->id) > 0 && $i <= $product->getRate($product->id))
+                                                                <li class="on"><i class="fa fa-star-o"></i></li>
+                                                            @else
+                                                                <li><i class="fa fa-star-o"></i></li>
+                                                            @endif
+                                                        @endfor
                                                     </ul>
                                                 </div>
                                             </div>
@@ -235,7 +239,7 @@
                                                     <li class="old_prize">{!! number_format($product->price , 0, ',', '.').  __('currency_unit') !!}</li>
                                                 </ul>
                                                 <div class="action">
-                                                    <div class="actions_inner" data-url="{{route('home.shop.single_product',['slug' => $product['slug']])}}" data-image="{{$product['featured_img']}}" data-author="{{$product['author']}}" data-discount="{!! number_format($product['discount'], 0, ',', '.') . __('currency_unit') !!}" data-title="{{$product['title']}}" data-price="{!! number_format($product['price'], 0, ',', '.').  __('currency_unit') !!}"  data-name="{{$product['name']}}" data-id="{{$product['id']}}">
+                                                    <div class="actions_inner" data-review="{{__('reviews_count', ['number' => $product->customerReviews()->count()])}}" data-url="{{route('home.shop.single_product',['slug' => $product['slug']])}}" data-image="{{$product['featured_img']}}" data-author="{{$product['author']}}" data-discount="{!! number_format($product['discount'], 0, ',', '.') . __('currency_unit') !!}" data-title="{{$product['title']}}" data-price="{!! number_format($product['price'], 0, ',', '.').  __('currency_unit') !!}"  data-name="{{$product['name']}}" data-id="{{$product['id']}}">
                                                         <ul class="add_to_links">
                                                             <li><a class="cart" data-action="checkout-single" href="{{route('home.checkout',['slug'=>$product['slug']])}}"><i class="bi bi-shopping-bag4"></i></a></li>
                                                             <li><a class="wishlist" data-name="{{$product['name']}}" data-id="{{$product['id']}}" data-action="add_to_cart"  href="{{route('home.cart.store')}}"><i class="bi bi-shopping-cart-full"></i></a></li>
@@ -246,11 +250,15 @@
                                                 </div>
                                                 <div class="product__hover--content">
                                                     <ul class="rating d-flex">
-                                                        <li class="on"><i class="fa fa-star-o"></i></li>
-                                                        <li class="on"><i class="fa fa-star-o"></i></li>
-                                                        <li class="on"><i class="fa fa-star-o"></i></li>
-                                                        <li><i class="fa fa-star-o"></i></li>
-                                                        <li><i class="fa fa-star-o"></i></li>
+                                                        @for($i = 1; $i <= 5; $i++)
+                                                            @if($product->getRate($product->id) == 0)
+                                                                <li><i class="fa fa-star-o"></i></li>
+                                                            @elseif($product->getRate($product->id) > 0 && $i <= $product->getRate($product->id))
+                                                                <li class="on"><i class="fa fa-star-o"></i></li>
+                                                            @else
+                                                                <li><i class="fa fa-star-o"></i></li>
+                                                            @endif
+                                                        @endfor
                                                     </ul>
                                                 </div>
                                             </div>
@@ -288,7 +296,7 @@
                                                     <li class="old_prize">{!! number_format($product->price , 0, ',', '.').  __('currency_unit') !!}</li>
                                                 </ul>
                                                 <div class="action">
-                                                    <div class="actions_inner" data-url="{{route('home.shop.single_product',['slug' => $product['slug']])}}" data-image="{{$product['featured_img']}}" data-author="{{$product['author']}}" data-discount="{!! number_format($product['discount'], 0, ',', '.') . __('currency_unit') !!}" data-title="{{$product['title']}}" data-price="{!! number_format($product['price'], 0, ',', '.').  __('currency_unit') !!}"  data-name="{{$product['name']}}" data-id="{{$product['id']}}">
+                                                    <div class="actions_inner" data-review="{{__('reviews_count', ['number' => $product->customerReviews()->count()])}}" data-url="{{route('home.shop.single_product',['slug' => $product['slug']])}}" data-image="{{$product['featured_img']}}" data-author="{{$product['author']}}" data-discount="{!! number_format($product['discount'], 0, ',', '.') . __('currency_unit') !!}" data-title="{{$product['title']}}" data-price="{!! number_format($product['price'], 0, ',', '.').  __('currency_unit') !!}"  data-name="{{$product['name']}}" data-id="{{$product['id']}}">
                                                         <ul class="add_to_links">
                                                             <li><a class="cart" data-action="checkout-single" href="{{route('home.checkout',['slug'=>$product['slug']])}}"><i class="bi bi-shopping-bag4"></i></a></li>
                                                             <li><a class="wishlist" data-name="{{$product['name']}}" data-id="{{$product['id']}}" data-action="add_to_cart"  href="{{route('home.cart.store')}}"><i class="bi bi-shopping-cart-full"></i></a></li>
@@ -299,11 +307,15 @@
                                                 </div>
                                                 <div class="product__hover--content">
                                                     <ul class="rating d-flex">
-                                                        <li class="on"><i class="fa fa-star-o"></i></li>
-                                                        <li class="on"><i class="fa fa-star-o"></i></li>
-                                                        <li class="on"><i class="fa fa-star-o"></i></li>
-                                                        <li><i class="fa fa-star-o"></i></li>
-                                                        <li><i class="fa fa-star-o"></i></li>
+                                                        @for($i = 1; $i <= 5; $i++)
+                                                            @if($product->getRate($product->id) == 0)
+                                                                <li><i class="fa fa-star-o"></i></li>
+                                                            @elseif($product->getRate($product->id) > 0 && $i <= $product->getRate($product->id))
+                                                                <li class="on"><i class="fa fa-star-o"></i></li>
+                                                            @else
+                                                                <li><i class="fa fa-star-o"></i></li>
+                                                            @endif
+                                                        @endfor
                                                     </ul>
                                                 </div>
                                             </div>
@@ -341,7 +353,7 @@
                                                     <li class="old_prize">{!! number_format($product->price, 0, ',', '.' ).  __('currency_unit') !!}</li>
                                                 </ul>
                                                 <div class="action">
-                                                    <div class="actions_inner" data-url="{{route('home.shop.single_product',['slug' => $product['slug']])}}" data-image="{{$product['featured_img']}}" data-author="{{$product['author']}}" data-discount="{!! number_format($product['discount'], 0, ',', '.') . __('currency_unit') !!}" data-title="{{$product['title']}}" data-price="{!! number_format($product['price'], 0, ',', '.').  __('currency_unit') !!}"  data-name="{{$product['name']}}" data-id="{{$product['id']}}">
+                                                    <div class="actions_inner" data-review="{{__('reviews_count', ['number' => $product->customerReviews()->count()])}}" data-url="{{route('home.shop.single_product',['slug' => $product['slug']])}}" data-image="{{$product['featured_img']}}" data-author="{{$product['author']}}" data-discount="{!! number_format($product['discount'], 0, ',', '.') . __('currency_unit') !!}" data-title="{{$product['title']}}" data-price="{!! number_format($product['price'], 0, ',', '.').  __('currency_unit') !!}"  data-name="{{$product['name']}}" data-id="{{$product['id']}}">
                                                         <ul class="add_to_links">
                                                             <li><a class="cart" data-action="checkout-single" href="{{route('home.checkout',['slug'=>$product['slug']])}}"><i class="bi bi-shopping-bag4"></i></a></li>
                                                             <li><a class="wishlist" data-name="{{$product['name']}}" data-id="{{$product['id']}}" data-action="add_to_cart"  href="{{route('home.cart.store')}}"><i class="bi bi-shopping-cart-full"></i></a></li>
@@ -352,11 +364,15 @@
                                                 </div>
                                                 <div class="product__hover--content">
                                                     <ul class="rating d-flex">
-                                                        <li class="on"><i class="fa fa-star-o"></i></li>
-                                                        <li class="on"><i class="fa fa-star-o"></i></li>
-                                                        <li class="on"><i class="fa fa-star-o"></i></li>
-                                                        <li><i class="fa fa-star-o"></i></li>
-                                                        <li><i class="fa fa-star-o"></i></li>
+                                                        @for($i = 1; $i <= 5; $i++)
+                                                            @if($product->getRate($product->id) == 0)
+                                                                <li><i class="fa fa-star-o"></i></li>
+                                                            @elseif($product->getRate($product->id) > 0 && $i <= $product->getRate($product->id))
+                                                                <li class="on"><i class="fa fa-star-o"></i></li>
+                                                            @else
+                                                                <li><i class="fa fa-star-o"></i></li>
+                                                            @endif
+                                                        @endfor
                                                     </ul>
                                                 </div>
                                             </div>
@@ -394,7 +410,7 @@
                                                     <li class="old_prize">{!! number_format($product->price , 0, ',', '.').  __('currency_unit') !!}</li>
                                                 </ul>
                                                 <div class="action">
-                                                    <div class="actions_inner" data-url="{{route('home.shop.single_product',['slug' => $product['slug']])}}" data-image="{{$product['featured_img']}}" data-author="{{$product['author']}}" data-discount="{!! number_format($product['discount'], 0, ',', '.') . __('currency_unit') !!}" data-title="{{$product['title']}}" data-price="{!! number_format($product['price'], 0, ',', '.').  __('currency_unit') !!}"  data-name="{{$product['name']}}" data-id="{{$product['id']}}">
+                                                    <div class="actions_inner" data-review="{{__('reviews_count', ['number' => $product->customerReviews()->count()])}}" data-url="{{route('home.shop.single_product',['slug' => $product['slug']])}}" data-image="{{$product['featured_img']}}" data-author="{{$product['author']}}" data-discount="{!! number_format($product['discount'], 0, ',', '.') . __('currency_unit') !!}" data-title="{{$product['title']}}" data-price="{!! number_format($product['price'], 0, ',', '.').  __('currency_unit') !!}"  data-name="{{$product['name']}}" data-id="{{$product['id']}}">
                                                         <ul class="add_to_links">
                                                             <li><a class="cart" data-action="checkout-single" href="{{route('home.checkout',['slug'=>$product['slug']])}}"><i class="bi bi-shopping-bag4"></i></a></li>
                                                             <li><a class="wishlist" data-name="{{$product['name']}}" data-id="{{$product['id']}}" data-action="add_to_cart"  href="{{route('home.cart.store')}}"><i class="bi bi-shopping-cart-full"></i></a></li>
@@ -405,11 +421,15 @@
                                                 </div>
                                                 <div class="product__hover--content">
                                                     <ul class="rating d-flex">
-                                                        <li class="on"><i class="fa fa-star-o"></i></li>
-                                                        <li class="on"><i class="fa fa-star-o"></i></li>
-                                                        <li class="on"><i class="fa fa-star-o"></i></li>
-                                                        <li><i class="fa fa-star-o"></i></li>
-                                                        <li><i class="fa fa-star-o"></i></li>
+                                                        @for($i = 1; $i <= 5; $i++)
+                                                            @if($product->getRate($product->id) == 0)
+                                                                <li><i class="fa fa-star-o"></i></li>
+                                                            @elseif($product->getRate($product->id) > 0 && $i <= $product->getRate($product->id))
+                                                                <li class="on"><i class="fa fa-star-o"></i></li>
+                                                            @else
+                                                                <li><i class="fa fa-star-o"></i></li>
+                                                            @endif
+                                                        @endfor
                                                     </ul>
                                                 </div>
                                             </div>
@@ -426,13 +446,13 @@
     </section>
     <!-- Start BEst Seller Area -->
     <!-- Best Sale Area -->
-    <section class="best-seel-area pt--80 pb--60">
+    <section id="best-sell"  class="best-seel-area pt--80 pb--60">
         <div class="container">
-            <div class="row">
+            <div class="row" >
                 <div class="col-lg-12">
                     <div class="section__title text-center pb--50">
-                        <h2 class="title__be--2">BÁN <span class="color--theme">CHẠY NHẤT </span></h2>
-                        <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered lebmid alteration in some ledmid form</p>
+                        <h2 class="title__be--2">{!! __('best_sell_product_header') !!}</h2>
+                        <p>{!! __('best_sell_product_detail') !!}</p>
                     </div>
                 </div>
             </div>
@@ -445,7 +465,7 @@
                     </div>
                     <div class="product__content content--center">
                         <div class="action">
-                            <div class="actions_inner" data-url="{{route('home.shop.single_product',['slug' => $product['slug']])}}" data-image="{{$product['featured_img']}}" data-author="{{$product['author']}}" data-discount="{!! number_format($product['discount'], 0, ',', '.') . __('currency_unit') !!}" data-title="{{$product['title']}}" data-price="{!! number_format($product['price'], 0, ',', '.').  __('currency_unit') !!}"  data-name="{{$product['name']}}" data-id="{{$product['id']}}">
+                            <div class="actions_inner" data-review="{{__('reviews_count', ['number' => $product->customerReviews()->count()])}}" data-url="{{route('home.shop.single_product',['slug' => $product['slug']])}}" data-image="{{$product['featured_img']}}" data-author="{{$product['author']}}" data-discount="{!! number_format($product['discount'], 0, ',', '.') . __('currency_unit') !!}" data-title="{{$product['title']}}" data-price="{!! number_format($product['price'], 0, ',', '.').  __('currency_unit') !!}"  data-name="{{$product['name']}}" data-id="{{$product['id']}}">
                                 <ul class="add_to_links">
                                     <li><a class="cart" data-action="checkout-single" href="{{route('home.checkout',['slug'=>$product['slug']])}}"><i class="bi bi-shopping-bag4"></i></a></li>
                                     <li><a class="wishlist" data-name="{{$product['name']}}" data-id="{{$product['id']}}" data-action="add_to_cart"  href="{{route('home.cart.store')}}"><i class="bi bi-shopping-cart-full"></i></a></li>
@@ -456,11 +476,15 @@
                         </div>
                         <div class="product__hover--content">
                             <ul class="rating d-flex">
-                                <li class="on"><i class="fa fa-star-o"></i></li>
-                                <li class="on"><i class="fa fa-star-o"></i></li>
-                                <li class="on"><i class="fa fa-star-o"></i></li>
-                                <li><i class="fa fa-star-o"></i></li>
-                                <li><i class="fa fa-star-o"></i></li>
+                                @for($i = 1; $i <= 5; $i++)
+                                    @if($product['rate'] == 0)
+                                        <li><i class="fa fa-star-o"></i></li>
+                                    @elseif($product['rate'] > 0 && $i <= $product['rate'])
+                                        <li class="on"><i class="fa fa-star-o"></i></li>
+                                    @else
+                                        <li><i class="fa fa-star-o"></i></li>
+                                    @endif
+                                @endfor
                             </ul>
                         </div>
                     </div>

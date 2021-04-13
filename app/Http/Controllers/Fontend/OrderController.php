@@ -174,7 +174,7 @@ class OrderController extends Controller
         if ($order){
             $order_code = $order->order_code;
 
-            if ($order->status < 1){
+            if ($order->status > 1){
                 return response()->json([
                     'success' => false,
                     'data'    => [

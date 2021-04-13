@@ -31,4 +31,11 @@ class Customer extends Authenticatable
     ];
 
     protected $table = 'customers';
+
+    public function productReviews(){
+        return $this
+            ->belongsToMany(Product::class, 'customer_review', 'customer_id', 'product_id')
+            ->withPivot('nickname', 'quality_rate', 'price_rate', 'content')
+            ->withTimestamps();
+    }
 }

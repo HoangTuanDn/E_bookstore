@@ -75,7 +75,7 @@
 <div class="product__info__detailed">
     <div class="pro_details_nav nav justify-content-start" role="tablist">
         <a class="nav-item nav-link active" data-toggle="tab" href="#nav-details" role="tab">{{__('details')}}</a>
-        <a class="nav-item nav-link" data-toggle="tab" href="#nav-review" role="tab">{{__('reviews')}}</a>
+        <a class="nav-item nav-link" data-toggle="tab" href="#nav-review" role="tab">{{__('reviews', ['number' => $product->customerReviews()->count()])}}</a>
     </div>
     <div class="tab__container">
         <!-- Start Single Tab Content -->
@@ -93,101 +93,67 @@
         <!-- Start Single Tab Content -->
         <div class="pro__tab_label tab-pane fade" id="nav-review" role="tabpanel">
             <div class="review__attribute">
-                <h1>Customer Reviews</h1>
-                <h2>Hastech</h2>
-                <div class="review__ratings__type d-flex">
-                    <div class="review-ratings">
-                        <div class="rating-summary d-flex">
-                            <span>Quality</span>
-                            <ul class="rating d-flex">
-                                <li><i class="zmdi zmdi-star"></i></li>
-                                <li><i class="zmdi zmdi-star"></i></li>
-                                <li><i class="zmdi zmdi-star"></i></li>
-                                <li class="off"><i class="zmdi zmdi-star"></i></li>
-                                <li class="off"><i class="zmdi zmdi-star"></i></li>
+                {!! $inc_review !!}
+            </div>
+            {{--custom review--}}
+            <div class="review-fieldset">
+                <h2>{{__('you_reviewing')}}</h2>
+                <h3>{{$product->name}}</h3>
+                <div class="review-field-ratings">
+                    <div class="product-review-table">
+                        <div class="review-field-rating d-flex" id="quantity">
+                            <span>{{__('quality')}}</span>
+                            <input type="radio" name="review-quantity" id="quantity-star-1">
+                            <input type="radio" name="review-quantity" id="quantity-star-2">
+                            <input type="radio" name="review-quantity" id="quantity-star-3">
+                            <input type="radio" name="review-quantity" id="quantity-star-4">
+                            <input type="radio" name="review-quantity" id="quantity-star-5">
+
+                            <ul class="rating d-flex quantity-stars">
+                                <label for="quantity-star-1" class="star-1" ><li class="off"><i class="zmdi zmdi-star"></i></li></label>
+                                <label for="quantity-star-2" class="star-2" ><li class="off"><i class="zmdi zmdi-star"></i></li></label>
+                                <label for="quantity-star-3" class="star-3" ><li class="off"><i class="zmdi zmdi-star"></i></li></label>
+                                <label for="quantity-star-4" class="star-4" ><li class="off"><i class="zmdi zmdi-star"></i></li></label>
+                                <label for="quantity-star-5" class="star-5" ><li class="off"><i class="zmdi zmdi-star"></i></li></label>
+
                             </ul>
                         </div>
 
-                        <div class="rating-summary d-flex">
-                            <span>Price</span>
-                            <ul class="rating d-flex">
-                                <li><i class="zmdi zmdi-star"></i></li>
-                                <li><i class="zmdi zmdi-star"></i></li>
-                                <li><i class="zmdi zmdi-star"></i></li>
-                                <li class="off"><i class="zmdi zmdi-star"></i></li>
-                                <li class="off"><i class="zmdi zmdi-star"></i></li>
-                            </ul>
-                        </div>
-                        <div class="rating-summary d-flex">
-                            <span>value</span>
-                            <ul class="rating d-flex">
-                                <li><i class="zmdi zmdi-star"></i></li>
-                                <li><i class="zmdi zmdi-star"></i></li>
-                                <li><i class="zmdi zmdi-star"></i></li>
-                                <li class="off"><i class="zmdi zmdi-star"></i></li>
-                                <li class="off"><i class="zmdi zmdi-star"></i></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="review-content">
-                        <p>Hastech</p>
-                        <p>Review by Hastech</p>
-                        <p>Posted on 11/6/2018</p>
-                    </div>
-                </div>
-            </div>
-            <div class="review-fieldset">
-                <h2>You're reviewing:</h2>
-                <h3>Chaz Kangeroo Hoodie</h3>
-                <div class="review-field-ratings">
-                    <div class="product-review-table">
-                        <div class="review-field-rating d-flex">
-                            <span>Quality</span>
-                            <ul class="rating d-flex">
-                                <li class="off"><i class="zmdi zmdi-star"></i></li>
-                                <li class="off"><i class="zmdi zmdi-star"></i></li>
-                                <li class="off"><i class="zmdi zmdi-star"></i></li>
-                                <li class="off"><i class="zmdi zmdi-star"></i></li>
-                                <li class="off"><i class="zmdi zmdi-star"></i></li>
-                            </ul>
-                        </div>
-                        <div class="review-field-rating d-flex">
-                            <span>Price</span>
-                            <ul class="rating d-flex">
-                                <li class="off"><i class="zmdi zmdi-star"></i></li>
-                                <li class="off"><i class="zmdi zmdi-star"></i></li>
-                                <li class="off"><i class="zmdi zmdi-star"></i></li>
-                                <li class="off"><i class="zmdi zmdi-star"></i></li>
-                                <li class="off"><i class="zmdi zmdi-star"></i></li>
-                            </ul>
-                        </div>
-                        <div class="review-field-rating d-flex">
-                            <span>Value</span>
-                            <ul class="rating d-flex">
-                                <li class="off"><i class="zmdi zmdi-star"></i></li>
-                                <li class="off"><i class="zmdi zmdi-star"></i></li>
-                                <li class="off"><i class="zmdi zmdi-star"></i></li>
-                                <li class="off"><i class="zmdi zmdi-star"></i></li>
-                                <li class="off"><i class="zmdi zmdi-star"></i></li>
+                        <div class="review-field-rating d-flex" id="price">
+                            <span>{{__('price')}}</span>
+                            <input type="radio" name="review-price" id="price-star-1">
+                            <input type="radio" name="review-price" id="price-star-2">
+                            <input type="radio" name="review-price" id="price-star-3">
+                            <input type="radio" name="review-price" id="price-star-4">
+                            <input type="radio" name="review-price" id="price-star-5">
+
+                            <ul class="rating d-flex price-stars">
+                                <label for="price-star-1" class="star-1" ><li class="off"><i class="zmdi zmdi-star"></i></li></label>
+                                <label for="price-star-2" class="star-2" ><li class="off"><i class="zmdi zmdi-star"></i></li></label>
+                                <label for="price-star-3" class="star-3" ><li class="off"><i class="zmdi zmdi-star"></i></li></label>
+                                <label for="price-star-4" class="star-4" ><li class="off"><i class="zmdi zmdi-star"></i></li></label>
+                                <label for="price-star-5" class="star-5" ><li class="off"><i class="zmdi zmdi-star"></i></li></label>
+
                             </ul>
                         </div>
                     </div>
                 </div>
                 <div class="review_form_field">
                     <div class="input__box">
-                        <span>Nickname</span>
-                        <input id="nickname_field" type="text" name="nickname">
+                        <span>{{__('nickname')}}</span>
+                        @if(auth()->guard('customer')->guest())
+                            <input id="nickname_field" type="text" name="nickname">
+                        @else
+                            <input id="nickname_field" type="text" value="{{auth()->guard('customer')->user()->name}}" name="nickname">
+                        @endif
+
                     </div>
                     <div class="input__box">
-                        <span>Summary</span>
-                        <input id="summery_field" type="text" name="summery">
-                    </div>
-                    <div class="input__box">
-                        <span>Review</span>
-                        <textarea name="review"></textarea>
+                        <span>{{__('review')}}</span>
+                        <textarea name="review_content"></textarea>
                     </div>
                     <div class="review-form-actions">
-                        <button>Submit Review</button>
+                        <button data-action="customer-review" data-id="{{{$product->id}}}" data-url="{{route('home.product.review', ['slug' => $product->slug])}}">{{__('submit_review')}}</button>
                     </div>
                 </div>
             </div>

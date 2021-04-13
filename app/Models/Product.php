@@ -39,7 +39,8 @@ class Product extends Model
             ->withTimestamps();
     }
 
-    public function orders(){
+    public function orders()
+    {
         return $this
             ->belongsToMany(Order::class, 'order_product', 'product_id', 'order_id')
             ->withTimestamps();
@@ -52,17 +53,48 @@ class Product extends Model
             ->withTimestamps();
     }
 
+    public function customerReviews()
+    {
+        return $this
+            ->belongsToMany(Customer::class, 'customer_review', 'product_id', 'customer_id')
+            ->withPivot('nickname', 'quality_rate', 'price_rate', 'content')
+            ->withTimestamps();
+
+    }
+
     public function upsellProducts()
     {
-        $products = Product::select('id', 'slug', 'name','title', 'author', 'price', 'featured_img', 'discount', 'quantity', 'quantity_sold', 'type', 'publish_date', 'created_at')
+        $products = Product::select('id', 'slug', 'name', 'title', 'author', 'price', 'featured_img', 'discount', 'quantity', 'quantity_sold', 'type', 'publish_date', 'created_at')
             ->orderByRaw('price - discount DESC')->limit(config('custom.limit'))->get();
 
         return $products;
     }
 
+    public function getRate($productIs)
+    {
+        $product = Product::find($productIs);
+        $productsToCustomer = $product->customerReviews;
+        $avgRate = 0;
+        $totalRate = 0;
+        $numberReview = 1;
+
+        if (!$productsToCustomer){
+            return $avgRate;
+        }
+
+        foreach ($productsToCustomer as $review) {
+            $numberReview += 1;
+            $totalRate += ($review->pivot->quality_rate + $review->pivot->price_rate)/2;
+        }
+
+        $numberReview = $numberReview > 1 ? $numberReview - 1 : 1;
+        $avgRate = $totalRate / $numberReview;
+        return $avgRate;
+    }
+
     public function filterProduct($data)
     {
-        $query = Product::select('id', 'slug', 'name','title', 'author', 'price', 'featured_img', 'discount', 'quantity', 'quantity_sold', 'type', 'publish_date', 'created_at');
+        $query = Product::select('id', 'slug', 'name', 'title', 'author', 'price', 'featured_img', 'discount', 'quantity', 'quantity_sold', 'type', 'publish_date', 'created_at');
 
         if (!empty($data['name'])) {
             $query->where('name', 'like', "%{$data['name']}%");

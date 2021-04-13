@@ -1,4 +1,4 @@
-$(function (){
+$(function () {
     /*create toast element*/
     createTostElement();
 
@@ -25,7 +25,7 @@ $(function (){
         })
     })
 
-    $(document).on('click', '.micart__close', function (){
+    $(document).on('click', '.micart__close', function () {
         $('.minicart__active').removeClass('is-visible');
     });
 
@@ -44,8 +44,8 @@ $(function (){
         }
 
         let data = {
-            'id': currentElement.attr('data-id'),
-            'quantity' : quantity
+            'id'      : currentElement.attr('data-id'),
+            'quantity': quantity
         }
 
         $.ajax({
@@ -152,8 +152,10 @@ $(function (){
             'new_price': dataElement.attr('data-discount'),
             'author'   : dataElement.attr('data-author'),
             'title'    : dataElement.attr('data-title'),
-            'url'      : currentElement.attr('data-url')
+            'url'      : currentElement.attr('data-url'),
+            'review'   : dataElement.attr('data-review')
         }
+        console.log(data)
         let quickViewElement = $('#quickview-wrapper');
         /*change html data*/
         quickViewElement.find('img').attr('src', data['image'])
@@ -164,6 +166,7 @@ $(function (){
         quickViewElement.find('span[class="old-price"]').text(data['old_price'])
         quickViewElement.find('div[class="quick-desc"]').html(data['title'])
         quickViewElement.find('span[title="author"]').text(data['author'])
+        quickViewElement.find('div[class="review"] a').text(data['review'])
         quickViewElement.find('div[class="addtocart-btn"] a').attr('data-action', 'add_to_cart')
         quickViewElement.find('div[class="addtocart-btn"] a').attr('data-id', data['id'])
         quickViewElement.find('div[class="addtocart-btn"] a').attr('href', data['url'])
@@ -173,7 +176,7 @@ $(function (){
     $(document).on('click', '*[data-action="add_to_wishlist"]', function () {
         event.preventDefault();
         let currentElement = $(this);
-        console.log(currentElement)
+
         let dataElement = currentElement.closest('.action').find('.actions_inner');
         let data = {
             'id'       : dataElement.attr('data-id'),
@@ -183,6 +186,7 @@ $(function (){
             'url'      : dataElement.attr('data-url')
         }
 
+        console.log(data)
 
         if (localStorage.getItem('data') == null) {
             localStorage.setItem('data', '[]')
@@ -214,18 +218,18 @@ $(function (){
     });
 
     /*handle logout*/
-    $(document).on('click', '*[data-action="logout"]', function (){
+    $(document).on('click', '*[data-action="logout"]', function () {
         event.preventDefault();
         let currentElement = $(this);
         let url = currentElement.attr('href');
 
         $.ajax({
-            url: url,
-            type: 'post',
-            headers : {
+            url    : url,
+            type   : 'post',
+            headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
-            success: function (json){
+            success: function (json) {
                 if (json['success'] === true) {
                     var toastConfig = {
                         message : json['data']['message'],
@@ -233,13 +237,64 @@ $(function (){
                         duration: 3000
                     }
                     toast(toastConfig)
-                    setTimeout(function (){
+                    setTimeout(function () {
                         window.location.href = json['data']['url_redirect'];
                     }, 1000)
 
                 }
             }
         })
+    })
+
+    /*handle contact email*/
+    $(document).on('click', '*[data-action="subscribe"]', function () {
+        event.preventDefault();
+        let currentElement = $(this);
+        let url = currentElement.closest('form').attr('action');
+        let data = {
+            'email': currentElement.closest('form').find('input[name="email"]').val()
+        }
+        console.log({
+            'url' : url,
+            'data' : data
+        })
+        let ajaxCall = $.ajax({
+            url     : url,
+            type    : 'post',
+            dataType: 'json',
+            data    : data,
+            headers : {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+        })
+
+        ajaxCall.done(function (json) {
+            var toastConfig = {
+                message : json['data']['message'],
+                type    : json['data']['type'],
+                duration: 3000
+            }
+            toast(toastConfig)
+            currentElement.closest('form').find('input[name="email"]').val(" ")
+        });
+
+        ajaxCall.fail(function (json) {
+            if (json['responseJSON'] !== undefined) {
+                let errors = Object.values(json['responseJSON']['errors']);
+                let errormessage = [];
+                errormessage = errors.map(function (element, index) {
+                    return element[0]
+                })
+
+                let toastConfig = {
+                    message : errormessage[0],
+                    type    : 'error',
+                    duration: 3000
+                }
+                toast(toastConfig)
+
+            }
+        });
     })
 
 })

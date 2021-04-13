@@ -48,7 +48,7 @@
                             <li class="old_prize">{!! number_format($product['price'], 0, ',', '.').  __('currency_unit') !!}</li>
                         </ul>
                         <div class="action">
-                            <div class="actions_inner" data-url="{{route('home.shop.single_product',['slug' => $product['slug']])}}" data-image="{{$product['featured_img']}}" data-author="{{$product['author']}}" data-discount="{!! number_format($product['discount'], 0, ',', '.') . __('currency_unit') !!}" data-title="{{$product['title']}}" data-price="{!! number_format($product['price'], 0, ',', '.').  __('currency_unit') !!}"  data-name="{{$product['name']}}" data-id="{{$product['id']}}" >
+                            <div class="actions_inner" data-review="{{__('reviews_count', ['number' => $product['review_count']])}}" data-url="{{route('home.shop.single_product',['slug' => $product['slug']])}}" data-image="{{$product['featured_img']}}" data-author="{{$product['author']}}" data-discount="{!! number_format($product['discount'], 0, ',', '.') . __('currency_unit') !!}" data-title="{{$product['title']}}" data-price="{!! number_format($product['price'], 0, ',', '.').  __('currency_unit') !!}"  data-name="{{$product['name']}}" data-id="{{$product['id']}}" >
                                 <ul class="add_to_links">
                                     <li><a class="cart" data-action="checkout-single" href="{{route('home.checkout',['slug'=>$product['slug']])}}"><i class="bi bi-shopping-bag4"></i></a></li>
                                     <li><a class="wishlist" data-name="{{$product['name']}}" data-id="{{$product['id']}}" data-action="add_to_cart"  href="{{route('home.cart.store')}}"><i class="bi bi-shopping-cart-full"></i></a></li>
@@ -59,11 +59,15 @@
                         </div>
                         <div class="product__hover--content">
                             <ul class="rating d-flex">
-                                <li class="on"><i class="fa fa-star-o"></i></li>
-                                <li class="on"><i class="fa fa-star-o"></i></li>
-                                <li class="on"><i class="fa fa-star-o"></i></li>
-                                <li><i class="fa fa-star-o"></i></li>
-                                <li><i class="fa fa-star-o"></i></li>
+                                @for($i = 1; $i <= 5; $i++)
+                                    @if($product['rate'] == 0)
+                                        <li><i class="fa fa-star-o"></i></li>
+                                    @elseif($product['rate'] > 0 && $i <= $product['rate'])
+                                        <li class="on"><i class="fa fa-star-o"></i></li>
+                                    @else
+                                        <li><i class="fa fa-star-o"></i></li>
+                                    @endif
+                                @endfor
                             </ul>
                         </div>
                     </div>

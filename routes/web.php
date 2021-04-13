@@ -10,19 +10,20 @@ use App\Http\Controllers\Backend\SliderController;
 use App\Http\Controllers\Backend\UserController;
 use App\Http\Controllers\backend\OrderController as BackendOrderController;
 use App\Http\Controllers\CustomerController;
-use App\Http\Controllers\fontend\CartController;
-use App\Http\Controllers\fontend\CheckOutController;
-use App\Http\Controllers\fontend\ContactController;
-use App\Http\Controllers\fontend\HomeController;
-use App\Http\Controllers\fontend\OrderController;
-use App\Http\Controllers\fontend\WishListController;
+use App\Http\Controllers\Fontend\CartController;
+use App\Http\Controllers\Fontend\CheckOutController;
+use App\Http\Controllers\Fontend\ContactController;
+use App\Http\Controllers\Fontend\HomeController;
+use App\Http\Controllers\Fontend\OrderController;
+use App\Http\Controllers\Fontend\WishListController;
+use App\Http\Controllers\Fontend\SendContactMailController;
 use App\Http\Controllers\ShipController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\MenuController;
 use App\Http\Controllers\Backend\ProductController;
 use UniSharp\LaravelFilemanager\Lfm;
-use App\Http\Controllers\fontend\ProductController as FdProductController;
+use App\Http\Controllers\Fontend\ProductController as FdProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -336,6 +337,10 @@ Route::prefix('home')->group(function (){
     Route::get('/shop/{slug}', [FdProductController::class, 'show'])
         ->name('home.shop.single_product');
 
+    /*product*/
+    Route::post('/product/{slug}/review', [FdProductController::class, 'review'])
+        ->name('home.product.review');
+
     /*cart*/
     Route::get('/cart',[CartController::class, 'index'])
         ->name('home.cart');
@@ -371,6 +376,12 @@ Route::prefix('home')->group(function (){
     /*contact*/
     Route::get('/contact',[ContactController::class, 'index'])
         ->name('home.concat');
+
+    Route::post('/contact/send',[SendContactMailController::class, 'send'])
+        ->name('home.concat.send');
+
+    Route::post('/contact/register',[ContactController::class, 'register'])
+        ->name('home.register_email');
 
     Route::get('/error',[WishListController::class, 'index'])
         ->name('home.error');

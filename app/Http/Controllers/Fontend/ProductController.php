@@ -4,11 +4,14 @@ namespace App\Http\Controllers\fontend;
 
 
 use App\Components\Pagination;
+use App\Http\Requests\ReviewRequest;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Log;
 
 
 class ProductController extends Controller
@@ -34,15 +37,16 @@ class ProductController extends Controller
 
     public function index(Request $request)
     {
-
         return $this->_getList($request);
     }
 
     public function show(Request $request, $slug)
     {
         $product = $this->product->where('slug', $slug)->first();
+        $customerReviews = $product->customerReviews;
         $productTags = $product->tags;
         $collectionRelatedProducts = [];
+
         foreach ($productTags as $tag) {
             $collectionRelatedProducts [] = $tag->products;
         }
@@ -63,9 +67,87 @@ class ProductController extends Controller
         $categories = $this->category->get(['id', 'name', 'slug']);
         $tags = $this->tag->get(['id', 'name', 'slug']);
 
-        $inc_list = view('fontend.product.inc.detail', compact('product', 'textCategory'));
+        $inc_review = view('fontend.product.inc.review', compact('customerReviews'));
+        $inc_list = view('fontend.product.inc.detail', compact('inc_review', 'product', 'textCategory'));
 
         return view('fontend.product.single_product', compact('inc_list', 'relatedProducts', 'upsellProducts', 'categories', 'tags'));
+    }
+
+    public function review(ReviewRequest $request, $slug)
+    {
+        $customer = auth()->guard('customer')->user();
+        if (!$customer) {
+            $json = [
+                'success' => false,
+                'errors'  => [
+                    [__('customer_error')]
+                ],
+                'code'    => Response::HTTP_UNAUTHORIZED
+            ];
+
+            return response()->json($json, $json['code']);
+        }
+
+        $dataReview = $request->only('id', 'quality_rate', 'price_rate', 'nickname', 'review_content');
+
+        $reviewProuduct = $customer->productReviews()->where('product_id', $dataReview['id'])->first();
+
+        if ($reviewProuduct) {
+            return response()->json([
+                'success' => false,
+                'data'    => [
+                    'type'    => 'warning',
+                    'message' => __('review_warning'),
+                ]
+            ]);
+        }
+
+        $product = $this->product->find($dataReview['id']);
+
+        if (!$product) {
+            $json = [
+                'success' => false,
+                'errors'  => [
+                    [__('product_error')]
+                ],
+                'code'    => Response::HTTP_NOT_FOUND
+            ];
+
+            return response()->json($json, $json['code']);
+        }
+        try {
+            $customer->productReviews()->attach($product->id, [
+                'nickname'     => $dataReview['nickname'],
+                'quality_rate' => $dataReview['quality_rate'],
+                'price_rate'   => $dataReview['price_rate'],
+                'content'      => $dataReview['review_content']
+            ]);
+
+
+        } catch (\Exception $e) {
+            Log::error('message: ' . $e->getMessage() . 'Line : ' . $e->getLine());
+            $isCreate = false;
+        }
+
+        if (isset($isCreate)) {
+            return response()->json([
+                'success' => false,
+                'data'    => [
+                    'type'    => 'error',
+                    'message' => __('error_message'),
+                ]
+            ]);
+        }
+
+        $customerReviews = $product->customerReviews;
+        $inc_review = view('fontend.product.inc.review', compact('customerReviews'))->render();
+
+        return response()->json([
+            'success' => true,
+            'data'    => [
+                'htmlView' => $inc_review
+            ]
+        ]);
     }
 
     private function _getList(Request $request)
@@ -112,8 +194,10 @@ class ProductController extends Controller
                 'quantity'      => $product->quantity,
                 'quantity_sold' => $product->quantity_sold,
                 'type'          => $product->type,
+                'review_count'  => $product->customerReviews()->count(),
                 'publish_date'  => $product->publish_date,
-                'created_at'    => $product->created_at
+                'created_at'    => $product->created_at,
+                'rate'          => $product->getRate($product->id),
             ];
         }
 

@@ -104,3 +104,103 @@
     text-overflow: ellipsis;
     overflow: hidden;
 }
+
+/*css custom review*/
+
+
+#quantity #quantity-star-1:hover ~ .quantity-stars .star-1 i,
+#quantity #quantity-star-1:checked ~ .quantity-stars .star-1 i,
+
+#quantity #quantity-star-2:hover ~ .quantity-stars .star-1 i,
+#quantity #quantity-star-2:hover ~ .quantity-stars .star-2 i,
+#quantity #quantity-star-2:checked ~ .quantity-stars .star-1 i,
+#quantity #quantity-star-2:checked ~ .quantity-stars .star-2 i,
+
+#quantity #quantity-star-3:hover ~ .quantity-stars .star-1 i,
+#quantity #quantity-star-3:hover ~ .quantity-stars .star-2 i,
+#quantity #quantity-star-3:hover ~ .quantity-stars .star-3 i,
+#quantity #quantity-star-3:checked ~ .quantity-stars .star-1 i,
+#quantity #quantity-star-3:checked ~ .quantity-stars .star-2 i,
+#quantity #quantity-star-3:checked ~ .quantity-stars .star-3 i,
+
+#quantity #quantity-star-4:hover ~ .quantity-stars .star-1 i,
+#quantity #quantity-star-4:hover ~ .quantity-stars .star-2 i,
+#quantity #quantity-star-4:hover ~ .quantity-stars .star-3 i,
+#quantity #quantity-star-4:hover ~ .quantity-stars .star-4 i,
+#quantity #quantity-star-4:checked ~ .quantity-stars .star-1 i,
+#quantity #quantity-star-4:checked ~ .quantity-stars .star-2 i,
+#quantity #quantity-star-4:checked ~ .quantity-stars .star-3 i,
+#quantity #quantity-star-4:checked ~ .quantity-stars .star-4 i,
+
+#quantity #quantity-star-5:hover ~ .quantity-stars .star-1 i,
+#quantity #quantity-star-5:hover ~ .quantity-stars .star-2 i,
+#quantity #quantity-star-5:hover ~ .quantity-stars .star-3 i,
+#quantity #quantity-star-5:hover ~ .quantity-stars .star-4 i,
+#quantity #quantity-star-5:hover ~ .quantity-stars .star-5 i,
+#quantity #quantity-star-5:checked ~ .quantity-stars .star-1 i,
+#quantity #quantity-star-5:checked ~ .quantity-stars .star-2 i,
+#quantity #quantity-star-5:checked ~ .quantity-stars .star-3 i,
+#quantity #quantity-star-5:checked ~ .quantity-stars .star-4 i,
+#quantity #quantity-star-5:checked ~ .quantity-stars .star-5 i {
+    color: #ff5501;
+}
+
+#price #price-star-1:hover ~ .price-stars .star-1 i,
+#price #price-star-1:checked ~ .price-stars .star-1 i,
+
+#price #price-star-2:hover ~ .price-stars .star-1 i,
+#price #price-star-2:hover ~ .price-stars .star-2 i,
+#price #price-star-2:checked ~ .price-stars .star-1 i,
+#price #price-star-2:checked ~ .price-stars .star-2 i,
+
+#price #price-star-3:hover ~ .price-stars .star-1 i,
+#price #price-star-3:hover ~ .price-stars .star-2 i,
+#price #price-star-3:hover ~ .price-stars .star-3 i,
+#price #price-star-3:checked ~ .price-stars .star-1 i,
+#price #price-star-3:checked ~ .price-stars .star-2 i,
+#price #price-star-3:checked ~ .price-stars .star-3 i,
+
+#price #price-star-4:hover ~ .price-stars .star-1 i,
+#price #price-star-4:hover ~ .price-stars .star-2 i,
+#price #price-star-4:hover ~ .price-stars .star-3 i,
+#price #price-star-4:hover ~ .price-stars .star-4 i,
+#price #price-star-4:checked ~ .price-stars .star-1 i,
+#price #price-star-4:checked ~ .price-stars .star-2 i,
+#price #price-star-4:checked ~ .price-stars .star-3 i,
+#price #price-star-4:checked ~ .price-stars .star-4 i,
+
+#price #price-star-5:hover ~ .price-stars .star-1 i,
+#price #price-star-5:hover ~ .price-stars .star-2 i,
+#price #price-star-5:hover ~ .price-stars .star-3 i,
+#price #price-star-5:hover ~ .price-stars .star-4 i,
+#price #price-star-5:hover ~ .price-stars .star-5 i,
+#price #price-star-5:checked ~ .price-stars .star-1 i,
+#price #price-star-5:checked ~ .price-stars .star-2 i,
+#price #price-star-5:checked ~ .price-stars .star-3 i,
+#price #price-star-5:checked ~ .price-stars .star-4 i,
+#price #price-star-5:checked ~ .price-stars .star-5 i {
+    color: #ff5501;
+}
+
+.review-fieldset input[type="radio"] {
+    display: none;
+}
+
+/*handle for product review*/
+.review-detail .detail-content li{
+    padding-top: 2px;
+    word-wrap: break-word;
+}
+.review__attribute .review-ratings{
+    margin-bottom: 20px;
+    flex: 1;
+}
+.review__attribute .review-ratings:last-of-type{
+    margin-bottom: 0;
+}
+.review__attribute .review-content{
+    flex-basis: 25%;
+}
+.review__attribute .review__ratings__type{
+    border-top: 1px solid #c9c9c9;
+}

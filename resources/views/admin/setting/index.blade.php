@@ -58,11 +58,11 @@
                             <th class="border-right" style="width: 1%">
                                 #
                             </th>
-                            <th class="text-center" style="width: 20%">
+                            <th style="width: 20%">
                                 Khóa
                             </th>
 
-                            <th class="text-center" style="width: 20%">
+                            <th style="width: 50%">
                                 Giá trị
                             </th>
 
@@ -78,13 +78,13 @@
                                     <td>
                                         {{$setting->id}}
                                     </td>
-                                    <td class="text-center">
+                                    <td >
                                         <a>
                                             {{$setting->config_key}}
                                         </a>
                                     </td>
 
-                                    <td class="text-center">
+                                    <td >
                                         <a>
                                             {{$setting->config_value}}
                                         </a>
