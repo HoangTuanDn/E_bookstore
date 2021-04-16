@@ -3,6 +3,7 @@
 
 use App\Http\Controllers\Backend\CouponController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Backend\MailController;
 use App\Http\Controllers\Backend\PermissionController;
 use App\Http\Controllers\Backend\RoleController;
 use App\Http\Controllers\Backend\SettingController;
@@ -300,6 +301,15 @@ Route::prefix('admin')->group(function (){
         Route::post('/destroy/{id}', [BackendOrderController::class, 'destroy'])
             ->name('orders.destroy');
     });
+
+    Route::prefix('mails')->middleware('auth_admin')->group(function () {
+        Route::post('/order/{id}', [MailController::class, 'confirm'])
+            ->name('mails.send_mail');
+        Route::post('/coupon/{id}/share', [MailController::class, 'shareCoupon'])
+            ->name('mails.share_coupon');
+
+    });
+
 
     Route::group(['prefix' => 'filemanager'], function () {
         Lfm::routes();

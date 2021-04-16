@@ -48,7 +48,31 @@ class OrderController extends Controller
     public function index()
     {
         $orders = $this->order->where('customer_id', auth()->guard('customer')->user()->id)->get();
-        return view('fontend.order.order', compact('orders'));
+        $orderTotalPrice = [];
+
+        foreach ($orders as $order) {
+            $totalPrice = 0;
+            foreach ($order->products as $product) {
+                $totalPrice += $product->discount * $product->pivot->quantity;
+            }
+
+            if (isset($order->coupon)) {
+
+                if ($order->coupon->condition === 1) {
+                    $totalPrice *= ($order->coupon->count / 100);
+                }
+                if ($order->coupon->condition === 2) {
+                    $totalPrice -= $order->coupon->count;
+                }
+            }
+
+            $totalPrice += $order->ship->price;
+
+            $orderTotalPrice[$order->id] = $totalPrice;
+
+        }
+
+        return view('fontend.order.order', compact('orders', 'orderTotalPrice'));
     }
 
     public function store(OrderRequest $request, $slug = null)
@@ -124,6 +148,10 @@ class OrderController extends Controller
 
                 if ($product) {
                     $order->products()->attach($product->id, ['quantity' => 1]);
+                    $product->update([
+                        'quantity'      => $product->quantity - 1,
+                        'quantity_sold' => $product->quantity_sold + 1,
+                    ]);
                 }
             } else {
                 $order = $this->order->create($dataOrderInsert);
@@ -131,6 +159,11 @@ class OrderController extends Controller
                 if ($cartData && $order) {
                     foreach ($cartData as $item) {
                         $order->products()->attach($item['id'], ['quantity' => $item['quantity']]);
+                        $product = $this->product->find($item['id']);
+                        $product->update([
+                            'quantity'      => $product->quantity - $item['quantity'],
+                            'quantity_sold' => $product->quantity_sold + $item['quantity'],
+                        ]);
                     }
                 }
             }
@@ -171,21 +204,30 @@ class OrderController extends Controller
     public function destroy(Request $request, $id)
     {
         $order = $this->order->find($id);
-        if ($order){
+        $productsInOrder = $order->products;
+        if ($order) {
             $order_code = $order->order_code;
 
-            if ($order->status > 1){
+            if ($order->status > 1) {
                 return response()->json([
                     'success' => false,
                     'data'    => [
                         'type'    => __('type_warning'),
-                        'message' => __('deleted_order_warning',['name' => $order_code]),
+                        'message' => __('deleted_order_warning', ['name' => $order_code]),
                     ]
                 ]);
             }
         }
 
         try {
+            foreach ($productsInOrder as $item) {
+
+                $product = $this->product->find($item->pivot->product_id);;
+                $product->update([
+                    'quantity'      => $product->quantity + $item->pivot->quantity,
+                    'quantity_sold' => $product->quantity_sold - $item->pivot->quantity
+                ]);
+            }
             $order->products()->detach();
             $isDelete = $order->delete();
         } catch (\Exception $e) {
@@ -207,7 +249,7 @@ class OrderController extends Controller
             'success' => true,
             'data'    => [
                 'type'    => 'success',
-                'message' => __('deleted_order_success',['name' => $order_code]),
+                'message' => __('deleted_order_success', ['name' => $order_code]),
             ]
         ]);
     }

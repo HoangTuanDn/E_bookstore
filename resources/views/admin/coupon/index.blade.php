@@ -50,8 +50,8 @@
                             <th class="border-right" style="width: 1%">
                                 #
                             </th>
-                            <th  style="width: 20%;">
-                                Tên Mã giảm giá
+                            <th  style="width: 15%;">
+                                Tên
                             </th>
 
                             <th  style="width: 15%;">
@@ -59,15 +59,19 @@
                             </th>
 
                             <th  style="width: 15%;">
-                                Số lượng giảm
+                                lần áp dụng
                             </th>
 
                             <th  style="width: 20%;">
                                 Loại giảm
                             </th>
 
-                            <th  style="width: 20%;">
+                            <th  style="width: 10%;">
                                 Số giảm
+                            </th>
+
+                            <th  style="width: 10%;">
+                                Chia sẻ
                             </th>
 
                             <th class="border-left" style="float: right; margin-right: 10px">
@@ -116,12 +120,17 @@
                                         </a>
                                     </td>
 
+                                    <td class="project-actions text-center">
+                                        <a class="btn btn-outline-info btn-sm" data-action="btnShareCoupon" href="{{route('mails.share_coupon', ['id' => $coupon->id])}}" >
+                                            <i class="fas fa-share-alt-square">
+                                            </i>
+                                        </a>
+                                    </td>
 
                                     <td class="project-actions text-right">
-                                        <a class="btn btn-danger btn-sm" data-action="btnDelete" data-name="{{$coupon->name}}" data-url="{{route('coupons.destroy', ['id'=> $coupon->id])}}" >
+                                        <a class="btn btn-outline-danger btn-sm" data-action="btnDelete" data-name="{{$coupon->name}}" data-url="{{route('coupons.destroy', ['id'=> $coupon->id])}}" >
                                             <i class="fas fa-trash">
                                             </i>
-
                                         </a>
                                     </td>
                                 </tr>

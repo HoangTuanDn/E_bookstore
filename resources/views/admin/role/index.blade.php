@@ -29,7 +29,6 @@
         @if($roles)
             <!-- Default box -->
                 <div class="card">
-
                     <div class="card-header">
                         <h3 class="card-title">Vai trò hệ thống</h3>
                         @if(session('message') && session('type'))

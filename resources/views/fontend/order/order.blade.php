@@ -31,7 +31,11 @@
                                     <thead>
                                     <tr class="title-top ">
                                         <th colspan="5" class="product-thumbnail">
-                                            <span class="d-inline-block text-left col-md-12 col-sm-12 ol-lg-12  ">{{__('your_order_code') . ': '. $order->order_code}}</span>
+                                            <ul class="cart__btn__list d-flex flex-wrap flex-md-nowrap flex-lg-nowrap justify-content-between">
+                                                <li><span class="d-inline-block">[{{__('your_order_code') . ': '. $order->order_code}}] ({!!date('d/m/Y', strtotime($order->created_at))!!})</span></li>
+
+                                                <li><span class="d-inline-block">{!!__('order_total_price', ['price' => number_format($orderTotalPrice[$order->id], 0, ',', '.') . __('currency_unit')])!!}</span></li>
+                                            </ul>
                                         </th>
 
                                     </tr>
@@ -40,7 +44,7 @@
                                     @foreach($order->products as $product)
                                         <tr>
                                             <td class="product-thumbnail"><a href="{{route('home.shop.single_product', ['slug' => $product->slug])}}"><img width="75px" src="{{$product->featured_img}}" alt="product img"></a></td>
-                                            <td class="product-name"><a href="#">{{$product->name}}</a></td>
+                                            <td class="product-name"><a href="{{route('home.shop.single_product', ['slug' => $product->slug])}}">{{$product->name}}</a></td>
                                             <td class="product-price"><span class="amount">{{number_format($product->discount, 0, ',', '.')}}</span></td>
                                             <td class="product-quantity"><span class="amount">{{$product->pivot->quantity}}</span></td>
                                             <td class="product-subtotal">{{number_format(($product->pivot->quantity * $product->discount), 0, ',', '.')}}</td>
@@ -53,15 +57,18 @@
                         <div class="cartbox__btn" style="padding: 10px 20px">
 
                             <ul class="cart__btn__list d-flex flex-wrap flex-md-nowrap flex-lg-nowrap justify-content-between">
+
                                 @if($order->status === 0 )
-                                    <li><span class="d-inline-block mt--20">{!!__('order_status', ['name' => __('order_pending')])!!}</span></li>
+                                    <li><span class="d-inline-block mt--20" >{!!__('order_status', ['name' => __('order_pending')])!!}</span></li>
                                 @elseif($order->status === 1)
-                                    <li><span class="d-inline-block mt--20">{!!__('order_status', ['name' => __('order_confirm')])!!}</span></li>
+                                    <li><span class="d-inline-block mt--20" >{!!__('order_status', ['name' => __('order_confirm')])!!}</span></li>
                                 @elseif($order->status === 2)
-                                    <li><span class="d-inline-block mt--20">{!!__('order_status', ['name' => __('order_shipping')])!!}</span></li>
+                                    <li><span class="d-inline-block mt--20" >{!!__('order_status', ['name' => __('order_shipping')])!!}</span></li>
                                 @elseif($order->status === 3)
-                                    <li><span class="d-inline-block mt--20">{!!__('order_status', ['name' => __('order_shipped')])!!}</span></li>
+                                    <li><span class="d-inline-block mt--20" >{!!__('order_status', ['name' => __('order_shipped')])!!}</span></li>
                                 @endif
+                                <li><span class="d-inline-block mt--20">{!!__('order_payment', ['method' => $order->payment->name])!!}</span></li>
+
                                 <li><a data-action="destroy-order" data-success="{{__('success_text')}}" data-warning="{{__('warning_text')}}" data-cancel="{{__('text_cancel')}}" data-ok="{{__('text_ok')}}" data-title="{{__('order_data_title')}}" data-code="{{$order->order_code}}" href="{{route('order.destroy', ['id' => $order->id])}}">Hủy đơn hàng</a></li>
                             </ul>
                         </div>

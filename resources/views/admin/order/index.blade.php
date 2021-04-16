@@ -14,6 +14,7 @@
 @section('js_link')
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script src="{{asset('backend/common/order/order.js')}}"></script>
+    <script src="{{asset('backend/common/Mail/confirmEmail.js')}}"></script>
     <script src="{{asset('common/toastr.min.js')}}"></script>
 @endsection
 
@@ -46,7 +47,7 @@
                         <table class="table table-striped projects">
                             <thead>
                             <tr>
-                                <th class="border-right" style="width: 10%">
+                                <th class="border-right" style="width: 1%">
                                     #
                                 </th>
                                 <th style="width: 15%">
@@ -61,8 +62,12 @@
                                     Ngày cập nhật
                                 </th>
 
-                                <th style="width: 20%;">
+                                <th style="width: 15%;">
                                     Tình trạng
+                                </th>
+
+                                <th style="width: 10%;">
+                                    Gửi mail
                                 </th>
 
                                 <th class="border-left" style="float: right; margin-right: 10px">
@@ -97,13 +102,19 @@
                                         </select>
                                     </td>
 
+                                    <td class="confirm-email text-center">
+                                        <a class="btn btn-outline-info btn-sm" data-action="btnSendMail" data-name="{{$order->order_code}}" href="{{route('mails.send_mail', ['id'=> $order->id])}}">
+                                            <i class="fas fa-paper-plane">
+                                            </i>
+                                        </a>
+                                    </td>
+
                                     <td class="project-actions text-right">
-                                        <a class="btn btn-info btn-sm" href="{{route('orders.show', ['id' => $order->id])}}">
+                                        <a class="btn btn-outline-info btn-sm" href="{{route('orders.show', ['id' => $order->id])}}">
                                             <i class="fas fa-eye">
                                             </i>
-
                                         </a>
-                                        <a class="btn btn-danger btn-sm" data-action="btnDelete" data-name="{{$order->order_code}}" data-url="{{route('orders.destroy', ['id'=> $order->id])}}" >
+                                        <a class="btn btn-outline-danger btn-sm" data-action="btnDelete" data-name="{{$order->order_code}}" data-url="{{route('orders.destroy', ['id'=> $order->id])}}" >
                                             <i class="fas fa-trash">
                                             </i>
                                         </a>

@@ -1,51 +1,5 @@
-$(function (){
-
-    /*error notification*/
-    let messageError = $("#error-message").attr('data-message');
-    let sessionMessage = $("#session-message").attr('data-message');
-    let type = $("#session-message").attr('data-type');
-
-    if (messageError) {
-        let toastConfig = {
-            message : messageError,
-            type    : 'error',
-            duration: 3000
-        }
-
-        app.getToastr(toastConfig);
-        $("#session-message").attr('data-message', '')
-    }
-
-    /*message notification*/
-
-    if (sessionMessage){
-
-        let toastConfig = {
-            message: sessionMessage,
-            type: type,
-            duration: 3000
-        }
-
-        app.getToastr(toastConfig);
-        $("#session-message").attr('data-message', '')
-    }
-
-    /*delete product*/
-    $('*[data-action="btnDelete"]').click(function (){
-        console.log('a')
-
-        event.preventDefault();
-
-        var name = $(this).attr('data-name')
-        var url = $(this).attr('data-url');
-        var currentElement = $(this);
-
-        app.deleteObject(`Mã giảm giá ${name} sẽ bị xóa ?`, url, currentElement)
-    });
-    /*share coupon handle*/
-
-
-    $('*[data-action="btnShareCoupon"]').click(function () {
+$(function () {
+    $('*[data-action="btnSendMail"]').click(function () {
         event.preventDefault()
         let currentElement = $(this);
         let url = currentElement.attr('href');
@@ -91,4 +45,4 @@ $(function (){
             }
         });
     })
-})
+});

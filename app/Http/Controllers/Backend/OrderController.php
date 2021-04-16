@@ -3,21 +3,25 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Models\Order;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Log;
 
 class OrderController extends Controller
 {
-    private $order;
+    private Order $order;
+    private Product $product;
 
     /**
      * OrderController constructor.
-     * @param $order
+     * @param Order $order
+     * @param Product $product
      */
-    public function __construct(Order $order)
+    public function __construct(Order $order, Product $product)
     {
         $this->order = $order;
+        $this->product = $product;
     }
 
     public function index()
@@ -68,8 +72,8 @@ class OrderController extends Controller
                 'success' => true,
                 'data'    => [
                     'updated_at' => date('Y-m-d H:i:s', strtotime($order->updated_at)),
-                    'type'    => __('type_success'),
-                    'message' => __('update_order_success')
+                    'type'       => __('type_success'),
+                    'message'    => __('update_order_success')
                 ]
             ];
         } else {
@@ -89,7 +93,19 @@ class OrderController extends Controller
     {
         try {
             $order = $this->order->find($id);
-            $order_code = $order->order_code;
+
+            if ($order->status < 2){
+                $productsInOrder = $order->products;
+                $order_code = $order->order_code;
+
+                foreach ($productsInOrder as $item) {
+                    $product = $this->product->find($item->pivot->product_id);
+                    $product->update([
+                        'quantity'      => $product->quantity + $item->pivot->quantity,
+                        'quantity_sold' => $product->quantity_sold - $item->pivot->quantity
+                    ]);
+                }
+            }
             $order->products()->detach();
             $isDelete = $order->delete();
 
@@ -112,7 +128,7 @@ class OrderController extends Controller
             'success' => true,
             'data'    => [
                 'type'    => 'success',
-                'message' => __('deleted_order_success',['name' => $order_code]),
+                'message' => __('deleted_order_success', ['name' => $order_code]),
             ]
         ]);
     }
