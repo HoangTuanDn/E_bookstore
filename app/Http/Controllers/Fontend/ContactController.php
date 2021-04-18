@@ -5,6 +5,7 @@ namespace App\Http\Controllers\fontend;
 
 use App\Http\Requests\EmailContactRequest;
 use App\Models\EmailContact;
+use App\Models\Setting;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
@@ -12,20 +13,29 @@ use Illuminate\Support\Facades\Log;
 
 class ContactController extends Controller
 {
-    private $emailContact;
+    private EmailContact $emailContact;
+    private Setting $setting;
 
     /**
      * HomeController constructor.
-     * @param $emailContact
+     * @param EmailContact $emailContact
+     * @param Setting $setting
      */
-    public function __construct(EmailContact $emailContact)
+    public function __construct(EmailContact $emailContact, Setting $setting)
     {
         $this->emailContact = $emailContact;
+        $this->setting = $setting;
     }
 
     public function index()
     {
-        return view('fontend.contact');
+        $settings = $this->setting->get(['config_key', 'config_value']);
+        $data = [];
+        foreach ($settings as $setting) {
+            $data[$setting->config_key] = $setting->config_value;
+        }
+
+        return view('fontend.contact.contact', compact('data'));
     }
 
     public function register(EmailContactRequest $request)

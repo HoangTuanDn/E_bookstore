@@ -52,11 +52,11 @@ class CheckOutController extends Controller
         $provinces = $this->province->all();
         $htmDistrictRender = '<option value="">' . __('select_district') . '</option>';
         $htmlRenderWard = '<option value="">' . __('select_ward') . '</option>';
-        $couponCode = $request->input('coupon_code');
         $couponData = [];
         $totalPrice = 0;
         $data = session('cart');
         $order = session('order');
+        $couponCode = $request->input('coupon_code');
 
         if ($slug) {
             $data = $this->product->where('slug', $slug)->first();

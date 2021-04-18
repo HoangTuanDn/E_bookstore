@@ -1420,7 +1420,7 @@ Elements Styles
   padding: 0 5px;
   position: fixed;
   right: 0;
-  top: 50%; }
+  top: 25%; }
   .minisearch .field__search input {
     -moz-border-bottom-colors: none;
     -moz-border-left-colors: none;
@@ -5719,9 +5719,12 @@ a.checkout__title {
   .checkout_coupon .form__coupon button {
     margin-left: 0;
     margin-top: 20px; }
-.search__active {
+/*.search__active {
   display: none!important;
-}
+}*/
+  .header__area .header__sidebar__right > li.shop_search {
+    padding-right: 10px !important;
+  }
 .slider--15 .slide .slider__content p {
   display:none;
 }

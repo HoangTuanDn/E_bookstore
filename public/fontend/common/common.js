@@ -2,6 +2,12 @@ $(function () {
     /*create toast element*/
     createTostElement();
 
+    /*custom header*/
+    let classRemove = $('.contentbox input[type="hidden"]').val();
+    if (classRemove){
+        $('#wn__header').removeClass(classRemove);
+    }
+
     /*handle show cart box*/
     $(document).on('click', '*[data-action="show-cart-box"]', function () {
         let currentElement = $(this)
@@ -133,6 +139,12 @@ $(function () {
                     currentElement.closest('.product_prize').find('.qun').text(json['data']['content']['quantity_text'])
                     currentElement.closest('.product_prize').find('.qun').attr('data-quantity', json['data']['content']['quantity'])
                     currentElement.closest('#wrapper').find('.total_amount').html(`<span>${json['data']['content']['totalPrice']}</span>`);
+
+                    /*html for checkout*/
+                    let currentLocation = window.location.href;
+                    if (currentLocation.includes('home/checkout')) {
+                        currentElement.closest('#wrapper').find('.wn__order__box').html(json['data']['detailOrderHtml'])
+                    }
                 }
             }
         })

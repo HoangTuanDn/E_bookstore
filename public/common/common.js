@@ -225,6 +225,13 @@ function removeItemCart(url, data, currentElement, type) {
 
                     currentElement.closest('#wrapper').find('.total-text').text(totalItemText);
                     currentElement.closest('#wrapper').find('.total_amount').html(`<span>${json['data']['content']['totalPrice']}</span>`);
+
+                    /*html for checkout*/
+                    let currentLocation = window.location.href;
+                    if (currentLocation.includes('home/checkout')) {
+                        currentElement.closest('#wrapper').find('.wn__order__box').html(json['data']['detailOrderHtml'])
+                    }
+
                 } else {
                     currentElement.closest('#wrapper').find('.product_qun').text(json['data']['content']['totalItem']);
                     $('.cart-form').html(json['data']['content']['html']);

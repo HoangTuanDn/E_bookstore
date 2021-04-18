@@ -70,8 +70,8 @@
                             <i class="icon-location-pin icons"></i>
                             <div class="content">
                                 <span>{{__('address')}}:</span>
-                                <p>{{__('address_detail_1')}}</p>
-                                <p>{{__('address_detail_2')}}</p>
+                                <p>{{$data['address_1']}}</p>
+                                <p>{{$data['address_2']}}</p>
                             </div>
                         </div>
 
@@ -79,7 +79,7 @@
                             <i class="icon-phone icons"></i>
                             <div class="content">
                                 <span>{{__('phone')}}:</span>
-                                <p>{{__('phone_detail')}}</p>
+                                <p>{{$data['phone']}}</p>
                             </div>
                         </div>
 
@@ -87,7 +87,7 @@
                             <i class="icon-envelope icons"></i>
                             <div class="content">
                                 <span>{{__('email')}}:</span>
-                                <p>nht99dn@gmail.com</p>
+                                <p>{{$data['email']}}</p>
                             </div>
                         </div>
 
@@ -95,7 +95,7 @@
                             <i class="icon-globe icons"></i>
                             <div class="content">
                                 <span>{{__('website_address')}}:</span>
-                                <p>trituebook.com</p>
+                                <p>{{$data['website_address']}}</p>
                             </div>
                         </div>
 

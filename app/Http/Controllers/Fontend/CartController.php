@@ -4,6 +4,7 @@ namespace App\Http\Controllers\fontend;
 
 
 use App\Components\Message;
+use App\Models\Coupon;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -12,14 +13,17 @@ use Illuminate\Support\Facades\Log;
 class CartController extends Controller
 {
     private $product;
+    private $coupon;
 
     /**
      * CartController constructor.
      * @param $product
+     * @param $coupon
      */
-    public function __construct(Product $product)
+    public function __construct(Product $product, Coupon $coupon)
     {
         $this->product = $product;
+        $this->coupon = $coupon;
     }
 
     public function index(Request $request)
@@ -28,13 +32,16 @@ class CartController extends Controller
         $data = session('cart');
         $totalPrice = 0;
         $totalItem = 0;
+
         if ($data) {
             foreach ($data as $item) {
                 $totalPrice += $item['quantity'] * $item['price'];
             }
+
             $totalItem = count($data);
 
             if ($request->ajax()) {
+
                 $boxCartHtml = view('fontend.cart.inc.box', compact('data', 'totalPrice', 'totalItem'))->render();
                 return response()->json([
                     'success' => true,
@@ -130,10 +137,12 @@ class CartController extends Controller
         session()->put('cart', $data);
 
         $inc_list = view('fontend.cart.inc.list', compact('data'))->render();
+
         return response()->json([
             'success' => true,
             'data'    => [
                 'type'    => __('type_info'),
+                'detailOrderHtml' => $this->renderHtml(),
                 'content' => [
                     'html'       => $inc_list,
                     'totalPrice' => number_format($totalPrice, 0, ',', '.') . __('currency_unit'),
@@ -185,6 +194,7 @@ class CartController extends Controller
             'success' => true,
             'data'    => [
                 'type'    => __('type_info'),
+                'detailOrderHtml' => $this->renderHtml(),
                 'content' => [
                     'html'          => $inc_list,
                     'quantity_text' => $quantity_text,
@@ -194,6 +204,51 @@ class CartController extends Controller
                 'message' => $this->getMessage('', '', '', __('increase_product_in_cart'))
             ]
         ]);
+
+    }
+
+    private function renderHtml()
+    {
+        $order = session('order');
+        $data = session('cart');
+        $totalPrice = 0;
+        $couponData = [];
+        $order['fee_ship'] = $order['fee_ship'] ?? 0;
+        $order['coupon_code'] = $order['coupon_code'] ?? '';
+        $slug = '';
+
+        if ($data) {
+            foreach ($data as $item) {
+                $data[$item['id']]['sub_price'] = $item['quantity'] * $item['price'];
+                $totalPrice += $item['quantity'] * $item['price'];
+            }
+            $order['total_price'] = $totalPrice;
+
+            $coupon = $this->coupon->where('code', $order['coupon_code'])->first();
+
+            if ($coupon) {
+
+                $couponData = [
+                    'condition' => $coupon->condition,
+                    'discount'  => $coupon->count,
+                ];
+
+                if ($coupon->condition === 1) {
+                    $order['total_price'] *= ($coupon->count / 100);
+                }
+                if ($coupon->condition === 2) {
+                    $order['total_price'] -= $coupon->count;
+                }
+
+            }
+
+
+            $order['total_price'] += $order['fee_ship'];
+            session()->put('order', $order);
+        }
+
+        $inc_cart = view('fontend.checkout.inc.checkout', compact('data','slug','totalPrice', 'order', 'couponData'))->render();
+        return $inc_cart;
 
     }
 

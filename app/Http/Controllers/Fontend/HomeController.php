@@ -33,7 +33,7 @@ class HomeController extends Controller
     }
 
     public function index(Request $request){
-        //session()->flush();
+
         $dbProduct = $this->product
             ->get(['id', 'slug','author', 'title', 'name', 'price', 'featured_img', 'discount', 'quantity', 'quantity_sold', 'type', 'publish_date', 'created_at']);
 
@@ -49,8 +49,10 @@ class HomeController extends Controller
         $cookProducts = $this->category->proudctsByCatagorySlug(__('cook_slug'));
 
         $bestSellProducts = $dbProduct->sortByDesc('quantity_sold')->slice(0, 8);
+        $isHomePage = true;
 
-        return view('fontend.home', compact('newProduct', 'allProducts', 'bestSellProducts','biographicProducts','adventureProducts', 'humorProducts', 'cookProducts'));
+        return view('fontend.home', compact('isHomePage','newProduct', 'allProducts', 'bestSellProducts','biographicProducts','adventureProducts', 'humorProducts', 'cookProducts'));
+
     }
 
 }

@@ -16,6 +16,9 @@
                             <div class="contentbox">
                                 {!! __('banner_header') !!}
                                 <a class="shopbtn" href="{{route('home.shop')}}">{{__('go_shop')}}</a>
+                                @if($isHomePage)
+                                    <input type="hidden" value="oth-page">
+                                @endif
                             </div>
                         </div>
                     </div>

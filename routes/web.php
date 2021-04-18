@@ -320,82 +320,165 @@ Route::prefix('admin')->group(function (){
 
 
 /*font end route*/
+//Route::get('/', [HomeController::class, 'index']);
+//Route::prefix('home')->group(function (){
+//    Route::get('/',[HomeController::class, 'index'])
+//        ->name('home');
+//
+//    /*account*/
+//    Route::prefix('account')->group(function () {
+//        Route::get('/my',[CustomerController::class, 'index'])
+//            ->name('account.my');
+//
+//        Route::post('/login',[CustomerController::class, 'login'])
+//            ->name('account.login');
+//
+//        Route::post('/register',[CustomerController::class, 'register'])
+//            ->name('account.register');
+//
+//        Route::post('/logout',[CustomerController::class, 'logout'])
+//            ->name('account.logout');
+//    });
+//
+//    /*shop*/
+//    Route::get('/shop', [FdProductController::class, 'index'])
+//        ->name('home.shop');
+//
+//    Route::get('/shop/{slug}', [FdProductController::class, 'show'])
+//        ->name('home.shop.single_product');
+//
+//    /*product*/
+//    Route::post('/product/{slug}/review', [FdProductController::class, 'review'])
+//        ->name('home.product.review');
+//
+//    /*cart*/
+//    Route::get('/cart',[CartController::class, 'index'])
+//        ->name('home.cart');
+//
+//    Route::post('/cart/store',[CartController::class, 'store'])
+//        ->name('home.cart.store');
+//
+//    Route::post('/cart/update/{id}',[CartController::class, 'update'])
+//        ->name('home.cart.update');
+//
+//    Route::post('/cart/destroy/{id}',[CartController::class, 'destroy'])
+//        ->name('home.cart.destroy');
+//
+//    /*checkout*/
+//    Route::get('/checkout/{slug?}',[CheckOutController::class, 'index'])
+//        ->name('home.checkout');
+//
+//
+//    /*order*/
+//    Route::post('/order/{slug?}',[OrderController::class, 'store'])
+//        ->name('home.order');
+//
+//    Route::get('/order',[OrderController::class, 'index'])
+//        ->name('order.index');
+//
+//    Route::post('/order/delete/{id}',[OrderController::class, 'destroy'])
+//        ->name('order.destroy');
+//
+//    /*wishlist*/
+//    Route::get('/wish-list',[WishListController::class, 'index'])
+//        ->name('home.wish_list');
+//
+//    /*contact*/
+//    Route::get('/contact',[ContactController::class, 'index'])
+//        ->name('home.concat');
+//
+//    Route::post('/contact/send',[SendContactMailController::class, 'send'])
+//        ->name('home.concat.send');
+//
+//    Route::post('/contact/register',[ContactController::class, 'register'])
+//        ->name('home.register_email');
+//
+//    Route::get('/error',[WishListController::class, 'index'])
+//        ->name('home.error');
+//});
+
+/*font end route*/
+
+
 Route::get('/', [HomeController::class, 'index']);
-Route::prefix('home')->group(function (){
-    Route::get('/',[HomeController::class, 'index'])
-        ->name('home');
+Route::redirect('/', '/vn');
+Route::prefix('{language}')->group(function () {
+    Route::prefix('home')->group(function (){
+        Route::get('/',[HomeController::class, 'index'])
+            ->name('home');
 
-    /*account*/
-    Route::prefix('account')->group(function () {
-        Route::get('/my',[CustomerController::class, 'index'])
-            ->name('account.my');
+        /*account*/
+        Route::prefix('account')->group(function () {
+            Route::get('/my',[CustomerController::class, 'index'])
+                ->name('account.my');
 
-        Route::post('/login',[CustomerController::class, 'login'])
-            ->name('account.login');
+            Route::post('/login',[CustomerController::class, 'login'])
+                ->name('account.login');
 
-        Route::post('/register',[CustomerController::class, 'register'])
-            ->name('account.register');
+            Route::post('/register',[CustomerController::class, 'register'])
+                ->name('account.register');
 
-        Route::post('/logout',[CustomerController::class, 'logout'])
-            ->name('account.logout');
+            Route::post('/logout',[CustomerController::class, 'logout'])
+                ->name('account.logout');
+        });
+
+        /*shop*/
+        Route::get('/shop', [FdProductController::class, 'index'])
+            ->name('home.shop');
+
+        Route::get('/shop/{slug}', [FdProductController::class, 'show'])
+            ->name('home.shop.single_product');
+
+        /*product*/
+        Route::post('/product/{slug}/review', [FdProductController::class, 'review'])
+            ->name('home.product.review');
+
+        /*cart*/
+        Route::get('/cart',[CartController::class, 'index'])
+            ->name('home.cart');
+
+        Route::post('/cart/store',[CartController::class, 'store'])
+            ->name('home.cart.store');
+
+        Route::post('/cart/update/{id}',[CartController::class, 'update'])
+            ->name('home.cart.update');
+
+        Route::post('/cart/destroy/{id}',[CartController::class, 'destroy'])
+            ->name('home.cart.destroy');
+
+        /*checkout*/
+        Route::get('/checkout/{slug?}',[CheckOutController::class, 'index'])
+            ->name('home.checkout');
+
+
+        /*order*/
+        Route::post('/order/{slug?}',[OrderController::class, 'store'])
+            ->name('home.order');
+
+        Route::get('/order',[OrderController::class, 'index'])
+            ->name('order.index');
+
+        Route::post('/order/delete/{id}',[OrderController::class, 'destroy'])
+            ->name('order.destroy');
+
+        /*wishlist*/
+        Route::get('/wish-list',[WishListController::class, 'index'])
+            ->name('home.wish_list');
+
+        /*contact*/
+        Route::get('/contact',[ContactController::class, 'index'])
+            ->name('home.concat');
+
+        Route::post('/contact/send',[SendContactMailController::class, 'send'])
+            ->name('home.concat.send');
+
+        Route::post('/contact/register',[ContactController::class, 'register'])
+            ->name('home.register_email');
+
+        Route::get('/error',[WishListController::class, 'index'])
+            ->name('home.error');
     });
-
-    /*shop*/
-    Route::get('/shop', [FdProductController::class, 'index'])
-        ->name('home.shop');
-
-    Route::get('/shop/{slug}', [FdProductController::class, 'show'])
-        ->name('home.shop.single_product');
-
-    /*product*/
-    Route::post('/product/{slug}/review', [FdProductController::class, 'review'])
-        ->name('home.product.review');
-
-    /*cart*/
-    Route::get('/cart',[CartController::class, 'index'])
-        ->name('home.cart');
-
-    Route::post('/cart/store',[CartController::class, 'store'])
-        ->name('home.cart.store');
-
-    Route::post('/cart/update/{id}',[CartController::class, 'update'])
-        ->name('home.cart.update');
-
-    Route::post('/cart/destroy/{id}',[CartController::class, 'destroy'])
-        ->name('home.cart.destroy');
-
-    /*checkout*/
-    Route::get('/checkout/{slug?}',[CheckOutController::class, 'index'])
-        ->name('home.checkout');
-
-
-    /*order*/
-    Route::post('/order/{slug?}',[OrderController::class, 'store'])
-        ->name('home.order');
-
-    Route::get('/order',[OrderController::class, 'index'])
-        ->name('order.index');
-
-    Route::post('/order/delete/{id}',[OrderController::class, 'destroy'])
-        ->name('order.destroy');
-
-    /*wishlist*/
-    Route::get('/wish-list',[WishListController::class, 'index'])
-        ->name('home.wish_list');
-
-    /*contact*/
-    Route::get('/contact',[ContactController::class, 'index'])
-        ->name('home.concat');
-
-    Route::post('/contact/send',[SendContactMailController::class, 'send'])
-        ->name('home.concat.send');
-
-    Route::post('/contact/register',[ContactController::class, 'register'])
-        ->name('home.register_email');
-
-    Route::get('/error',[WishListController::class, 'index'])
-        ->name('home.error');
-
 });
+
 
 

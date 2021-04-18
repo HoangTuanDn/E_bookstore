@@ -30,9 +30,15 @@
     <!-- Cusom css -->
     <link rel="stylesheet" href="{{asset('fontend/css/custom.css')}}">
     <link rel="stylesheet" href="{{asset('common/common.css')}}">
+    <link rel="stylesheet" href="{{asset('common/algolia.css')}}">
 
     <!-- Modernizer js -->
     <script src="{{asset('fontend/js/vendor/modernizr-3.5.0.min.js')}}"></script>
+
+    <!-- InstantSearch js -->
+    <script src="https://cdn.jsdelivr.net/npm/algoliasearch@3/dist/algoliasearchLite.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/autocomplete.js/0/autocomplete.min.js"></script>
+
 </head>
 <body>
 <!--[if lte IE 9]>
@@ -68,6 +74,7 @@
 <script src="{{asset('fontend/js/active.js')}}"></script>
 <script src="{{asset('common/common.js')}}"></script>
 <script src="{{asset('fontend/common/common.js')}}"></script>
+<script src="{{asset('common/algolia.js')}}"></script>
 @hasSection('js')
     @yield('js')
 @endif

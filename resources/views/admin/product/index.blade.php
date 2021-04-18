@@ -60,12 +60,16 @@
                                 Tác giả
                             </th>
 
-                            <th style="width: 15%; text-align: center">
+                            <th style="width: 10%; text-align: center">
                                 Hình ảnh
                             </th>
 
-                            <th style="width: 20%; text-align: center">
+                            <th style="width: 15%; text-align: center">
                                 Giá
+                            </th>
+
+                            <th style="width: 13%; text-align: center">
+                                SL bán/còn
                             </th>
 
                             <th style="width: 15%; text-align: center">
@@ -91,11 +95,15 @@
                                         {{$product->author}}
                                     </td>
                                     <td>
-                                        <img class="product-image" src="{{$product->featured_img}}">
+                                        <img class="product-image" width="75px" height="94px" src="{{$product->featured_img}}">
                                     </td>
 
                                     <td class="text-center">
                                         <span>{{number_format($product->price)}}</span>
+                                    </td>
+
+                                    <td class="text-center">
+                                        <span>{{$product->quantity_sold .'/'. $product->quantity}}</span>
                                     </td>
 
                                     <td class="text-center">

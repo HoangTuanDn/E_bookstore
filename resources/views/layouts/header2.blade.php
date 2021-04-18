@@ -62,7 +62,8 @@
                                     </strong>
                                     <div class="switcher-options">
                                         <div class="switcher-currency-trigger">
-                                            <span class="currency-trigger">{{__('vn_language')}}</span>
+                                            <span class="currency-trigger"><a href="">{{__('vn_language')}}</a></span>
+                                            <span class="currency-trigger"><a href="">{{__('en_language')}}</a></span>
                                         </div>
                                     </div>
                                 </div>
@@ -71,7 +72,7 @@
                                         @if(auth()->guard('customer')->guest())
                                             <span>{{__('my_account')}}</span>
                                         @else
-                                                <span>{{__('account_text') . auth()->guard('customer')->user()->name}}</span>
+                                             <span>{{__('account_text') . auth()->guard('customer')->user()->name}}</span>
                                         @endif
 
                                     </strong>

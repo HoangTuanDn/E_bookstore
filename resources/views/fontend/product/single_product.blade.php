@@ -187,8 +187,8 @@
                         <aside class="wedget__categories sidebar--banner">
                             <img src="{{asset('fontend/images/others/banner_left.jpg')}}" alt="banner images">
                             <div class="text">
-                                <h2>new products</h2>
-                                <h6>save up to <br> <strong>40%</strong>off</h6>
+                                <h2>{{__('new_product')}}</h2>
+                                {!! __('product_banner') !!}
                             </div>
                         </aside>
                     </div>
@@ -196,22 +196,7 @@
             </div>
         </div>
     </div>
-    <!-- End main Content -->
-    <!-- Start Search Popup -->
-    <div class="box-search-content search_active block-bg close__top">
-        <form id="search_mini_form--2" class="minisearch" action="#">
-            <div class="field__search">
-                <input type="text" placeholder="Search entire store here...">
-                <div class="action">
-                    <a href="#"><i class="zmdi zmdi-search"></i></a>
-                </div>
-            </div>
-        </form>
-        <div class="close__wrap">
-            <span>close</span>
-        </div>
-    </div>
-    <!-- End Search Popup -->
+
     {{--quick view--}}
     @include('fontend.quick_view')
 @endsection

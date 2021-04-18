@@ -121,7 +121,7 @@
                                     </td>
 
                                     <td class="project-actions text-center">
-                                        <a class="btn btn-outline-info btn-sm" data-action="btnShareCoupon" href="{{route('mails.share_coupon', ['id' => $coupon->id])}}" >
+                                        <a class="btn btn-outline-info btn-sm" {{$coupon->is_publish == 1 ? 'style='."pointer-events:". "none".';'. "color:". "black" : ''}} data-action="btnShareCoupon" href="{{route('mails.share_coupon', ['id' => $coupon->id])}}" >
                                             <i class="fas fa-share-alt-square">
                                             </i>
                                         </a>

@@ -134,7 +134,6 @@ class MailController extends Controller
     {
        /*mail, subject, viewname  ,data['name'],  data['coupon_code'], data['coupon_discount']*/
 
-        //$customer = $this->customer->select('email')->get();
         $customer = $this->customer->pluck('email')->toArray();
         $emailCustomerContact =  $this->emailContact->pluck('email')->toArray();
         $toEmails = array_unique(array_merge($customer, $emailCustomerContact));

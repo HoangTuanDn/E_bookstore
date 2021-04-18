@@ -1,10 +1,10 @@
 <div class="minicart-content-wrapper">
     <div class="micart__close">
-        <span>close</span>
+        <span>{{__('close')}}</span>
     </div>
     <div class="items-total d-flex justify-content-between">
-        <span class="total-text">{{$totalItem}} items</span>
-        <span>Cart Subtotal</span>
+        <span class="total-text">{{$totalItem}} {{__('product')}}</span>
+        <span>{{__('cart_subtotal')}}</span>
     </div>
     <div class="total_amount text-right">
         <span>{!! number_format($totalPrice, 0, ',', '.') . __('currency_unit') !!}</span>
