@@ -29,7 +29,7 @@
                             <h3 class="wedget__title">{{__('product_categories')}}</h3>
                             <ul>
                                 @foreach($categories as $category)
-                                    <li ><a data-action="btnFilterCategory" href="{{route('home.shop', ['category' => $category->slug])}}" data-value="{{$category->slug}}">{{$category->name}}<span>({{$category->products()->count()}})</span></a>
+                                    <li ><a data-action="btnFilterCategory" href="{{route('home.shop', ['language'=>app()->getLocale(), 'category' => $category->slug])}}" data-value="{{$category->slug}}">{{$category->name}}<span>({{$category->products()->count()}})</span></a>
                                     </li>
                                 @endforeach
 
@@ -39,7 +39,7 @@
                             <h3 class="wedget__title">{{__('filter_by_price')}}</h3>
                             <div class="content-shopby">
                                 <div class="price_filter s-filter clear">
-                                    <form action="{{route('home.shop')}}" method="GET">
+                                    <form action="{{route('home.shop', ['language' => app()->getLocale()])}}" method="GET">
                                         <div id="slider-range"></div>
                                         <div class="slider__range--output">
                                             <div class="price__output--wrap filter_price">
@@ -47,7 +47,7 @@
                                                     <span>{{__('price')}} :</span><input type="text" name="price" id="amount" >
                                                 </div>
                                                 <div class="price--filter">
-                                                    <a data-action="btnFilterPrice" href="{{route('home.shop')}}">{{__('filter')}}</a>
+                                                    <a data-action="btnFilterPrice" href="{{route('home.shop', ['language' => app()->getLocale()])}}">{{__('filter')}}</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -59,7 +59,7 @@
                             <h3 class="wedget__title">{{__('product_tags')}}</h3>
                             <ul>
                                 @foreach($tags as $tag)
-                                    <li ><a href="{{route('home.shop', ['tag' => $tag->slug])}}"  data-action="btnFilterTag" >{{$tag->name}}</a></li>
+                                    <li ><a href="{{route('home.shop', ['language'=>app()->getLocale(), 'tag' => $tag->slug])}}"  data-action="btnFilterTag" >{{$tag->name}}</a></li>
                                 @endforeach
                             </ul>
                         </aside>

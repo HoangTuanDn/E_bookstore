@@ -241,5 +241,10 @@
   "cash_on_delivery_title": "Vui lòng thanh toán khi nhận hàng. Nếu có bất kỳ thắc mắc hay lỗi hay liên hệ lại với chúng tôi để giải quyết.",
   "paypal": "Thanh toán PayPal ",
   "paypal_title": "Vui lòng nhập thông tin vào các trường bên dưới để xác nhận thanh toán.",
+  "algolia_search": "Tìm kiếm sản phẩm...",
+  "select_payment": "Lựu chọn phương thức:",
+  "error_not_found": "Lỗi - không tìm thấy",
+  "error_not_found_search": "Tìm kiếm...",
+  "error_not_found_detail": "Có vẻ như bạn đang bị lạc! Thử tìm kiếm lại",
   "view_cart": "Xem giỏ hàng"
 }

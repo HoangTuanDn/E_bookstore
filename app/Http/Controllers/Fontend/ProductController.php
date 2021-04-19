@@ -40,9 +40,12 @@ class ProductController extends Controller
         return $this->_getList($request);
     }
 
-    public function show(Request $request, $slug)
+    public function show(Request $request, $language, $slug)
     {
         $product = $this->product->where('slug', $slug)->first();
+        if (!$product){
+            return view('fontend.error_404');
+        }
         $customerReviews = $product->customerReviews;
         $productTags = $product->tags;
         $collectionRelatedProducts = [];
@@ -58,7 +61,7 @@ class ProductController extends Controller
 
         $textCategory = [];
         foreach ($product->categories as $category) {
-            $textCategory [] = '<a href="' . route('home.shop', ['category' => $category->slug]) . '">' . $category->name . '</a>';
+            $textCategory [] = '<a href="' . route('home.shop', ['language'=> app()->getLocale(),'category' => $category->slug]) . '">' . $category->name . '</a>';
         }
         $textCategory = implode(',  ', $textCategory);
 
@@ -70,10 +73,11 @@ class ProductController extends Controller
         $inc_review = view('fontend.product.inc.review', compact('customerReviews'));
         $inc_list = view('fontend.product.inc.detail', compact('inc_review', 'product', 'textCategory'));
 
+
         return view('fontend.product.single_product', compact('inc_list', 'relatedProducts', 'upsellProducts', 'categories', 'tags'));
     }
 
-    public function review(ReviewRequest $request, $slug)
+    public function review(ReviewRequest $request,$language ,$slug)
     {
         $customer = auth()->guard('customer')->user();
         if (!$customer) {
@@ -217,10 +221,10 @@ class ProductController extends Controller
             $url['order'] = 'asc';
         }
 
-        $data['sort_name'] = qs_url('home/shop', array_merge($url, ['sort' => 'name']));
-        $data['sort_price'] = qs_url('home/shop', array_merge($url, ['sort' => 'price']));
-        $data['sort_date'] = qs_url('home/shop', array_merge($url, ['sort' => 'date']));
-        $data['sort_default'] = qs_url('home/shop', array_merge($url, ['sort' => 'default']));
+        $data['sort_name'] = qs_url(app()->getLocale().'/home/shop', array_merge($url, ['sort' => 'name']));
+        $data['sort_price'] = qs_url(app()->getLocale().'/home/shop', array_merge($url, ['sort' => 'price']));
+        $data['sort_date'] = qs_url(app()->getLocale().'/home/shop', array_merge($url, ['sort' => 'date']));
+        $data['sort_default'] = qs_url(app()->getLocale().'/home/shop', array_merge($url, ['sort' => 'default']));
 
         $url = $this->_getUrlFilter([
             'name',
@@ -236,7 +240,7 @@ class ProductController extends Controller
         $pagination->total = $product_total;
         $pagination->limit = $limit;
         $pagination->page = $page;
-        $pagination->url = qs_url('home/shop', array_merge($url, ['page' => '{page}']));
+        $pagination->url = qs_url(app()->getLocale().'/home/shop', array_merge($url, ['page' => '{page}']));
         $data['pagination'] = $pagination->render();
         $data['result'] = $pagination->getResult(__('text_pagination'));
 
@@ -258,7 +262,7 @@ class ProductController extends Controller
                 'page'
             ]);
 
-            $url = qs_url('home/shop', $url);
+            $url = qs_url(app()->getLocale().'/home/shop', $url);
             $url = urldecode(hed($url));
             $url = str_replace(' ', '+', $url);
 

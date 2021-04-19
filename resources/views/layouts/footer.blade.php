@@ -17,11 +17,11 @@
                                 <li><a href="#"><i class="bi bi-youtube"></i></a></li>
                             </ul>
                             <ul class="mainmenu d-flex justify-content-center">
-                                <li><a href="{{route('home') . '#nav-adventure'}}">{{__('trending')}}</a></li>
-                                <li><a href="{{route('home') . '#best-sell'}}">{{__('best_seller_lc')}}</a></li>
-                                <li><a href="{{route('home') . '#nav-all'}}">{{__('all_lc')}}</a></li>
-                                <li><a href="{{route('home.wish_list')}}">{{__('wishlist')}}</a></li>
-                                <li><a href="{{route('home.concat')}}">{{__('contact_l')}}</a></li>
+                                <li><a href="{{route('home', ['language' => app()->getLocale()]) . '#nav-adventure'}}">{{__('trending')}}</a></li>
+                                <li><a href="{{route('home', ['language' => app()->getLocale()]) . '#best-sell'}}">{{__('best_seller_lc')}}</a></li>
+                                <li><a href="{{route('home', ['language' => app()->getLocale()]) . '#nav-all'}}">{{__('all_lc')}}</a></li>
+                                <li><a href="{{route('home.wish_list', ['language' => app()->getLocale()])}}">{{__('wishlist')}}</a></li>
+                                <li><a href="{{route('home.concat', ['language' => app()->getLocale()])}}">{{__('contact_l')}}</a></li>
                             </ul>
                         </div>
                     </div>

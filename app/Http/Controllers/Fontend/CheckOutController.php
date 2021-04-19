@@ -45,7 +45,7 @@ class CheckOutController extends Controller
     }
 
 
-    public function index(Request $request, $slug = null)
+    public function index(Request $request, $language, $slug = null)
     {
         //session()->pull('order');
         $idCountryRequest = $request->only(['province_id', 'district_id', 'ward_id']);
@@ -60,6 +60,9 @@ class CheckOutController extends Controller
 
         if ($slug) {
             $data = $this->product->where('slug', $slug)->first();
+            if (!$data){
+                return view('fontend.error_404');
+            }
         }
 
         if (isset($idCountryRequest['province_id'])

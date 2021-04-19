@@ -1,7 +1,6 @@
 $(function (){
 
-    /*create toast element*/
-    createTostElement();
+
 
     /*handle load wishlist*/
     let tableElement = $('table');
@@ -24,6 +23,7 @@ $(function (){
         let stock_true = $('input[class="stock_true"]').val();
         let stock_false = $('input[class="stock_false"]').val();
         let url_store = $('input[class="url_store"]').val();
+
         let dataHtml = renderHtml(data, addText ,stock_true, stock_false, url_store);
 
         tableElement.find('tbody').html(dataHtml);
@@ -67,8 +67,13 @@ $(function (){
 
     function renderHtml(data, addText ,stock_true, stock_false, url_store ){
         let dataHtml = '';
+        let currentLanguage = getLanguage();
         data.forEach((item, index) => {
             let status = item['status'] ? stock_true : stock_false;
+            if (item['url'] && !item['url'].includes('/' + currentLanguage + '/')) {
+                item['url'] = changeUrlLanguage(item['url'], currentLanguage)
+            }
+
             dataHtml += `<tr>
                               <td class="product-remove"><a data-id="${item['id']}" data-action="btnRemove" href="#">×</a></td>
                               <td class="product-thumbnail"><a href="${item['url']}"><img width="80px" height="100px" src="${item['image']}" alt=""></a></td>
@@ -80,6 +85,12 @@ $(function (){
         })
 
         return dataHtml;
+    }
+
+    function changeUrlLanguage(url, currentLanguage) {
+        url = url.split('/');
+        url[3] = currentLanguage
+       return url.join('/')
     }
 
 })

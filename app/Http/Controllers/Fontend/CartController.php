@@ -57,7 +57,7 @@ class CartController extends Controller
         }
     }
 
-    public function store(Request $request)
+    public function store(Request $request, $language)
     {
         $id = $request->input('id');
         $quantity = $request->input('quantity');
@@ -114,7 +114,7 @@ class CartController extends Controller
         ]);
     }
 
-    public function destroy(Request $request, $id)
+    public function destroy(Request $request, $language, $id)
     {
 
         $data = session('cart');
@@ -153,7 +153,7 @@ class CartController extends Controller
         ]);
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $language, $id)
     {
         //$id = $request->id;
         $product = $this->product

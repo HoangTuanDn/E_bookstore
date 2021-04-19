@@ -1,6 +1,7 @@
 $(function () {
     const client = algoliasearch('5IQ7K6MTBD', '0767156b25554c88561603b3ccc591bd');
     const products = client.initIndex('products');
+    const language = getLanguage();
 
     autocomplete('#aa-search-input',
         {hint: false}, {
@@ -37,7 +38,7 @@ $(function () {
                 }
             }
         }).on('autocomplete:selected', function (event, suggestion, dataset) {
-        window.location.href = window.location.origin + '/home/shop/' + suggestion.slug;
+        window.location.href = window.location.origin +'/'+ language +'/home/shop/' + suggestion.slug;
         enterPressed = true;
         })
 

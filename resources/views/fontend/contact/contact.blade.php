@@ -39,7 +39,7 @@
                 <div class="contact-form-wrap">
                     <h2 class="contact__title">{{__('get_in_touch')}}</h2>
                     <p>{{__('get_in_touch_detail')}}</p>
-                    <form id="contact-form" action="{{route('home.concat.send')}}" method="post">
+                    <form id="contact-form" action="{{route('home.concat.send', ['language'=> app()->getLocale()])}}" method="post">
                         <div class="single-contact-form space-between">
                             <input type="text" name="name" placeholder="{{__('name') .'*'}}">
                         </div>

@@ -195,6 +195,14 @@ var renderHtml = function (url, elementWrapper, data = {}) {
     })
 }
 
+/*get current language*/
+function getLanguage() {
+    let currentLocation = window.location.href;
+    currentLocation = currentLocation.replace(window.location.origin,'');
+    currentLocation = currentLocation.split('/');
+    return currentLocation[1];
+}
+
 /*remove cart item*/
 function removeItemCart(url, data, currentElement, type) {
     $.ajax({

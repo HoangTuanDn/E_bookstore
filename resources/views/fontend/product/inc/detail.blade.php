@@ -31,11 +31,11 @@
                     <span>Qty</span>
                     <input id="qty" class="input-text qty" name="qty" max="{{$product->quantity}}" min="1" value="1" title="Qty" type="number">
                     <div class="addtocart__actions">
-                        <button class="tocart" data-name="{{$product['name']}}" data-id="{{$product['id']}}" data-action="add_to_cart"  data-url="{{route('home.cart.store')}}" type="button" title="Add to Cart">{{__('add_to_cart_1')}}</button>
+                        <button class="tocart" data-name="{{$product['name']}}" data-id="{{$product['id']}}" data-action="add_to_cart"  data-url="{{route('home.cart.store', ['language' => app()->getLocale()])}}" type="button" title="Add to Cart">{{__('add_to_cart_1')}}</button>
                     </div>
                     <div class="product-addto-links clearfix">
                         {{--<a class="wishlist" href="{{route('home.wish_list')}}"></a>--}}
-                        <a class="wishlist"  data-action="add_to_wishlist" data-exist="{{__('exist_in_wishlist',['name' => $product['name']])}}" data-add="{{__('add_to_wishlist',['name' => $product['name']])}}" href="{{route('home.wish_list')}}"></a>
+                        <a class="wishlist"  data-action="add_to_wishlist" data-exist="{{__('exist_in_wishlist',['name' => $product['name']])}}" data-add="{{__('add_to_wishlist',['name' => $product['name']])}}" href="{{route('home.wish_list', ['language' => app()->getLocale()])}}"></a>
                     </div>
                 </div>
                 <div class="product_meta">
@@ -153,7 +153,7 @@
                         <textarea name="review_content"></textarea>
                     </div>
                     <div class="review-form-actions">
-                        <button data-action="customer-review" data-id="{{{$product->id}}}" data-url="{{route('home.product.review', ['slug' => $product->slug])}}">{{__('submit_review')}}</button>
+                        <button data-action="customer-review" data-id="{{{$product->id}}}" data-url="{{route('home.product.review', ['language'=>app()->getLocale(),'slug' => $product->slug])}}">{{__('submit_review')}}</button>
                     </div>
                 </div>
             </div>

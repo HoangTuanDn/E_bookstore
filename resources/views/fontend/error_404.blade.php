@@ -28,12 +28,12 @@
                             <a href="#"><img src="{{asset('fontend/images/others/404.png')}}" alt="error images"></a>
                         </div>
                         <div class="error__content">
-                            <h2>error - not found</h2>
-                            <p>It looks like you are lost! Try searching here</p>
+                            <h2>{{__('error_not_found')}}</h2>
+                            <p>{{__('error_not_found_detail')}}</p>
                             <div class="search_form_wrapper">
                                 <form action="#">
                                     <div class="form__box">
-                                        <input type="text" placeholder="Search...">
+                                        <input type="text" placeholder="{{__('error_not_found_search')}}">
                                         <button><i class="fa fa-search"></i></button>
                                     </div>
                                 </form>

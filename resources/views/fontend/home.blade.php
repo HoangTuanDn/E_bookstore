@@ -15,7 +15,7 @@
                         <div class="slider__content">
                             <div class="contentbox">
                                 {!! __('banner_header') !!}
-                                <a class="shopbtn" href="{{route('home.shop')}}">{{__('go_shop')}}</a>
+                                <a class="shopbtn" href="{{route('home.shop', ['language' => app()->getLocale()])}}">{{__('go_shop')}}</a>
                                 @if($isHomePage)
                                     <input type="hidden" value="oth-page">
                                 @endif
@@ -34,7 +34,7 @@
                         <div class="slider__content">
                             <div class="contentbox">
                                 {!! __('banner_header') !!}
-                                <a class="shopbtn" href="{{route('home.shop')}}">{{__('go_shop')}}</a>
+                                <a class="shopbtn" href="{{route('home.shop', ['language' => app()->getLocale()])}}">{{__('go_shop')}}</a>
                             </div>
                         </div>
                     </div>
@@ -62,7 +62,7 @@
                     <div class="product product__style--3">
                         <div class="col-lg-3 col-md-4 col-sm-6 col-12">
                             <div class="product__thumb">
-                                <a class="first__img" href="{{route('home.shop.single_product', ['slug'=>$product->slug])}}"><img src="{{$product->featured_img}}" alt="product image"></a>
+                                <a class="first__img" href="{{route('home.shop.single_product', ['language' => app()->getLocale(), 'slug'=>$product->slug])}}"><img src="{{$product->featured_img}}" alt="product image"></a>
                                 @if($product['type'] == __('best'))
                                     <div class="hot__box">
                                         <span class="hot-label">{{__('best')}}</span>
@@ -75,18 +75,18 @@
 
                             </div>
                             <div class="product__content content--center">
-                                <h4><a href="{{route('home.shop.single_product', ['slug'=>$product->slug])}}">{{$product->name}}</a></h4>
+                                <h4><a href="{{route('home.shop.single_product',  ['language' => app()->getLocale(), 'slug'=>$product->slug])}}">{{$product->name}}</a></h4>
                                 <ul class="prize d-flex">
                                     <li>{!! number_format($product->discount, 0, ',', '.') . __('currency_unit') !!}</li>
                                     <li class="old_prize">{!! number_format($product->price, 0, ',', '.').  __('currency_unit') !!}</li>
                                 </ul>
                                 <div class="action">
-                                    <div class="actions_inner" data-review="{{__('reviews_count', ['number' => $product->customerReviews()->count()])}}" data-url="{{route('home.shop.single_product',['slug' => $product['slug']])}}" data-image="{{$product['featured_img']}}" data-author="{{$product['author']}}" data-discount="{!! number_format($product['discount'], 0, ',', '.') . __('currency_unit') !!}" data-title="{{$product['title']}}" data-price="{!! number_format($product['price'], 0, ',', '.').  __('currency_unit') !!}"  data-name="{{$product['name']}}" data-id="{{$product['id']}}">
+                                    <div class="actions_inner" data-review="{{__('reviews_count', ['number' => $product->customerReviews()->count()])}}" data-url="{{route('home.shop.single_product', ['language' => app()->getLocale(), 'slug' => $product['slug']])}}" data-image="{{$product['featured_img']}}" data-author="{{$product['author']}}" data-discount="{!! number_format($product['discount'], 0, ',', '.') . __('currency_unit') !!}" data-title="{{$product['title']}}" data-price="{!! number_format($product['price'], 0, ',', '.').  __('currency_unit') !!}"  data-name="{{$product['name']}}" data-id="{{$product['id']}}">
                                         <ul class="add_to_links">
-                                            <li><a class="cart" data-action="checkout-single" href="{{route('home.checkout',['slug'=>$product['slug']])}}"><i class="bi bi-shopping-bag4"></i></a></li>
-                                            <li><a class="wishlist" data-name="{{$product['name']}}" data-id="{{$product['id']}}" data-action="add_to_cart"  href="{{route('home.cart.store')}}"><i class="bi bi-shopping-cart-full"></i></a></li>
-                                            <li><a class="compare"  data-action="add_to_wishlist" data-exist="{{__('exist_in_wishlist',['name' => $product['name']])}}" data-add="{{__('add_to_wishlist',['name' => $product['name']])}}" href="{{route('home.wish_list')}}"><i class="bi bi-heart-beat"></i></a></li>
-                                            <li><a data-toggle="modal" data-action="quick_view" data-url="{{route('home.cart.store')}}" title="Quick View" class="quickview modal-view detail-link" href="#productmodal"><i class="bi bi-search"></i></a></li>
+                                            <li><a class="cart" data-action="checkout-single" href="{{route('home.checkout', ['language' => app()->getLocale(), 'slug'=>$product['slug']])}}"><i class="bi bi-shopping-bag4"></i></a></li>
+                                            <li><a class="wishlist" data-name="{{$product['name']}}" data-id="{{$product['id']}}" data-action="add_to_cart"  href="{{route('home.cart.store', ['language' => app()->getLocale()])}}"><i class="bi bi-shopping-cart-full"></i></a></li>
+                                            <li><a class="compare"  data-action="add_to_wishlist" data-exist="{{__('exist_in_wishlist',['name' => $product['name']])}}" data-add="{{__('add_to_wishlist',['name' => $product['name']])}}" href="{{route('home.wish_list', ['language' => app()->getLocale()])}}"><i class="bi bi-heart-beat"></i></a></li>
+                                            <li><a data-toggle="modal" data-action="quick_view" data-url="{{route('home.cart.store', ['language' => app()->getLocale()])}}" title="Quick View" class="quickview modal-view detail-link" href="#productmodal"><i class="bi bi-search"></i></a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -123,7 +123,7 @@
                     </div>
                     <div class="newsletter__block text-center">
                         <p>{{__('stay_with_us_detail')}}</p>
-                        <form action="{{route('home.register_email')}}">
+                        <form action="{{route('home.register_email', ['language' => app()->getLocale()])}}">
                             <div class="newsletter__box">
                                 <input type="email" name="email" placeholder="{{__('enter_your_email')}}">
                                 <button data-action="subscribe">{{__('subscribe')}}</button>
@@ -167,7 +167,7 @@
                                     <div class="col-lg-3 col-md-4 col-sm-6 col-12">
                                         <div class="product product__style--3">
                                             <div class="product__thumb">
-                                                <a class="first__img" href="{{route('home.shop.single_product', ['slug'=>$product->slug])}}"><img src="{{$product->featured_img}}" alt="product image"></a>
+                                                <a class="first__img" href="{{route('home.shop.single_product',  ['language' => app()->getLocale(), 'slug'=>$product->slug])}}"><img src="{{$product->featured_img}}" alt="product image"></a>
                                                 @if($product['type'] == __('best'))
                                                     <div class="hot__box">
                                                         <span class="hot-label">{{__('best')}}</span>
@@ -179,18 +179,18 @@
                                                 @endif
                                             </div>
                                             <div class="product__content content--center content--center">
-                                                <h4><a href="{{route('home.shop.single_product', ['slug'=>$product->slug])}}">{{$product->name}}</a></h4>
+                                                <h4><a href="{{route('home.shop.single_product',  ['language' => app()->getLocale(), 'slug'=>$product->slug])}}">{{$product->name}}</a></h4>
                                                 <ul class="prize d-flex">
                                                     <li>{!! number_format($product->discount, 0, ',', '.') . __('currency_unit') !!}</li>
                                                     <li class="old_prize">{!!  number_format($product->price, 0, ',', '.') .  __('currency_unit') !!}</li>
                                                 </ul>
                                                 <div class="action">
-                                                    <div class="actions_inner" data-review="{{__('reviews_count', ['number' => $product->customerReviews()->count()])}}" data-url="{{route('home.shop.single_product',['slug' => $product['slug']])}}" data-image="{{$product['featured_img']}}" data-author="{{$product['author']}}" data-discount="{!! number_format($product['discount'], 0, ',', '.') . __('currency_unit') !!}" data-title="{{$product['title']}}" data-price="{!! number_format($product['price'], 0, ',', '.').  __('currency_unit') !!}"  data-name="{{$product['name']}}" data-id="{{$product['id']}}">
+                                                    <div class="actions_inner" data-review="{{__('reviews_count', ['number' => $product->customerReviews()->count()])}}" data-url="{{route('home.shop.single_product', ['language' => app()->getLocale(), 'slug' => $product['slug']])}}" data-image="{{$product['featured_img']}}" data-author="{{$product['author']}}" data-discount="{!! number_format($product['discount'], 0, ',', '.') . __('currency_unit') !!}" data-title="{{$product['title']}}" data-price="{!! number_format($product['price'], 0, ',', '.').  __('currency_unit') !!}"  data-name="{{$product['name']}}" data-id="{{$product['id']}}">
                                                         <ul class="add_to_links">
-                                                            <li><a class="cart" data-action="checkout-single" href="{{route('home.checkout',['slug'=>$product['slug']])}}"><i class="bi bi-shopping-bag4"></i></a></li>
-                                                            <li><a class="wishlist" data-name="{{$product['name']}}" data-id="{{$product['id']}}" data-action="add_to_cart"  href="{{route('home.cart.store')}}"><i class="bi bi-shopping-cart-full"></i></a></li>
-                                                            <li><a class="compare"  data-action="add_to_wishlist" data-exist="{{__('exist_in_wishlist',['name' => $product['name']])}}" data-add="{{__('add_to_wishlist',['name' => $product['name']])}}" href="{{route('home.wish_list')}}"><i class="bi bi-heart-beat"></i></a></li>
-                                                            <li><a data-toggle="modal" data-action="quick_view" data-url="{{route('home.cart.store')}}" title="Quick View" class="quickview modal-view detail-link" href="#productmodal"><i class="bi bi-search"></i></a></li>
+                                                            <li><a class="cart" data-action="checkout-single" href="{{route('home.checkout', ['language' => app()->getLocale(), 'slug'=>$product['slug']])}}"><i class="bi bi-shopping-bag4"></i></a></li>
+                                                            <li><a class="wishlist" data-name="{{$product['name']}}" data-id="{{$product['id']}}" data-action="add_to_cart"  href="{{route('home.cart.store', ['language' => app()->getLocale()])}}"><i class="bi bi-shopping-cart-full"></i></a></li>
+                                                            <li><a class="compare"  data-action="add_to_wishlist" data-exist="{{__('exist_in_wishlist',['name' => $product['name']])}}" data-add="{{__('add_to_wishlist',['name' => $product['name']])}}" href="{{route('home.wish_list', ['language' => app()->getLocale()])}}"><i class="bi bi-heart-beat"></i></a></li>
+                                                            <li><a data-toggle="modal" data-action="quick_view" data-url="{{route('home.cart.store', ['language' => app()->getLocale()])}}" title="Quick View" class="quickview modal-view detail-link" href="#productmodal"><i class="bi bi-search"></i></a></li>
                                                         </ul>
                                                     </div>
                                                 </div>
@@ -224,7 +224,7 @@
                                     <div class="col-lg-3 col-md-4 col-sm-6 col-12">
                                         <div class="product product__style--3">
                                             <div class="product__thumb">
-                                                <a class="first__img" href="{{route('home.shop.single_product', ['slug'=>$product->slug])}}"><img src="{{$product->featured_img}}" alt="product image"></a>
+                                                <a class="first__img" href="{{route('home.shop.single_product',  ['language' => app()->getLocale(), 'slug'=>$product->slug])}}"><img src="{{$product->featured_img}}" alt="product image"></a>
                                                 @if($product['type'] == __('best'))
                                                     <div class="hot__box">
                                                         <span class="hot-label">{{__('best')}}</span>
@@ -236,18 +236,18 @@
                                                 @endif
                                             </div>
                                             <div class="product__content content--center content--center">
-                                                <h4><a href="{{route('home.shop.single_product', ['slug'=>$product->slug])}}">{{$product->name}}</a></h4>
+                                                <h4><a href="{{route('home.shop.single_product',  ['language' => app()->getLocale(), 'slug'=>$product->slug])}}">{{$product->name}}</a></h4>
                                                 <ul class="prize d-flex">
                                                     <li>{!! number_format($product->discount, 0, ',', '.') . __('currency_unit') !!}</li>
                                                     <li class="old_prize">{!! number_format($product->price , 0, ',', '.').  __('currency_unit') !!}</li>
                                                 </ul>
                                                 <div class="action">
-                                                    <div class="actions_inner" data-review="{{__('reviews_count', ['number' => $product->customerReviews()->count()])}}" data-url="{{route('home.shop.single_product',['slug' => $product['slug']])}}" data-image="{{$product['featured_img']}}" data-author="{{$product['author']}}" data-discount="{!! number_format($product['discount'], 0, ',', '.') . __('currency_unit') !!}" data-title="{{$product['title']}}" data-price="{!! number_format($product['price'], 0, ',', '.').  __('currency_unit') !!}"  data-name="{{$product['name']}}" data-id="{{$product['id']}}">
+                                                    <div class="actions_inner" data-review="{{__('reviews_count', ['number' => $product->customerReviews()->count()])}}" data-url="{{route('home.shop.single_product', ['language' => app()->getLocale(), 'slug' => $product['slug']])}}" data-image="{{$product['featured_img']}}" data-author="{{$product['author']}}" data-discount="{!! number_format($product['discount'], 0, ',', '.') . __('currency_unit') !!}" data-title="{{$product['title']}}" data-price="{!! number_format($product['price'], 0, ',', '.').  __('currency_unit') !!}"  data-name="{{$product['name']}}" data-id="{{$product['id']}}">
                                                         <ul class="add_to_links">
-                                                            <li><a class="cart" data-action="checkout-single" href="{{route('home.checkout',['slug'=>$product['slug']])}}"><i class="bi bi-shopping-bag4"></i></a></li>
-                                                            <li><a class="wishlist" data-name="{{$product['name']}}" data-id="{{$product['id']}}" data-action="add_to_cart"  href="{{route('home.cart.store')}}"><i class="bi bi-shopping-cart-full"></i></a></li>
-                                                            <li><a class="compare"  data-action="add_to_wishlist" data-exist="{{__('exist_in_wishlist',['name' => $product['name']])}}" data-add="{{__('add_to_wishlist',['name' => $product['name']])}}" href="{{route('home.wish_list')}}"><i class="bi bi-heart-beat"></i></a></li>
-                                                            <li><a data-toggle="modal" data-action="quick_view" data-url="{{route('home.cart.store')}}" title="Quick View" class="quickview modal-view detail-link" href="#productmodal"><i class="bi bi-search"></i></a></li>
+                                                            <li><a class="cart" data-action="checkout-single" href="{{route('home.checkout', ['language' => app()->getLocale(), 'slug'=>$product['slug']])}}"><i class="bi bi-shopping-bag4"></i></a></li>
+                                                            <li><a class="wishlist" data-name="{{$product['name']}}" data-id="{{$product['id']}}" data-action="add_to_cart"  href="{{route('home.cart.store', ['language' => app()->getLocale()])}}"><i class="bi bi-shopping-cart-full"></i></a></li>
+                                                            <li><a class="compare"  data-action="add_to_wishlist" data-exist="{{__('exist_in_wishlist',['name' => $product['name']])}}" data-add="{{__('add_to_wishlist',['name' => $product['name']])}}" href="{{route('home.wish_list', ['language' => app()->getLocale()])}}"><i class="bi bi-heart-beat"></i></a></li>
+                                                            <li><a data-toggle="modal" data-action="quick_view" data-url="{{route('home.cart.store', ['language' => app()->getLocale()])}}" title="Quick View" class="quickview modal-view detail-link" href="#productmodal"><i class="bi bi-search"></i></a></li>
                                                         </ul>
                                                     </div>
                                                 </div>
@@ -281,7 +281,7 @@
                                     <div class="col-lg-3 col-md-4 col-sm-6 col-12">
                                         <div class="product product__style--3">
                                             <div class="product__thumb">
-                                                <a class="first__img" href="{{route('home.shop.single_product', ['slug'=>$product->slug])}}"><img src="{{$product->featured_img}}" alt="product image"></a>
+                                                <a class="first__img" href="{{route('home.shop.single_product',  ['language' => app()->getLocale(), 'slug'=>$product->slug])}}"><img src="{{$product->featured_img}}" alt="product image"></a>
                                                 @if($product['type'] == __('best'))
                                                     <div class="hot__box">
                                                         <span class="hot-label">{{__('best')}}</span>
@@ -293,18 +293,18 @@
                                                 @endif
                                             </div>
                                             <div class="product__content content--center content--center">
-                                                <h4><a href="{{route('home.shop.single_product', ['slug'=>$product->slug])}}">{{$product->name}}</a></h4>
+                                                <h4><a href="{{route('home.shop.single_product',  ['language' => app()->getLocale(), 'slug'=>$product->slug])}}">{{$product->name}}</a></h4>
                                                 <ul class="prize d-flex">
                                                     <li>{!! number_format($product->discount, 0, ',', '.') . __('currency_unit') !!}</li>
                                                     <li class="old_prize">{!! number_format($product->price , 0, ',', '.').  __('currency_unit') !!}</li>
                                                 </ul>
                                                 <div class="action">
-                                                    <div class="actions_inner" data-review="{{__('reviews_count', ['number' => $product->customerReviews()->count()])}}" data-url="{{route('home.shop.single_product',['slug' => $product['slug']])}}" data-image="{{$product['featured_img']}}" data-author="{{$product['author']}}" data-discount="{!! number_format($product['discount'], 0, ',', '.') . __('currency_unit') !!}" data-title="{{$product['title']}}" data-price="{!! number_format($product['price'], 0, ',', '.').  __('currency_unit') !!}"  data-name="{{$product['name']}}" data-id="{{$product['id']}}">
+                                                    <div class="actions_inner" data-review="{{__('reviews_count', ['number' => $product->customerReviews()->count()])}}" data-url="{{route('home.shop.single_product', ['language' => app()->getLocale(), 'slug' => $product['slug']])}}" data-image="{{$product['featured_img']}}" data-author="{{$product['author']}}" data-discount="{!! number_format($product['discount'], 0, ',', '.') . __('currency_unit') !!}" data-title="{{$product['title']}}" data-price="{!! number_format($product['price'], 0, ',', '.').  __('currency_unit') !!}"  data-name="{{$product['name']}}" data-id="{{$product['id']}}">
                                                         <ul class="add_to_links">
-                                                            <li><a class="cart" data-action="checkout-single" href="{{route('home.checkout',['slug'=>$product['slug']])}}"><i class="bi bi-shopping-bag4"></i></a></li>
-                                                            <li><a class="wishlist" data-name="{{$product['name']}}" data-id="{{$product['id']}}" data-action="add_to_cart"  href="{{route('home.cart.store')}}"><i class="bi bi-shopping-cart-full"></i></a></li>
-                                                            <li><a class="compare"  data-action="add_to_wishlist" data-exist="{{__('exist_in_wishlist',['name' => $product['name']])}}" data-add="{{__('add_to_wishlist',['name' => $product['name']])}}" href="{{route('home.wish_list')}}"><i class="bi bi-heart-beat"></i></a></li>
-                                                            <li><a data-toggle="modal" data-action="quick_view" data-url="{{route('home.cart.store')}}" title="Quick View" class="quickview modal-view detail-link" href="#productmodal"><i class="bi bi-search"></i></a></li>
+                                                            <li><a class="cart" data-action="checkout-single" href="{{route('home.checkout', ['language' => app()->getLocale(), 'slug'=>$product['slug']])}}"><i class="bi bi-shopping-bag4"></i></a></li>
+                                                            <li><a class="wishlist" data-name="{{$product['name']}}" data-id="{{$product['id']}}" data-action="add_to_cart"  href="{{route('home.cart.store', ['language' => app()->getLocale()])}}"><i class="bi bi-shopping-cart-full"></i></a></li>
+                                                            <li><a class="compare"  data-action="add_to_wishlist" data-exist="{{__('exist_in_wishlist',['name' => $product['name']])}}" data-add="{{__('add_to_wishlist',['name' => $product['name']])}}" href="{{route('home.wish_list', ['language' => app()->getLocale()])}}"><i class="bi bi-heart-beat"></i></a></li>
+                                                            <li><a data-toggle="modal" data-action="quick_view" data-url="{{route('home.cart.store', ['language' => app()->getLocale()])}}" title="Quick View" class="quickview modal-view detail-link" href="#productmodal"><i class="bi bi-search"></i></a></li>
                                                         </ul>
                                                     </div>
                                                 </div>
@@ -338,7 +338,7 @@
                                     <div class="col-lg-3 col-md-4 col-sm-6 col-12">
                                         <div class="product product__style--3">
                                             <div class="product__thumb">
-                                                <a class="first__img" href="{{route('home.shop.single_product', ['slug'=>$product->slug])}}"><img src="{{$product->featured_img}}" alt="product image"></a>
+                                                <a class="first__img" href="{{route('home.shop.single_product',  ['language' => app()->getLocale(), 'slug'=>$product->slug])}}"><img src="{{$product->featured_img}}" alt="product image"></a>
                                                 @if($product['type'] == __('best'))
                                                     <div class="hot__box">
                                                         <span class="hot-label">{{__('best')}}</span>
@@ -350,18 +350,18 @@
                                                 @endif
                                             </div>
                                             <div class="product__content content--center content--center">
-                                                <h4><a href="{{route('home.shop.single_product', ['slug'=>$product->slug])}}">{{$product->name}}</a></h4>
+                                                <h4><a href="{{route('home.shop.single_product',  ['language' => app()->getLocale(), 'slug'=>$product->slug])}}">{{$product->name}}</a></h4>
                                                 <ul class="prize d-flex">
                                                     <li>{!! number_format($product->discount, 0, ',', '.') . __('currency_unit') !!}</li>
                                                     <li class="old_prize">{!! number_format($product->price, 0, ',', '.' ).  __('currency_unit') !!}</li>
                                                 </ul>
                                                 <div class="action">
-                                                    <div class="actions_inner" data-review="{{__('reviews_count', ['number' => $product->customerReviews()->count()])}}" data-url="{{route('home.shop.single_product',['slug' => $product['slug']])}}" data-image="{{$product['featured_img']}}" data-author="{{$product['author']}}" data-discount="{!! number_format($product['discount'], 0, ',', '.') . __('currency_unit') !!}" data-title="{{$product['title']}}" data-price="{!! number_format($product['price'], 0, ',', '.').  __('currency_unit') !!}"  data-name="{{$product['name']}}" data-id="{{$product['id']}}">
+                                                    <div class="actions_inner" data-review="{{__('reviews_count', ['number' => $product->customerReviews()->count()])}}" data-url="{{route('home.shop.single_product', ['language' => app()->getLocale(), 'slug' => $product['slug']])}}" data-image="{{$product['featured_img']}}" data-author="{{$product['author']}}" data-discount="{!! number_format($product['discount'], 0, ',', '.') . __('currency_unit') !!}" data-title="{{$product['title']}}" data-price="{!! number_format($product['price'], 0, ',', '.').  __('currency_unit') !!}"  data-name="{{$product['name']}}" data-id="{{$product['id']}}">
                                                         <ul class="add_to_links">
-                                                            <li><a class="cart" data-action="checkout-single" href="{{route('home.checkout',['slug'=>$product['slug']])}}"><i class="bi bi-shopping-bag4"></i></a></li>
-                                                            <li><a class="wishlist" data-name="{{$product['name']}}" data-id="{{$product['id']}}" data-action="add_to_cart"  href="{{route('home.cart.store')}}"><i class="bi bi-shopping-cart-full"></i></a></li>
-                                                            <li><a class="compare"  data-action="add_to_wishlist" data-exist="{{__('exist_in_wishlist',['name' => $product['name']])}}" data-add="{{__('add_to_wishlist',['name' => $product['name']])}}" href="{{route('home.wish_list')}}"><i class="bi bi-heart-beat"></i></a></li>
-                                                            <li><a data-toggle="modal" data-action="quick_view" data-url="{{route('home.cart.store')}}" title="Quick View" class="quickview modal-view detail-link" href="#productmodal"><i class="bi bi-search"></i></a></li>
+                                                            <li><a class="cart" data-action="checkout-single" href="{{route('home.checkout', ['language' => app()->getLocale(), 'slug'=>$product['slug']])}}"><i class="bi bi-shopping-bag4"></i></a></li>
+                                                            <li><a class="wishlist" data-name="{{$product['name']}}" data-id="{{$product['id']}}" data-action="add_to_cart"  href="{{route('home.cart.store', ['language' => app()->getLocale()])}}"><i class="bi bi-shopping-cart-full"></i></a></li>
+                                                            <li><a class="compare"  data-action="add_to_wishlist" data-exist="{{__('exist_in_wishlist',['name' => $product['name']])}}" data-add="{{__('add_to_wishlist',['name' => $product['name']])}}" href="{{route('home.wish_list', ['language' => app()->getLocale()])}}"><i class="bi bi-heart-beat"></i></a></li>
+                                                            <li><a data-toggle="modal" data-action="quick_view" data-url="{{route('home.cart.store', ['language' => app()->getLocale()])}}" title="Quick View" class="quickview modal-view detail-link" href="#productmodal"><i class="bi bi-search"></i></a></li>
                                                         </ul>
                                                     </div>
                                                 </div>
@@ -395,7 +395,7 @@
                                     <div class="col-lg-3 col-md-4 col-sm-6 col-12">
                                         <div class="product product__style--3">
                                             <div class="product__thumb">
-                                                <a class="first__img" href="{{route('home.shop.single_product', ['slug'=>$product->slug])}}"><img src="{{$product->featured_img}}" alt="product image"></a>
+                                                <a class="first__img" href="{{route('home.shop.single_product',  ['language' => app()->getLocale(), 'slug'=>$product->slug])}}"><img src="{{$product->featured_img}}" alt="product image"></a>
                                                 @if($product['type'] == __('best'))
                                                     <div class="hot__box">
                                                         <span class="hot-label">{{__('best')}}</span>
@@ -407,18 +407,18 @@
                                                 @endif
                                             </div>
                                             <div class="product__content content--center content--center">
-                                                <h4><a href="{{route('home.shop.single_product', ['slug'=>$product->slug])}}">{{$product->name}}</a></h4>
+                                                <h4><a href="{{route('home.shop.single_product',  ['language' => app()->getLocale(), 'slug'=>$product->slug])}}">{{$product->name}}</a></h4>
                                                 <ul class="prize d-flex">
                                                     <li>{!! number_format($product->discount, 0, ',', '.') . __('currency_unit') !!}</li>
                                                     <li class="old_prize">{!! number_format($product->price , 0, ',', '.').  __('currency_unit') !!}</li>
                                                 </ul>
                                                 <div class="action">
-                                                    <div class="actions_inner" data-review="{{__('reviews_count', ['number' => $product->customerReviews()->count()])}}" data-url="{{route('home.shop.single_product',['slug' => $product['slug']])}}" data-image="{{$product['featured_img']}}" data-author="{{$product['author']}}" data-discount="{!! number_format($product['discount'], 0, ',', '.') . __('currency_unit') !!}" data-title="{{$product['title']}}" data-price="{!! number_format($product['price'], 0, ',', '.').  __('currency_unit') !!}"  data-name="{{$product['name']}}" data-id="{{$product['id']}}">
+                                                    <div class="actions_inner" data-review="{{__('reviews_count', ['number' => $product->customerReviews()->count()])}}" data-url="{{route('home.shop.single_product', ['language' => app()->getLocale(), 'slug' => $product['slug']])}}" data-image="{{$product['featured_img']}}" data-author="{{$product['author']}}" data-discount="{!! number_format($product['discount'], 0, ',', '.') . __('currency_unit') !!}" data-title="{{$product['title']}}" data-price="{!! number_format($product['price'], 0, ',', '.').  __('currency_unit') !!}"  data-name="{{$product['name']}}" data-id="{{$product['id']}}">
                                                         <ul class="add_to_links">
-                                                            <li><a class="cart" data-action="checkout-single" href="{{route('home.checkout',['slug'=>$product['slug']])}}"><i class="bi bi-shopping-bag4"></i></a></li>
-                                                            <li><a class="wishlist" data-name="{{$product['name']}}" data-id="{{$product['id']}}" data-action="add_to_cart"  href="{{route('home.cart.store')}}"><i class="bi bi-shopping-cart-full"></i></a></li>
-                                                            <li><a class="compare"  data-action="add_to_wishlist" data-exist="{{__('exist_in_wishlist',['name' => $product['name']])}}" data-add="{{__('add_to_wishlist',['name' => $product['name']])}}" href="{{route('home.wish_list')}}"><i class="bi bi-heart-beat"></i></a></li>
-                                                            <li><a data-toggle="modal" data-action="quick_view" data-url="{{route('home.cart.store')}}" title="Quick View" class="quickview modal-view detail-link" href="#productmodal"><i class="bi bi-search"></i></a></li>
+                                                            <li><a class="cart" data-action="checkout-single" href="{{route('home.checkout', ['language' => app()->getLocale(), 'slug'=>$product['slug']])}}"><i class="bi bi-shopping-bag4"></i></a></li>
+                                                            <li><a class="wishlist" data-name="{{$product['name']}}" data-id="{{$product['id']}}" data-action="add_to_cart"  href="{{route('home.cart.store', ['language' => app()->getLocale()])}}"><i class="bi bi-shopping-cart-full"></i></a></li>
+                                                            <li><a class="compare"  data-action="add_to_wishlist" data-exist="{{__('exist_in_wishlist',['name' => $product['name']])}}" data-add="{{__('add_to_wishlist',['name' => $product['name']])}}" href="{{route('home.wish_list', ['language' => app()->getLocale()])}}"><i class="bi bi-heart-beat"></i></a></li>
+                                                            <li><a data-toggle="modal" data-action="quick_view" data-url="{{route('home.cart.store', ['language' => app()->getLocale()])}}" title="Quick View" class="quickview modal-view detail-link" href="#productmodal"><i class="bi bi-search"></i></a></li>
                                                         </ul>
                                                     </div>
                                                 </div>
@@ -464,16 +464,16 @@
             @foreach($bestSellProducts as $product)
                 <div class="product product__style--3">
                     <div class="product__thumb">
-                        <a class="first__img" href="{{route('home.shop.single_product', ['slug'=>$product->slug])}}"><img src="{{$product->featured_img}}" alt="product image"></a>
+                        <a class="first__img" href="{{route('home.shop.single_product',  ['language' => app()->getLocale(), 'slug'=>$product->slug])}}"><img src="{{$product->featured_img}}" alt="product image"></a>
                     </div>
                     <div class="product__content content--center">
                         <div class="action">
-                            <div class="actions_inner" data-review="{{__('reviews_count', ['number' => $product->customerReviews()->count()])}}" data-url="{{route('home.shop.single_product',['slug' => $product['slug']])}}" data-image="{{$product['featured_img']}}" data-author="{{$product['author']}}" data-discount="{!! number_format($product['discount'], 0, ',', '.') . __('currency_unit') !!}" data-title="{{$product['title']}}" data-price="{!! number_format($product['price'], 0, ',', '.').  __('currency_unit') !!}"  data-name="{{$product['name']}}" data-id="{{$product['id']}}">
+                            <div class="actions_inner" data-review="{{__('reviews_count', ['number' => $product->customerReviews()->count()])}}" data-url="{{route('home.shop.single_product', ['language' => app()->getLocale(), 'slug' => $product['slug']])}}" data-image="{{$product['featured_img']}}" data-author="{{$product['author']}}" data-discount="{!! number_format($product['discount'], 0, ',', '.') . __('currency_unit') !!}" data-title="{{$product['title']}}" data-price="{!! number_format($product['price'], 0, ',', '.').  __('currency_unit') !!}"  data-name="{{$product['name']}}" data-id="{{$product['id']}}">
                                 <ul class="add_to_links">
-                                    <li><a class="cart" data-action="checkout-single" href="{{route('home.checkout',['slug'=>$product['slug']])}}"><i class="bi bi-shopping-bag4"></i></a></li>
-                                    <li><a class="wishlist" data-name="{{$product['name']}}" data-id="{{$product['id']}}" data-action="add_to_cart"  href="{{route('home.cart.store')}}"><i class="bi bi-shopping-cart-full"></i></a></li>
-                                    <li><a class="compare"  data-action="add_to_wishlist" data-exist="{{__('exist_in_wishlist',['name' => $product['name']])}}" data-add="{{__('add_to_wishlist',['name' => $product['name']])}}" href="{{route('home.wish_list')}}"><i class="bi bi-heart-beat"></i></a></li>
-                                    <li><a data-toggle="modal"  data-action="quick_view" data-url="{{route('home.cart.store')}}" title="Quick View" class="quickview modal-view detail-link" href="#productmodal"><i class="bi bi-search"></i></a></li>
+                                    <li><a class="cart" data-action="checkout-single" href="{{route('home.checkout', ['language' => app()->getLocale(), 'slug'=>$product['slug']])}}"><i class="bi bi-shopping-bag4"></i></a></li>
+                                    <li><a class="wishlist" data-name="{{$product['name']}}" data-id="{{$product['id']}}" data-action="add_to_cart"  href="{{route('home.cart.store', ['language' => app()->getLocale()])}}"><i class="bi bi-shopping-cart-full"></i></a></li>
+                                    <li><a class="compare"  data-action="add_to_wishlist" data-exist="{{__('exist_in_wishlist',['name' => $product['name']])}}" data-add="{{__('add_to_wishlist',['name' => $product['name']])}}" href="{{route('home.wish_list', ['language' => app()->getLocale()])}}"><i class="bi bi-heart-beat"></i></a></li>
+                                    <li><a data-toggle="modal"  data-action="quick_view" data-url="{{route('home.cart.store', ['language' => app()->getLocale()])}}" title="Quick View" class="quickview modal-view detail-link" href="#productmodal"><i class="bi bi-search"></i></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -496,8 +496,7 @@
         </div>
     </section>
     <!-- Best Sale Area Area -->
-
-    {{--quick view--}}
+    <!--  quick view -->
     @include('fontend.quick_view')
 
 @endsection

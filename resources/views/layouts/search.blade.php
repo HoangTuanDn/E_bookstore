@@ -1,7 +1,7 @@
 <div class="brown--color box-search-content search_active block-bg close__top" >
     <form id="search_mini_form" class="minisearch" action="#">
         <div class="field__search">
-            <input type="search" id="aa-search-input" class="aa-input-search" placeholder="Tìm kiếm sản phẩm...">
+            <input type="search" id="aa-search-input" class="aa-input-search" placeholder="{{__('algolia_search')}}">
             <div class="action">
                 <a><i class="zmdi zmdi-search"></i></a>
             </div>

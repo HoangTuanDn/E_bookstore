@@ -35,7 +35,7 @@
                         <input type="hidden" class="stock_false" value="{{__('stock_fasle')}}">
                         <input type="hidden" class="add_text" value="{{__('add_to_cart_1')}}">
                         <input type="hidden" class="delete_wishlist_text" value="{{__('delete_product_ind_wishlist')}}">
-                        <input type="hidden" class="url_store" value="{{route('home.cart.store')}}">
+                        <input type="hidden" class="url_store" value="{{route('home.cart.store', ['language' => app()->getLocale()])}}">
                         <div class="wishlist-table wnro__table table-responsive">
                             <table>
                                 <thead>
@@ -49,15 +49,6 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td class="product-remove"><a href="#">×</a></td>
-                                    <td class="product-thumbnail"><a href="#"><img src="{{asset('fontend/images/product/sm-3/1.jpg')}}" alt=""></a></td>
-                                    <td class="product-name"><a href="#">Natoque penatibus</a></td>
-                                    <td class="product-price"><span class="amount">$165.00</span></td>
-                                    <td class="product-stock-status"><span class="wishlist-in-stock">In Stock</span></td>
-                                    <td class="product-add-to-cart"><a href="#"> Add to Cart</a></td>
-                                </tr>
-
                                 </tbody>
                             </table>
                         </div>

@@ -2,6 +2,7 @@ $(function () {
     /*create toast element*/
     createTostElement();
 
+
     /*custom header*/
     let classRemove = $('.contentbox input[type="hidden"]').val();
     if (classRemove){

@@ -33,7 +33,7 @@ class MasterController extends Controller
             if (isset($menuGroups[$menu->parent_id]) && array_key_exists($menu->name, $categoryMatchSlug)){
                 $menuGroups[$menu->parent_id] [] = [
                     'name' => $menu->name,
-                    'href' => route('home.shop',['category' => $categoryMatchSlug[$menu->name]])
+                    'href' => route('home.shop',['language'=> app()->getLocale(),'category' => $categoryMatchSlug[$menu->name]])
                 ];
             }
         }

@@ -400,9 +400,8 @@ Route::prefix('admin')->group(function (){
 /*font end route*/
 
 
-Route::get('/', [HomeController::class, 'index']);
-Route::redirect('/', '/vn');
-Route::prefix('{language}')->group(function () {
+Route::redirect('/', '/vn/home');
+Route::Group(['prefix' => '{language}'],function () {
     Route::prefix('home')->group(function (){
         Route::get('/',[HomeController::class, 'index'])
             ->name('home');

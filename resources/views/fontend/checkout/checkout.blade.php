@@ -36,7 +36,7 @@
                             <a class="showlogin" href="#">{{__('login_titile')}}</a>
                         </div>
                         <div class="checkout_login">
-                            <form class="wn__checkout__form" action="{{route('account.login')}}">
+                            <form class="wn__checkout__form" action="{{route('account.login', ['language' => app()->getLocale()])}}">
                                 <p>{{__('checkout_title')}}</p>
 
                                 <div class="input__box">
@@ -65,7 +65,7 @@
                         <a class="showcoupon" href="#">{{__('coupon_description')}}</a>
                     </div>
                     <div class="checkout_coupon">
-                        <form action="{{route('home.checkout')}}">
+                        <form action="{{route('home.checkout', ['language' => app()->getLocale()])}}">
                             <div class="form__coupon">
                                 <input type="text" name="coupon_code" value="{{$order['coupon_code'] ?? ''}}" placeholder="{{__('coupon_code')}}">
                                 <button data-action="apply-coupon">{{__('apply_coupon')}}</button>
@@ -79,7 +79,7 @@
             <div class="col-lg-6 col-12">
                 <div class="customer_details">
                     <h3>{{__('billing_details')}}</h3>
-                    <div class="customar__field" data-action="store-data" data-url="{{route('home.checkout')}}">
+                    <div class="customar__field" data-action="store-data" data-url="{{route('home.checkout', ['language' => app()->getLocale()])}}">
                         <div class="margin_between">
                             <div class="input_box space_between" style="width: 100%">
                                 <label>{{__('full_name')}} <span>*</span></label>
@@ -128,7 +128,7 @@
                     <div class="order__form">
                         <form action="">
                             <div class="form__btn">
-                                <button data-url="{{isset($slug) ? route('home.order', ['slug' => $slug]) : route('home.order')}}" data-action="apply-order">{{__('apply_order')}}</button>
+                                <button data-url="{{isset($slug) ? route('home.order', ['language' => app()->getLocale(), 'slug' => $slug]) : route('home.order', ['language' => app()->getLocale()])}}" data-action="apply-order">{{__('apply_order')}}</button>
                             </div>
                         </form>
                     </div>
@@ -146,7 +146,7 @@
                         <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne" data-parent="#accordion">
                             <div class="payment-body">{{__('direct_bank_transfer_title')}}</div>
                             <div class="payment-apply">
-                                <label for="">Lựu chọn phương thức:</label>
+                                <label for="">{{__('select_payment')}}</label>
                                 <input id="direct_bank_transfer" name="payment" data-index="0" value="1"  type="radio">
                             </div>
                         </div>
@@ -170,7 +170,7 @@
                         <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree" data-parent="#accordion">
                             <div class="payment-body">{{__('cash_on_delivery_title')}}</div>
                             <div class="payment-apply">
-                                <label for="">Lựu chọn phương thức:</label>
+                                <label for="">{{__('select_payment')}}</label>
                                 <input id="direct_bank_transfer" name="payment" data-index="0" value="2"  type="radio">
                             </div>
                         </div>
@@ -184,7 +184,7 @@
                         <div id="collapseFour" class="collapse" role="tabpanel" aria-labelledby="headingFour" data-parent="#accordion">
                             <div class="payment-body">{{__('paypal_title')}}</div>
                             <div class="payment-apply">
-                                <label for="">Lựu chọn phương thức:</label>
+                                <label for="">{{__('select_payment')}}</label>
                                 <input id="direct_bank_transfer" name="payment" data-index="0" value="3"  type="radio">
                             </div>
                         </div>
