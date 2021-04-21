@@ -151,7 +151,7 @@
                             <h3 class="wedget__title">{{__('product_categories')}}</h3>
                             <ul>
                                 @foreach($categories as $category)
-                                    <li ><a data-action="btnFilterCategory" href="{{route('home.shop', ['language'=> app()->getLocale(), 'category' => $category->slug])}}" data-value="{{$category->slug}}">{{$category->name}}<span>({{$category->products->count()}})</span></a>
+                                    <li ><a data-action="btnFilterCategory" href="{{route('home.shop', ['language'=> app()->getLocale(), 'category' => $category->slug])}}" data-value="{{$category->slug}}">{{app()->getLocale() === 'en' ? $categoryTranslate[$category->name] : $category->name}}<span>({{$category->products->count()}})</span></a>
                                     </li>
                                 @endforeach
                             </ul>

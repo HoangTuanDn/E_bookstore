@@ -14,6 +14,25 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script src="{{asset('backend/common/slider/list.js')}}"></script>
     <script src="{{asset('common/toastr.min.js')}}"></script>
+
+    <script src="{{asset('backend/plugins/datatables/jquery.dataTables.js')}}"></script>
+    <script src="{{asset('backend/plugins/datatables-buttons/js/dataTables.buttons.min.js')}}"></script>
+    <script src="{{asset('backend/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
+    <script src="{{asset('backend/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
+    <script src="{{asset('backend/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
+    <script>
+        $(function () {
+            $("#example1").DataTable({
+                "paging": false,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": false,
+                "info": false,
+                "autoWidth": false,
+                "responsive": true,
+            })
+        });
+    </script>
 @endsection
 
 
@@ -29,33 +48,56 @@
             <!-- Default box -->
             <div class="card">
 
-                <div class="card-header">
-                    <h3 class="card-title">Slider</h3>
+                <div class="card-header d-flex flex-row align-content-center">
+
+                    <div class="card-tools mr-1">
+                        <form action="{{route('sliders.index')}}" method="get">
+                            <div class="input-group input-group-sm" style="width: 150px; margin-top: 5px">
+                                <input type="text" name="name" class="form-control float-right" placeholder="Tìm kiếm...">
+                                <div class="input-group-append">
+                                    <button type="submit" class="btn btn-default">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+                    <div class="dropdown flex-grow-1">
+                        <button style="margin-top: 5px" class="btn btn-default btn-sm dropdown-toggle mr-1" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Sắp xếp
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                            {{--<a href="{{$sort_name}}" class="dropdown-item">Tên</a>
+                            <a href="{{$sort_default}}" class="dropdown-item">Mặc định</a>--}}
+                        </div>
+                    </div>
+
                     @if(session('message') && session('type'))
                         <p id="session-message" data-message="{{session('message')}}" data-type="{{session('type')}}"></p>
                     @endif
 
-                    <div class="card-tools">
+                    <div class="card-tools d-flex flex-row">
                         <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
                             <i class="fas fa-minus"></i>
                         </button>
-                        <a href="{{route('sliders.create')}}" class="btn btn-success">
+                        <a href="{{route('sliders.create')}}" class="btn btn-success btn-sm m-1">
                            Add
                         </a>
                     </div>
                 </div>
                 <div class="card-body p-0">
-                    <table class="table table-striped projects">
+                    <table class="table table-striped projects" id="example1">
                         <thead>
                         <tr>
                             <th class="border-right text-center" style="width: 1%">
                                 #
                             </th>
-                            <th style="width: 20%">
+                            <th style="width: 44%">
                                 Tên slider
                             </th>
 
-                            <th  style="width: 20%; text-align: center">
+                            <th  style="width: 44%; text-align: center">
                                 Hình ảnh
                             </th>
 
@@ -96,7 +138,7 @@
                     </table>
                 </div>
                 <div class="col-md-5 mt-3">
-                    {{$sliders->links()}}
+                    {{$sliders->appends(request()->query())->links()}}
                 </div>
                 <!-- /.card-body -->
             </div>

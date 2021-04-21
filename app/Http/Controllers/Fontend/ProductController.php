@@ -19,7 +19,6 @@ class ProductController extends Controller
     private $product;
     private $category;
     private $tag;
-    private $error;
 
     /**
      * ProductController constructor.
@@ -49,6 +48,23 @@ class ProductController extends Controller
         $customerReviews = $product->customerReviews;
         $productTags = $product->tags;
         $collectionRelatedProducts = [];
+        $categoryTranslate =  [
+            'Danh nhân' => 'Biography',
+            'Kinh doanh' => 'Business',
+            'Sách dạy nấu ăn' => 'Cookbooks',
+            'Sức khỏe & Thể hình' => 'Health & Fitness',
+            'Lịch sử' => 'History',
+            'Huyền bí' => 'Mystery',
+            'Ma thuật' => 'Magic',
+            'Tình cảm' => 'Romance',
+            'Viễn tưởng' => 'Fiction',
+            'Hài hước' => 'Humor',
+            'Harry Potter' => 'Harry Potter',
+            'Khoa học' => 'Science',
+            'Cảm hứng' => 'Inspiration',
+            'Phiêu lưu' => 'Adventure',
+            'Bí ẩn' => 'Mystery'
+        ];
 
         foreach ($productTags as $tag) {
             $collectionRelatedProducts [] = $tag->products;
@@ -61,7 +77,11 @@ class ProductController extends Controller
 
         $textCategory = [];
         foreach ($product->categories as $category) {
-            $textCategory [] = '<a href="' . route('home.shop', ['language'=> app()->getLocale(),'category' => $category->slug]) . '">' . $category->name . '</a>';
+            if (app()->getLocale() === 'en') {
+                $textCategory [] = '<a href="' . route('home.shop', ['language'=> app()->getLocale(),'category' => $category->slug]) . '">' . $categoryTranslate[$category->name] . '</a>';
+            }else{
+                $textCategory [] = '<a href="' . route('home.shop', ['language'=> app()->getLocale(),'category' => $category->slug]) . '">' . $category->name . '</a>';
+            }
         }
         $textCategory = implode(',  ', $textCategory);
 
@@ -73,8 +93,7 @@ class ProductController extends Controller
         $inc_review = view('fontend.product.inc.review', compact('customerReviews'));
         $inc_list = view('fontend.product.inc.detail', compact('inc_review', 'product', 'textCategory'));
 
-
-        return view('fontend.product.single_product', compact('inc_list', 'relatedProducts', 'upsellProducts', 'categories', 'tags'));
+        return view('fontend.product.single_product', compact('inc_list', 'relatedProducts', 'upsellProducts', 'categories', 'tags', 'categoryTranslate'));
     }
 
     public function review(ReviewRequest $request,$language ,$slug)
@@ -167,6 +186,23 @@ class ProductController extends Controller
         $order = $request->query('order', 'desc');
         $page = $request->query('page', 1);
         $limit = $request->query('limit', config('custom.limit'));
+        $categoryTranslate =  [
+            'Danh nhân' => 'Biography',
+            'Kinh doanh' => 'Business',
+            'Sách dạy nấu ăn' => 'Cookbooks',
+            'Sức khỏe & Thể hình' => 'Health & Fitness',
+            'Lịch sử' => 'History',
+            'Huyền bí' => 'Mystery',
+            'Ma thuật' => 'Magic',
+            'Tình cảm' => 'Romance',
+            'Viễn tưởng' => 'Fiction',
+            'Hài hước' => 'Humor',
+            'Harry Potter' => 'Harry Potter',
+            'Khoa học' => 'Science',
+            'Cảm hứng' => 'Inspiration',
+            'Phiêu lưu' => 'Adventure',
+            'Bí ẩn' => 'Mystery'
+        ];
 
         $data['products'] = [];
 
@@ -284,6 +320,7 @@ class ProductController extends Controller
             ]);
         } else {
             $data['inc_list'] = view('fontend.shop.inc.list_product', $data);
+            $data['categoryTranslate'] = $categoryTranslate;
             return view('fontend.shop.shop', $data);
         }
     }
@@ -293,7 +330,7 @@ class ProductController extends Controller
         $url = [];
 
         call_user_func_array('preUrlFilter', [&$url, $list, [
-            'name' => request()->query->has('filter_name') ? urlencode(hed(request()->query('filter_name'), ENT_QUOTES, 'UTF-8')) : '',
+            'name' => request()->query->has('name') ? urlencode(hed(request()->query('name'), ENT_QUOTES, 'UTF-8')) : '',
         ]]);
 
         return $url;

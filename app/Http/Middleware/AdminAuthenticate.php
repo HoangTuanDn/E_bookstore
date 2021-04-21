@@ -19,7 +19,7 @@ class AdminAuthenticate
         if (auth()->guard('admin')->guest()) {
             return redirect()->route('auth.adminLogin');
         }
-
+        app()->setLocale('vn');
         return $next($request);
     }
 }

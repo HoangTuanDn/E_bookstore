@@ -87,12 +87,15 @@
                     <div class="content">
                         <h2><a href="{{route('home.shop', ['language'=>app()->getLocale(), 'slug' => $product['slug']])}}">{{$product['name']}}</a></h2>
                         <ul class="rating d-flex">
-                            <li class="on"><i class="fa fa-star-o"></i></li>
-                            <li class="on"><i class="fa fa-star-o"></i></li>
-                            <li class="on"><i class="fa fa-star-o"></i></li>
-                            <li class="on"><i class="fa fa-star-o"></i></li>
-                            <li><i class="fa fa-star-o"></i></li>
-                            <li><i class="fa fa-star-o"></i></li>
+                            @for($i = 1; $i <= 5; $i++)
+                                @if($product['rate'] == 0)
+                                    <li><i class="fa fa-star-o"></i></li>
+                                @elseif($product['rate'] > 0 && $i <= $product['rate'])
+                                    <li class="on"><i class="fa fa-star-o"></i></li>
+                                @else
+                                    <li><i class="fa fa-star-o"></i></li>
+                                @endif
+                            @endfor
                         </ul>
                         <ul class="prize__box">
                             <li>{{number_format($product['discount'], 0, ',', '.') . __('currency_unit')}}</li>

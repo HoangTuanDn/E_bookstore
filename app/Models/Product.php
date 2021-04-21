@@ -139,7 +139,7 @@ class Product extends Model
         $sortData = [
             'name'       => 'name',
             'date'       => 'publish_date',
-            'price'      => 'discount',
+            'price'      => 'price',
             'created_at' => 'created_at'
         ];
 

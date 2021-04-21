@@ -28,9 +28,79 @@ class UserController extends Controller
         $this->role = $role;
     }
 
-    public function index(){
-        $users = $this->user->select('id', 'name', 'image_path', 'email')->paginate(config('custom.limit'));
-        return view('admin.user.index2', compact('users'));
+    public function index(Request $request){
+
+        $data = [];
+        $filterName = $request->query('username');
+        $sort = $request->query('sort', 'default');
+        $order = $request->query('order', 'desc');
+        $page = $request->query('page', 1);
+        $limit = $request->query('limit', config('custom.limit'));
+
+
+        $dataFilter = [
+            'name'  => $filterName,
+            'sort'  => $sort,
+            'order' => $order,
+            'page'  => $page,
+            'limit' => $limit
+        ];
+
+        $users = $this->user->filterUser($dataFilter);
+        $total_user = $users->total();
+
+        if (utf8_strtolower($order) == 'asc') {
+            $url['order'] = 'desc';
+        } else {
+            $url['order'] = 'asc';
+        }
+
+        $data['sort_name'] = qs_url('/admin/users/index', array_merge($url, ['sort' => 'username']));
+        $data['sort_default'] = qs_url('/admin/users/index', array_merge($url, ['sort' => 'default']));
+
+        $url = $this->_getUrlFilter([
+            'name',
+            'sort',
+            'order',
+        ]);
+
+
+        $data['sort'] = $sort;
+        $data['order'] = $order;
+        $data['users'] = $users;
+
+        if ($request->ajax()) {
+            $url = $this->_getUrlFilter([
+                'name',
+                'sort',
+                'order',
+                'page'
+            ]);
+
+            $url = qs_url('/admin/users/index', $url);
+            $url = urldecode(hed($url));
+            $url = str_replace(' ', '+', $url);
+
+            try {
+                $htmlContent = view('admin.user.inc.list_user', $data)->render();
+            } catch (\Exception $e) {
+                $htmlContent = null;
+            }
+
+            return response()->json([
+                'success' => true,
+                'data'    => [
+                    'url' => $url
+                ],
+                'html'    => [
+                    'result'  => $data['result'],
+                    'content' => $htmlContent
+                ]
+            ]);
+        } else {
+            $data['inc_list'] = view('admin.user.inc.list_user', $data);
+            return view('admin.user.index2', $data);
+        }
 
     }
 
@@ -62,7 +132,6 @@ class UserController extends Controller
                 $dataInsert['image_path'] = $data['file_path'];
 
             }
-
 
             $user = $this->user->create($dataInsert);
 
@@ -183,4 +252,14 @@ class UserController extends Controller
         return $message->getText($action, $name);
     }
 
+    private function _getUrlFilter($list = [])
+    {
+        $url = [];
+
+        call_user_func_array('preUrlFilter', [&$url, $list, [
+            'name' => request()->query->has('name') ? urlencode(hed(request()->query('name'), ENT_QUOTES, 'UTF-8')) : '',
+        ]]);
+
+        return $url;
+    }
 }

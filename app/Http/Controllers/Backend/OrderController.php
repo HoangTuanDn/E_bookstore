@@ -24,10 +24,84 @@ class OrderController extends Controller
         $this->product = $product;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $orders = $this->order->select('id', 'order_code', 'status', 'created_at', 'updated_at')->paginate(config('custom.limit'));
-        return view('admin.order.index', compact('orders'));
+        $data = [];
+        $filterCode = $request->query('code');
+        $sort = $request->query('sort', 'default');
+        $order = $request->query('order', 'desc');
+        $page = $request->query('page', 1);
+        $limit = $request->query('limit', config('custom.limit'));
+
+        $data['orders'] = [];
+
+        $dataFilter = [
+            'order_code' => $filterCode,
+            'sort'       => $sort,
+            'order'      => $order,
+            'page'       => $page,
+            'limit'      => $limit
+        ];
+
+        $orders = $this->order->filterOrder($dataFilter);
+        $order_total = $orders->total();
+
+        $url = $this->_getUrlFilter([
+            'code',
+            'page'
+        ]);
+
+        if (utf8_strtolower($order) == 'asc') {
+            $url['order'] = 'desc';
+        } else {
+            $url['order'] = 'asc';
+        }
+
+        $data['sort_status'] = qs_url('/admin/orders/index', array_merge($url, ['sort' => 'status']));
+        $data['sort_date'] = qs_url('/admin/orders/index', array_merge($url, ['sort' => 'date']));
+        $data['sort_default'] = qs_url('/admin/orders/index', array_merge($url, ['sort' => 'default']));
+
+        $url = $this->_getUrlFilter([
+            'code',
+            'sort',
+            'order',
+        ]);
+
+        $data['sort'] = $sort;
+        $data['orders'] = $orders;
+
+        if ($request->ajax()) {
+            $url = $this->_getUrlFilter([
+                'code',
+                'sort',
+                'order',
+                'page'
+            ]);
+
+            $url = qs_url('/admin/orders/index', $url);
+            $url = urldecode(hed($url));
+            $url = str_replace(' ', '+', $url);
+
+            try {
+                $htmlContent = view('admin.order.inc.list_order', $data)->render();
+            } catch (\Exception $e) {
+                $htmlContent = null;
+            }
+
+            return response()->json([
+                'success' => true,
+                'data'    => [
+                    'url' => $url
+                ],
+                'html'    => [
+                    'result'  => $data['result'],
+                    'content' => $htmlContent
+                ]
+            ]);
+        } else {
+            $data['inc_list'] = view('admin.order.inc.list_order', $data);
+            return view('admin.order.index', $data);
+        }
     }
 
     public function show(Request $request, $id)
@@ -94,7 +168,7 @@ class OrderController extends Controller
         try {
             $order = $this->order->find($id);
 
-            if ($order->status < 2){
+            if ($order->status < 2) {
                 $productsInOrder = $order->products;
                 $order_code = $order->order_code;
 
@@ -131,5 +205,16 @@ class OrderController extends Controller
                 'message' => __('deleted_order_success', ['name' => $order_code]),
             ]
         ]);
+    }
+
+    private function _getUrlFilter($list = [])
+    {
+        $url = [];
+
+        call_user_func_array('preUrlFilter', [&$url, $list, [
+            'name' => request()->query->has('name') ? urlencode(hed(request()->query('name'), ENT_QUOTES, 'UTF-8')) : '',
+        ]]);
+
+        return $url;
     }
 }

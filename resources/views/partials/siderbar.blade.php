@@ -14,7 +14,7 @@
                 <img src="{{auth()->guard('admin')->user()->image_path}}" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
-                <a href="#" class="d-block">Dn 2021</a>
+                <a href="#" class="d-block">{{auth()->guard('admin')->user()->name}}</a>
             </div>
         </div>
 
@@ -49,7 +49,7 @@
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-item">
                     <a href="{{route('orders.index')}}" class="nav-link">
-                        <i class="nav-icon fas fa-tasks"></i>
+                        <i class="nav-icon fas fa-cart-arrow-down"></i>
                         <p>
                             Đơn hàng
                         </p>
@@ -127,7 +127,7 @@
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-item">
                     <a href="{{route('settings.index')}}" class="nav-link">
-                        <i class="nav-icon fas fa-cogs"></i>
+                        <i class="nav-icon fas fa-tools"></i>
                         <p>
                             cài đặt
                         </p>

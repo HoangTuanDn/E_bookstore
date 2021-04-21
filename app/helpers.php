@@ -30,8 +30,9 @@ function url_fix($path = null, $parameters = [], $secure = null)
 
 function preUrlFilter(&$url, $list, $custom = [])
 {
+
     foreach ($list as $key) {
-        if (request()->query->has($key)) {
+        if (request()->query->has($key) && request()->query($key)) {
             if (isset($custom[$key])) {
                 $url[$key] = $custom[$key];
             } else {
@@ -39,7 +40,7 @@ function preUrlFilter(&$url, $list, $custom = [])
             }
         }
     }
-
+   /* dd($url);*/
     return $url;
 }
 

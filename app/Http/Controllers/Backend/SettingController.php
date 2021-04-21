@@ -22,10 +22,83 @@ class SettingController extends Controller
         $this->setting = $setting;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $settings = $this->setting->select('id', 'config_key', 'config_value')->paginate(config('custom.limit'));
-        return view('admin.setting.index', compact('settings'));
+       /* $settings = $this->setting->select('id', 'config_key', 'config_value')->paginate(config('custom.limit'));
+        return view('admin.setting.index', compact('settings'));*/
+
+        $data = [];
+        $filterKey = $request->query('key');
+        $sort = $request->query('sort', 'default');
+        $order = $request->query('order', 'desc');
+        $page = $request->query('page', 1);
+        $limit = $request->query('limit', config('custom.limit'));
+
+        $data['latestCategories'] = [];
+
+        $dataFilter = [
+            'key'  => $filterKey,
+            'sort'  => $sort,
+            'order' => $order,
+            'page'  => $page,
+            'limit' => $limit
+        ];
+
+        $settings = $this->setting->filterSetting($dataFilter);
+        $setting_total = $settings->total();
+
+        if (utf8_strtolower($order) == 'asc') {
+            $url['order'] = 'desc';
+        } else {
+            $url['order'] = 'asc';
+        }
+
+        $data['sort_key'] = qs_url('/admin/settings/index', array_merge($url, ['sort' => 'key']));
+        $data['sort_default'] = qs_url('/admin/settings/index', array_merge($url, ['sort' => 'default']));
+
+        $url = $this->_getUrlFilter([
+            'key',
+            'sort',
+            'order',
+        ]);
+
+
+        $data['sort'] = $sort;
+        $data['order'] = $order;
+        $data['settings'] = $settings;
+
+        if ($request->ajax()) {
+            $url = $this->_getUrlFilter([
+                'key',
+                'sort',
+                'order',
+                'page'
+            ]);
+
+            $url = qs_url('/admin/settings/index', $url);
+            $url = urldecode(hed($url));
+            $url = str_replace(' ', '+', $url);
+
+            try {
+                $htmlContent = view('admin.setting.inc.list_setting', $data)->render();
+            } catch (\Exception $e) {
+                $htmlContent = null;
+            }
+
+            return response()->json([
+                'success' => true,
+                'data'    => [
+                    'url' => $url
+                ],
+                'html'    => [
+                    'result'  => $data['result'],
+                    'content' => $htmlContent
+                ]
+            ]);
+        } else {
+            $data['inc_list'] = view('admin.setting.inc.list_setting', $data);
+            return view('admin.setting.index', $data);
+        }
     }
 
     public function create(Request $request)
@@ -116,6 +189,17 @@ class SettingController extends Controller
                 'message' => $message,
             ]
         ]);
+    }
+
+    private function _getUrlFilter($list = [])
+    {
+        $url = [];
+
+        call_user_func_array('preUrlFilter', [&$url, $list, [
+            'name' => request()->query->has('name') ? urlencode(hed(request()->query('name'), ENT_QUOTES, 'UTF-8')) : '',
+        ]]);
+
+        return $url;
     }
 }
 

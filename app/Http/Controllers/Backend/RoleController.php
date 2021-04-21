@@ -25,15 +25,30 @@ class RoleController extends Controller
         $this->permission = $permission;
     }
 
-    public function index()
+    public function index(Request $request)
     {
+        $data = [];
+        $filterName = $request->query('name');
+        $sort = $request->query('sort', 'default');
+        $order = $request->query('order', 'desc');
+        $page = $request->query('page', 1);
+        $limit = $request->query('limit', config('custom.limit'));
 
-        $roles = $this->role->select('id', 'name', 'display_name')->paginate(config('custom.limit'));
+        $data['latestCategories'] = [];
+
+        $dataFilter = [
+            'name'  => $filterName,
+            'sort'  => $sort,
+            'order' => $order,
+            'page'  => $page,
+            'limit' => $limit
+        ];
+
+        $roles = $this->role->filterRole($dataFilter);
+        $role_total = $roles->total();
         $permissions = $this->permission->get(['id', 'name', 'parent_id']);
-        $dataCount = collect($this->permission->get(['parent_id']));
-        $dataCount = $dataCount->countBy('parent_id');
-
         $allNamePermission = [];
+        $rolePermission = [];
 
         foreach ($permissions as $permission) {
             if ($permission->parent_id === 0) {
@@ -44,8 +59,6 @@ class RoleController extends Controller
             }
         }
 
-        $rolePermission = [];
-
         foreach ($roles as $role) {
             foreach ($role->permissions as $permission) {
                 $rolePermission[$role->id][$permission->parent_id] ['name'][] = $permission->name;
@@ -55,8 +68,60 @@ class RoleController extends Controller
             }
         }
 
+        if (utf8_strtolower($order) == 'asc') {
+            $url['order'] = 'desc';
+        } else {
+            $url['order'] = 'asc';
+        }
 
-        return view('admin.role.index', compact('roles', 'dataCount', 'rolePermission'));
+        $data['sort_name'] = qs_url('/admin/roles/index', array_merge($url, ['sort' => 'name']));
+        $data['sort_default'] = qs_url('/admin/roles/index', array_merge($url, ['sort' => 'default']));
+
+        $url = $this->_getUrlFilter([
+            'name',
+            'sort',
+            'order',
+        ]);
+
+
+        $data['sort'] = $sort;
+        $data['order'] = $order;
+        $data['roles'] = $roles;
+        $data['rolePermission'] = $rolePermission;
+
+        if ($request->ajax()) {
+            $url = $this->_getUrlFilter([
+                'name',
+                'sort',
+                'order',
+                'page'
+            ]);
+
+            $url = qs_url('/admin/roles/index', $url);
+            $url = urldecode(hed($url));
+            $url = str_replace(' ', '+', $url);
+
+            try {
+                $htmlContent = view('admin.role.inc.list_role', $data)->render();
+            } catch (\Exception $e) {
+                $htmlContent = null;
+            }
+
+            return response()->json([
+                'success' => true,
+                'data'    => [
+                    'url' => $url
+                ],
+                'html'    => [
+                    'result'  => $data['result'],
+                    'content' => $htmlContent
+                ]
+            ]);
+        } else {
+            $data['inc_list'] = view('admin.role.inc.list_role', $data);
+            return view('admin.role.index', $data);
+        }
+
     }
 
     public function create(Request $request)
@@ -173,5 +238,16 @@ class RoleController extends Controller
     {
         $message = new Message($type, $text);
         return $message->getText($action, $name);
+    }
+
+    private function _getUrlFilter($list = [])
+    {
+        $url = [];
+
+        call_user_func_array('preUrlFilter', [&$url, $list, [
+            'name' => request()->query->has('name') ? urlencode(hed(request()->query('name'), ENT_QUOTES, 'UTF-8')) : '',
+        ]]);
+
+        return $url;
     }
 }

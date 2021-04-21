@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Components\Message;
+use App\Components\Pagination;
 use App\Components\Recursive;
 use App\Http\Requests\ProductRequest;
 use App\Models\Category;
@@ -34,10 +35,12 @@ class ProductController extends Controller
         $this->tag = $tag;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $products = $this->product->latest('id')->paginate(5);
-        return view('admin.product.index', compact('products'));
+        /*$products = $this->product->latest('id')->paginate(5);
+
+        return view('admin.product.index', compact('products'));*/
+        return $this->_getList($request);
     }
 
     public function create()
@@ -340,6 +343,98 @@ class ProductController extends Controller
         $htmlOption = $this->recursive->categoryRecursive($paren_id);
 
         return $htmlOption;
+    }
+
+    private function _getList(Request $request)
+    {
+        $data = [];
+        $filterName = $request->query('name');
+        $sort = $request->query('sort', 'default');
+        $order = $request->query('order', 'desc');
+        $page = $request->query('page', 1);
+        $limit = $request->query('limit', config('custom.limit'));
+
+        $data['products'] = [];
+
+        $dataFilter = [
+            'name'      => $filterName,
+            'sort'      => $sort,
+            'order'     => $order,
+            'page'      => $page,
+            'limit'     => $limit
+        ];
+
+        $products = $this->product->filterProduct($dataFilter);
+        $product_total = $products->total();
+        $data['products'] = $products;
+        $url = $this->_getUrlFilter([
+            'name',
+            'page'
+        ]);
+
+
+        if (utf8_strtolower($order) == 'asc') {
+            $url['order'] = 'desc';
+        } else {
+            $url['order'] = 'asc';
+        }
+
+        $data['sort_name'] = qs_url('/admin/products/index', array_merge($url, ['sort' => 'name']));
+        $data['sort_price'] = qs_url('/admin/products/index', array_merge($url, ['sort' => 'price']));
+        $data['sort_date'] = qs_url('/admin/products/index', array_merge($url, ['sort' => 'date']));
+        $data['sort_default'] = qs_url('/admin/products/index', array_merge($url, ['sort' => 'default']));
+
+        $url = $this->_getUrlFilter([
+            'name',
+            'sort',
+            'order',
+        ]);
+
+        $data['sort'] = $sort;
+        $data['order'] = $order;
+
+        if ($request->ajax()) {
+            $url = $this->_getUrlFilter([
+                'name',
+                'sort',
+                'order',
+                'page'
+            ]);
+
+            $url = qs_url('/admin/products/index', $url);
+            $url = urldecode(hed($url));
+            $url = str_replace(' ', '+', $url);
+
+            try {
+                $htmlContent = view('admin.product.inc.list_product', $data)->render();
+            } catch (\Exception $e) {
+                $htmlContent = null;
+            }
+
+            return response()->json([
+                'success' => true,
+                'data'    => [
+                    'url' => $url
+                ],
+                'html'    => [
+                    'result'  => $data['result'],
+                    'content' => $htmlContent
+                ]
+            ]);
+        } else {
+            $data['inc_list'] = view('admin.product.inc.list_product', $data);
+            return view('admin.product.index', $data);
+        }
+    }
+    private function _getUrlFilter($list = [])
+    {
+        $url = [];
+
+        call_user_func_array('preUrlFilter', [&$url, $list, [
+            'name' => request()->query->has('name') ? urlencode(hed(request()->query('name'), ENT_QUOTES, 'UTF-8')) : '',
+        ]]);
+
+        return $url;
     }
 
     private function getMessage($type, $action = '', $name = '', $text = '')
