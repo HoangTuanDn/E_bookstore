@@ -14,23 +14,7 @@
     <script src="{{asset('common/toastr.min.js')}}"></script>
     <script src="{{asset('backend/common/permission/list.js')}}"></script>
 
-    <script src="{{asset('backend/plugins/datatables/jquery.dataTables.js')}}"></script>
-    <script src="{{asset('backend/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
-    <script src="{{asset('backend/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
-    <script src="{{asset('backend/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
-    <script>
-        $(function () {
-            $("#example1").DataTable({
-                "paging": false,
-                "lengthChange": false,
-                "searching": false,
-                "ordering": false,
-                "info": false,
-                "autoWidth": false,
-                "responsive": true,
-            })
-        });
-    </script>
+
 @endsection
 
 

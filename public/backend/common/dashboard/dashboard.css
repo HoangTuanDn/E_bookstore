@@ -1,0 +1,11 @@
+.dt-buttons {
+    display: none;
+}
+.card .custom-height{
+    max-height: 500px;
+    overflow: auto;
+}
+
+.card .custom-height::-webkit-scrollbar {
+    width: 0;
+}

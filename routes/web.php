@@ -3,6 +3,7 @@
 
 use App\Http\Controllers\Backend\CouponController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\MailController;
 use App\Http\Controllers\Backend\PermissionController;
 use App\Http\Controllers\Backend\RoleController;
@@ -48,9 +49,9 @@ Route::prefix('admin')->group(function (){
     Route::post('/login', [AuthController::class, 'loginAction'])
         ->name('auth.admin_login');
 
-    Route::get('/', function () {
-        return view('admin.home');
-    })->middleware('auth_admin')->name('admin.home');
+    Route::get('/', [DashboardController::class, 'index'])
+        ->middleware('auth_admin')
+        ->name('admin.home');
 
     Route::get('/logout', [AuthController::class, 'logout'])
         ->name('auth.admin_logout');

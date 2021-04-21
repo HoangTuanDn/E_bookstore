@@ -5,9 +5,9 @@
             <div class="card-tools mr-1">
                 <form action="{{route('ships.index')}}" method="get">
                     <div class="input-group input-group-sm" style="width: 250px; margin-top: 5px">
-                        <input type="text" name="province_name" class="form-control float-right" placeholder="Tỉnh/Thành phố...">
-                        <input type="text" name="district_name" class="form-control float-right" placeholder="Quận/Huyện...">
-                        <input type="text" name="ward_name" class="form-control float-right" placeholder="Phường/Xã...">
+                        <input type="text" name="province_name" class="form-control float-right" placeholder="Tỉnh...">
+                        <input type="text" name="district_name" class="form-control float-right" placeholder="Quận...">
+                        <input type="text" name="ward_name" class="form-control float-right" placeholder="Xã...">
                         <div class="input-group-append">
                             <button type="submit" class="btn btn-default">
                                 <i class="fas fa-search"></i>

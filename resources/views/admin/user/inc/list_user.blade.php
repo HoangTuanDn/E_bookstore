@@ -85,7 +85,7 @@
                                 {{$user->name}}
                             </td>
                             <td>
-                                <img class="product-image" src="{{$user->image_path}}">
+                                <img src="{{$user->image_path}}"  class="img-circle img-size-64 mr-2">
                             </td>
 
                             <td class="text-center">

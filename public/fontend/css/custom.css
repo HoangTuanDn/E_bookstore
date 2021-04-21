@@ -79,7 +79,9 @@
     max-height: 345px;
     overflow: auto;
 }
-
+.minicart__active  .single__items::-webkit-scrollbar {
+    width: 0;
+}
 #nav-list .content .product_title{
     position: relative;
     display: block;

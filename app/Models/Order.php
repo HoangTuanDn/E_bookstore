@@ -4,31 +4,38 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class Order extends Model
 {
     use HasFactory;
+
     protected $guarded = ['id'];
     protected $table = 'orders';
 
-    public function products(){
+    public function products()
+    {
         return $this
             ->belongsToMany(Product::class, 'order_product', 'order_id', 'product_id')
             ->withPivot('quantity')
             ->withTimestamps();
     }
 
-    public function ship(){
+    public function ship()
+    {
         return $this
             ->belongsTo(Ship::class, 'ship_id');
     }
 
-    public function coupon(){
+    public function coupon()
+    {
         return $this
             ->belongsTo(Coupon::class, 'coupon_id');
     }
 
-    public function payment(){
+    public function payment()
+    {
         return $this
             ->belongsTo(Payment::class, 'payment_id');
     }
@@ -41,11 +48,10 @@ class Order extends Model
             $query->where('order_code', 'like', "%{$data['order_code']}%");
         }
 
-
         $sortData = [
             'code'       => 'order_code',
             'date'       => 'updated_at',
-            'status'      => 'status',
+            'status'     => 'status',
             'created_at' => 'created_at'
         ];
 
@@ -76,5 +82,21 @@ class Order extends Model
         }
 
         return $query->paginate($data['limit'], ['*'], 'page', $data['page']);
+    }
+
+    public function filterSale($data)
+    {
+        $query = Order::join('order_product', 'orders.id', '=', 'order_product.order_id')
+            ->join('products', 'order_product.product_id', '=', 'products.id')
+            ->select(DB::raw('orders.updated_at, YEAR(orders.updated_at) year, MONTH(orders.updated_at) month, (order_product.quantity * products.discount) as total_sale'))
+            ->where('orders.status', 3);
+
+
+        if (!empty($data['years'])) {
+            $years = implode(',', $data['years']);
+            $query->whereRaw('YEAR(orders.updated_at) IN (?)', $years);
+        }
+
+        return $query->get();
     }
 }
