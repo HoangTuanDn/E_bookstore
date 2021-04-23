@@ -36,7 +36,7 @@
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-item">
                     <a href="{{route('products.index')}}" class="nav-link">
-                        <i class="nav-icon fas fa-boxes"></i>
+                        <i class="nav-icon fas fa-cubes"></i>
                         <p>
                             Sản phẩm
                         </p>
@@ -156,6 +156,32 @@
                         <i class="nav-icon fas fa-image"></i>
                         <p>
                             slider
+                        </p>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <li class="nav-item">
+                    <a href="{{route('blog_categories.index')}}" class="nav-link">
+                        <i class="nav-icon fas fa-tag"></i>
+                        <p>
+                            Thể loại bài viết
+                        </p>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <li class="nav-item">
+                    <a href="{{route('blogs.index')}}" class="nav-link">
+                        <i class="nav-icon fas fa-blog"></i>
+                        <p>
+                            Bài viết
                         </p>
                     </a>
                 </li>

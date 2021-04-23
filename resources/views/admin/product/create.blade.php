@@ -72,7 +72,7 @@
                                     <div class="form-group">
                                         <label for="inputPrice">Giá sản phẩm</label>
                                         <div class="input-group">
-                                            <input type="text"
+                                            <input type="number"
                                                    name="price"
                                                    id="inputPrice"
                                                    class="form-control mr-1"
@@ -81,7 +81,7 @@
 
                                             >
 
-                                            <input type="text"
+                                            <input type="number"
                                                    name="discount"
                                                    id="inputDiscount"
                                                    class="form-control ml-1"

@@ -17,6 +17,7 @@ $(function (){
 
     app.select2Tag($("#inputTag"))
     app.select2Option($("#inputStatus"), 'Chọn danh mục')
+    app.select2Option($("#inputBlogCategory"), 'Chọn danh mục bài viết')
 
     /*tinyMCE config*/
     var editor_config = {

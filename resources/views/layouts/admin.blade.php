@@ -67,6 +67,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
             "autoWidth": false,
             "responsive": true,
         })
+
+        $('#example1_wrapper').find('.dataTables_empty').text('Không có dữ liệu')
     });
 </script>
 

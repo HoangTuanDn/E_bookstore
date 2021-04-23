@@ -47,6 +47,7 @@
   "cook_slug": "sach-day-nau-an",
   "home": "HOME",
   "shop": "SHOP",
+  "blog_uc": "BLOG",
   "go_shop": "SHOP NOW",
   "banner_header": "<h2>Buy <span>your </span></h2><h2>favourite <span>Book </span></h2><h2>from <span>Here </span></h2>",
   "books": "BOOKS",
@@ -246,5 +247,14 @@
   "error_not_found": "error - not found",
   "error_not_found_search": "Search...",
   "error_not_found_detail": "It looks like you are lost! Try searching here",
-  "view_cart": "VIEW AND EDIT CART"
+  "view_cart": "VIEW AND EDIT CART",
+  "read_more": "read more",
+  "category_archives": "Category Archives",
+  "comments": "comments",
+  "reply": "reply",
+  "Leave_a_reply": "Leave a Reply",
+  "post_comment": "Post Comment",
+  "your_comment_here": "Your comment here",
+  "comment_respond_detail": "To avoid spam content you must login before commenting",
+  "posts_by": "Posts by"
 }

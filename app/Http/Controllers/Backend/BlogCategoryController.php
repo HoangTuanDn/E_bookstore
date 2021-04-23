@@ -3,23 +3,23 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Components\Message;
-use App\Components\Recursive;
-use App\Models\Category;
+use App\Models\BlogCategory;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
-
-class CategoryController extends Controller
+class BlogCategoryController extends Controller
 {
-    private Category $category;
-    private Recursive $recursive;
+    private $blogCategory;
 
-    public function __construct(Category $category, Recursive $recursive)
+    /**
+     * BlogCategoryController constructor.
+     * @param $blogCategory
+     */
+    public function __construct(BlogCategory $blogCategory)
     {
-        $this->category = $category;
-        $this->recursive = $recursive;
+        $this->blogCategory = $blogCategory;
     }
 
     public function index(Request $request)
@@ -41,8 +41,8 @@ class CategoryController extends Controller
             'limit' => $limit
         ];
 
-        $latestCategories = $this->category->filterCategory($dataFilter);
-        $category_total = $latestCategories->total();
+        $blogCategories = $this->blogCategory->filterBlogCategory($dataFilter);
+        $total_blogCategries = $blogCategories->total();
 
         if (utf8_strtolower($order) == 'asc') {
             $url['order'] = 'desc';
@@ -50,8 +50,8 @@ class CategoryController extends Controller
             $url['order'] = 'asc';
         }
 
-        $data['sort_name'] = qs_url('/admin/categories/index', array_merge($url, ['sort' => 'name']));
-        $data['sort_default'] = qs_url('/admin/categories/index', array_merge($url, ['sort' => 'default']));
+        $data['sort_name'] = qs_url('/admin/blog/categories/index', array_merge($url, ['sort' => 'name']));
+        $data['sort_default'] = qs_url('/admin/blog/categories/index', array_merge($url, ['sort' => 'default']));
 
         $url = $this->_getUrlFilter([
             'name',
@@ -61,7 +61,7 @@ class CategoryController extends Controller
 
 
         $data['sort'] = $sort;
-        $data['latestCategories'] = $latestCategories;
+        $data['blogCategories'] = $blogCategories;
 
         if ($request->ajax()) {
             $url = $this->_getUrlFilter([
@@ -71,12 +71,12 @@ class CategoryController extends Controller
                 'page'
             ]);
 
-            $url = qs_url('/admin/categories/index', $url);
+            $url = qs_url('/admin/blog/categories/index', $url);
             $url = urldecode(hed($url));
             $url = str_replace(' ', '+', $url);
 
             try {
-                $htmlContent = view('admin.category.inc.list_category', $data)->render();
+                $htmlContent = view('admin.blog_category.inc.list_category', $data)->render();
             } catch (\Exception $e) {
                 $htmlContent = null;
             }
@@ -92,97 +92,113 @@ class CategoryController extends Controller
                 ]
             ]);
         } else {
-            $data['inc_list'] = view('admin.category.inc.list_category', $data);
-            return view('admin.category.index', $data);
+            $data['inc_list'] = view('admin.blog_category.inc.list_category', $data);
+            return view('admin.blog_category.index', $data);
         }
     }
 
-
-    public function create()
+    public function create(Request $request)
     {
-        $htmlOption = $this->getHtmlOption();
-        return view('admin.category.create', compact('htmlOption'));
+        return view('admin.blog_category.create');
     }
-
 
     public function store(Request $request)
     {
-        $input = $request->only(['name', 'parent_id']);
-        $collection = collect($input);
-        $collection->put('slug', Str::slug($input['name']));
+        $input = $request->only(['name_vn', 'name_en']);
+
+        $dataInsert = [
+            'name' => [
+                'vn' => $input['name_vn'],
+                'en' => $input['name_en']
+            ],
+            'slug' => [
+                'vn' => Str::slug($input['name_vn']),
+                'en' => Str::slug($input['name_en'])
+            ]
+        ];
 
         try {
-            $this->category->create($collection->all());
+            $this->blogCategory->create($dataInsert);
         } catch (\Exception $e) {
             Log::error('message: ' . $e->getMessage() . 'Line : ' . $e->getLine());
             $isCreated = false;
         }
 
-        $message = $this->getMessage('success', 'create', __('category'));
+
+        $message = $this->getMessage('success', 'create', __('blog_category'));
 
         if (isset($isCreated)) {
-            $message = $this->getMessage('error', 'create', __('category'));
+            $message = $this->getMessage('error', 'create', __('blog_category'));
         }
 
-        return redirect()->route('categories.index')
+        return redirect()->route('blog_categories.index')
             ->with('message', $message)
             ->with('type', isset($isCreated) ? __('type_error') : __('type_success'));
 
-    }
 
+    }
 
     public function edit(Request $request, $id)
     {
-        $category = $this->category->select('id', 'name', 'parent_id')->find($id);
-        $htmlOption = $this->getHtmlOption($category->parent_id);
+        $blogCategory = $this->blogCategory->select('id', 'name')->find($id);
 
-        return view('admin.category.edit', compact('category', 'htmlOption'));
+        return view('admin.blog_category.edit', compact('blogCategory'));
     }
-
 
     public function update(Request $request, $id)
     {
-        $input = $request->only(['name', 'parent_id']);
-        $collection = collect($input);
-        $collection->put('slug', Str::slug($input['name']));
+        $input = $request->only(['name_vn', 'name_en']);
+
+        $dataUpdate = [
+            'name' => [
+                'vn' => $input['name_vn'],
+                'en' => $input['name_en']
+            ],
+            'slug' => [
+                'vn' => Str::slug($input['name_vn']),
+                'en' => Str::slug($input['name_en'])
+            ]
+        ];
 
         try {
-            $isUpdate = $this->category->find($id)->update($collection->all());
+            $isUpdate = $this->blogCategory->find($id)->update($dataUpdate);
 
         } catch (\Exception $e) {
             Log::error('message: ' . $e->getMessage() . 'Line : ' . $e->getLine());
             $isUpdate = false;
         }
 
-        $message = $this->getMessage('success', 'update', __('category'));
+        $message = $this->getMessage('success', 'update', __('blog_category'));
         $type = __('type_info');
 
-        if (!$isUpdate) {
-            $message = $this->getMessage('error', 'update', __('category'));
+        if (!$isUpdate){
+            $message = $this->getMessage('error', 'update', __('blog_category'));
             $type = __('type_error');
         }
 
-        return redirect()->route('categories.index')
+        return redirect()->route('blog_categories.index')
             ->with('message', $message)
             ->with('type', $type);
-
     }
-
 
     public function destroy(Request $request, $id)
     {
+        $blogCategory = $this->blogCategory->find($id);
         try {
-            $isDelete = $this->category->find($id)->delete();
+            foreach ($blogCategory->blogs as $blog) {
+                $blog->delete();
+            }
+            $isDelete = $blogCategory->delete();
 
         } catch (\Exception $e) {
             Log::error('message: ' . $e->getMessage() . 'Line : ' . $e->getLine());
             $isDelete = false;
         }
 
-        $message = $this->getMessage('success', 'delete', __('category'));
+        $message = $this->getMessage('success', 'delete',  __('blog_category'));
 
-        if (!$isDelete) {
-            $message = $this->getMessage('error', 'delete', __('category'));
+        if (!$isDelete){
+            $message = $this->getMessage('error', 'delete',  __('blog_category'));
 
             return response()->json([
                 'check'   => $isDelete,
@@ -210,16 +226,6 @@ class CategoryController extends Controller
         return $message->getText($action, $name);
     }
 
-    private function getHtmlOption(int $paren_id = 0)
-    {
-        $categories = $this->category->get(['id', 'name', 'parent_id']);
-        $this->recursive->setData($categories);
-
-        $htmlOption = $this->recursive->categoryRecursive($paren_id);
-
-        return $htmlOption;
-    }
-
     private function _getUrlFilter($list = [])
     {
         $url = [];
@@ -230,5 +236,4 @@ class CategoryController extends Controller
 
         return $url;
     }
-
 }

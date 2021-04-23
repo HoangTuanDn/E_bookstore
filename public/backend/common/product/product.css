@@ -8,3 +8,18 @@
 .product-image {
     width: 100%;
 }
+
+.select2 {
+    width:100%!important;
+}
+.select2 .select2-selection--single{
+    padding: 2px;
+}
+
+#inputDescription + .tox-tinymce{
+    height: 350px !important;
+}
+
+#inputDescription2 + .tox-tinymce{
+    height: 350px !important;
+}

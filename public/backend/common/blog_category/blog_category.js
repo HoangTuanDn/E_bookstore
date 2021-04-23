@@ -23,6 +23,6 @@ $(function (){
         var url = $(this).attr('data-url');
         var currentElement = $(this);
 
-        app.deleteObject(`Danh mục ${name} sẽ bị xóa ?`, url, currentElement)
+        app.deleteObject(`Danh mục bài viết ${name} sẽ bị xóa ?`, url, currentElement)
     });
 })

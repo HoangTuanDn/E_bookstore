@@ -26,6 +26,7 @@
                                 @endforeach
                             </div>
                         </li>
+                        <li class="drop"><a href="{{route('home.blog', ['language' => app()->getLocale()])}}">{{__('blog_uc')}}</a></li>
                         <li><a href="{{route('home.concat', ['language' => app()->getLocale()])}}">{{__('contact')}}</a></li>
                     </ul>
                 </nav>
@@ -49,10 +50,6 @@
                                     <div class="switcher-options">
                                         <div class="switcher-currency-trigger">
                                             <span class="currency-trigger">VND - VN đồng</span>
-{{--                                            <ul class="switcher-dropdown">--}}
-{{--                                                <li>GBP - British Pound Sterling</li>--}}
-{{--                                                <li>EUR - Euro</li>--}}
-{{--                                            </ul>--}}
                                         </div>
                                     </div>
                                 </div>
@@ -62,7 +59,7 @@
                                     </strong>
                                     <div class="switcher-options">
                                         <div class="switcher-currency-trigger">
-                                            @if(Route::currentRouteName() === 'home.shop.single_product')
+                                            @if(Route::currentRouteName() === 'home.shop.single_product' || Route::currentRouteName() === 'home.blog.detail')
                                                 <span class="currency-trigger"><a href="{{route(Route::currentRouteName(), ['language' => 'vn', 'slug'=> request()->slug])}}">{{__('vn_language')}}</a></span>
                                                 <span class="currency-trigger"><a href="{{route(Route::currentRouteName(), ['language' => 'en', 'slug'=> request()->slug])}}">{{__('en_language')}}</a></span>
                                             @else
@@ -110,9 +107,8 @@
                 <nav class="mobilemenu__nav">
                     <ul class="meninmenu">
                         <li><a href="{{route('home', ['language' => app()->getLocale()])}}">{{__('home')}}</a></li>
-
                         <li><a href="{{route('home.shop', ['language' => app()->getLocale()])}}">{{__('shop')}}</a></li>
-
+                        <li><a href="{{route('home.blog', ['language' => app()->getLocale()])}}">{{__('blog_uc')}}</a></li>
                         <li><a href="{{route('home.concat', ['language' => app()->getLocale()])}}">{{__('contact')}}</a></li>
                     </ul>
                 </nav>

@@ -5,36 +5,31 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Translatable\HasTranslations;
 
-class Category extends Model
+class BlogCategory extends Model
 {
+    use HasTranslations;
     use HasFactory;
     use SoftDeletes;
 
+    protected $guarded = ['id'];
+    public $translatable = ['name', 'slug'];
 
-    protected $fillable = ['name', 'parent_id', 'slug', 'updated_at', 'created_at','deleted_at'];
+    protected $table = 'blog_categories';
 
-    protected $table = 'categories';
-
-    public function products()
+    public function blogs()
     {
         return $this
-            ->belongsToMany(Product::class, 'category_product', 'category_id', 'product_id')
-            ->withTimestamps();
-    }
-    public function proudctsByCatagorySlug($categorySlug){
-        $category = Category::select('id')->where('slug', $categorySlug)->first();
-        $products = Category::find($category->id)->products->chunk(2);
-
-        return $products;
+            ->hasMany(Blog::class,'category_id');
     }
 
-    public function filterCategory($data)
+    public function filterBlogCategory($data)
     {
-        $query = Category::select('id', 'name', 'created_at');
+        $query = BlogCategory::select('id', 'name', 'created_at');
 
         if (!empty($data['name'])) {
-            $query->where('name', 'like', "%{$data['name']}%");
+            $query->where('name->vn', 'like', "%{$data['name']}%");
         }
 
 

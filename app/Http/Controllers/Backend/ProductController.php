@@ -203,7 +203,7 @@ class ProductController extends Controller
 
             if ($request->hasFile('featured_img')) {
 
-                $data = $this->storageTraitUpload(
+                $data = $this->storageTraitUploadResize(
                     $request->featured_img,
                     $dataUpdate['name'],
                     config('custom.folder_store'),
@@ -435,12 +435,6 @@ class ProductController extends Controller
         ]]);
 
         return $url;
-    }
-
-    private function getMessage($type, $action = '', $name = '', $text = '')
-    {
-        $message = new Message($type, $text);
-        return $message->getText($action, $name);
     }
 
 }

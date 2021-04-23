@@ -22,12 +22,12 @@ trait StorageImageTrait {
     }
 
     public function storageTraitUploadResize($file, $imageName, $folderName, $id, $size){
+
         $ext = $file->getClientOriginalExtension();
         $dir = 'public/'.$id . '/' . $folderName;
         $originImageWidth = getimagesize($file)[0];
         $originImageHeight = getimagesize($file)[1];
         $fileName = Str::slug($imageName).'-'.$size['width'].'x'.$size['height']. '.' . $ext;
-
         if($originImageWidth == $size['width'] && $originImageHeight == $size['height']){
             $filePath = $file->storeAs('public/'. $id .'/'. $folderName, $fileName);
             return [

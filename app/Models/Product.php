@@ -17,9 +17,9 @@ class Product extends Model
     protected $attributes = [
         'author'        => '',
         'title'         => '',
-        'quantity'      => '',
-        'quantity_sold' => '',
-        'discount'      => '',
+        'quantity'      => 0,
+        'quantity_sold' => 0,
+        'discount'      => 0,
         'type'          => '',
         'publisher'     => '',
         'publish_date'  => '1/1/1970',
