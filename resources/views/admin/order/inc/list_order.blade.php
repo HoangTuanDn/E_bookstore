@@ -40,7 +40,7 @@
                 </div>
             </div>
             <div class="card-body p-0">
-                <table class="table table-striped projects" id="example1">
+                <table class="table table-striped projects example1">
                     <thead>
                     <tr>
                         <th class="border-right" style="width: 1%">
@@ -95,6 +95,8 @@
                                     <option {{$order->status === 1 ? 'selected' : ''}} value="1">Đã xác nhận</option>
                                     <option {{$order->status === 2 ? 'selected' : ''}} value="2">Đang giao hàng</option>
                                     <option {{$order->status === 3 ? 'selected' : ''}} value="3">Đã giao hàng</option>
+                                    <option {{$order->status === 4 ? 'selected' : ''}} value="4">Đã thanh toán</option>
+                                    <option {{$order->status === 5 ? 'selected' : ''}} value="5">Đã hoàn thành</option>
                                 </select>
                             </td>
 

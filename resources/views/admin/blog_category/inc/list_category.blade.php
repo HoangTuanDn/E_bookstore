@@ -43,7 +43,7 @@
         </div>
         @can('category-viewAny')
             <div class="card-body p-0">
-                <table class="table table-striped projects" id="example1">
+                <table class="table table-striped projectsexample1" >
                     <thead>
                     <tr>
                         <th class="border-right" style="width: 1%">

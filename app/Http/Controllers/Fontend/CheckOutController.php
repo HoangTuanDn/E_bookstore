@@ -47,7 +47,7 @@ class CheckOutController extends Controller
 
     public function index(Request $request, $language, $slug = null)
     {
-        //session()->pull('order');
+        /*    session()->flush();*/
         $idCountryRequest = $request->only(['province_id', 'district_id', 'ward_id']);
         $provinces = $this->province->all();
         $htmDistrictRender = '<option value="">' . __('select_district') . '</option>';
@@ -105,7 +105,6 @@ class CheckOutController extends Controller
         }
 
         if ($data) {
-
             if ($slug) {
                 $totalPrice = $data->discount;
             } else {
@@ -120,8 +119,6 @@ class CheckOutController extends Controller
                 $order['fee_ship'] = 0;
                 $order['coupon_code'] = '';
             }
-
-
         }
 
         if (!empty($order['coupon_code'])) {
@@ -242,7 +239,7 @@ class CheckOutController extends Controller
             return response()->json($json);
         }
 
-        session()->put('order');
+        session()->put('order', $order);
 
         if ($data){
             $inc_cart = view('fontend.checkout.inc.checkout', compact('data', 'slug', 'totalPrice', 'order', 'couponData'))->render();

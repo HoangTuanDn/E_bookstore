@@ -75,8 +75,20 @@ class OrderController extends Controller
         return view('fontend.order.order', compact('orders', 'orderTotalPrice'));
     }
 
-    public function store(OrderRequest $request, $slug = null)
+    public function store(OrderRequest $request, $language, $slug = null)
     {
+        if ( auth()->guard('customer')->guest()) {
+            $json = [
+                'success' => false,
+                'errors'  => [
+                    [__('customer_error')]
+                ],
+                'code'    => Response::HTTP_UNAUTHORIZED
+            ];
+
+            return response()->json($json, $json['code']);
+        }
+
         $unixTime = strtotime('now');
         $dataOrderInsert = [];
         $idCountryRequest = $request->only(['province_id', 'district_id', 'ward_id']);
@@ -183,7 +195,7 @@ class OrderController extends Controller
             $json = [
                 'success' => true,
                 'data'    => [
-                    'url_redirect' => route('order.index'),
+                    'url_redirect' => route('order.index', ['language' => app()->getLocale()]),
                     'type'         => __('type_success'),
                     'message'      => __('your_order_success', ['name' => $orderCode])
                 ],
@@ -201,7 +213,7 @@ class OrderController extends Controller
         return response()->json($json);
     }
 
-    public function destroy(Request $request, $id)
+    public function destroy(Request $request, $language, $id)
     {
         $order = $this->order->find($id);
         $productsInOrder = $order->products;

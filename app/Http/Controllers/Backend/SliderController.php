@@ -133,7 +133,6 @@ class SliderController extends Controller
             Log::error('message: ' . $e->getMessage() . 'Line : ' . $e->getLine());
         }
 
-
         $message = $this->getMessage('success', 'update', __('slider'));
 
         if (!$isUpdate) {
@@ -146,7 +145,7 @@ class SliderController extends Controller
 
         return redirect()->route('sliders.index')
             ->with('message', $message)
-            ->with('type', __('type_success'));
+            ->with('type', __('type_info'));
 
 
     }

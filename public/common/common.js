@@ -195,6 +195,18 @@ var renderHtml = function (url, elementWrapper, data = {}) {
     })
 }
 
+/*toggle element*/
+function toggleElement($element) {
+    var x = document.getElementById($element);
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+}
+
+
+
 /*get current language*/
 function getLanguage() {
     let currentLocation = window.location.href;

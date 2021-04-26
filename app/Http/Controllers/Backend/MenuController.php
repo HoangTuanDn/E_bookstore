@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Components\MenuRecursive;
 use App\Components\Message;
+use App\Http\Requests\MenuRequest;
 use App\Models\Menu;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -104,13 +105,13 @@ class MenuController extends Controller
     }
 
 
-    public function store(Request $request)
+    public function store(MenuRequest $request)
     {
         $input = $request->only(['name', 'parent_id']);
         $collection = collect($input);
 
         try {
-            $isCreated = $this->menu->create($collection->all());
+            $this->menu->create($collection->all());
 
         } catch (\Exception $e) {
             Log::error('message: ' . $e->getMessage() . 'Line : ' . $e->getLine());
@@ -120,15 +121,15 @@ class MenuController extends Controller
 
         $message = $this->getMessage('success', 'create', __('menu'));
 
-        if (!$isCreated) {
-            $message = $this->getMessage('error', 'create', __('menu'));
+        if (isset($isCreated)) {
+            return redirect()->back()->withErrors([
+                'error' => __('error_message'),
+            ]);
         }
 
         return redirect()->route('menus.index')
             ->with('message', $message)
-            ->with('type', !$isCreated ? false : 1);
-
-        return redirect()->route('menus.index');
+            ->with('type', __('type_success'));
     }
 
 
@@ -143,7 +144,7 @@ class MenuController extends Controller
     }
 
 
-    public function update(Request $request, $id)
+    public function update(MenuRequest $request, $id)
     {
         $input = $request->only(['name', 'parent_id']);
         $collection = collect($input);
@@ -159,12 +160,14 @@ class MenuController extends Controller
         $message = $this->getMessage('success', 'update', __('menu'));
 
         if (!$isUpdate) {
-            $message = $this->getMessage('error', 'update', __('menu'));
+            return redirect()->back()->withErrors([
+                'error' => __('error_message'),
+            ]);
         }
 
         return redirect()->route('menus.index')
             ->with('message', $message)
-            ->with('type', $isUpdate);
+            ->with('type', __('type_info'));
 
     }
 

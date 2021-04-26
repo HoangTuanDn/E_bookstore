@@ -9,7 +9,6 @@
 @endsection
 
 @section('js_link')
-{{--    <script src="{{asset('backend/common/slider/create.js')}}"></script>--}}
     <script src="{{asset('common/toastr.min.js')}}"></script>
 @endsection
 
@@ -28,9 +27,9 @@
                         <div class="card card-primary">
                             <div class="card-header">
                                 <h3 class="card-title">Thêm cấu hình</h3>
-{{--                                @if($errors->any())--}}
-{{--                                    <p id="error-message" data-message="{{$errors->first()}}"></p>--}}
-{{--                                @endif--}}
+                                @if($errors->any())
+                                    <p id="error-message" data-message="{{$errors->first()}}"></p>
+                                @endif
                                 <div class="card-tools">
                                     <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
                                         <i class="fas fa-minus"></i>

@@ -146,10 +146,7 @@ class UserController extends Controller
             Log::error('message: ' . $e->getMessage() . '--Line : ' . $e->getLine());
         }
 
-
-
         $message = $this->getMessage('success', 'create', __('admin'));
-
 
         return redirect()->route('users.index')
             ->with('message', $message)
@@ -203,14 +200,12 @@ class UserController extends Controller
 
         $message = $this->getMessage('success', 'update', __('admin'));
 
-
         return redirect()->route('users.index')
             ->with('message', $message)
-            ->with('type', __('type_success'));
+            ->with('type', __('type_info'));
     }
 
     public function destroy(Request $request , $id){
-
 
         try {
             $user =  $this->user->find($id);

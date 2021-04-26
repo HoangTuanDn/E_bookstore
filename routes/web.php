@@ -19,6 +19,7 @@ use App\Http\Controllers\Fontend\CheckOutController;
 use App\Http\Controllers\Fontend\ContactController;
 use App\Http\Controllers\Fontend\HomeController;
 use App\Http\Controllers\Fontend\OrderController;
+use App\Http\Controllers\Fontend\PaypalController;
 use App\Http\Controllers\Fontend\WishListController;
 use App\Http\Controllers\Fontend\SendContactMailController;
 use App\Http\Controllers\ShipController;
@@ -407,6 +408,9 @@ Route::Group(['prefix' => '{language}'], function () {
         Route::get('/blog/{slug}', [FdBlogController::class, 'show'])
             ->name('home.blog.detail');
 
+        Route::post('/blog/comment', [FdBlogController::class, 'comment'])
+            ->name('home.blog.comment');
+
         /*product*/
         Route::post('/product/{slug}/review', [FdProductController::class, 'review'])
             ->name('home.product.review');
@@ -428,6 +432,11 @@ Route::Group(['prefix' => '{language}'], function () {
         Route::get('/checkout/{slug?}', [CheckOutController::class, 'index'])
             ->name('home.checkout');
 
+        Route::post('/checkout/payment/{slug?}', [PayPalController::class, 'payment'])
+            ->name('home.payment');
+
+        Route::get('/checkout/payment/success', [PayPalController::class, 'success'])
+            ->name('home.payment.success');
 
         /*order*/
         Route::post('/order/{slug?}', [OrderController::class, 'store'])
@@ -457,6 +466,7 @@ Route::Group(['prefix' => '{language}'], function () {
             ->name('home.error');
     });
 });
+
 
 
 

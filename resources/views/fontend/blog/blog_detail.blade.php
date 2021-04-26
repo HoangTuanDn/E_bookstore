@@ -1,8 +1,7 @@
 @extends('layouts.master')
 
 @section('js')
-{{--    <script src="{{asset('fontend/common/single.js')}}"></script>
-    <script src="{{asset('fontend/common/cart.js')}}"></script>--}}
+    <script src="{{asset('fontend/common/blog_detail.js')}}"></script>
 @endsection
 
 @section('content')
@@ -56,7 +55,21 @@
                                 </ul>
                             </div>
                         </article>
-                        @include('fontend.blog.inc.blog_comment')
+                        <div class="comments_area">
+                            {!! $inc_comment !!}
+                        </div>
+                        <div class="comment_respond">
+                            <h3 class="reply_title">{{__('leave_a_reply')}} <small><a href="#">{{__('text_cancel')}}</a></small></h3>
+                            <form class="comment__form" action="{{route('home.blog.comment', ['language' => app()->getLocale()])}}">
+                                <p>{{__('comment_respond_detail')}}</p>
+                                <div class="input__box">
+                                    <textarea name="comment" placeholder="{{__('your_comment_here')}}"></textarea>
+                                </div>
+                                <div class="submite__btn">
+                                    <a href="#" data-action="post-comment" data-id="{{$blog->id}}" data-parent="0">{{__('post_comment')}}</a>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
 

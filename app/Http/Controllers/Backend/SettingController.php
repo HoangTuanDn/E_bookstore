@@ -24,8 +24,6 @@ class SettingController extends Controller
 
     public function index(Request $request)
     {
-       /* $settings = $this->setting->select('id', 'config_key', 'config_value')->paginate(config('custom.limit'));
-        return view('admin.setting.index', compact('settings'));*/
 
         $data = [];
         $filterKey = $request->query('key');
@@ -147,7 +145,7 @@ class SettingController extends Controller
 
         return redirect()->route('settings.index')
             ->with('message', $message)
-            ->with('type', __('type_success'));
+            ->with('type', __('type_info'));
     }
 
     private function getMessage($type, $action = '', $name = '', $text = '')

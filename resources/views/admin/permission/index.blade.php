@@ -12,9 +12,6 @@
 @section('js_link')
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script src="{{asset('common/toastr.min.js')}}"></script>
-    <script src="{{asset('backend/common/permission/list.js')}}"></script>
-
-
 @endsection
 
 

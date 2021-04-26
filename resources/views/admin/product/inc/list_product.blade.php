@@ -43,7 +43,7 @@
                 </div>
             </div>
             <div class="card-body p-0">
-                <table class="table table-striped projects" id="example1">
+                <table class="table table-striped projects example1" >
                     <thead>
                     <tr>
                         <th class="border-right" style="width: 1%">
@@ -66,7 +66,7 @@
                         </th>
 
                         <th style="width: 14%; text-align: center">
-                            SL bán/còn
+                            Tồn kho
                         </th>
 
                         <th style="width: 14%; text-align: center">
@@ -100,7 +100,7 @@
                             </td>
 
                             <td class="text-center">
-                                <span>{{$product->quantity_sold .'/'. $product->quantity}}</span>
+                                <span>{{$product->quantity}}</span>
                             </td>
 
                             <td class="text-center">

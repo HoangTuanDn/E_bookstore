@@ -7,7 +7,6 @@ $(function (){
         let type = currentElement.attr('data-type');
         //console.log(currentElement.closest('[data-action="data-store"]').find('[data-action="select-district"]'))
 
-
         if (type === 'province'){
             data = {
                 'province_id' : currentElement.val()
@@ -74,50 +73,6 @@ $(function (){
                 }
             },
         })
-
-    });
-
-
-
-    let messageError = $("#error-message").attr('data-message');
-    let sessionMessage = $("#session-message").attr('data-message');
-    let type = $("#session-message").attr('data-type');
-
-    if (messageError) {
-        let toastConfig = {
-            message : messageError,
-            type    : 'error',
-            duration: 3000
-        }
-
-        app.getToastr(toastConfig);
-        $("#session-message").attr('data-message', '')
-    }
-
-    /*message notification*/
-
-    if (sessionMessage){
-
-        let toastConfig = {
-            message: sessionMessage,
-            type: type,
-            duration: 3000
-        }
-
-        app.getToastr(toastConfig);
-        $("#session-message").attr('data-message', '')
-    }
-
-    /*delete ship*/
-    $('*[data-action="btnDelete"]').click(function (){
-
-        event.preventDefault();
-
-        var name = $(this).attr('data-name')
-        var url = $(this).attr('data-url');
-        var currentElement = $(this);
-
-        app.deleteObject(`Địa chỉ giao hàng này sẽ bị xóa ?`, url, currentElement)
     });
 
 })

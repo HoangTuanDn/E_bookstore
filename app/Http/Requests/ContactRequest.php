@@ -24,19 +24,20 @@ class ContactRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
-            'email' => 'required|email',
-            'message' => 'required',
+            'comment' => 'required',
+            'parent_id' => 'required|numeric',
+            'blog_id' => 'required|numeric',
         ];
     }
 
     public function messages()
     {
         return [
-            'name.required' => __('name_send_required'),
-            'email.required' => __('email_required'),
-            'email.email' => __('email_format'),
-            'message.required' => __('message_required'),
+            'comment.required' => __('comment_required'),
+            'parent_id.required' => __('comment_format'),
+            'blog_id.required' => __('comment_format'),
+            'parent_id.numeric' => __('comment_format'),
+            'blog_id.numeric' => __('comment_format'),
         ];
     }
 }

@@ -6,23 +6,29 @@ namespace App\Http\Controllers\fontend;
 use App\Components\Pagination;
 use App\Models\Blog;
 use App\Models\BlogCategory;
+use App\Models\Comment;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Log;
 
 class BlogController extends Controller
 {
     private $blog;
     private $blogCategory;
+    private $comment;
 
     /**
      * BlogController constructor.
      * @param $blog
      * @param $category
+     * @param $comment
      */
-    public function __construct(Blog $blog, BlogCategory $category)
+    public function __construct(Blog $blog, BlogCategory $category, Comment $comment)
     {
         $this->blog = $blog;
         $this->blogCategory = $category;
+        $this->comment = $comment;
     }
 
     public function index(Request $request)
@@ -33,26 +39,97 @@ class BlogController extends Controller
     public function show(Request $request, $language, $slug)
     {
         $blog = $this->blog->where('slug->vn', $slug)->first();
+        $sessionPost = session('recent_posts');
+        if (!isset($sessionPost[$blog->id])) {
+            $blog->increment('view');
+            $sessionPost[$blog->id] = 1;
+            session()->put('recent_posts', $sessionPost);
+        }
+        $comments = $this->comment
+            ->where('blog_id', $blog->id)
+            ->where('parent_id', 0)
+            ->latest()
+            ->get(['id', 'comment', 'parent_id', 'blog_id', 'customer_id', 'created_at']);
 
         if (app()->getLocale() === 'en') {
             $blog = $this->blog->where('slug->en', $slug)->first();
         }
 
-        if (!$blog){
+        if (!$blog) {
+            return view('fontend.error_404');
+        }
+        $inc_comment = view('fontend.blog.inc.blog_comment', compact('comments', 'blog'));
+
+        return view('fontend.blog.blog_detail', compact('blog', 'inc_comment'));
+    }
+
+    public function comment(Request $request, $languge)
+    {
+        $input = $request->only(['comment', 'blog_id', 'parent_id']);
+        $blog = $this->blog->find($input['blog_id']);
+        if (!$blog) {
             return view('fontend.error_404');
         }
 
-        return view('fontend.blog.blog_detail', compact('blog'));
+        if ( auth()->guard('customer')->guest()) {
+            $json = [
+                'success' => false,
+                'errors'  => [
+                    [__('customer_error')]
+                ],
+                'code'    => Response::HTTP_UNAUTHORIZED
+            ];
+
+            return response()->json($json, $json['code']);
+        }
+
+        try {
+            $this->comment->create([
+                'blog_id'   => $input['blog_id'],
+                'parent_id' => $input['parent_id'],
+                'comment'   => $input['comment'],
+                'customer_id' => auth()->guard('customer')->user()->id,
+            ]);
+        } catch (\Exception $e) {
+            $isCreate = false;
+            Log::error('message: ' . $e->getMessage() . '--Line : ' . $e->getLine());
+        }
+
+        if (isset($isCreate)) {
+            $json = [
+                'success' => false,
+                'data'    => [
+                    'type'    => __('type_error'),
+                    'message' => __('error_message')
+                ],
+            ];
+        } else {
+            $comments = $this->comment
+                ->where('blog_id', $input['blog_id'])
+                ->where('parent_id', 0)
+                ->latest()
+                ->get(['id', 'comment', 'parent_id', 'blog_id', 'customer_id', 'created_at']);
+
+            $inc_comment = view('fontend.blog.inc.blog_comment', compact('comments', 'blog'))->render();
+
+            $json = [
+                'success' => true,
+                'data'    => [
+                    'html_comment' => $inc_comment
+                ],
+            ];
+        }
+
+        return response()->json($json);
     }
 
     private function _getList(Request $request)
     {
         $data = [];
-
         $filterName = $request->query('name');
         $filterCategory = $request->query('category');
-        $filterArchives['month'] = $request->query('month') ? date('m', $request->query('month')) : '';
-        $filterArchives['year'] = $request->query('year') ? date('Y', $request->query('year')) : '';
+        $filterArchives['month'] = $request->query('month');
+        $filterArchives['year'] = $request->query('year');
 
         $sort = $request->query('sort', 'default');
         $order = $request->query('order', 'desc');
@@ -60,10 +137,15 @@ class BlogController extends Controller
         $limit = $request->query('limit', config('custom.blog_limit'));
 
         $data['blogs'] = [];
+        if (app()->getLocale() === 'vn') {
+            $category = $this->blogCategory->where('slug->vn', $filterCategory)->select('id', 'name')->first();
+        }else{
+            $category = $this->blogCategory->where('slug->en', $filterCategory)->select('id', 'name')->first();
+        }
 
         $dataFilter = [
             'name'     => $filterName,
-            'category' => $filterCategory,
+            'category' => $category ? $category->id : '',
             'archives' => $filterArchives,
             'sort'     => $sort,
             'order'    => $order,
@@ -127,7 +209,7 @@ class BlogController extends Controller
         $data['sort'] = $sort;
         $data['order'] = $order;
 
-        $data['category'] = $filterCategory ? $this->blogCategory->find($filterCategory) : __('all_lc');
+        $data['categoryName'] = $category ? $category->name : __('all_lc');
 
         if ($request->ajax()) {
             $url = $this->_getUrlFilter([

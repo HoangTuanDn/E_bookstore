@@ -9,7 +9,7 @@
 @endsection
 
 @section('js_link')
-    <script src="{{asset('backend/common/setting/list.js')}}"></script>
+    <script src="{{asset('backend/common/slider/list.js')}}"></script>
     <script src="{{asset('common/toastr.min.js')}}"></script>
 @endsection
 

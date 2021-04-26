@@ -2,6 +2,15 @@ $(function () {
     /*create toast element*/
     createTostElement();
 
+    /*check payPal success*/
+    if ($('input[name="payPalCode"]').length) {
+        var toastConfig = {
+            message : $('input[name="payPalMessage"]').val(),
+            type    : $('input[name="payPalCode"]').val(),
+            duration: 3000
+        }
+        toast(toastConfig)
+    }
 
     /*custom header*/
     let classRemove = $('.contentbox input[type="hidden"]').val();

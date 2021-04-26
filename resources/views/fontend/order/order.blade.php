@@ -43,8 +43,8 @@
                                     <tbody>
                                     @foreach($order->products as $product)
                                         <tr>
-                                            <td class="product-thumbnail"><a href="{{route('home.shop.single_product', ['slug' => $product->slug])}}"><img width="75px" src="{{$product->featured_img}}" alt="product img"></a></td>
-                                            <td class="product-name"><a href="{{route('home.shop.single_product', ['slug' => $product->slug])}}">{{$product->name}}</a></td>
+                                            <td class="product-thumbnail"><a href="{{route('home.shop.single_product', ['language' => app()->getLocale(),'slug' => $product->slug])}}"><img width="75px" src="{{$product->featured_img}}" alt="product img"></a></td>
+                                            <td class="product-name"><a href="{{route('home.shop.single_product', ['language' => app()->getLocale(), 'slug' => $product->slug])}}">{{$product->name}}</a></td>
                                             <td class="product-price"><span class="amount">{{number_format($product->discount, 0, ',', '.')}}</span></td>
                                             <td class="product-quantity"><span class="amount">{{$product->pivot->quantity}}</span></td>
                                             <td class="product-subtotal">{{number_format(($product->pivot->quantity * $product->discount), 0, ',', '.')}}</td>
@@ -66,10 +66,22 @@
                                     <li><span class="d-inline-block mt--20" >{!!__('order_status', ['name' => __('order_shipping')])!!}</span></li>
                                 @elseif($order->status === 3)
                                     <li><span class="d-inline-block mt--20" >{!!__('order_status', ['name' => __('order_shipped')])!!}</span></li>
+                                @elseif($order->status === 4)
+                                    <li><span class="d-inline-block mt--20" >{!!__('order_status', ['name' => __('order_paid')])!!}</span></li>
+                                @elseif($order->status === 5)
+                                    <li><span class="d-inline-block mt--20" >{!!__('order_status', ['name' => __('order_completed')])!!}</span></li>
                                 @endif
-                                <li><span class="d-inline-block mt--20">{!!__('order_payment', ['method' => $order->payment->name])!!}</span></li>
 
-                                <li><a data-action="destroy-order" data-success="{{__('success_text')}}" data-warning="{{__('warning_text')}}" data-cancel="{{__('text_cancel')}}" data-ok="{{__('text_ok')}}" data-title="{{__('order_data_title')}}" data-code="{{$order->order_code}}" href="{{route('order.destroy', ['id' => $order->id])}}">Hủy đơn hàng</a></li>
+
+                                    @if($order->payment->id === 1 )
+                                        <li><span class="d-inline-block mt--20">{!!__('order_payment', ['method' =>__('direct_bank_transfer')])!!}</span></li>
+                                    @elseif($order->payment->id === 2)
+                                        <li><span class="d-inline-block mt--20">{!!__('order_payment', ['method' => __('cash_on_delivery')])!!}</span></li>
+                                    @elseif($order->payment->id === 3)
+                                        <li><span class="d-inline-block mt--20">{!!__('order_payment', ['method' => __('paypal')])!!}</span></li>
+                                    @endif
+
+                                <li><a data-action="destroy-order" {{$order->status > 1 ? 'class=disabled' : ''}} data-success="{{__('success_text')}}" data-warning="{{__('warning_text')}}" data-cancel="{{__('text_cancel')}}" data-ok="{{__('text_ok')}}" data-title="{{__('order_data_title')}}" data-code="{{$order->order_code}}" href="{{route('order.destroy', ['language' => app()->getLocale(), 'id' => $order->id])}}">{{__('cancel_order')}}</a></li>
                             </ul>
                         </div>
                     </div>

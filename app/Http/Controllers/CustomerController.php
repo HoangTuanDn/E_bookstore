@@ -31,7 +31,7 @@ class CustomerController extends Controller
         return view('fontend.customer.account');
     }
 
-    public function login(LoginRequest $request)
+    public function login(LoginRequest $request, $language)
     {
 
         $remember = $request->has('remember_me');
@@ -44,7 +44,7 @@ class CustomerController extends Controller
             $json = [
                 'success' => true,
                 'data'    => [
-                    'url_redirect' => route('home'),
+                    'url_redirect' => route('home', ['language' => app()->getLocale()]),
                     'type'         => 'success',
                     'message'      => __('login_success'),
                 ],
@@ -64,7 +64,7 @@ class CustomerController extends Controller
     }
 
 
-    public function register(RegisterRequest $request)
+    public function register(RegisterRequest $request, $language)
     {
 
         $dataInsert = $request->only([
@@ -113,7 +113,7 @@ class CustomerController extends Controller
 
     }
 
-    public function logout(Request $request)
+    public function logout(Request $request, $language)
     {
         $name = auth()->guard('customer')->user()->name;
         auth()->guard('customer')->logout();
@@ -122,7 +122,7 @@ class CustomerController extends Controller
             'data'    => [
                 'type'    => 'success',
                 'message' => __('logout_success', ['name' => $name]),
-                'url_redirect' => route('account.my'),
+                'url_redirect' => route('account.my', ['language' => app()->getLocale()]),
             ],
             'code'    => Response::HTTP_OK
         ];

@@ -1,3 +1,4 @@
+
 <div class="col-lg-3 col-12 md-mt-40 sm-mt-40">
     <div class="wn__sidebar">
         <!-- Start Single Widget -->
@@ -5,7 +6,7 @@
             <h3 class="widget-title">Search</h3>
             <form action="#">
                 <div class="form-input">
-                    <input type="text" placeholder="Search...">
+                    <input id="aa-search-input-blog" class="aa-input-search-blog"  type="search" placeholder="Search...">
                     <button><i class="fa fa-search"></i></button>
                 </div>
             </form>
@@ -13,153 +14,72 @@
         <!-- End Single Widget -->
         <!-- Start Single Widget -->
         <aside class="widget recent_widget">
-            <h3 class="widget-title">Recent</h3>
+            <h3 class="widget-title">{{__('recent')}}</h3>
             <div class="recent-posts">
                 <ul>
-                    <li>
-                        <div class="post-wrapper d-flex">
-                            <div class="thumb">
-                                <a href="blog-details.html"><img src="{{asset('fontend/images/blog/sm-img/1.jpg')}}" alt="blog images"></a>
+                    @foreach($recentBlogs as $blog)
+                        <li>
+                            <div class="post-wrapper d-flex">
+                                <div class="thumb">
+                                    <a href="{{route('home.blog.detail', ['language'=> app()->getLocale(), 'slug' => $blog->slug])}}"><img src="{{asset($blog->featured_img)}}" alt="blog images"></a>
+                                </div>
+                                <div class="content">
+                                    <h4><a href="{{route('home.blog.detail', ['language'=> app()->getLocale(), 'slug' => $blog->slug])}}">{{$blog->name}}</a></h4>
+
+                                    @if(app()->getLocale() === 'vn')
+                                        <p>	{{date('d-m-Y', strtotime($blog->created_at))}}</p>
+                                    @else
+                                        <p>	{{date('M d, Y', strtotime($blog->created_at))}}</p>
+                                    @endif
+                                </div>
                             </div>
-                            <div class="content">
-                                <h4><a href="blog-details.html">Blog image post</a></h4>
-                                <p>	March 10, 2015</p>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="post-wrapper d-flex">
-                            <div class="thumb">
-                                <a href="blog-details.html"><img src="{{asset('fontend/images/blog/sm-img/2.jpg')}}" alt="blog images"></a>
-                            </div>
-                            <div class="content">
-                                <h4><a href="blog-details.html">Post with Gallery</a></h4>
-                                <p>	March 10, 2015</p>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="post-wrapper d-flex">
-                            <div class="thumb">
-                                <a href="blog-details.html"><img src="{{asset('fontend/images/blog/sm-img/1.jpg')}}" alt="blog images"></a>
-                            </div>
-                            <div class="content">
-                                <h4><a href="blog-details.html">Post with Video</a></h4>
-                                <p>	March 10, 2015</p>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="post-wrapper d-flex">
-                            <div class="thumb">
-                                <a href="blog-details.html"><img src="{{asset('fontend/images/blog/sm-img/1.jpg')}}" alt="blog images"></a>
-                            </div>
-                            <div class="content">
-                                <h4><a href="blog-details.html">Maecenas ultricies</a></h4>
-                                <p>	March 10, 2015</p>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="post-wrapper d-flex">
-                            <div class="thumb">
-                                <a href="blog-details.html"><img src="{{asset('fontend/images/blog/sm-img/1.jpg')}}" alt="blog images"></a>
-                            </div>
-                            <div class="content">
-                                <h4><a href="blog-details.html">Blog image post</a></h4>
-                                <p>	March 10, 2015</p>
-                            </div>
-                        </div>
-                    </li>
+                        </li>
+                    @endforeach
                 </ul>
             </div>
         </aside>
         <!-- End Single Widget -->
         <!-- Start Single Widget -->
         <aside class="widget comment_widget">
-            <h3 class="widget-title">Comments</h3>
+            <h3 class="widget-title">{{__('comments')}}</h3>
             <ul>
-                <li>
-                    <div class="post-wrapper">
-                        <div class="thumb">
-                            <img src="{{asset('fontend/images/blog/comment/1.jpeg')}}" alt="Comment images">
+                @foreach($comments as $comment)
+                    <li>
+                        <div class="post-wrapper">
+                            <div class="thumb">
+                                <img   src="{{asset('fontend/images/blog/comment/1.jpeg')}}" alt="Comment images">
+                            </div>
+                            <div class="content">
+                                <p>{{__('customer_says', ['name' => $comment->customer->name]) . ' :'}}</p>
+                                <a href="#">{{$comment->comment}}</a>
+                            </div>
                         </div>
-                        <div class="content">
-                            <p>demo says:</p>
-                            <a href="#">Quisque semper nunc vitae...</a>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="post-wrapper">
-                        <div class="thumb">
-                            <img src="{{asset('fontend/images/blog/comment/1.jpeg')}}" alt="Comment images">
-                        </div>
-                        <div class="content">
-                            <p>Admin says:</p>
-                            <a href="#">Curabitur aliquet pulvinar...</a>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="post-wrapper">
-                        <div class="thumb">
-                            <img src="{{asset('fontend/images/blog/comment/1.jpeg')}}" alt="Comment images">
-                        </div>
-                        <div class="content">
-                            <p>Irin says:</p>
-                            <a href="#">Quisque semper nunc vitae...</a>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="post-wrapper">
-                        <div class="thumb">
-                            <img src="{{asset('fontend/images/blog/comment/1.jpeg')}}" alt="Comment images">
-                        </div>
-                        <div class="content">
-                            <p>Boighor says:</p>
-                            <a href="#">Quisque semper nunc vitae...</a>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="post-wrapper">
-                        <div class="thumb">
-                            <img src="{{asset('fontend/images/blog/comment/1.jpeg')}}" alt="Comment images">
-                        </div>
-                        <div class="content">
-                            <p>demo says:</p>
-                            <a href="#">Quisque semper nunc vitae...</a>
-                        </div>
-                    </div>
-                </li>
+                    </li>
+                @endforeach
             </ul>
         </aside>
         <!-- End Single Widget -->
         <!-- Start Single Widget -->
         <aside class="widget category_widget">
-            <h3 class="widget-title">Categories</h3>
+            <h3 class="widget-title">{{__('categories_lc')}}</h3>
             <ul>
-                <li><a href="#">Fashion</a></li>
-                <li><a href="#">Creative</a></li>
-                <li><a href="#">Electronics</a></li>
-                <li><a href="#">Kids</a></li>
-                <li><a href="#">Flower</a></li>
-                <li><a href="#">Books</a></li>
-                <li><a href="#">Jewelle</a></li>
+                @foreach($categories as $category)
+                    <li><a data-action="filter-category" href="{{route('home.blog', ['language'=>app()->getLocale(),'category'=> $category->slug])}}">{{$category->name}}</a></li>
+                @endforeach
             </ul>
         </aside>
         <!-- End Single Widget -->
         <!-- Start Single Widget -->
         <aside class="widget archives_widget">
-            <h3 class="widget-title">Archives</h3>
+            <h3 class="widget-title">{{__('archives')}}</h3>
             <ul>
-                <li><a href="#">March 2015</a></li>
-                <li><a href="#">December 2014</a></li>
-                <li><a href="#">November 2014</a></li>
-                <li><a href="#">September 2014</a></li>
-                <li><a href="#">August 2014</a></li>
+                @foreach($archives as $archive)
+                @endforeach
+                @if(app()->getLocale() === 'vn')
+                    <li><a data-action="filter-archives" href="{{route('home.blog', ['language'=> app()->getLocale(), 'month'=>date('n', strtotime($archive->created_at)), 'year' => date('Y', strtotime($archive->created_at))])}}">{{'Tháng '.date('n, Y', strtotime($archive->created_at))}}</a></li>
+                @else
+                    <li><a data-action="filter-archives" href="{{route('home.blog', ['language'=> app()->getLocale(), 'month'=>date('n', strtotime($archive->created_at)), 'year' => date('Y', strtotime($archive->created_at))])}}">{{date('F, Y', strtotime($archive->created_at))}}</a></li>
+                @endif
             </ul>
         </aside>
         <!-- End Single Widget -->

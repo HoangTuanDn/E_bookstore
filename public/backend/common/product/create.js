@@ -1,24 +1,4 @@
 $(function (){
-
-    /*error notification*/
-    let message = $("#error-message").attr('data-message');
-    if (message) {
-        var toastConfig = {
-            message : message,
-            type    : 'error',
-            duration: 3000
-        }
-
-        app.getToastr(toastConfig);
-        $("#session-message").attr('data-message', '')
-    }
-
-    /*select 2 use */
-
-    app.select2Tag($("#inputTag"))
-    app.select2Option($("#inputStatus"), 'Chọn danh mục')
-    app.select2Option($("#inputBlogCategory"), 'Chọn danh mục bài viết')
-
     /*tinyMCE config*/
     var editor_config = {
         path_absolute : "/admin/",

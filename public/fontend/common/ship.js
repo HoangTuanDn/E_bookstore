@@ -203,7 +203,63 @@ $(function () {
                 }
                 toast(toastConfig)
 
+                setTimeout(function (){
+                    window.location.href = json['data']['url_redirect'];
+                }, 1000)
+
             },
+            error   : function (json) {
+                if (json['responseJSON'] !== undefined) {
+                    let errors = Object.values(json['responseJSON']['errors']);
+
+                    let errormessage = [];
+                    console.log(errors);
+                    errormessage = errors.map(function (element, index) {
+                        return  element[0]
+                    })
+
+                    var toastConfig = {
+                        message : errormessage[0],
+                        type    : 'error',
+                        duration: 3000
+                    }
+                    toast(toastConfig)
+
+                }
+            }
+
+        })
+
+    })
+    $(document).on('click', '*[data-action="payment-checkout"]', function (e) {
+        event.preventDefault()
+        let currentElement = $(this);
+
+        let url = currentElement.attr('data-url');
+        let data = {
+            'coupon_code'         : currentElement.closest('#wrapper').find('input[name="coupon_code"]').val(),
+            'full_name'      : currentElement.closest('#wrapper').find('input[name="full_name"]').val(),
+            'province_id'      : currentElement.closest('#wrapper').find('#province').val(),
+            'district_id'      : currentElement.closest('#wrapper').find('#district').val(),
+            'ward_id'      : currentElement.closest('#wrapper').find('#ward').val(),
+            'address'      : currentElement.closest('#wrapper').find('input[name="address"]').val(),
+            'phone'      : currentElement.closest('#wrapper').find('input[name="phone"]').val(),
+            'email'      : currentElement.closest('#wrapper').find('input[name="email"]').val(),
+        }
+
+        $.ajax({
+            url     : url,
+            type    : 'post',
+            data    : data,
+            dataType: 'json',
+            headers : {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success : function (json) {
+                console.log(json)
+                window.location.href = json['data']['url_redirect'];
+            },
+
             error   : function (json) {
                 if (json['responseJSON'] !== undefined) {
                     let errors = Object.values(json['responseJSON']['errors']);

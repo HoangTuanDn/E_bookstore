@@ -7,7 +7,6 @@
 @section('css')
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <link href="{{asset('/common/toastr.min.css')}}" rel='stylesheet' type='text/css' />
-    <link href="{{asset('backend/common/product/product.css')}}" rel="stylesheet" />
 @endsection
 
 @section('js_link')

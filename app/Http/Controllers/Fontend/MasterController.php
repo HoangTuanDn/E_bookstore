@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers\Fontend;
 
+use App\Models\Blog;
+use App\Models\BlogCategory;
 use App\Models\Category;
+use App\Models\Comment;
 use App\Models\Menu;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -73,5 +76,21 @@ class MasterController extends Controller
 
         $view->with(['parentMenus' => $parentMenus, 'totalItemCart' => $totalItemCart]);
 
+    }
+
+    public function blogSidebar(View $view)
+    {
+        /*recent blog comment category archives*/
+        $recentBlogs = Blog::latest()->limit(config('custom.limit'))->get(['id','slug', 'featured_img', 'name', 'created_at']);
+        $comments = Comment::where('parent_id', 0)->latest()->limit(5)->get(['id', 'blog_id', 'comment', 'customer_id']);
+        $categories = BlogCategory::get(['id', 'name', 'slug']);
+        $archives = Blog::get(['created_at']);
+
+        $view->with([
+            'recentBlogs' => $recentBlogs,
+            'comments' => $comments,
+            'categories' => $categories,
+            'archives' => $archives
+        ]);
     }
 }

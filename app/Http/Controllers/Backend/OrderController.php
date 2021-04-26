@@ -130,6 +130,16 @@ class OrderController extends Controller
     public function update(Request $request, $id)
     {
         $order = $this->order->find($id);
+        if ($request->status < $order->status) {
+            $json = [
+                'success' => false,
+                'data'    => [
+                    'type'    => __('type_warning'),
+                    'message' => __('error_update_order_message')
+                ]
+            ];
+            return response()->json($json);
+        }
         try {
             if ($order) {
                 $isUpdate = $order->update([
@@ -143,7 +153,7 @@ class OrderController extends Controller
 
         if ($isUpdate) {
             $json = [
-                'success' => true,
+                'success' => false,
                 'data'    => [
                     'updated_at' => date('Y-m-d H:i:s', strtotime($order->updated_at)),
                     'type'       => __('type_success'),

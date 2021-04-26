@@ -95,7 +95,7 @@
 <script src="{{asset('backend/dist/js/adminlte.min.js')}}"></script>
 <!-- custom js -->
 <script src="{{asset('common/common.js')}}"></script>
-<script src="{{asset('backend/common/auth/auth.js')}}"></script>
+<script src="{{asset('backend/common/Message/message.js')}}"></script>
 <script src="{{asset('common/toastr.min.js')}}"></script>
 
 </body>

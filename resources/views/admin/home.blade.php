@@ -18,8 +18,6 @@
 
 
   <script src="{{asset('backend/plugins/datatables-buttons/js/dataTables.buttons.min.js')}}"></script>
-  <script src="{{asset('backend/plugins/datatables-buttons/js/dataTables.buttons.min.js')}}"></script>
-  <script src="{{asset('backend/plugins/datatables-buttons/js/buttons.bootstrap4.min.js')}}"></script>
   <script src="{{asset('backend/plugins/jszip/jszip.min.js')}}"></script>
   <script src="{{asset('backend/plugins/pdfmake/pdfmake.min.js')}}"></script>
   <script src="{{asset('backend/plugins/pdfmake/vfs_fonts.js')}}"></script>
@@ -27,7 +25,7 @@
 
   <script>
     $(function () {
-      $("#example2").DataTable({
+      $("#example1").DataTable({
         "paging": false,
         "lengthChange": false,
         "searching": false,
@@ -125,7 +123,7 @@
                 </div>
               </div>
               <div class="card-body table-responsive p-0 custom-height">
-                <table class="table table-striped table-valign-middle" id="example2">
+                <table class="table table-striped table-valign-middle" id="example1">
                   <thead>
                   <tr>
                     <th>Sản phẩm</th>

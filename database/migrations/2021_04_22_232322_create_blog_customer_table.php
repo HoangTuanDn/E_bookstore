@@ -15,6 +15,7 @@ class CreateBlogCustomerTable extends Migration
     {
         Schema::create('blog_customer', function (Blueprint $table) {
             $table->id();
+            $table->integer('blog_id');
             $table->integer('parent_id');
             $table->text('comment');
             $table->integer('customer_id');

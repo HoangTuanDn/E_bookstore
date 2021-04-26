@@ -31,6 +31,7 @@
     <link rel="stylesheet" href="{{asset('fontend/css/custom.css')}}">
     <link rel="stylesheet" href="{{asset('common/common.css')}}">
     <link rel="stylesheet" href="{{asset('common/algolia.css')}}">
+    <link rel='stylesheet' href="{{asset('common/algolia_blog.css')}}"/>
 
     <!-- Modernizer js -->
     <script src="{{asset('fontend/js/vendor/modernizr-3.5.0.min.js')}}"></script>
@@ -75,6 +76,7 @@
 <script src="{{asset('common/common.js')}}"></script>
 <script src="{{asset('fontend/common/common.js')}}"></script>
 <script src="{{asset('common/algolia.js')}}"></script>
+<script src="{{asset('common/algolia_blog.js')}}"></script>
 @hasSection('js')
     @yield('js')
 @endif

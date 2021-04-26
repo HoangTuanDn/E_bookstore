@@ -148,10 +148,9 @@ class PermissionController extends Controller
 
         $message = $this->getMessage('success', 'update', __('permission'));
 
-
         return redirect()->route('permissions.index')
             ->with('message', $message)
-            ->with('type', __('type_success'));
+            ->with('type', __('type_info'));
     }
 
     public function destroy(Request $request, $id)

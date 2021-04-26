@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Components\Message;
+use App\Http\Requests\BlogRequest;
 use App\Models\Blog;
 use App\Models\BlogCategory;
 use App\Traits\Notifiable;
@@ -120,7 +121,7 @@ class BlogController extends Controller
         return view('admin.blog.create', compact('blogCategories'));
     }
 
-    public function store(Request $request)
+    public function store(BlogRequest $request)
     {
         $data = $this->getData($request);
 
@@ -160,8 +161,6 @@ class BlogController extends Controller
         $message = $this->getMessage('success', 'create', __('blog'));
 
         if (!$isCreated) {
-            $message = $this->getMessage('error', 'create', __('blog'));
-
             return redirect()->back()->withErrors([
                 'error' => __('error_message'),
             ]);
@@ -181,7 +180,7 @@ class BlogController extends Controller
         return view('admin.blog.edit', compact('blog', 'blogCategories'));
     }
 
-    public function update(Request $request, $id)
+    public function update(BlogRequest $request, $id)
     {
         $data = $this->getData($request);
         $blog = $this->blog->find($id);
@@ -224,8 +223,6 @@ class BlogController extends Controller
         $message = $this->getMessage('success', 'update', __('blog'));
 
         if (!$isUpdate) {
-            $message = $this->getMessage('error', 'update', __('blog'));
-
             return redirect()->back()->withErrors([
                 'error' => __('error_message'),
             ]);

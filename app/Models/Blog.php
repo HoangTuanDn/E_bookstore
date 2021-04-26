@@ -6,12 +6,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Translatable\HasTranslations;
+use Laravel\Scout\Searchable;
 
 class Blog extends Model
 {
     use HasTranslations;
     use HasFactory;
     use SoftDeletes;
+    use Searchable;
 
     protected $guarded = ['id'];
     protected $attributes = [
@@ -76,6 +78,12 @@ class Blog extends Model
     {
         return $this
             ->belongsTo(User::class,'user_id',);
+    }
+
+    public function comments()
+    {
+        return $this
+            ->hasMany(Comment::class,'blog_id',);
     }
 
     public function category()

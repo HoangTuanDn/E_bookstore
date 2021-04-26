@@ -23,7 +23,9 @@
     <div class="page-blog bg--white section-padding--lg blog-sidebar right-sidebar">
         <div class="container">
             <div class="row blog-wrapper">
-               {!! $inc_list !!}
+                <div class="col-lg-9 col-12 blog-content-detail">
+                    {!! $inc_list !!}
+                </div>
                 @include('partials.blog_sidebar')
             </div>
         </div>

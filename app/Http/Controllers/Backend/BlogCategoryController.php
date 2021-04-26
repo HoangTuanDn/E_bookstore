@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Components\Message;
+use App\Http\Requests\BlogCategoryRequest;
 use App\Models\BlogCategory;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -102,8 +103,10 @@ class BlogCategoryController extends Controller
         return view('admin.blog_category.create');
     }
 
-    public function store(Request $request)
+    public function store(BlogCategoryRequest $request)
     {
+        $request->validated();
+
         $input = $request->only(['name_vn', 'name_en']);
 
         $dataInsert = [
@@ -128,14 +131,14 @@ class BlogCategoryController extends Controller
         $message = $this->getMessage('success', 'create', __('blog_category'));
 
         if (isset($isCreated)) {
-            $message = $this->getMessage('error', 'create', __('blog_category'));
+            return redirect()->back()->withErrors([
+                'error' => __('error_message'),
+            ]);
         }
 
         return redirect()->route('blog_categories.index')
             ->with('message', $message)
-            ->with('type', isset($isCreated) ? __('type_error') : __('type_success'));
-
-
+            ->with('type', __('type_success'));
     }
 
     public function edit(Request $request, $id)
@@ -145,7 +148,7 @@ class BlogCategoryController extends Controller
         return view('admin.blog_category.edit', compact('blogCategory'));
     }
 
-    public function update(Request $request, $id)
+    public function update(BlogCategoryRequest $request, $id)
     {
         $input = $request->only(['name_vn', 'name_en']);
 
@@ -169,16 +172,17 @@ class BlogCategoryController extends Controller
         }
 
         $message = $this->getMessage('success', 'update', __('blog_category'));
-        $type = __('type_info');
 
         if (!$isUpdate){
-            $message = $this->getMessage('error', 'update', __('blog_category'));
-            $type = __('type_error');
+            return redirect()->back()->withErrors([
+                'error' => __('error_message'),
+            ]);
         }
 
         return redirect()->route('blog_categories.index')
             ->with('message', $message)
-            ->with('type', $type);
+            ->with('type', __('type_info'));
+
     }
 
     public function destroy(Request $request, $id)

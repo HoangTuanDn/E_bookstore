@@ -184,8 +184,15 @@
                         <div id="collapseFour" class="collapse" role="tabpanel" aria-labelledby="headingFour" data-parent="#accordion">
                             <div class="payment-body">{{__('paypal_title')}}</div>
                             <div class="payment-apply">
-                                <label for="">{{__('select_payment')}}</label>
-                                <input id="direct_bank_transfer" name="payment" data-index="0" value="3"  type="radio">
+                                {{--<label for="">{{__('select_payment')}}</label>
+                                <input id="direct_bank_transfer" name="payment" data-index="0" value="3"  type="radio">--}}
+                                <div class="paypal_order__form">
+                                    <form action="">
+                                        <div class="form__btn_paypal">
+                                            <button data-url="{{isset($slug) ? route('home.payment', ['language' => app()->getLocale(), 'slug' => $slug]) : route('home.payment', ['language' => app()->getLocale()])}}" data-action="payment-checkout"><img src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/checkout-logo-small.png" alt="Check out with PayPal" /></button>
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>

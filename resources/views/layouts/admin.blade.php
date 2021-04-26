@@ -20,6 +20,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link rel="stylesheet" href="{{asset('backend/dist/css/adminlte.min.css')}}">
     <link href="{{asset('/common/toastr.min.css')}}" rel='stylesheet' type='text/css' />
     <!-- custom css -->
+    <link href="{{asset('backend/common/common.css')}}" rel='stylesheet' type='text/css' />
     @hasSection('css')
         @yield('css')
     @endif
@@ -28,7 +29,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <div class="wrapper">
     @include('partials.header')
     @include('partials.siderbar')
-
 
     @hasSection('content')
         @yield('content')
@@ -47,8 +47,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <!-- AdminLTE App -->
 <script src="{{asset('backend/dist/js/adminlte.min.js')}}"></script>
 <!-- custom jss -->
-<script src="{{asset('/common/common.js')}}"></script>
+<script src="{{asset('common/common.js')}}"></script>
+<script src="{{asset('backend/common/common.js')}}"></script>
 <script src="{{asset('common/toastr.min.js')}}"></script>
+<script src="{{asset('backend/common/Message/message.js')}}"></script>
 
 {{--custom--}}
 
@@ -58,7 +60,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="{{asset('backend/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
 <script>
     $(function () {
-        $("#example1").DataTable({
+        $(".example1").DataTable({
             "paging": false,
             "lengthChange": false,
             "searching": false,

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Components\Message;
 use App\Components\Recursive;
+use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -105,7 +106,7 @@ class CategoryController extends Controller
     }
 
 
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
         $input = $request->only(['name', 'parent_id']);
         $collection = collect($input);
@@ -121,12 +122,14 @@ class CategoryController extends Controller
         $message = $this->getMessage('success', 'create', __('category'));
 
         if (isset($isCreated)) {
-            $message = $this->getMessage('error', 'create', __('category'));
+            return redirect()->back()->withErrors([
+                'error' => __('error_message'),
+            ]);
         }
 
         return redirect()->route('categories.index')
             ->with('message', $message)
-            ->with('type', isset($isCreated) ? __('type_error') : __('type_success'));
+            ->with('type', __('type_success'));
 
     }
 
@@ -140,7 +143,7 @@ class CategoryController extends Controller
     }
 
 
-    public function update(Request $request, $id)
+    public function update(CategoryRequest $request, $id)
     {
         $input = $request->only(['name', 'parent_id']);
         $collection = collect($input);
@@ -155,16 +158,15 @@ class CategoryController extends Controller
         }
 
         $message = $this->getMessage('success', 'update', __('category'));
-        $type = __('type_info');
-
         if (!$isUpdate) {
-            $message = $this->getMessage('error', 'update', __('category'));
-            $type = __('type_error');
+            return redirect()->back()->withErrors([
+                'error' => __('error_message'),
+            ]);
         }
 
         return redirect()->route('categories.index')
             ->with('message', $message)
-            ->with('type', $type);
+            ->with('type', __('type_info'));
 
     }
 

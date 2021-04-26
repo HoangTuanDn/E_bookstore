@@ -25,6 +25,10 @@
                 </div>
             </div>
         </div>
+        @if(session('payPalCode') && session('payPalMessage'))
+            <input type="hidden" name="payPalCode" value="{{session('payPalCode')}}">
+            <input type="hidden" name="payPalMessage" value="{{session('payPalMessage')}}">
+        @endif
         <!-- End Single Slide -->
         <!-- Start Single Slide -->
         <div class="slide animation__style10 bg-image--7 fullscreen align__center--left">

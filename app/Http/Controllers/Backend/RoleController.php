@@ -153,7 +153,6 @@ class RoleController extends Controller
 
         $message = $this->getMessage('success', 'create', __('role'));
 
-
         return redirect()->route('roles.index')
             ->with('message', $message)
             ->with('type', __('type_success'));
@@ -190,11 +189,9 @@ class RoleController extends Controller
         }
 
         $message = $this->getMessage('success', 'update', __('role'));
-
-
         return redirect()->route('roles.index')
             ->with('message', $message)
-            ->with('type', __('type_success'));
+            ->with('type', __('type_info'));
     }
 
     public function destroy(Request $request, $id)

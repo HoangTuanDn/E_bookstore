@@ -1,0 +1,52 @@
+
+.aa-input-search-blog .algolia-result .algolia-info {
+    display: flex;
+    flex-direction: column;
+    align-content: flex-start;
+    text-align: left;
+    max-width: 190px;
+}
+
+@media only screen and (max-width: 575px) {
+    .aa-input-search-blog .algolia-info p:nth-of-type(1) {
+        max-width: 400px;
+    }
+
+    .aa-input-search-blog .algolia-result .algolia-info {
+        max-width: 400px;
+    }
+}
+
+@media only screen and (max-width: 420px) {
+    .aa-input-search-blog .algolia-info p:nth-of-type(1) {
+        max-width: 300px;
+    }
+    .aa-input-search-blog .algolia-result .algolia-info {
+        max-width: 300px;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .aa-input-search-blog .algolia-info p:nth-of-type(1) {
+        max-width: 500px;
+    }
+
+    .aa-input-search-blog .algolia-result .algolia-info {
+        max-width: 500px;
+    }
+}
+
+.aa-input-search-blog {
+    width: 100%;
+    -webkit-transition: .2s;
+    transition: .2s;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+.aa-input-search-blog::-webkit-search-decoration, .aa-input-search-blog::-webkit-search-cancel-button,
+.aa-input-search-blog::-webkit-search-results-button, .aa-input-search-blog::-webkit-search-results-decoration {
+    display: none;
+}
+

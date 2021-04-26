@@ -11,16 +11,31 @@ $(function () {
 
     });
 
+    $(document).on('click', '*[data-action="filter-category"]', function () {
+        event.preventDefault();
+        var url = $(this).attr('href');
+        var contentWrapper = $('.blog-content-detail')
+
+        renderHtml(url, contentWrapper);
+    });
+
+    $(document).on('click', '*[data-action="filter-archives"]', function () {
+        event.preventDefault();
+        var url = $(this).attr('href');
+        var contentWrapper = $('.blog-content-detail')
+
+        renderHtml(url, contentWrapper);
+    });
+
     /*pagination*/
 
     $(document).on('click', '.wn__pagination li a', function () {
         event.preventDefault();
         var url = $(this).attr('href');
-        var contentWrapper = $('.blog-wrapper')
+        var contentWrapper = $('.blog-content-detail')
 
         renderHtml(url, contentWrapper);
     });
-
 
 
 });

@@ -10,7 +10,9 @@ $(function () {
         let cancel = currentElement.attr('data-cancel')
         let textSuccess = currentElement.attr('data-success')
         let textWarning = currentElement.attr('data-warning')
-        destroyOrder(`Bạn xác nhận muốn hủy đơn hàng ${code} ?`, title, ok, cancel, url, currentElement, textSuccess, textWarning)
+        let language = getLanguage()
+        let deleteTitle = language === 'vn' ? 'Bạn xác nhận muốn hủy đơn hàng' : language === 'en' ? 'You confirm you want to cancel the order' : '';
+        destroyOrder(`${deleteTitle} ${code} ?`, title, ok, cancel, url, currentElement, textSuccess, textWarning)
 
     });
 

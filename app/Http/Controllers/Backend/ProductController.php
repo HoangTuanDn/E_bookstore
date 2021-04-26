@@ -284,7 +284,7 @@ class ProductController extends Controller
 
         return redirect()->route('products.index')
             ->with('message', $message)
-            ->with('type', __('type_success'));
+            ->with('type', __('type_info'));
 
     }
 
