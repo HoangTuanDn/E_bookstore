@@ -22,11 +22,20 @@
                     Sắp xếp
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                    <a href="{{$sort_default}}" class="dropdown-item">Mặc định</a>
-                    <a href="{{$sort_price}}" class="dropdown-item">Phí giao hàng</a>
-                    <a href="{{$sort_province_name}}" class="dropdown-item">Tỉnh/thành</a>
-                    <a href="{{$sort_district_name}}" class="dropdown-item">Quận/Huyện</a>
-                    <a href="{{$sort_ward_name}}" class="dropdown-item">Phường/Xã</a>
+                    @if($order === 'asc')
+                        <a href="{{$sort_default}}" class="dropdown-item">Mặc định <i class="fas fa-sort-down"></i></a>
+                        <a href="{{$sort_price}}" class="dropdown-item">Phí giao hàng <i class="fas fa-sort-down"></i></a>
+                        <a href="{{$sort_province_name}}" class="dropdown-item">Tỉnh/thành <i class="fas fa-sort-down"></i></a>
+                        <a href="{{$sort_district_name}}" class="dropdown-item">Quận/Huyện <i class="fas fa-sort-down"></i></a>
+                        <a href="{{$sort_ward_name}}" class="dropdown-item">Phường/Xã <i class="fas fa-sort-down"></i></a>
+                    @else
+                        <a href="{{$sort_default}}" class="dropdown-item">Mặc định <i class="fas fa-sort-up"></i></a>
+                        <a href="{{$sort_price}}" class="dropdown-item">Phí giao hàng <i class="fas fa-sort-up"></i></a>
+                        <a href="{{$sort_province_name}}" class="dropdown-item">Tỉnh/thành <i class="fas fa-sort-up"></i></a>
+                        <a href="{{$sort_district_name}}" class="dropdown-item">Quận/Huyện <i class="fas fa-sort-up"></i></a>
+                        <a href="{{$sort_ward_name}}" class="dropdown-item">Phường/Xã <i class="fas fa-sort-up"></i></a>
+                    @endif
+
                 </div>
             </div>
 

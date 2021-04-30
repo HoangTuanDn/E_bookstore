@@ -354,8 +354,6 @@ class ProductController extends Controller
         $page = $request->query('page', 1);
         $limit = $request->query('limit', config('custom.limit'));
 
-        $data['products'] = [];
-
         $dataFilter = [
             'name'      => $filterName,
             'sort'      => $sort,

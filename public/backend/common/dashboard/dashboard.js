@@ -16,7 +16,7 @@ $(function () {
         let lastYear = currentYear - 1;
         let dataChartCurrentYear = Object.values(json['data']['chart'][currentYear]);
         let dataChartLastYear = Object.values(json['data']['chart'][lastYear]);
-        let labels = Object.keys(json['data']['chart'][currentYear]).map((item, index)=> `Tháng ${item}`)
+        let labels = Object.keys(json['data']['chart'][currentYear]).map((item, index) => `Tháng ${item}`)
 
         var ticksStyle = {
             fontColor: '#495057',
@@ -94,6 +94,8 @@ $(function () {
 
     });
 
+
+
     /*handle download export*/
     $(document).on('click', '*[data-action="excel-download"]', function () {
         event.preventDefault();
@@ -104,5 +106,25 @@ $(function () {
         event.preventDefault();
         $('.buttons-pdf').click();
     });
+
+    /*/!*handle filter report*!/
+    $(document).on('click', '*[data-action="filter-report"]', function () {
+        event.preventDefault();
+        let currentElement = $(this);
+
+        let url = currentElement.attr('href')
+
+        let ajaxCall = $.ajax({
+            url     : url,
+            type    : 'get',
+            dataType: 'json',
+            headers : {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+        })
+
+        ajaxCall.done(function (json) {
+        });
+    });*/
 })
 

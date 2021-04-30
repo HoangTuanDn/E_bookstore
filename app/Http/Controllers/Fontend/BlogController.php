@@ -38,7 +38,13 @@ class BlogController extends Controller
 
     public function show(Request $request, $language, $slug)
     {
-        $blog = $this->blog->where('slug->vn', $slug)->first();
+
+        if (app()->getLocale() === 'vn') {
+            $blog = $this->blog->where('slug->vn', $slug)->first();
+        }else{
+            $blog = $this->blog->where('slug->en', $slug)->first();
+        }
+
         $sessionPost = session('recent_posts');
         if (!isset($sessionPost[$blog->id])) {
             $blog->increment('view');

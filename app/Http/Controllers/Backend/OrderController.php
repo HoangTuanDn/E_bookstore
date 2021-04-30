@@ -4,24 +4,29 @@ namespace App\Http\Controllers\Backend;
 
 use App\Models\Order;
 use App\Models\Product;
+use App\Models\Setting;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Log;
+use PDF;
 
 class OrderController extends Controller
 {
     private Order $order;
     private Product $product;
+    private Setting $setting;
 
     /**
      * OrderController constructor.
      * @param Order $order
      * @param Product $product
+     * @param Setting $setting
      */
-    public function __construct(Order $order, Product $product)
+    public function __construct(Order $order, Product $product, Setting $setting)
     {
         $this->order = $order;
         $this->product = $product;
+        $this->setting = $setting;
     }
 
     public function index(Request $request)
@@ -68,6 +73,7 @@ class OrderController extends Controller
         ]);
 
         $data['sort'] = $sort;
+        $data['order'] = $order;
         $data['orders'] = $orders;
 
         if ($request->ajax()) {
@@ -107,22 +113,7 @@ class OrderController extends Controller
     public function show(Request $request, $id)
     {
         $order = $this->order->find($id);
-        $totalPrice = 0;
-        foreach ($order->products as $product) {
-            $totalPrice += $product->discount * $product->pivot->quantity;
-        }
-
-        if (isset($order->coupon)) {
-
-            if ($order->coupon->condition === 1) {
-                $totalPrice *= ($order->coupon->count / 100);
-            }
-            if ($order->coupon->condition === 2) {
-                $totalPrice -= $order->coupon->count;
-            }
-        }
-
-        $totalPrice += $order->ship->price;
+        $totalPrice = $this->getTotalPrice($order);
 
         return view('admin.order.detail', compact('order', 'totalPrice'));
     }
@@ -130,7 +121,20 @@ class OrderController extends Controller
     public function update(Request $request, $id)
     {
         $order = $this->order->find($id);
-        if ($request->status < $order->status) {
+        if ($order->payment_id === 3) {
+            if ($request->status == 4) {
+                $json = [
+                    'success' => false,
+                    'data'    => [
+                        'type'    => __('type_warning'),
+                        'message' => __('error_update_order_paypal_message')
+                    ]
+                ];
+                return response()->json($json);
+            }
+        }
+
+        if ($request->status < $order->status && $order->payment->id != 3) {
             $json = [
                 'success' => false,
                 'data'    => [
@@ -217,6 +221,47 @@ class OrderController extends Controller
         ]);
     }
 
+    public function printOrder(Request $request, $id)
+    {
+
+        $order = $this->order->find($id);
+        $settings = $this->setting->get(['config_key', 'config_value']);
+        $settingKeys = [];
+        $totalPrice = $this->getTotalPrice($order);
+        foreach ($settings as $setting) {
+            $settingKeys[$setting->config_key] = $setting->config_value;
+        }
+        $pdf = PDF::setOptions([
+            'defaultFont'          => 'Source Sans Pro',
+            'isHtml5ParserEnabled' => false,
+            'chroot'               => public_path('fontend/images/')
+        ])
+            ->loadView('admin.order.order_detail_pdf', compact('order', 'settingKeys', 'totalPrice'));
+        return $pdf->download('invoice.pdf');
+
+    }
+
+    private function getTotalPrice(Order $order)
+    {
+        $totalPrice = 0;
+        foreach ($order->products as $product) {
+            $totalPrice += $product->discount * $product->pivot->quantity;
+        }
+
+        if (isset($order->coupon)) {
+
+            if ($order->coupon->condition === 1) {
+                $totalPrice *= ($order->coupon->count / 100);
+            }
+            if ($order->coupon->condition === 2) {
+                $totalPrice -= $order->coupon->count;
+            }
+        }
+
+        $totalPrice += $order->ship->price;
+        return $totalPrice;
+    }
+
     private function _getUrlFilter($list = [])
     {
         $url = [];
@@ -227,4 +272,6 @@ class OrderController extends Controller
 
         return $url;
     }
+
+
 }

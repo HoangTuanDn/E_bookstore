@@ -6,21 +6,7 @@
 
 @section('content')
 <div class="ht__bradcaump__area bg-image--6">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="bradcaump__inner text-center">
-                    <h2 class="bradcaump-title">Contact Us</h2>
-                    <nav class="bradcaump-content">
-                        <a class="breadcrumb_item" href="index.html">Home</a>
-                        <span class="brd-separetor">/</span>
-                        <span class="breadcrumb_item active">Contact Us</span>
-                    </nav>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+@include('fontend.breadcumb',['pageNameLC' => __('contact_l')])
 <!-- End Bradcaump area -->
 <!-- Start Contact Area -->
 <section class="wn_contact_area bg--white pt--80 pb--80">

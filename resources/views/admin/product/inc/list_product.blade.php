@@ -22,10 +22,17 @@
                         Sắp xếp
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                            <a href="{{$sort_default}}" class="dropdown-item">Mặc định</a>
-                            <a href="{{$sort_name}}" class="dropdown-item">Tên sách</a>
-                            <a href="{{$sort_price}}" class="dropdown-item">Giá sách</a>
-                            <a href="{{$sort_date}}" class="dropdown-item">Ngày xuất bản</a>
+                        @if($order === 'asc')
+                            <a href="{{$sort_default}}" class="dropdown-item">Mặc định <i class="fas fa-sort-down"></i></a>
+                            <a href="{{$sort_name}}" class="dropdown-item">Tên sách <i class="fas fa-sort-down"></i></a>
+                            <a href="{{$sort_price}}" class="dropdown-item">Giá sách <i class="fas fa-sort-down"></i></a>
+                            <a href="{{$sort_date}}" class="dropdown-item">Ngày xuất bản <i class="fas fa-sort-down"></i></a>
+                        @else
+                            <a href="{{$sort_default}}" class="dropdown-item">Mặc định <i class="fas fa-sort-up"></i></a>
+                            <a href="{{$sort_name}}" class="dropdown-item">Tên sách <i class="fas fa-sort-up"></i></a>
+                            <a href="{{$sort_price}}" class="dropdown-item">Giá sách <i class="fas fa-sort-up"></i></a>
+                            <a href="{{$sort_date}}" class="dropdown-item">Ngày xuất bản <i class="fas fa-sort-up"></i></a>
+                        @endif
                     </div>
                 </div>
 
@@ -66,7 +73,7 @@
                         </th>
 
                         <th style="width: 14%; text-align: center">
-                            Tồn kho
+                            SL bán/Còn
                         </th>
 
                         <th style="width: 14%; text-align: center">
@@ -100,7 +107,7 @@
                             </td>
 
                             <td class="text-center">
-                                <span>{{$product->quantity}}</span>
+                                <span>{{$product->quantity_sold .'/'.$product->quantity}}</span>
                             </td>
 
                             <td class="text-center">

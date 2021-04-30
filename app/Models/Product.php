@@ -94,6 +94,8 @@ class Product extends Model
         return $avgRate;
     }
 
+
+
     public function filterProduct($data)
     {
         $query = Product::select('id', 'slug', 'name', 'title', 'author', 'price', 'featured_img', 'discount', 'quantity', 'quantity_sold', 'type', 'publish_date', 'created_at')

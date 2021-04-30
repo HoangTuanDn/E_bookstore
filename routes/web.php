@@ -56,6 +56,12 @@ Route::prefix('admin')->group(function () {
         ->middleware('auth_admin')
         ->name('admin.home');
 
+   /* Route::get('/iframe', function () {
+        return view('admin.iframe');
+    })
+        ->middleware('auth_admin')
+        ->name('admin.home');*/
+
     Route::get('/logout', [AuthController::class, 'logout'])
         ->name('auth.admin_logout');
 
@@ -304,6 +310,9 @@ Route::prefix('admin')->group(function () {
 
         Route::post('/destroy/{id}', [BackendOrderController::class, 'destroy'])
             ->name('orders.destroy');
+
+        Route::get('/print/{id}', [BackendOrderController::class, 'printOrder'])
+            ->name('orders.print');
     });
 
     /*blog category*/

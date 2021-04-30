@@ -15,7 +15,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+
     }
 
     /**
@@ -25,6 +25,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        # dev
+        $is_dev = in_array(request()->getClientIp(), config('ip.dev'));
+        config(['app.debug' => $is_dev]);
+
         Schema::defaultStringLength(191);
         Paginator::useBootstrap();
     }

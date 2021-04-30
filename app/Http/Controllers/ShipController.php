@@ -88,6 +88,7 @@ class ShipController extends Controller
         ]);
 
         $data['sort'] = $sort;
+        $data['order'] = $order;
         $data['ships'] = $ships;
 
         if ($request->ajax()) {

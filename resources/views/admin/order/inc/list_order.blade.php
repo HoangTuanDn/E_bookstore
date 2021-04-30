@@ -23,9 +23,15 @@
                         Sắp xếp
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                        <a href="{{$sort_default}}" class="dropdown-item">Mặc định</a>
-                        <a href="{{$sort_status}}" class="dropdown-item">Trạng thái</a>
-                        <a href="{{$sort_date}}" class="dropdown-item">Ngày cập nhật</a>
+                        @if($order === 'asc')
+                            <a href="{{$sort_default}}" class="dropdown-item">Mặc định <i class="fas fa-sort-down"></i></a>
+                            <a href="{{$sort_status}}" class="dropdown-item">Trạng thái <i class="fas fa-sort-down"></i></a>
+                            <a href="{{$sort_date}}" class="dropdown-item">Ngày cập nhật <i class="fas fa-sort-down"></i></a>
+                        @else
+                            <a href="{{$sort_default}}" class="dropdown-item">Mặc định <i class="fas fa-sort-up"></i></a>
+                            <a href="{{$sort_status}}" class="dropdown-item">Trạng thái <i class="fas fa-sort-up"></i></a>
+                            <a href="{{$sort_date}}" class="dropdown-item">Ngày cập nhật <i class="fas fa-sort-up"></i></a>
+                        @endif
                     </div>
                 </div>
 

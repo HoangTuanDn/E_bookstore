@@ -13,7 +13,6 @@
   <script src="{{asset('backend/common/dashboard/dashboard.js')}}"></script>
 
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-  <script src="{{asset('backend/common/product/list.js')}}"></script>
   <script src="{{asset('common/toastr.min.js')}}"></script>
 
 
@@ -35,6 +34,8 @@
         "responsive": true,
         "buttons": ["excel", "pdf"]
       }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+
+      $('#example1_wrapper').find('.dataTables_empty').text('Không có dữ liệu')
     });
   </script>
 @endsection
@@ -105,54 +106,8 @@
           <!-- /.col-md-6 -->
           <div class="col-lg-12">
             <div class="card">
-              <div class="card-header border-0">
-                <h3 class="card-title">Sản phẩm</h3>
-                <div class="card-tools">
-                  <a href="#" data-action="excel-download" class="btn btn-tool btn-sm">
-                    <i class="fas fa-download"></i>
-                    excel
-                  </a>
+              {!! $inc_list !!}
 
-                  <a href="#" data-action="pdf-download" class="btn btn-tool btn-sm">
-                    <i class="fas fa-download"></i>
-                    pdf
-                  </a>
-                  <a href="#" class="btn btn-tool btn-sm">
-                    <i class="fas fa-bars"></i>
-                  </a>
-                </div>
-              </div>
-              <div class="card-body table-responsive p-0 custom-height">
-                <table class="table table-striped table-valign-middle" id="example1">
-                  <thead>
-                  <tr>
-                    <th>Sản phẩm</th>
-                    <th>Giá</th>
-                    <th>Đã bán</th>
-                    <th>Tồn kho</th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                  @if($products)
-                    @foreach($products as $product)
-                      <tr>
-                        <td>
-                          <img src="{{asset($product->featured_img)}}" alt="Product 1" class="img-circle img-size-32 mr-2">
-                          {{$product->name}}
-                        </td>
-                        <td>{!!  number_format($product->price, 0, ',', '.') . __('currency_unit') !!}</td>
-                        <td class="text-center">
-                          {{number_format($product->quantity_sold, 0, ',', '.')}}
-                        </td>
-                        <td class="text-center">
-                          {{number_format($product->quantity, 0, ',', '.')}}
-                        </td>
-                      </tr>
-                    @endforeach
-                  @endif
-                  </tbody>
-                </table>
-              </div>
             </div>
             <!-- /.card -->
           </div>

@@ -6,25 +6,7 @@
 @endsection
 
 @section('content')
-    <!-- Start Bradcaump area -->
-    <div class="ht__bradcaump__area bg-image--4">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="bradcaump__inner text-center">
-                        <h2 class="bradcaump-title">Shop Single</h2>
-                        <nav class="bradcaump-content">
-                            <a class="breadcrumb_item" href="index.html">Home</a>
-                            <span class="brd-separetor">/</span>
-                            <span class="breadcrumb_item active">Shop Single</span>
-                        </nav>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- End Bradcaump area -->
-    <!-- Start main Content -->
+    @include('fontend.breadcumb',['pageNameLC' => __('shop_single_lc')])
     <div class="maincontent bg--white pt--80 pb--55">
         <div class="container">
             <div class="row">

@@ -20,7 +20,7 @@
     <!-- Main content -->
         <section class="content">
             <div class="card">
-                <div class="card-header d-flex justify-content-center">
+                <div class="card-header d-flex">
                     <h3 class="card-title p-1">Thông tin vận chuyển</h3>
                     <div class="card-tools">
                         <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
@@ -29,21 +29,21 @@
                     </div>
                 </div>
                 <div class="card-body p-0">
-                    <table class="table table-striped projects">
+                    <table class="table table-striped projects example1">
                         <thead>
                         <tr>
-                            <th style="width: 20%; text-align: left">
+                            <th style="width: 25%; text-align: left">
                                 Tên
                             </th>
-                            <th style="width: 30%; text-align: left">
+                            <th style="width: 25%; text-align: left">
                                 Địa chỉ giao hàng
                             </th>
 
-                            <th style="width: 30%; text-align: left">
+                            <th style="width: 25%; text-align: left">
                                 Số điện thoại
                             </th>
 
-                            <th style="width: 30%; text-align: left">
+                            <th style="width: 25%; text-align: left">
                                 Email
                             </th>
 
@@ -72,7 +72,7 @@
                 <!-- /.card-body -->
             </div>
             <div class="card">
-                <div class="card-header d-flex justify-content-center">
+                <div class="card-header d-flex">
                     <h3 class="card-title  p-1">Chi tiết đơn hàng</h3>
                     <div class="card-tools">
                         <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
@@ -81,25 +81,25 @@
                     </div>
                 </div>
                 <div class="card-body p-0">
-                    <table class="table table-striped projects">
+                    <table class="table table-striped projects example1">
                         <thead>
                         <tr>
-                            <th style="width: 10%; text-align: left">
+                            <th style="width: 20%; text-align: left">
                                 Stt
                             </th>
-                            <th style="width: 30%; text-align: left">
+                            <th style="width: 20%; text-align: left">
                                 Tên Sản phẩm
                             </th>
 
-                            <th style="width: 10%; text-align: left">
+                            <th style="width: 20%; text-align: left">
                                 Số lượng
                             </th>
 
-                            <th style="width: 15%; text-align: left">
+                            <th style="width: 20%; text-align: left">
                                 Giá
                             </th>
 
-                            <th style="width: 15%; text-align: left">
+                            <th style="width: 20%; text-align: left">
                                 Tổng tiền
                             </th>
 
@@ -136,7 +136,7 @@
                 <!-- /.card-body -->
             </div>
             <div class="card">
-                <div class="card-header d-flex justify-content-center">
+                <div class="card-header d-flex">
                     <h3 class="card-title p-1">Thanh Toán</h3>
                     <div class="card-tools">
                         <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
@@ -145,25 +145,29 @@
                     </div>
                 </div>
                 <div class="card-body p-0">
-                    <table class="table table-striped projects">
+                    <table class="table table-striped projects example1 ">
                         <thead>
                         <tr>
-                            <th style="width: 25%">
+                            <th style="width: 16.6%">
                                 Phương thức
                             </th>
-                            <th style="width: 20%">
+                            <th style="width: 16.6%">
                                 Mã Giảm giá
                             </th>
 
-                            <th style="width: 20%">
+                            <th style="width: 16.6%">
                                 Giảm
                             </th>
 
-                            <th style="width: 20%">
+                            <th style="width: 16.6%">
                                 Phí giao hàng
                             </th>
 
-                            <th style="width: 20%;">
+                            <th style="width: 16.6%">
+                               Trạng thái
+                            </th>
+
+                            <th style="width: 16.6%;">
                                 Tổng tiền
                             </th>
 
@@ -196,6 +200,27 @@
                             </td>
 
                             <td>
+                                @if($order->payment_id === 3 && $order->status === 4)
+                                    Đã thanh toán, chờ xác nhận
+                                @else
+                                    @if(($order->status === 0))
+                                        {{'Đang chờ xác nhận'}}
+                                    @elseif($order->status === 1)
+                                       {{' Đã xác nhận'}}
+                                    @elseif($order->status === 2)
+                                        {{'Đang giao hàng'}}
+                                    @elseif($order->status === 3)
+                                        {{'Đang giao hàng'}}
+                                    @elseif($order->status === 4)
+                                       {{' Đã thanh toán '}}
+                                    @elseif($order->status === 5)
+                                        {{'Đã hoàn thành'}}
+                                    @endif
+
+                                @endif
+                            </td>
+
+                            <td>
                                 {{number_format($totalPrice , 0, ',', '.')}}
                             </td>
                         </tr>
@@ -203,6 +228,12 @@
                     </table>
                 </div>
                 <!-- /.card-body -->
+            </div>
+
+            <div class="row">
+                <div class="col-12 mb-2">
+                    <a type="submit" class="btn btn-success float-left" href="{{route('orders.print', ['id' => $order->id])}}">In hóa đơn</a>
+                </div>
             </div>
         </section>
         <!-- /.content -->
