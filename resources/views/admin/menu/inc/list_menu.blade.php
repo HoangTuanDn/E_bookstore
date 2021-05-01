@@ -33,9 +33,11 @@
                 <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
                     <i class="fas fa-minus"></i>
                 </button>
+                @can('menu-create')
                 <a href="{{route('menus.create')}}" class="btn btn-success btn-sm m-1">
                     Add
                 </a>
+                @endcan
             </div>
         </div>
         <div class="card-body p-0">
@@ -68,16 +70,20 @@
                             </td>
 
                             <td class="project-actions text-center">
+                                @can('menu-update')
                                 <a class="btn btn-info btn-sm m-1" href="{{route('menus.edit', ['id' => $menu->id])}}">
                                     <i class="fas fa-pencil-alt">
                                     </i>
 
                                 </a>
+                                @endcan
+                                @can('$menu-delete')
                                 <a class="btn btn-danger btn-sm m-1" data-action="btnDelete" data-name="{{$menu->name}}" data-url="{{route('menus.destroy', ['id'=> $menu->id])}}" >
                                     <i class="fas fa-trash">
                                     </i>
 
                                 </a>
+                                    @endcan
                             </td>
                         </tr>
                     @endforeach

@@ -18,21 +18,28 @@
             </div>
 
             <div class="dropdown flex-grow-1">
-                <button style="margin-top: 5px" class="btn btn-default btn-sm dropdown-toggle mr-1" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <button style="margin-top: 5px" class="btn btn-default btn-sm dropdown-toggle mr-1" type="button"
+                        id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Sắp xếp
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
                     @if($order === 'asc')
                         <a href="{{$sort_default}}" class="dropdown-item">Mặc định <i class="fas fa-sort-down"></i></a>
-                        <a href="{{$sort_price}}" class="dropdown-item">Phí giao hàng <i class="fas fa-sort-down"></i></a>
-                        <a href="{{$sort_province_name}}" class="dropdown-item">Tỉnh/thành <i class="fas fa-sort-down"></i></a>
-                        <a href="{{$sort_district_name}}" class="dropdown-item">Quận/Huyện <i class="fas fa-sort-down"></i></a>
-                        <a href="{{$sort_ward_name}}" class="dropdown-item">Phường/Xã <i class="fas fa-sort-down"></i></a>
+                        <a href="{{$sort_price}}" class="dropdown-item">Phí giao hàng <i
+                                    class="fas fa-sort-down"></i></a>
+                        <a href="{{$sort_province_name}}" class="dropdown-item">Tỉnh/thành <i
+                                    class="fas fa-sort-down"></i></a>
+                        <a href="{{$sort_district_name}}" class="dropdown-item">Quận/Huyện <i
+                                    class="fas fa-sort-down"></i></a>
+                        <a href="{{$sort_ward_name}}" class="dropdown-item">Phường/Xã <i
+                                    class="fas fa-sort-down"></i></a>
                     @else
                         <a href="{{$sort_default}}" class="dropdown-item">Mặc định <i class="fas fa-sort-up"></i></a>
                         <a href="{{$sort_price}}" class="dropdown-item">Phí giao hàng <i class="fas fa-sort-up"></i></a>
-                        <a href="{{$sort_province_name}}" class="dropdown-item">Tỉnh/thành <i class="fas fa-sort-up"></i></a>
-                        <a href="{{$sort_district_name}}" class="dropdown-item">Quận/Huyện <i class="fas fa-sort-up"></i></a>
+                        <a href="{{$sort_province_name}}" class="dropdown-item">Tỉnh/thành <i
+                                    class="fas fa-sort-up"></i></a>
+                        <a href="{{$sort_district_name}}" class="dropdown-item">Quận/Huyện <i
+                                    class="fas fa-sort-up"></i></a>
                         <a href="{{$sort_ward_name}}" class="dropdown-item">Phường/Xã <i class="fas fa-sort-up"></i></a>
                     @endif
 
@@ -47,31 +54,33 @@
                 <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
                     <i class="fas fa-minus"></i>
                 </button>
-                <a href="{{route('ships.create')}}" class="btn btn-success btn-sm m-1">
-                    Add
-                </a>
+                @can('ship-create')
+                    <a href="{{route('ships.create')}}" class="btn btn-success btn-sm m-1">
+                        Add
+                    </a>
+                @endcan
             </div>
         </div>
         <div class="card-body p-0">
-            <table  class="table table-striped projects example1">
+            <table class="table table-striped projects example1">
                 <thead>
                 <tr>
                     <th class="border-right" style="width: 1%  ">
                         #
                     </th>
-                    <th  style=" width: 20%;">
+                    <th style=" width: 20%;">
                         Tỉnh/Thành phố
                     </th>
 
-                    <th  style="width: 20%;">
+                    <th style="width: 20%;">
                         Quận/Huyện
                     </th>
 
-                    <th  style=" width: 20%; ">
+                    <th style=" width: 20%; ">
                         Phường/Xã
                     </th>
 
-                    <th  style=" width: 20%;">
+                    <th style=" width: 20%;">
                         Phí ship
                     </th>
 
@@ -93,29 +102,35 @@
                                 </a>
                             </td>
 
-                            <td >
+                            <td>
                                 <a>
                                     {{isset($ship->district->name) ? $ship->district->name : 'Mặc định'}}
                                 </a>
                             </td>
 
-                            <td >
+                            <td>
                                 <a>
                                     {{isset($ship->ward->name) ? $ship->ward->name : 'Mặc định'}}
                                 </a>
                             </td>
 
-                            <td  data-url="{{route('ships.update', ['id' => $ship->id])}}" contenteditable data-action="change-price">
+                            <td data-url="{{route('ships.update', ['id' => $ship->id])}}" contenteditable
+                                data-action="change-price">
                                 <a id="{{$ship->id}}-price">
                                     {{number_format($ship->price)}}
                                 </a>
                             </td>
 
                             <td class="project-actions text-right">
-                                <a class="btn btn-outline-danger btn-sm m-1" data-action="btnDelete" data-name="{{$ship->name}}" data-url="{{route('ships.destroy', ['id'=> $ship->id])}}" >
-                                    <i class="fas fa-trash">
-                                    </i>
-                                </a>
+                                @can('ship-delete')
+                                    <a class="btn btn-outline-danger btn-sm m-1" data-action="btnDelete"
+                                       data-name="{{$ship->name}}"
+                                       data-url="{{route('ships.destroy', ['id'=> $ship->id])}}">
+                                        <i class="fas fa-trash">
+                                        </i>
+                                    </a>
+
+                                @endcan
                             </td>
                         </tr>
                     @endforeach

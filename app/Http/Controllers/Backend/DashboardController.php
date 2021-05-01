@@ -156,6 +156,9 @@ class DashboardController extends Controller
         if ($oldSale === 0) {
             return 100;
         }
+        if ($newSale === 0) {
+            return 0;
+        }
         return ($newSale - $oldSale) / $oldSale * 100;
     }
 }

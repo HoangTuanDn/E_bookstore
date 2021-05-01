@@ -118,10 +118,12 @@
                                     <i class="fas fa-eye">
                                     </i>
                                 </a>
+                                @can('order-delete')
                                 <a class="btn btn-outline-danger btn-sm m-1" data-action="btnDelete" data-name="{{$order->order_code}}" data-url="{{route('orders.destroy', ['id'=> $order->id])}}" >
                                     <i class="fas fa-trash">
                                     </i>
                                 </a>
+                                @endcan
                             </td>
                         </tr>
                     @endforeach

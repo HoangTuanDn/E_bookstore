@@ -43,7 +43,7 @@
                 <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
                     <i class="fas fa-minus"></i>
                 </button>
-                @can('category-create')
+                @can('coupon-create')
                     <a href="{{route('coupons.create')}}" class="btn btn-success btn-sm m-1">
                         Add
                     </a>
@@ -129,6 +129,7 @@
                             </td>
 
                             <td class="project-actions text-center">
+
                                 <a class="btn btn-outline-info btn-sm m-1" {{$coupon->is_publish == 1 ? 'style='."pointer-events:". "none".';'. "color:". "black" : ''}} data-action="btnShareCoupon" href="{{route('mails.share_coupon', ['id' => $coupon->id])}}" >
                                     <i class="fas fa-share-alt-square">
                                     </i>
@@ -136,10 +137,12 @@
                             </td>
 
                             <td class="project-actions text-center">
+                                @can('coupon-delete')
                                 <a class="btn btn-outline-danger btn-sm m-1" data-action="btnDelete" data-name="{{$coupon->name}}" data-url="{{route('coupons.destroy', ['id'=> $coupon->id])}}" >
                                     <i class="fas fa-trash">
                                     </i>
                                 </a>
+                                @endcan
                             </td>
                         </tr>
                     @endforeach

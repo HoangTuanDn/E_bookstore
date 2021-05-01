@@ -44,9 +44,11 @@
                     <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
                         <i class="fas fa-minus"></i>
                     </button>
+                    @can('product-create')
                     <a href="{{route('products.create')}}" class="btn btn-success btn-sm m-1">
                         Add
                     </a>
+                    @endcan
                 </div>
             </div>
             <div class="card-body p-0">
@@ -117,15 +119,19 @@
                             </td>
 
                             <td class="project-actions text-center">
+                                @can('product-update')
                                 <a class="btn btn-outline-info btn-sm m-1" href="{{route('products.edit', ['id' => $product->id])}}">
                                     <i class="fas fa-pencil-alt">
                                     </i>
 
                                 </a>
+                                @endcan
+                                @can('product-delete')
                                 <a class="btn btn-outline-danger btn-sm m-1" data-action="btnDelete" data-name="{{$product->name}}" data-url="{{route('products.destroy', ['id'=> $product->id])}}" >
                                     <i class="fas fa-trash">
                                     </i>
                                 </a>
+                                 @endcan
                             </td>
                         </tr>
                     @endforeach

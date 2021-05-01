@@ -59,7 +59,7 @@
                                         @foreach($groupPermissions as $gPermission)
                                                 <option
                                                         value="{{$gPermission->id}}"
-                                                        {{$permission->parent_id === $gPermission->id ? 'selected' : ''}}}
+                                                        {{$permission->parent_id === $gPermission->id ? 'selected' : ''}}
                                                 >
                                                     {{$gPermission->name}}
                                                 </option>

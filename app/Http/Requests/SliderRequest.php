@@ -24,9 +24,10 @@ class SliderRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|unique:products|max:255|min:10',
-            'image' => 'image',
-            'description' => 'required'
+            'name' => 'required|min:5',
+            'image' => 'image|dimensions:min_width=1920,min_height=950',
+            'description' => 'required',
+            'bgImage' => 'required'
         ];
     }
 }

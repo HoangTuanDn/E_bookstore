@@ -71,19 +71,18 @@
                                         <div class="card bg-light mb-3" style="max-width: 100%;">
                                             <div class="card-header">
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input check-warapper" name="permission_group" value="{{$permission->id}}" type="checkbox" id="inline{{$permission->key_code}}" value="option1">
+                                                    <input class="form-check-input check-warapper" name="permission_group" value="{{$permission->id}}" type="checkbox" id="inline{{$permission->key_code}}" >
                                                     <label class="form-check-label" for="inlineCheckbox1">{{$permission->name}}</label>
                                                 </div>
                                             </div>
                                                 <div class="card-body custom-body">
                                                     @foreach($permission->permissions as $ofPermission)
                                                     <div class="form-check form-check-inline">
-                                                        <input class="form-check-input check-children" value="{{$ofPermission->id}}" name="permission[]" type="checkbox" id="inlineCheckbox{{$ofPermission->key_code}}" value="option1">
+                                                        <input class="form-check-input check-children" value="{{$ofPermission->id}}" name="permission[]" type="checkbox" id="inlineCheckbox{{$ofPermission->key_code}}">
                                                         <label class="form-check-label" for="inlineCheckbox1">{{$ofPermission->name}}</label>
                                                     </div>
                                                     @endforeach
                                                 </div>
-
                                         </div>
                                     </div>
 

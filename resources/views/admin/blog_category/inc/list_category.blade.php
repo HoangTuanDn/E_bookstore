@@ -33,7 +33,8 @@
                 <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
                     <i class="fas fa-minus"></i>
                 </button>
-                @can('category-create')
+
+                @can('blog_category-create')
                     <a href="{{route('blog_categories.create')}}" class="btn btn-success btn-sm m-1">
                         Add
                     </a>
@@ -72,14 +73,14 @@
                                 </td>
 
                                 <td class="project-actions text-center">
-                                    @can('category-update')
+                                    @can('blog_category-update')
                                         <a class="btn btn-info btn-sm m-1" href="{{route('blog_categories.edit', ['id' => $category->id])}}">
                                             <i class="fas fa-pencil-alt">
                                             </i>
 
                                         </a>
                                     @endcan
-                                    @can('category-delete')
+                                    @can('blog_category-delete')
                                         <a class="btn btn-danger btn-sm m-1" data-action="btnDelete" data-name="{{$category->name}}" data-url="{{route('blog_categories.destroy', ['id'=> $category->id])}}" >
                                             <i class="fas fa-trash">
                                             </i>

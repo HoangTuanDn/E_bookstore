@@ -50,4 +50,32 @@ return [
         'edit' => 'edit_permission',
         'delete' => 'delete_permission',
     ],
+    'orders' => [
+        'list' => 'list_order',
+        'delete' => 'delete_order',
+    ],
+    'ships' => [
+        'list' => 'list_shipping',
+        'add' => 'add_shipping',
+        'edit' => 'edit_shipping',
+        'delete' => 'delete_shipping',
+    ],
+    'coupons' => [
+        'list' => 'list_coupon',
+        'add' => 'add_coupon',
+        'delete' => 'delete_coupon',
+    ],
+    'blog_categories' => [
+        'list' => 'list_blog_category',
+        'add' => 'add_blog_category',
+        'edit' => 'edit_blog_category',
+        'delete' => 'delete_blog_category',
+    ],
+    'blogs' => [
+        'list' => 'list_blog',
+        'add' => 'add_blog',
+        'edit' => 'edit_blog',
+        'delete' => 'delete_blog',
+    ],
+
 ];

@@ -1,7 +1,12 @@
 @extends('layouts.master')
 
 @section('content')
-    @include('fontend.breadcumb',['pageNameLC' => __('shop_lc')])
+    <!-- Start Bradcaump area -->
+    <div class="ht__bradcaump__area bg-image--5">
+        @include('fontend.breadcumb',['pageNameLC' => __('shop_lc')])
+    </div>
+    <!-- End Bradcaump area -->
+    <!-- Start Shop Page -->
     <div class="page-shop-sidebar left--sidebar bg--white section-padding--lg">
         <div class="container">
             <div class="row">

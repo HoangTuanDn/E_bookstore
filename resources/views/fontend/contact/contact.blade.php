@@ -6,7 +6,8 @@
 
 @section('content')
 <div class="ht__bradcaump__area bg-image--6">
-@include('fontend.breadcumb',['pageNameLC' => __('contact_l')])
+    @include('fontend.breadcumb',['pageNameLC' => __('contact_l')])
+</div>
 <!-- End Bradcaump area -->
 <!-- Start Contact Area -->
 <section class="wn_contact_area bg--white pt--80 pb--80">

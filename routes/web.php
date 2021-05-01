@@ -95,21 +95,25 @@ Route::prefix('admin')->group(function () {
     Route::prefix('menus')->middleware('auth_admin')->group(function () {
 
         Route::get('/index', [MenuController::class, 'index'])
+            ->middleware('can:menu-viewAny')
             ->name('menus.index');
 
         Route::get('/create', [MenuController::class, 'create'])
+            ->middleware('can:menu-create')
             ->name('menus.create');
 
         Route::post('/store', [MenuController::class, 'store'])
             ->name('menus.store');
 
         Route::get('/edit/{id}', [MenuController::class, 'edit'])
+            ->middleware('can:menu-update')
             ->name('menus.edit');
 
         Route::post('/update/{id}', [MenuController::class, 'update'])
             ->name('menus.update');
 
         Route::post('/destroy/{id}', [MenuController::class, 'destroy'])
+            ->middleware('can:menu-delete')
             ->name('menus.destroy');
 
     });
@@ -118,21 +122,25 @@ Route::prefix('admin')->group(function () {
     Route::prefix('products')->middleware('auth_admin')->group(function () {
 
         Route::get('/index', [ProductController::class, 'index'])
+            ->middleware('can:product-viewAny')
             ->name('products.index');
 
         Route::get('/create', [ProductController::class, 'create'])
+            ->middleware('can:product-create')
             ->name('products.create');
 
         Route::post('/store', [ProductController::class, 'store'])
             ->name('products.store');
 
         Route::get('/edit/{id}', [ProductController::class, 'edit'])
+            ->middleware('can:product-update')
             ->name('products.edit');
 
         Route::post('/update/{id}', [ProductController::class, 'update'])
             ->name('products.update');
 
         Route::post('/destroy/{id}', [ProductController::class, 'destroy'])
+            ->middleware('can:product-delete')
             ->name('products.destroy');
 
     });
@@ -141,21 +149,25 @@ Route::prefix('admin')->group(function () {
     Route::prefix('sliders')->middleware('auth_admin')->group(function () {
 
         Route::get('/index', [SliderController::class, 'index'])
+            ->middleware('can:slider-viewAny')
             ->name('sliders.index');
 
         Route::get('/create', [SliderController::class, 'create'])
+            ->middleware('can:slider-create')
             ->name('sliders.create');
 
         Route::post('/store', [SliderController::class, 'store'])
             ->name('sliders.store');
 
         Route::get('/edit/{id}', [SliderController::class, 'edit'])
+            ->middleware('can:slider-update')
             ->name('sliders.edit');
 
         Route::post('/update/{id}', [SliderController::class, 'update'])
             ->name('sliders.update');
 
         Route::post('/destroy/{id}', [SliderController::class, 'destroy'])
+            ->middleware('can:slider-delete')
             ->name('sliders.destroy');
 
     });
@@ -164,21 +176,25 @@ Route::prefix('admin')->group(function () {
     Route::prefix('settings')->middleware('auth_admin')->group(function () {
 
         Route::get('/index', [SettingController::class, 'index'])
+            ->middleware('can:setting-viewAny')
             ->name('settings.index');
 
         Route::get('/create', [SettingController::class, 'create'])
+            ->middleware('can:setting-create')
             ->name('settings.create');
 
         Route::post('/store', [SettingController::class, 'store'])
             ->name('settings.store');
 
         Route::get('/edit/{id}', [SettingController::class, 'edit'])
+            ->middleware('can:setting-update')
             ->name('settings.edit');
 
         Route::post('/update/{id}', [SettingController::class, 'update'])
             ->name('settings.update');
 
         Route::post('/destroy/{id}', [SettingController::class, 'destroy'])
+            ->middleware('can:setting-delete')
             ->name('settings.destroy');
 
     });
@@ -187,21 +203,25 @@ Route::prefix('admin')->group(function () {
     Route::prefix('users')->middleware('auth_admin')->group(function () {
 
         Route::get('/index', [UserController::class, 'index'])
+            ->middleware('can:admin-viewAny')
             ->name('users.index');
 
         Route::get('/create', [UserController::class, 'create'])
+            ->middleware('can:admin-create')
             ->name('users.create');
 
         Route::post('/store', [UserController::class, 'store'])
             ->name('users.store');
 
         Route::get('/edit/{id}', [UserController::class, 'edit'])
+            ->middleware('can:admin-update')
             ->name('users.edit');
 
         Route::post('/update/{id}', [UserController::class, 'update'])
             ->name('users.update');
 
         Route::post('/destroy/{id}', [UserController::class, 'destroy'])
+            ->middleware('can:admin-delete')
             ->name('users.destroy');
 
     });
@@ -210,21 +230,25 @@ Route::prefix('admin')->group(function () {
     Route::prefix('roles')->middleware('auth_admin')->group(function () {
 
         Route::get('/index', [RoleController::class, 'index'])
+            ->middleware('can:role-viewAny')
             ->name('roles.index');
 
         Route::get('/create', [RoleController::class, 'create'])
+            ->middleware('can:role-create')
             ->name('roles.create');
 
         Route::post('/store', [RoleController::class, 'store'])
             ->name('roles.store');
 
         Route::get('/edit/{id}', [RoleController::class, 'edit'])
+            ->middleware('can:role-update')
             ->name('roles.edit');
 
         Route::post('/update/{id}', [RoleController::class, 'update'])
             ->name('roles.update');
 
         Route::post('/destroy/{id}', [RoleController::class, 'destroy'])
+            ->middleware('can:role-delete')
             ->name('roles.destroy');
     });
 
@@ -232,21 +256,18 @@ Route::prefix('admin')->group(function () {
     Route::prefix('coupons')->middleware('auth_admin')->group(function () {
 
         Route::get('/index', [CouponController::class, 'index'])
+            ->middleware('can:coupon-viewAny')
             ->name('coupons.index');
 
         Route::get('/create', [CouponController::class, 'create'])
+            ->middleware('can:coupon-create')
             ->name('coupons.create');
 
         Route::post('/store', [CouponController::class, 'store'])
             ->name('coupons.store');
 
-        Route::get('/edit/{id}', [CouponController::class, 'edit'])
-            ->name('coupons.edit');
-
-        Route::post('/update/{id}', [CouponController::class, 'update'])
-            ->name('coupons.update');
-
         Route::post('/destroy/{id}', [CouponController::class, 'destroy'])
+            ->middleware('can:coupon-delete')
             ->name('coupons.destroy');
 
     });
@@ -255,21 +276,25 @@ Route::prefix('admin')->group(function () {
     Route::prefix('permissions')->middleware('auth_admin')->group(function () {
 
         Route::get('/index', [PermissionController::class, 'index'])
+            ->middleware('can:permission-viewAny')
             ->name('permissions.index');
 
         Route::get('/create', [PermissionController::class, 'create'])
+            ->middleware('can:permission-create')
             ->name('permissions.create');
 
         Route::post('/store', [PermissionController::class, 'store'])
             ->name('permissions.store');
 
         Route::get('/edit/{id}', [PermissionController::class, 'edit'])
+            ->middleware('can:permission-update')
             ->name('permissions.edit');
 
         Route::post('/update/{id}', [PermissionController::class, 'update'])
             ->name('permissions.update');
 
         Route::post('/destroy/{id}', [PermissionController::class, 'destroy'])
+            ->middleware('can:permission-delete')
             ->name('permissions.destroy');
 
     });
@@ -278,9 +303,11 @@ Route::prefix('admin')->group(function () {
     Route::prefix('ships')->middleware('auth_admin')->group(function () {
 
         Route::get('/index', [ShipController::class, 'index'])
+            ->middleware('can:ship-viewAny')
             ->name('ships.index');
 
         Route::get('/create', [ShipController::class, 'create'])
+            ->middleware('can:ship-create')
             ->name('ships.create');
 
         Route::post('/store', [ShipController::class, 'store'])
@@ -290,9 +317,11 @@ Route::prefix('admin')->group(function () {
             ->name('ships.edit');
 
         Route::post('/update/{id}', [ShipController::class, 'update'])
+            /*            ->middleware('can:ship-update')*/
             ->name('ships.update');
 
         Route::post('/destroy/{id}', [ShipController::class, 'destroy'])
+            ->middleware('can:ship-delete')
             ->name('ships.destroy');
     });
 
@@ -300,6 +329,7 @@ Route::prefix('admin')->group(function () {
     Route::prefix('orders')->middleware('auth_admin')->group(function () {
 
         Route::get('/index', [BackendOrderController::class, 'index'])
+            ->middleware('can:order-viewAny')
             ->name('orders.index');
 
         Route::get('/show/{id}', [BackendOrderController::class, 'show'])
@@ -309,6 +339,7 @@ Route::prefix('admin')->group(function () {
             ->name('orders.update');
 
         Route::post('/destroy/{id}', [BackendOrderController::class, 'destroy'])
+            ->middleware('can:order-delete')
             ->name('orders.destroy');
 
         Route::get('/print/{id}', [BackendOrderController::class, 'printOrder'])
@@ -319,18 +350,21 @@ Route::prefix('admin')->group(function () {
     Route::prefix('blog/categories')->middleware('auth_admin')->group(function () {
 
         Route::get('/index', [BlogCategoryController::class, 'index'])
+            ->middleware('can:blog_category-viewAny')
             ->name('blog_categories.index');
 
         Route::get('/show/{id}', [BlogCategoryController::class, 'show'])
             ->name('blog_categories.show');
 
         Route::get('/create', [BlogCategoryController::class, 'create'])
+            ->middleware('can:blog_category-create')
             ->name('blog_categories.create');
 
         Route::post('/store', [BlogCategoryController::class, 'store'])
             ->name('blog_categories.store');
 
         Route::get('/edit/{id}', [BlogCategoryController::class, 'edit'])
+            ->middleware('can:blog_category-update')
             ->name('blog_categories.edit');
 
 
@@ -338,6 +372,7 @@ Route::prefix('admin')->group(function () {
             ->name('blog_categories.update');
 
         Route::post('/destroy/{id}', [BlogCategoryController::class, 'destroy'])
+            ->middleware('can:blog_category-delete')
             ->name('blog_categories.destroy');
     });
 
@@ -346,24 +381,28 @@ Route::prefix('admin')->group(function () {
     Route::prefix('blogs')->middleware('auth_admin')->group(function () {
 
         Route::get('/index', [BlogController::class, 'index'])
+            ->middleware('can:blog-viewAny')
             ->name('blogs.index');
 
         Route::get('/show/{id}', [BlogController::class, 'show'])
             ->name('blogs.show');
 
         Route::get('/create', [BlogController::class, 'create'])
+            ->middleware('can:blog-create')
             ->name('blogs.create');
 
         Route::post('/store', [BlogController::class, 'store'])
             ->name('blogs.store');
 
         Route::get('/edit/{id}', [BlogController::class, 'edit'])
+            ->middleware('can:blog-update')
             ->name('blogs.edit');
 
         Route::post('/update/{id}', [BlogController::class, 'update'])
             ->name('blogs.update');
 
         Route::post('/destroy/{id}', [BlogController::class, 'destroy'])
+            ->middleware('can:blog-delete')
             ->name('blogs.destroy');
     });
 

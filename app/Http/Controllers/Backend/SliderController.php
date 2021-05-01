@@ -8,25 +8,96 @@ use App\Models\Slider;
 use App\Traits\StorageImageTrait;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class SliderController extends Controller
 {
     private $slider;
     use StorageImageTrait;
+
     /**
      * SliderController constructor.
      */
     public function __construct(Slider $slider)
     {
-        $this->slider = $slider  ;
+        $this->slider = $slider;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $sliders = $this->slider->paginate(config('custom.limit'));
+       /* $sliders = $this->slider->paginate(config('custom.limit'));
         return view('admin.slider.index', compact('sliders'));
+        */
+        $data = [];
+        $filterName = $request->query('name');
+        $sort = $request->query('sort', 'default');
+        $order = $request->query('order', 'desc');
+        $page = $request->query('page', 1);
+        $limit = $request->query('limit', config('custom.limit'));
+
+        $dataFilter = [
+            'name'  => $filterName,
+            'sort'  => $sort,
+            'order' => $order,
+            'page'  => $page,
+            'limit' => $limit
+        ];
+
+        $sliders = $this->slider->filterSlider($dataFilter);
+        $slider_total = $sliders->total();
+
+        if (utf8_strtolower($order) == 'asc') {
+            $url['order'] = 'desc';
+        } else {
+            $url['order'] = 'asc';
+        }
+
+        $data['sort_name'] = qs_url('/admin/sliders/index', array_merge($url, ['sort' => 'name']));
+        $data['sort_default'] = qs_url('/admin/sliders/index', array_merge($url, ['sort' => 'default']));
+
+        $url = $this->_getUrlFilter([
+            'name',
+            'sort',
+            'order',
+        ]);
+
+
+        $data['sort'] = $sort;
+        $data['order'] = $order;
+        $data['sliders'] = $sliders;
+
+        if ($request->ajax()) {
+            $url = $this->_getUrlFilter([
+                'name',
+                'sort',
+                'order',
+                'page'
+            ]);
+
+            $url = qs_url('/admin/sliders/index', $url);
+            $url = urldecode(hed($url));
+            $url = str_replace(' ', '+', $url);
+
+            try {
+                $htmlContent = view('admin.slider.inc.list_slider', $data)->render();
+            } catch (\Exception $e) {
+                $htmlContent = null;
+            }
+
+            return response()->json([
+                'success' => true,
+                'data'    => [
+                    'url' => $url
+                ],
+                'html'    => [
+                    'result'  => $data['result'],
+                    'content' => $htmlContent
+                ]
+            ]);
+        } else {
+            $data['inc_list'] = view('admin.slider.inc.list_slider', $data);
+            return view('admin.slider.index', $data);
+        }
     }
 
     public function create(Request $request)
@@ -36,21 +107,19 @@ class SliderController extends Controller
 
     public function store(SliderRequest $request)
     {
-      //$request->validated();
+        $request->validated();
+        $image = ['3', '4', '5', '6', '8', '9'];
 
         try {
             $isCreated = true;
-
-            DB::beginTransaction();
-
-
             $dataInsert = [
-                'name' => $request->name,
-                'description'=> $request->description,
+                'name'             => $request->name,
+                'description'      => $request->description,
+                'background_image' => in_array($request->bgImage, $image) ? $request->bgImage : ''
 
             ];
 
-            if ($request->hasFile('image')){
+            if ($request->hasFile('image') && !empty($dataInsert['background_image'])) {
 
                 $imageData = $this->storageTraitUpload(
                     $request->image,
@@ -59,20 +128,20 @@ class SliderController extends Controller
                     auth()->guard('admin')->user()->id
                 );
 
+                $ext =  $request->image->getClientOriginalExtension();
+                $fileName = $request->bgImage . '.' . $ext;
+                $request->file('image')->move(public_path('fontend/images/bg'), $fileName);
+
                 $dataInsert['image_path'] = $imageData['file_path'];
                 $dataInsert['image'] = $imageData['file_name'];
             }
 
             $this->slider->create($dataInsert);
 
-            DB::commit();
-
         } catch (\Exception $e) {
-            DB::rollBack();
             $isCreated = false;
-            Log::error('message: ' . $e->getMessage() . 'Line : ' . $e->getLine());
+            Log::error('message: ' . $e->getMessage() . ' Line : ' . $e->getLine());
         }
-
 
         $message = $this->getMessage('success', 'create', __('slider'));
 
@@ -101,16 +170,16 @@ class SliderController extends Controller
     public function update(SliderRequest $request, $id)
     {
         $request->validated();
+        $image = ['3', '4', '5', '6', '8', '9'];
         try {
-            DB::beginTransaction();
 
             $dataUpdate = [
-                'name' => $request->name,
-                'description'=> $request->description,
-
+                'name'             => $request->name,
+                'description'      => $request->description,
+                'background_image' => in_array($request->bgImage, $image) ? $request->bgImage : ''
             ];
 
-            if ($request->hasFile('image')){
+            if ($request->hasFile('image') && !empty($dataUpdate)) {
 
                 $imageData = $this->storageTraitUpload(
                     $request->image,
@@ -119,17 +188,17 @@ class SliderController extends Controller
                     auth()->guard('admin')->user()->id
                 );
 
+                $ext =  $request->image->getClientOriginalExtension();
+                $fileName = $request->bgImage . '.' . $ext;
+                $request->file('image')->move(public_path('fontend/images/bg'), $fileName);
+
                 $dataUpdate['image_path'] = $imageData['file_path'];
                 $dataUpdate['image'] = $imageData['file_name'];
             }
 
             $isUpdate = $this->slider->find($id)->update($dataUpdate);
 
-            DB::commit();
-
         } catch (\Exception $e) {
-            DB::rollBack();
-            $isUpdate = false;
             Log::error('message: ' . $e->getMessage() . 'Line : ' . $e->getLine());
         }
 
@@ -150,7 +219,8 @@ class SliderController extends Controller
 
     }
 
-    public function destroy(Request $request, $id){
+    public function destroy(Request $request, $id)
+    {
 
         try {
             $isDelete = $this->slider->find($id)->delete();
@@ -160,10 +230,10 @@ class SliderController extends Controller
             $isDelete = false;
         }
 
-        $message = $this->getMessage('success', 'delete',  __('slider'));
+        $message = $this->getMessage('success', 'delete', __('slider'));
 
-        if (!$isDelete){
-            $message = $this->getMessage('error', 'delete',  __('slider'));
+        if (!$isDelete) {
+            $message = $this->getMessage('error', 'delete', __('slider'));
 
             return response()->json([
                 'check'   => $isDelete,
@@ -191,5 +261,15 @@ class SliderController extends Controller
         return $message->getText($action, $name);
     }
 
+    private function _getUrlFilter($list = [])
+    {
+        $url = [];
+
+        call_user_func_array('preUrlFilter', [&$url, $list, [
+            'name' => request()->query->has('name') ? urlencode(hed(request()->query('name'), ENT_QUOTES, 'UTF-8')) : '',
+        ]]);
+
+        return $url;
+    }
 
 }

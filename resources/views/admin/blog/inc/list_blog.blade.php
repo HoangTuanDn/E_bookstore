@@ -42,9 +42,11 @@
                     <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
                         <i class="fas fa-minus"></i>
                     </button>
+                    @can('blog-create')
                     <a href="{{route('blogs.create')}}" class="btn btn-success btn-sm m-1">
                         Add
                     </a>
+                    @endcan
                 </div>
             </div>
             <div class="card-body p-0">
@@ -106,15 +108,20 @@
                             </td>
 
                             <td class="project-actions text-center">
+                                @can('blog-update')
                                 <a class="btn btn-outline-info btn-sm m-1" href="{{route('blogs.edit', ['id' => $blog->id])}}">
                                     <i class="fas fa-pencil-alt">
                                     </i>
 
                                 </a>
+                                @endcan
+
+                                @can('blog-delete')
                                 <a class="btn btn-outline-danger btn-sm m-1" data-action="btnDelete" data-name="{{$blog->name}}" data-url="{{route('blogs.destroy', ['id'=> $blog->id])}}" >
                                     <i class="fas fa-trash">
                                     </i>
                                 </a>
+                                @endcan
                             </td>
                         </tr>
                     @endforeach

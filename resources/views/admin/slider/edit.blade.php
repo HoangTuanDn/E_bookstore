@@ -10,8 +10,6 @@
 @endsection
 
 @section('js_link')
-
-    <script src="{{asset('backend/common/setting/list.js')}}"></script>
     <script src="{{asset('common/toastr.min.js')}}"></script>
 @endsection
 
@@ -83,6 +81,48 @@
                                             class="form-control"
                                             rows="3">{{$slider->description}}
                                     </textarea>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="card bg-light mb-3" style="max-width: 100%;">
+                                        <div class="card-header">
+                                            <div class="form-check form-check-inline">
+                                                <label class="form-check-label" for="checkPage">Background image</label>
+                                            </div>
+                                        </div>
+                                        <div class="card-body custom-body">
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input check-children" value="3" name="bgImage" {{$slider->background_image === '3' ? 'checked' : ''}} type="radio" id="inlineCheckbox" value="option1">
+                                                <label class="form-check-label" for="inlineCheckbox1">Img 3 - shop single</label>
+                                            </div>
+
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input check-children" value="4" name="bgImage" {{$slider->background_image === '4' ? 'checked' : ''}} type="radio" id="inlineCheckbox" value="option1">
+                                                <label class="form-check-label" for="inlineCheckbox1">Img 4 - blog</label>
+                                            </div>
+
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input check-children" value="5" name="bgImage" {{$slider->background_image === '5' ? 'checked' : ''}} type="radio" id="inlineCheckbox" value="option1">
+                                                <label class="form-check-label" for="inlineCheckbox1">Img 5 - shop</label>
+                                            </div>
+
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input check-children" value="6" name="bgImage" {{$slider->background_image === '6' ? 'checked' : ''}} type="radio" id="inlineCheckbox" value="option1">
+                                                <label class="form-check-label" for="inlineCheckbox1">Img 6 - contact</label>
+                                            </div>
+
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input check-children" value="8" name="bgImage" {{$slider->background_image === '8' ? 'checked' : ''}} type="radio" id="inlineCheckbox" value="option1">
+                                                <label class="form-check-label" for="inlineCheckbox1">Img 8 - home 1</label>
+                                            </div>
+
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input check-children" value="9" name="bgImage" {{$slider->background_image === '9' ? 'checked' : ''}} type="radio" id="inlineCheckbox" value="option1">
+                                                <label class="form-check-label" for="inlineCheckbox1">Img 9 - home 2</label>
+                                            </div>
+
+                                        </div>
+                                    </div>
                                 </div>
 
                             </div>

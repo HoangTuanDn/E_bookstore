@@ -1,8 +1,12 @@
 @extends('layouts.master')
 
 @section('content')
-@include('fontend.breadcumb',['pageNameLC' => __('shopping_cart')])
-
+<!-- Start Bradcaump area -->
+<div class="ht__bradcaump__area bg-image--3">
+    @include('fontend.breadcumb',['pageNameLC' => __('shopping_cart')])
+</div>
+<!-- End Bradcaump area -->
+<!-- cart-main-area start -->
 <div class="cart-main-area section-padding--lg bg--white">
     <div class="container">
         <div class="row">

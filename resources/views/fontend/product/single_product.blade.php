@@ -6,7 +6,12 @@
 @endsection
 
 @section('content')
-    @include('fontend.breadcumb',['pageNameLC' => __('shop_single_lc')])
+    <!-- Start Bradcaump area -->
+    <div class="ht__bradcaump__area bg-image--3">
+        @include('fontend.breadcumb',['pageNameLC' => __('shop_single_lc')])
+    </div>
+    <!-- End Bradcaump area -->
+    <!-- Start main Content -->
     <div class="maincontent bg--white pt--80 pb--55">
         <div class="container">
             <div class="row">

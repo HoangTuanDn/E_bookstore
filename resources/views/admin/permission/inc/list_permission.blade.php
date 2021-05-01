@@ -39,9 +39,11 @@
                 <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
                     <i class="fas fa-minus"></i>
                 </button>
+                @can('permission-create')
                 <a href="{{route('permissions.create')}}" class="btn btn-success btn-sm m-1">
                     Add
                 </a>
+                @endcan
             </div>
         </div>
         <div class="card-body p-0">
@@ -80,16 +82,20 @@
                             </td>
 
                             <td class="project-actions text-center">
+                                @can('permission-update')
                                 <a class="btn btn-outline-info btn-sm m-1" href="{{route('permissions.edit', ['id' => $permission->id])}}">
                                     <i class="fas fa-pencil-alt">
                                     </i>
 
                                 </a>
+                                @endcan
+                                @can('$permission-delete')
                                 <a class="btn btn-outline-danger btn-sm m-1" data-action="btnDelete" data-name="{{$permission->name}}" data-url="{{route('permissions.destroy', ['id'=> $permission->id])}}" >
                                     <i class="fas fa-trash">
                                     </i>
 
                                 </a>
+                                    @endcan
                             </td>
                         </tr>
                     @endforeach

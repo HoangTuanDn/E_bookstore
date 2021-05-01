@@ -24,7 +24,7 @@ class User extends Authenticatable
     protected $attributes = [
         'email_verified_at' => '',
         'remember_token'    => '',
-        'image_path'    => '',
+        'image_path'        => '',
     ];
 
     protected $hidden = [
@@ -51,14 +51,15 @@ class User extends Authenticatable
             ->withTimestamps();
     }
 
-    public function checkPermissionAccess($permissionCheck){
+    public function checkPermissionAccess($permissionCheck)
+    {
 
         $roles = auth()->guard('admin')->user()->roles;
 
-        foreach ($roles as $role){
+        foreach ($roles as $role) {
             if ($role->permissions->contains('key_code', $permissionCheck)) {
                 return true;
-            };
+            }
         };
 
         return false;

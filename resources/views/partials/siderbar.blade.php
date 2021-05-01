@@ -19,6 +19,7 @@
         </div>
 
         <!-- Sidebar Menu -->
+        @can('category-viewAny')
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-item">
@@ -31,7 +32,9 @@
                 </li>
             </ul>
         </nav>
+        @endcan
 
+        @can('product-viewAny')
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-item">
@@ -44,7 +47,9 @@
                 </li>
             </ul>
         </nav>
+        @endcan
 
+        @can('order-viewAny')
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-item">
@@ -57,7 +62,9 @@
                 </li>
             </ul>
         </nav>
+        @endcan
 
+        @can('ship-viewAny')
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-item">
@@ -70,7 +77,9 @@
                 </li>
             </ul>
         </nav>
+        @endcan
 
+        @can('coupon-viewAny')
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-item">
@@ -83,7 +92,9 @@
                 </li>
             </ul>
         </nav>
+        @endcan
 
+        @can('admin-viewAny')
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-item">
@@ -96,7 +107,9 @@
                 </li>
             </ul>
         </nav>
+        @endcan
 
+        @can('role-viewAny')
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-item">
@@ -109,7 +122,9 @@
                 </li>
             </ul>
         </nav>
+        @endcan
 
+        @can('permission-viewAny')
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-item">
@@ -122,7 +137,9 @@
                 </li>
             </ul>
         </nav>
+        @endcan
 
+        @can('setting-viewAny')
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-item">
@@ -135,7 +152,9 @@
                 </li>
             </ul>
         </nav>
+        @endcan
 
+        @can('menu-viewAny')
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-item">
@@ -148,7 +167,9 @@
                 </li>
             </ul>
         </nav>
+        @endcan
 
+        @can('slider-viewAny')
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-item">
@@ -161,7 +182,9 @@
                 </li>
             </ul>
         </nav>
+        @endcan
 
+        @can('blog_category-viewAny')
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-item">
@@ -174,7 +197,9 @@
                 </li>
             </ul>
         </nav>
+        @endcan
 
+        @can('blog-viewAny')
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-item">
@@ -187,7 +212,7 @@
                 </li>
             </ul>
         </nav>
-
+        @endcan
 
         <!-- /.sidebar-menu -->
     </div>

@@ -2,7 +2,9 @@
 
 @section('content')
     <!-- Start Bradcaump area -->
-    @include('fontend.breadcumb',['pageNameLC' => __('my_orders_lc')])
+    <div class="ht__bradcaump__area bg-image--3">
+        @include('fontend.breadcumb',['pageNameLC' => __('my_orders_lc')])
+    </div>
     <!-- End Bradcaump area -->
     <!-- cart-main-area start -->
     <div class="cart-main-area section-padding--lg bg--white">

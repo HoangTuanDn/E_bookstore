@@ -7,7 +7,8 @@
                 <div class="card-tools mr-1">
                     <form action="{{route('roles.index')}}" method="get">
                         <div class="input-group input-group-sm" style="width: 150px; margin-top: 5px">
-                            <input type="text" name="name" class="form-control float-right" placeholder="Tên vai trò...">
+                            <input type="text" name="name" class="form-control float-right"
+                                   placeholder="Tên vai trò...">
                             <div class="input-group-append">
                                 <button type="submit" class="btn btn-default">
                                     <i class="fas fa-search"></i>
@@ -18,17 +19,19 @@
                     </form>
                 </div>
                 <div class="dropdown flex-grow-1">
-                    <button style="margin-top: 5px" class="btn btn-default btn-sm dropdown-toggle mr-1" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button style="margin-top: 5px" class="btn btn-default btn-sm dropdown-toggle mr-1" type="button"
+                            id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Sắp xếp
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                         @if($order === 'asc')
-                             <a href="{{$sort_default}}" class="dropdown-item">Mặc định <i class="fas fa-sort-down"></i></a>
-                             <a href="{{$sort_name}}" class="dropdown-item">Tên <i class="fas fa-sort-down"></i></a>
-                         @else
-                             <a href="{{$sort_default}}" class="dropdown-item">Mặc định <i class="fas fa-sort-up"></i></a>
-                             <a href="{{$sort_name}}" class="dropdown-item">Tên <i class="fas fa-sort-up"></i></a>
-                         @endif
+                        @if($order === 'asc')
+                            <a href="{{$sort_default}}" class="dropdown-item">Mặc định <i class="fas fa-sort-down"></i></a>
+                            <a href="{{$sort_name}}" class="dropdown-item">Tên <i class="fas fa-sort-down"></i></a>
+                        @else
+                            <a href="{{$sort_default}}" class="dropdown-item">Mặc định <i
+                                        class="fas fa-sort-up"></i></a>
+                            <a href="{{$sort_name}}" class="dropdown-item">Tên <i class="fas fa-sort-up"></i></a>
+                        @endif
                     </div>
                 </div>
 
@@ -41,9 +44,11 @@
                     <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
                         <i class="fas fa-minus"></i>
                     </button>
-                    <a href="{{route('roles.create')}}" class="btn btn-success btn-sm m-1">
-                        Add
-                    </a>
+                    @can('role-create')
+                        <a href="{{route('roles.create')}}" class="btn btn-success btn-sm m-1">
+                            Add
+                        </a>
+                    @endcan
                 </div>
             </div>
             <div class="card-body p-0">
@@ -99,18 +104,22 @@
                             </td>
 
                             <td class="project-actions text-center">
-                                <a class="btn btn-outline-info btn-sm m-1"
-                                   href="{{route('roles.edit', ['id' => $role->id])}}">
-                                    <i class="fas fa-pencil-alt">
-                                    </i>
+                                @can('role-update')
+                                    <a class="btn btn-outline-info btn-sm m-1"
+                                       href="{{route('roles.edit', ['id' => $role->id])}}">
+                                        <i class="fas fa-pencil-alt">
+                                        </i>
 
-                                </a>
-                                <a class="btn btn-outline-danger btn-sm m-1" data-action="btnDelete"
-                                   data-name="{{$role->name}}"
-                                   data-url="{{route('roles.destroy', ['id'=> $role->id])}}">
-                                    <i class="fas fa-trash">
-                                    </i>
-                                </a>
+                                    </a>
+                                @endcan
+                                @can('role-delete')
+                                    <a class="btn btn-outline-danger btn-sm m-1" data-action="btnDelete"
+                                       data-name="{{$role->name}}"
+                                       data-url="{{route('roles.destroy', ['id'=> $role->id])}}">
+                                        <i class="fas fa-trash">
+                                        </i>
+                                    </a>
+                                @endcan
                             </td>
                         </tr>
                     @endforeach

@@ -25,7 +25,7 @@ class SettingRequest extends FormRequest
     {
         return [
             'config_key' => 'required',
-            'config_key' => 'required',
+            'config_value' => 'required',
         ];
     }
 }
