@@ -1,5 +1,9 @@
 @extends('layouts.master')
 
+@section('title')
+    <title>{{'Home | '. 'Error 404'}}</title>
+@endsection
+
 @section('content')
     <!-- Start Bradcaump area -->
     <div class="ht__bradcaump__area bg-image--5">

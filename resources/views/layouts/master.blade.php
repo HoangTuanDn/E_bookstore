@@ -3,7 +3,10 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Home | Bookshop Responsive Bootstrap4 Template</title>
+    {{--<title>Home | Bookshop Responsive Bootstrap4 Template</title>--}}
+    @hasSection('title')
+        @yield('title')
+    @endif
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -11,6 +14,9 @@
     <meta name="info" content="{{ __('info_text') }}">
     <meta name="warning" content="{{ __('success_tex') }}">
     <meta name="error" content="{{ __('error_text') }}">
+    @hasSection('meta')
+        @yield('meta')
+    @endif
     <!-- Favicons -->
     <link rel="shortcut icon" href="{{asset('fontend/images/favicon.ico')}}">
     <link rel="apple-touch-icon" href="{{asset('fontend/images/icon.png')}}">
@@ -66,7 +72,8 @@
     <!-- //Footer Area -->
 </div>
 <!-- //Main wrapper -->
-
+<!-- facebook message plugin -->
+{{--@include('partials.facebook_message')--}}
 <!-- JS Files -->
 <script src="{{asset('fontend/js/vendor/jquery-3.2.1.min.js')}}"></script>
 <script src="{{asset('fontend/js/popper.min.js')}}"></script>

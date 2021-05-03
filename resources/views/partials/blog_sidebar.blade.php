@@ -3,10 +3,10 @@
     <div class="wn__sidebar">
         <!-- Start Single Widget -->
         <aside class="widget search_widget">
-            <h3 class="widget-title">Search</h3>
+            <h3 class="widget-title">{{__('search')}}</h3>
             <form action="#">
                 <div class="form-input">
-                    <input id="aa-search-input-blog" class="aa-input-search-blog"  type="search" placeholder="Search...">
+                    <input id="aa-search-input-blog" class="aa-input-search-blog"  type="search" placeholder="{{__('error_not_found_search')}}">
                     <button><i class="fa fa-search"></i></button>
                 </div>
             </form>

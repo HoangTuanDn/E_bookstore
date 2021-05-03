@@ -1,25 +1,16 @@
 @extends('layouts.master')
 
+@section('title')
+    <title>{{'Blog | '. $blog->name}}</title>
+@endsection
+
 @section('js')
     <script src="{{asset('fontend/common/blog_detail.js')}}"></script>
 @endsection
 
 @section('content')
     <div class="ht__bradcaump__area bg-image--6">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="bradcaump__inner text-center">
-                        <h2 class="bradcaump-title">Blog Details</h2>
-                        <nav class="bradcaump-content">
-                            <a class="breadcrumb_item" href="index.html">Home</a>
-                            <span class="brd-separetor">/</span>
-                            <span class="breadcrumb_item active">Blog-Details</span>
-                        </nav>
-                    </div>
-                </div>
-            </div>
-        </div>
+        @include('fontend.breadcumb',['pageNameLC' => __('blog_details')])
     </div>
 
     <div class="page-blog-details section-padding--lg bg--white">

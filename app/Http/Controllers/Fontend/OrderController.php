@@ -47,7 +47,9 @@ class OrderController extends Controller
 
     public function index()
     {
-        $orders = $this->order->where('customer_id', auth()->guard('customer')->user()->id)->get();
+        $orders = $this->order
+            ->where('customer_id', auth()->guard('customer')->user()->id)
+            ->latest()->get();
         $orderTotalPrice = [];
 
         foreach ($orders as $order) {
@@ -94,6 +96,9 @@ class OrderController extends Controller
         $idCountryRequest = $request->only(['province_id', 'district_id', 'ward_id']);
         $orderCode = $this->hashids->encode($unixTime);
         $cartData = session('cart');
+
+        $orderData = $request->only(['full_name', 'address', 'phone', 'email']);
+        session()->put('orderData', $orderData);
 
         if ($request->input('coupon_code')) {
             $coupon = $this->coupon->where('code', $request->input('coupon_code'))->first();
@@ -195,7 +200,7 @@ class OrderController extends Controller
             $json = [
                 'success' => true,
                 'data'    => [
-                    'url_redirect' => route('order.index', ['language' => app()->getLocale()]),
+                    'url_redirect' => route('home', ['language' => app()->getLocale()]),
                     'type'         => __('type_success'),
                     'message'      => __('your_order_success', ['name' => $orderCode])
                 ],

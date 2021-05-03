@@ -16,7 +16,11 @@
     margin-top: 0;
 }
 
-.shopcart .single__items .miniproduct:first-child {
+#nav-list .list__view__wrapper .list__view:first-child {
+    margin-top: 0;
+}
+
+.container .order-detail:first-child {
     margin-top: 0;
 }
 /*.paypal_order__form .form__btn {

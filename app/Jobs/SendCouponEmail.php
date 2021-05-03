@@ -10,6 +10,8 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Queue\Middleware\WithoutOverlapping;
+
 
 class SendCouponEmail implements ShouldQueue
 {
@@ -40,4 +42,5 @@ class SendCouponEmail implements ShouldQueue
         $email = new ConfirmMail($this->details['data'], $this->details['subject'], $this->details['viewName']);
         Mail::to($this->details['emails'])->send($email);
     }
+
 }

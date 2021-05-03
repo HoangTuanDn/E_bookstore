@@ -44,8 +44,8 @@ $(function () {
                                 json['data']['message'],
                                 'success'
                             )
-                            currentElement.closest('#order-detail').css('background', 'tomato');
-                            currentElement.closest('#order-detail').fadeOut(800, function () {
+                            currentElement.closest('.order-detail').css('background', 'tomato');
+                            currentElement.closest('.order-detail').fadeOut(800, function () {
                                 $(this).remove();
                             });
                         }else {

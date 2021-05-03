@@ -65,12 +65,14 @@ class CheckOutController extends Controller
             }
         }
 
+
         if (isset($idCountryRequest['province_id'])
             && !isset($idCountryRequest['district_id'])
             && !isset($idCountryRequest['ward_id'])) {
             $districts = $this->district->where('province_id', $idCountryRequest['province_id'])->get();
             foreach ($districts as $district) {
                 $htmDistrictRender .= '<option value="' . $district->id . '">' . $district->name . '</option>';
+
             }
             $json = [
                 'success' => true,

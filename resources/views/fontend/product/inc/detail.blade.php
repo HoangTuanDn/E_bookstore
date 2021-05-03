@@ -1,3 +1,15 @@
+@section('title')
+    <title>{{'Book | '. $product->name}}</title>
+@endsection
+
+@section('meta')
+    <meta property="og:url"           content="{{route('home.shop.single_product', ['language' => 'vn', 'slug' => $product->slug])}}" />
+    <meta property="og:type"          content="website" />
+    <meta property="og:title"         content="{{'Book | '. $product->name}}" />
+    <meta property="og:description"   content="{{'aaaaa'}}" />
+    <meta property="og:image"         content="{{asset($product['featured_img'])}}" />
+@endsection
+
 <div class="wn__single__product">
     <div class="row">
         <div class="col-lg-6 col-12">
@@ -52,12 +64,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="#">
-                                <i class="icon-social-tumblr icons"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
+                            <a href="{{'http://www.facebook.com/share.php?u='. route('home.shop.single_product',['language' => 'vn', 'slug' => $product->slug])}}">
                                 <i class="icon-social-facebook icons"></i>
                             </a>
                         </li>

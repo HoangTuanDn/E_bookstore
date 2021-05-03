@@ -150,11 +150,23 @@ class MailController extends Controller
         ];
 
         try {
-            SendCouponEmail::dispatch($details);
+            if ($coupon->is_publish === 1) {
+                return response()->json([
+                    'success' => true,
+                    'data'    => [
+                        'type'    => 'info',
+                        'message' => __('message_coupon_info'),
+                    ]
+                ]);
+            }
+
+            SendCouponEmail::dispatch($details)->afterResponse();
 
             $coupon->update([
                 'is_publish' => 1
             ]);
+
+            exec('php artisan queue:work');
 
         } catch (\Exception $e) {
             Log::error('message: ' . $e->getMessage() . 'file : ' . $e->getFile() . 'Line : ' . $e->getLine());

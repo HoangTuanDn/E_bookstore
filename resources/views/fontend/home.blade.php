@@ -1,5 +1,9 @@
 @extends('layouts.master')
 
+@section('title')
+    <title>{{'Home | '. 'TriTue Store'}}</title>
+@endsection
+
 @section('js')
     <script src="{{asset('fontend/common/shop.js')}}"></script>
 @endsection
@@ -452,6 +456,44 @@
         </div>
     </section>
     <!-- Start BEst Seller Area -->
+    <section class="wn__recent__post bg--gray ptb--80">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section__title text-center">
+                        <h2 class="title__be--2">{!! __('our_blog_header') !!}</h2>
+                        <p>{!! __('our_blog_detail') !!}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt--50">
+                @foreach($ourBlogs as $blog)
+                    <div class="col-md-6 col-lg-4 col-sm-12">
+                        <div class="post__itam">
+                            <div class="content">
+                                <h3><a href="{{route('home.blog.detail', ['language' => app()->getLocale(), 'slug' => $blog->slug])}}">{{$blog->name}}</a></h3>
+                                <p>{!! $blog->title !!}</p>
+                                <div class="post__time">
+                                    @if(app()->getLocale() == 'vn')
+                                        <span class="day">{{'Tháng '. date('n, d, Y', strtotime($blog->created_at))}}</span>
+                                    @else
+                                        <span class="day">{{date('M d, Y', strtotime($blog->created_at))}}</span>
+                                    @endif
+
+                                    <div class="post-meta">
+                                        <ul>
+                                            <li><a href="#"><i class="bi bi-love"></i>{{$blog->view}}</a></li>
+                                            <li><a href="#"><i class="bi bi-chat-bubble"></i>{{$blog->comments()->count()}}</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </section>
     <!-- Best Sale Area -->
     <section id="best-sell"  class="best-seel-area pt--80 pb--60">
         <div class="container">

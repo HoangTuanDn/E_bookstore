@@ -2,6 +2,10 @@ $(function () {
     const client = algoliasearch('5IQ7K6MTBD', '0767156b25554c88561603b3ccc591bd');
     const products = client.initIndex('products');
     const language = getLanguage();
+    let author_text = language == 'vn' ? 'Tác giả:' : 'Author:';
+    let publish_text = language == 'vn' ? 'Xuất bản:' : 'Publish:';
+    let page_text = language == 'vn' ? 'Số trang:' : 'Pages:';
+    let not_found_text = language == 'vn' ? 'Xin lỗi, chúng tôi không tìm thấy kết quả cho' : 'Sorry, we did not find any results for';
 
     autocomplete('#aa-search-input',
         {hint: false}, {
@@ -21,12 +25,12 @@ $(function () {
                                    
                                     <div class="algolia-info">
                                         <p class="info-name ml-2"><strong>${suggestion._highlightResult.name.value}</strong></p>
-                                        <p class="info-author ml-2">Author: ${suggestion._highlightResult.author.value}</p>
-                                        <p class="info-details ml-2">Publish: ${suggestion.publish_date}, Pages: ${suggestion.page}</p>
+                                        <p class="info-author ml-2">${author_text} ${suggestion._highlightResult.author.value}</p>
+                                        <p class="info-details ml-2">${publish_text} ${suggestion.publish_date}, ${page_text} ${suggestion.page}</p>
                                     </div>                            
                             </div>
                            <div class="algolia-details">                  
-                                <span>${suggestion.price.toLocaleString('it-IT', {style: 'currency', currency: 'VND'})}</span>
+                                <span>${suggestion.discount.toLocaleString('it-IT', {style: 'currency', currency: 'VND'})}</span>
                             </div>
                         </div>
                       `;
@@ -34,7 +38,7 @@ $(function () {
                     return markup;
                 },
                 empty     : function (result) {
-                    return 'Sorry, we did not find any results for "' + result.query + '"';
+                    return `${not_found_text} "` + result.query + '"';
                 }
             }
         }).on('autocomplete:selected', function (event, suggestion, dataset) {

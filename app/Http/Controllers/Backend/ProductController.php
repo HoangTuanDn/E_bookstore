@@ -14,6 +14,7 @@ use App\Traits\StorageImageTrait;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
@@ -178,10 +179,9 @@ class ProductController extends Controller
     public function update(ProductRequest $request, $id)
     {
         $request->validated();
-
         try {
             DB::beginTransaction();
-
+            $product = $this->product->find($id);
             $dataUpdate = [
                 'name'          => $request->name,
                 'slug'          => Str::slug($request->name),
@@ -219,16 +219,20 @@ class ProductController extends Controller
 
             }
 
-            $isUpdate = $this->product->find($id)->update($dataUpdate);
-
-            $product = $this->product->find($id);
+            $isUpdate = $product->update($dataUpdate);
 
 
             if ($request->hasFile('image_detail')) {
                 $countImageDetail = count($request->image_detail);
 
+                foreach ($product->images as $image) {
+                    $imagePath = str_replace('storage', 'app/public', $image->image_path);
+                    $image->delete();
+                    File::delete(storage_path($imagePath));
+                }
+
                 foreach ($request->image_detail as $file) {
-                    $imageDataDetail = $this->storageTraitUpload(
+                    $imageDataDetail = $this->storageTraitUploadResize(
                         $file,
                         $dataUpdate['name'] . '-detail-' . $countImageDetail,
                         config('custom.folder_store'),

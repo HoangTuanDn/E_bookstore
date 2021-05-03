@@ -1,5 +1,9 @@
 @extends('layouts.master')
 
+@section('title')
+    <title>{{'Home | '. 'Blog'}}</title>
+@endsection
+
 @section('content')
     <!-- Start Bradcaump area -->
     <div class="ht__bradcaump__area bg-image--4">

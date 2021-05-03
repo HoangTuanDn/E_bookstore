@@ -113,7 +113,7 @@ class PaypalController extends Controller
             $payment_status = $this->provider->doExpressCheckoutPayment($cart, $token, $PayerID);
             $status = $payment_status['PAYMENTINFO_0_PAYMENTSTATUS'];
             $isOrderStored = $this->storeOrder($orderData, $status);
-            $request->session()->forget(['cart', 'order', 'orderData']);
+            $request->session()->forget(['cart', 'order']);
 
             if ($isOrderStored) {
                 $payPalCode = 'success';

@@ -6,7 +6,6 @@
 
 @section('css')
     <link href="{{asset('/common/toastr.min.css')}}" rel='stylesheet' type='text/css' />
-    <link href="{{asset('backend/common/product/product.css')}}" rel="stylesheet" />
 @endsection
 
 @section('js_link')

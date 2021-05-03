@@ -1,5 +1,9 @@
 @extends('layouts.master')
 
+@section('title')
+    <title>{{'Home | '. 'Wishlist'}}</title>
+@endsection
+
 @section('js')
     <script src="{{asset('fontend/common/wishlist.js')}}"></script>
 @endsection

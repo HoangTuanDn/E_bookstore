@@ -1,5 +1,9 @@
 @extends('layouts.master')
 
+@section('title')
+    <title>{{'Home | '. 'Contact'}}</title>
+@endsection
+
 @section('js')
     <script src="{{asset('fontend/common/sendMessage.js')}}"></script>
 @endsection

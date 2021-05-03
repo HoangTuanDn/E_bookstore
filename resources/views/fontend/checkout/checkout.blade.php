@@ -1,5 +1,9 @@
 @extends('layouts.master')
 
+@section('title')
+    <title>{{'Home | '. 'Checkout'}}</title>
+@endsection
+
 @section('js')
     <script src="{{asset('fontend/common/ship.js')}}"></script>
 @endsection
@@ -70,15 +74,15 @@
                         <div class="margin_between">
                             <div class="input_box space_between" style="width: 100%">
                                 <label>{{__('full_name')}} <span>*</span></label>
-                                <input name="full_name" required type="text">
+                                <input name="full_name" required type="text" value="{{isset(session('orderData')['full_name']) ? session('orderData')['full_name'] : ''}}">
                             </div>
                         </div>
                         <div class="input_box">
                             <label>{{__('province')}}<span>*</span></label>
                             <select required id="province" name="province_id" data-type="province" data-action="select-address" class="select__option">
-                                <option>{{__('select_province')}}</option>
+                                <option value="">{{__('select_province')}}</option>
                                 @foreach($provinces as $province)
-                                    <option value="{{$province->id}}">{{$province->name}}</option>
+                                    <option value="{{$province->id}}" >{{$province->name}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -97,18 +101,18 @@
                         </div>
                         <div class="input_box">
                             <label>{{__('address')}} <span>*</span></label>
-                            <input required name="address" type="text" placeholder="{{__('placeholder_address')}}">
+                            <input required name="address" value="{{isset(session('orderData')['address']) ? session('orderData')['address'] : ''}}" type="text" placeholder="{{__('placeholder_address')}}">
                         </div>
 
                         <div class="margin_between">
                             <div class="input_box space_between">
                                 <label>{{__('phone')}} <span>*</span></label>
-                                <input name="phone" required type="text">
+                                <input name="phone" required type="text" value="{{isset(session('orderData')['phone']) ? session('orderData')['phone'] : ''}}" >
                             </div>
 
                             <div class="input_box space_between">
                                 <label>{{__('email')}} <span>*</span></label>
-                                <input name="email" required type="email">
+                                <input name="email" required type="email" value="{{isset(session('orderData')['email']) ? session('orderData')['email'] : ''}}" >
                             </div>
                         </div>
                     </div>
