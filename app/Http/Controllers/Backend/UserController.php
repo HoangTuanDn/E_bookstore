@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Components\Message;
 use App\Http\Requests\UserRequest;
+use App\Models\Customer;
 use App\Models\Role;
 use App\Models\User;
 use App\Traits\StorageImageTrait;
@@ -18,14 +19,16 @@ class UserController extends Controller
 {
     use StorageImageTrait;
     private $user;
+    private $customer;
     private $role;
     /**
      * UserController constructor.
      */
-    public function __construct(User $user, Role $role)
+    public function __construct(User $user, Role $role, Customer $customer)
     {
         $this->user = $user;
         $this->role = $role;
+        $this->customer = $customer;
     }
 
     public function index(Request $request){
@@ -217,10 +220,123 @@ class UserController extends Controller
             $isDelete = false;
         }
 
-        $message = $this->getMessage('success', 'delete',  __('product'));
+        $message = $this->getMessage('success', 'delete',  __('admin'));
 
         if (!$isDelete){
-            $message = $this->getMessage('error', 'delete',  __('product'));
+            $message = $this->getMessage('error', 'delete',  __('admin'));
+
+            return response()->json([
+                'check'   => $isDelete,
+                'success' => false,
+                'data'    => [
+                    'type'    => 'error',
+                    'message' => $message,
+                ]
+            ]);
+        }
+
+        return response()->json([
+            'check'   => $isDelete,
+            'success' => true,
+            'data'    => [
+                'type'    => 'success',
+                'message' => $message,
+            ]
+        ]);
+    }
+
+    public function customerIndex(Request $request)
+    {
+        $data = [];
+        $filterName = $request->query('username');
+        $sort = $request->query('sort', 'default');
+        $order = $request->query('order', 'desc');
+        $page = $request->query('page', 1);
+        $limit = $request->query('limit', config('custom.limit'));
+
+
+        $dataFilter = [
+            'name'  => $filterName,
+            'sort'  => $sort,
+            'order' => $order,
+            'page'  => $page,
+            'limit' => $limit
+        ];
+
+        $customers = $this->customer->filterCustomer($dataFilter);
+        $total_customer = $customers->total();
+
+        if (utf8_strtolower($order) == 'asc') {
+            $url['order'] = 'desc';
+        } else {
+            $url['order'] = 'asc';
+        }
+
+        $data['sort_name'] = qs_url('/admin/customers/index', array_merge($url, ['sort' => 'username']));
+        $data['sort_default'] = qs_url('/admin/customers/index', array_merge($url, ['sort' => 'default']));
+
+        $url = $this->_getUrlFilter([
+            'username',
+            'sort',
+            'order',
+        ]);
+
+
+        $data['sort'] = $sort;
+        $data['order'] = $order;
+        $data['customers'] = $customers;
+
+        if ($request->ajax()) {
+            $url = $this->_getUrlFilter([
+                'username',
+                'sort',
+                'order',
+                'page'
+            ]);
+
+            $url = qs_url('/admin/customers/index', $url);
+            $url = urldecode(hed($url));
+            $url = str_replace(' ', '+', $url);
+
+            try {
+                $htmlContent = view('admin.user.inc.list_customer', $data)->render();
+            } catch (\Exception $e) {
+                $htmlContent = null;
+            }
+
+            return response()->json([
+                'success' => true,
+                'data'    => [
+                    'url' => $url
+                ],
+                'html'    => [
+                    'result'  => $data['result'],
+                    'content' => $htmlContent
+                ]
+            ]);
+        } else {
+            $data['inc_list'] = view('admin.user.inc.list_customer', $data);
+            return view('admin.user.index2', $data);
+        }
+
+    }
+
+    public function customerDestroy(Request $request , $id)
+    {
+        try {
+            $customer =  $this->customer->find($id);
+            $isDelete = $customer->delete();
+            $user->productReviews()->detach();
+
+        } catch (\Exception $e) {
+            Log::error('message: ' . $e->getMessage() . 'Line : ' . $e->getLine());
+            $isDelete = false;
+        }
+
+        $message = $this->getMessage('success', 'delete',  __('customer'));
+
+        if (!$isDelete){
+            $message = $this->getMessage('error', 'delete',  __('customer'));
 
             return response()->json([
                 'check'   => $isDelete,
@@ -246,6 +362,7 @@ class UserController extends Controller
         $message = new Message($type, $text);
         return $message->getText($action, $name);
     }
+
 
     private function _getUrlFilter($list = [])
     {

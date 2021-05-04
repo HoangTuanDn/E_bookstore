@@ -226,6 +226,17 @@ Route::prefix('admin')->group(function () {
 
     });
 
+    Route::prefix('customers')->middleware('auth_admin')->group(function () {
+
+        Route::get('/index', [UserController::class, 'customerIndex'])
+            ->name('customers.index');
+
+        Route::post('/destroy/{id}', [UserController::class, 'customerDestroy'])
+            ->name('customers.destroy');
+
+    });
+
+
     /*role route*/
     Route::prefix('roles')->middleware('auth_admin')->group(function () {
 

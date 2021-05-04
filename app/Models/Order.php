@@ -124,19 +124,17 @@ class Order extends Model
         }
 
         if (isset($data['weekNow'])) {
-            $firstWeekDay = explode('-', $data['weekNow']['firstWeekDay']);
-            $today = explode('-', $data['weekNow']['today']);
+            $firstWeekDay = $data['weekNow']['firstWeekDay'];
+            $today = $data['weekNow']['today'];
 
-            $query->whereRaw('YEAR(orders.updated_at) BETWEEN ? AND ? AND MONTH(orders.updated_at) BETWEEN ? AND ? AND DAY(orders.updated_at) BETWEEN ? AND ?',
-                [$firstWeekDay[0], $today[0], $firstWeekDay[1], $today[1], $firstWeekDay[2], $today[2]]);
+            $query->whereBetween('updated_at', [$firstWeekDay, $today]);
         }
 
         if (isset($data['lastWeek'])) {
-            $firstLastWeekDay = explode('-', $data['lastWeek']['firstLastWeekDay']);
-            $endLastWeekDay = explode('-', $data['lastWeek']['endLastWeekDay']);
+            $firstLastWeekDay = $data['lastWeek']['firstLastWeekDay'];
+            $endLastWeekDay = $data['lastWeek']['endLastWeekDay'];
 
-            $query->whereRaw('YEAR(orders.updated_at)  BETWEEN ? AND ? AND MONTH(orders.updated_at)  BETWEEN ? AND ? AND DAY(orders.updated_at)  BETWEEN ? AND ?',
-                [$firstLastWeekDay[0], $endLastWeekDay[0], $firstLastWeekDay[1], $endLastWeekDay[1], $firstLastWeekDay[2], $endLastWeekDay[2]]);
+            $query->whereBetween('updated_at', [$firstLastWeekDay, $endLastWeekDay]);
         }
 
         if (isset($data['dateToDate'])) {

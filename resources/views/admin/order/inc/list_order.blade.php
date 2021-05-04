@@ -107,7 +107,7 @@
                             </td>
 
                             <td class="confirm-email text-center">
-                                <a class="btn btn-outline-info btn-sm" data-action="btnSendMail" data-name="{{$order->order_code}}" href="{{route('mails.send_mail', ['id'=> $order->id])}}">
+                                <a class="btn btn-outline-info btn-sm " {{$order->status > 1 ? 'style='."pointer-events:". "none".';'. "color:". "black" : ''}} data-action="btnSendMail" data-name="{{$order->order_code}}" href="{{route('mails.send_mail', ['id'=> $order->id])}}">
                                     <i class="fas fa-paper-plane">
                                     </i>
                                 </a>
