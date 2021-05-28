@@ -104,7 +104,7 @@
                             </td>
 
                             <td class="project-actions text-right">
-                                @can('admin-udpate')
+                                @can('admin-update')
                                     <a class="btn btn-outline-info btn-sm m-1"
                                        href="{{route('users.edit', ['id' => $user->id])}}">
                                         <i class="fas fa-pencil-alt">

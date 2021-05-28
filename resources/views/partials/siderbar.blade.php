@@ -44,7 +44,7 @@
                         @can('category-viewAny')
                             <li class="nav-item">
                                 <a href="{{route('categories.index')}}" class="nav-link">
-                                    <i class="nav-icon far fa-circle"></i>
+                                    <i class="nav-icon far fa-dot-circle"></i>
                                     <p>
                                         Danh mục
                                     </p>
@@ -55,7 +55,7 @@
                         @can('product-viewAny')
                             <li class="nav-item">
                                 <a href="{{route('products.index')}}" class="nav-link">
-                                    <i class="nav-icon far fa-circle"></i>
+                                    <i class="nav-icon far fa-dot-circle"></i>
                                     <p>
                                         Sản phẩm
                                     </p>
@@ -111,9 +111,9 @@
                         @can('blog_category-viewAny')
                             <li class="nav-item">
                                 <a href="{{route('blog_categories.index')}}" class="nav-link">
-                                    <i class="nav-icon far fa-circle"></i>
+                                    <i class="nav-icon far fa-dot-circle"></i>
                                     <p>
-                                        Thể loại bài viết
+                                        Thể loại
                                     </p>
                                 </a>
                             </li>
@@ -123,7 +123,7 @@
                         @can('blog-viewAny')
                             <li class="nav-item">
                                 <a href="{{route('blogs.index')}}" class="nav-link">
-                                    <i class="nav-icon far fa-circle"></i>
+                                    <i class="nav-icon far fa-dot-circle"></i>
                                     <p>
                                         Nội dung
                                     </p>
@@ -146,7 +146,7 @@
                         @can('admin-viewAny')
                             <li class="nav-item">
                                 <a href="{{route('users.index')}}" class="nav-link">
-                                    <i class="nav-icon far fa-circle"></i>
+                                    <i class="nav-icon far fa-dot-circle"></i>
                                     <p>
                                         Quản trị viên
                                     </p>
@@ -157,7 +157,7 @@
 
                             <li class="nav-item">
                                 <a href="{{route('customers.index')}}" class="nav-link">
-                                    <i class="nav-icon far fa-circle"></i>
+                                    <i class="nav-icon far fa-dot-circle"></i>
                                     <p>
                                         Khách hàng
                                     </p>
@@ -167,7 +167,7 @@
                         @can('role-viewAny')
                             <li class="nav-item">
                                 <a href="{{route('roles.index')}}" class="nav-link">
-                                    <i class="nav-icon far fa-circle"></i>
+                                    <i class="nav-icon far fa-dot-circle"></i>
                                     <p>
                                         Vai trò
                                     </p>
@@ -179,7 +179,7 @@
                         @can('permission-viewAny')
                             <li class="nav-item">
                                 <a href="{{route('permissions.index')}}" class="nav-link">
-                                    <i class="nav-icon far fa-circle"></i>
+                                    <i class="nav-icon far fa-dot-circle"></i>
                                     <p>
                                         Quyền truy cập
                                     </p>

@@ -2,16 +2,20 @@
 
 namespace App\Models;
 
+use App\Notifications\CustomerResetPasswordNotification;
+use Illuminate\Auth\Notifications\ResetPassword as ResetPasswordNotification;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Contracts\Auth\CanResetPassword;
 
-class Customer extends Authenticatable
+class Customer extends Authenticatable implements CanResetPassword
 {
-    use HasFactory;
 
+    use HasFactory;
+    use Notifiable;
     use HasFactory;
     use SoftDeletes;
 
@@ -80,5 +84,10 @@ class Customer extends Authenticatable
         }
 
         return $query->paginate($data['limit'], ['*'], 'page', $data['page']);
+    }
+
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new CustomerResetPasswordNotification($token));
     }
 }

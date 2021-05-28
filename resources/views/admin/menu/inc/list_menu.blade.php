@@ -77,7 +77,7 @@
 
                                 </a>
                                 @endcan
-                                @can('$menu-delete')
+                                @can('menu-delete')
                                 <a class="btn btn-danger btn-sm m-1" data-action="btnDelete" data-name="{{$menu->name}}" data-url="{{route('menus.destroy', ['id'=> $menu->id])}}" >
                                     <i class="fas fa-trash">
                                     </i>

@@ -94,7 +94,7 @@
 
                                     </a>
                                 @endcan
-                                @can('$slider-delete')
+                                @can('slider-delete')
                                     <a class="btn btn-danger btn-sm" data-action="btnDelete"
                                        data-name="{{$slider->name}}"
                                        data-url="{{route('sliders.destroy', ['id'=> $slider->id])}}">

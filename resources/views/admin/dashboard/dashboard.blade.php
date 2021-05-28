@@ -6,7 +6,7 @@
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
             <a href="{{route('admin.home', ['filter_time' => 'dateNow'])}}" data-action="filter-report"
-               data-filter="dateNow" class="dropdown-item">ngày hôm nay<i class="fas fa-sort-down"></i></a>
+               data-filter="dateNow" class="dropdown-item">Ngày hôm nay<i class="fas fa-sort-down"></i></a>
             <a href="{{route('admin.home', ['filter_time' => 'weekNow'])}}" data-action="filter-report"
                data-filter="weekNow" class="dropdown-item">Tuần này <i class="fas fa-sort-down"></i></a>
             <a href="{{route('admin.home', ['filter_time' => 'lastWeek'])}}" data-action="filter-report"

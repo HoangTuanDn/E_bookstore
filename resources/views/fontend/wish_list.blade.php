@@ -11,20 +11,7 @@
 @section('content')
 <!-- Start Bradcaump area -->
 <div class="ht__bradcaump__area bg-image--5">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="bradcaump__inner text-center">
-                    <h2 class="bradcaump-title">Wishlist</h2>
-                    <nav class="bradcaump-content">
-                        <a class="breadcrumb_item" href="index.html">Home</a>
-                        <span class="brd-separetor">/</span>
-                        <span class="breadcrumb_item active">Wishlist</span>
-                    </nav>
-                </div>
-            </div>
-        </div>
-    </div>
+    @include('fontend.breadcumb',['pageNameLC' => __('wishlist')])
 </div>
 <!-- End Bradcaump area -->
 <!-- cart-main-area start -->
@@ -36,7 +23,7 @@
                     <form action="#">
                         <input type="hidden" value="{{$allProducts}}">
                         <input type="hidden" class="stock_true" value="{{__('stock_true')}}">
-                        <input type="hidden" class="stock_false" value="{{__('stock_fasle')}}">
+                        <input type="hidden" class="stock_false" value="{{__('stock_false')}}">
                         <input type="hidden" class="add_text" value="{{__('add_to_cart_1')}}">
                         <input type="hidden" class="delete_wishlist_text" value="{{__('delete_product_ind_wishlist')}}">
                         <input type="hidden" class="url_store" value="{{route('home.cart.store', ['language' => app()->getLocale()])}}">

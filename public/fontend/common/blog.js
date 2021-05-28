@@ -1,6 +1,5 @@
 $(function () {
 
-
     /*filter by category*/
     $('*[data-action="btnFilterCategory"]').click(function () {
         event.preventDefault();

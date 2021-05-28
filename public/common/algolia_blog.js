@@ -18,7 +18,7 @@ $(function () {
                                         <img width="50px" height="50px" src="${window.location.origin}${suggestion.featured_img}" alt="img" class="algolia-thumb">
                                      </div>                     
                                    
-                                    <div class="algolia-info">
+                                    <div class="algolia-info-blog">
                                         <p class="info-name ml-2"><strong>${suggestion._highlightResult.name[language].value}</strong></p>
                                         <p class="info-details ml-2">${language === 'vn' ? new Date(suggestion.created_at).toLocaleDateString("vi-VN", options) : new Date(suggestion.created_at).toLocaleDateString("en-US", options)}</p>
                                     </div>                            

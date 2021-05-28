@@ -4,6 +4,7 @@ namespace App\Http\Controllers\fontend;
 
 
 use App\Models\Coupon;
+use App\Models\Customer;
 use App\Models\District;
 use App\Models\Payment;
 use App\Models\Product;
@@ -22,6 +23,7 @@ class CheckOutController extends Controller
     private $coupon;
     private $payment;
     private $product;
+    private $customer;
 
     /**
      * ShipController constructor.
@@ -32,8 +34,18 @@ class CheckOutController extends Controller
      * @param Coupon $coupon
      * @param Payment $payment
      * @param Product $product
+     * @param Customer $customer
      */
-    public function __construct(Province $province, District $district, Ward $ward, Ship $ship, Coupon $coupon, Payment $payment, Product $product)
+    public function __construct(
+        Province $province,
+        District $district,
+        Ward $ward,
+        Ship $ship,
+        Coupon $coupon,
+        Payment $payment,
+        Product $product,
+        Customer $customer
+    )
     {
         $this->province = $province;
         $this->district = $district;
@@ -42,6 +54,7 @@ class CheckOutController extends Controller
         $this->coupon = $coupon;
         $this->payment = $payment;
         $this->product = $product;
+        $this->customer = $customer;
     }
 
 
@@ -162,6 +175,24 @@ class CheckOutController extends Controller
                 return response()->json($json);
             }
 
+        }
+
+        if (!empty($couponCode)) {
+            $coupon = $this->coupon->where('code', $couponCode)->first();
+
+            if ($coupon->number == 0) {
+                $json = [
+                    'success' => true,
+                    'data'    => [
+                        'type'    => __('type_warning'),
+                        'message' => __('coupon_expired', ['name' => $couponCode])
+                    ]
+                ];
+
+                if ($request->ajax()) {
+                    return response()->json($json);
+                }
+            }
         }
 
         $coupon = $this->coupon->where('code', $couponCode)->first();

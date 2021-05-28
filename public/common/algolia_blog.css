@@ -1,5 +1,5 @@
 
-.aa-input-search-blog .algolia-result .algolia-info {
+.algolia-content .algolia-result .algolia-info-blog{
     display: flex;
     flex-direction: column;
     align-content: flex-start;
@@ -7,31 +7,40 @@
     max-width: 190px;
 }
 
+.algolia-info-blog p:nth-of-type(1) {
+    display: inline-block;
+    position: relative;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+
 @media only screen and (max-width: 575px) {
-    .aa-input-search-blog .algolia-info p:nth-of-type(1) {
+    .aa-input-search-blog .algolia-info-blog p:nth-of-type(1) {
         max-width: 400px;
     }
 
-    .aa-input-search-blog .algolia-result .algolia-info {
+    .aa-input-search-blog .algolia-result .algolia-info-blog {
         max-width: 400px;
     }
 }
 
 @media only screen and (max-width: 420px) {
-    .aa-input-search-blog .algolia-info p:nth-of-type(1) {
+    .aa-input-search-blog .algolia-info-blog p:nth-of-type(1) {
         max-width: 300px;
     }
-    .aa-input-search-blog .algolia-result .algolia-info {
+    .aa-input-search-blog .algolia-result .algolia-info-blog {
         max-width: 300px;
     }
 }
 
 @media only screen and (max-width: 767px) {
-    .aa-input-search-blog .algolia-info p:nth-of-type(1) {
+    .aa-input-search-blog .algolia-info-blog p:nth-of-type(1) {
         max-width: 500px;
     }
 
-    .aa-input-search-blog .algolia-result .algolia-info {
+    .aa-input-search-blog .algolia-result .algolia-info-blog {
         max-width: 500px;
     }
 }

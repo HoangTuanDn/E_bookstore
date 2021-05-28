@@ -15,13 +15,13 @@
 @section('content')
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
-    @include('partials.breadcrumb',['module' => 'orders', 'action' => 'show'])
+    @include('partials.breadcrumb',['module' => 'orders', 'action' => $order->order_code])
 
     <!-- Main content -->
         <section class="content">
             <div class="card">
-                <div class="card-header d-flex">
-                    <h3 class="card-title p-1">Thông tin vận chuyển</h3>
+                <div class="card-header d-flex ">
+                    <h3 class="card-title p-1 flex-grow-1">Thông tin vận chuyển</h3>
                     <div class="card-tools">
                         <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
                             <i class="fas fa-minus"></i>
@@ -72,8 +72,8 @@
                 <!-- /.card-body -->
             </div>
             <div class="card">
-                <div class="card-header d-flex">
-                    <h3 class="card-title  p-1">Chi tiết đơn hàng</h3>
+                <div class="card-header d-flex ">
+                    <h3 class="card-title  p-1 flex-grow-1">Chi tiết đơn hàng</h3>
                     <div class="card-tools">
                         <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
                             <i class="fas fa-minus"></i>
@@ -137,7 +137,7 @@
             </div>
             <div class="card">
                 <div class="card-header d-flex">
-                    <h3 class="card-title p-1">Thanh Toán</h3>
+                    <h3 class="card-title p-1 flex-grow-1">Thanh Toán</h3>
                     <div class="card-tools">
                         <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
                             <i class="fas fa-minus"></i>

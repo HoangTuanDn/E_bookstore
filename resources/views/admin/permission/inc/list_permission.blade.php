@@ -89,7 +89,7 @@
 
                                 </a>
                                 @endcan
-                                @can('$permission-delete')
+                                @can('permission-delete')
                                 <a class="btn btn-outline-danger btn-sm m-1" data-action="btnDelete" data-name="{{$permission->name}}" data-url="{{route('permissions.destroy', ['id'=> $permission->id])}}" >
                                     <i class="fas fa-trash">
                                     </i>

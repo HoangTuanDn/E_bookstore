@@ -1,10 +1,10 @@
 /node_modules
 /public/hot
-#/public/storage
+/public/storage
 /storage/*.key
 /vendor
-#/app/helpers.php
-#/app/utf8.php
+/app/helpers.php
+/app/utf8.php
 .env
 .env.backup
 .phpunit.result.cache

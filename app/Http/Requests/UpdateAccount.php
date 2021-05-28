@@ -13,7 +13,7 @@ class UpdateAccount extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,24 @@ class UpdateAccount extends FormRequest
     public function rules()
     {
         return [
-            //
+            'full_name' => 'min:5',
+            'province_id' => 'numeric',
+            'district_id' => 'numeric',
+            'ward_id' => 'numeric',
+            'phone' => 'numeric',
+            'email' => 'email',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'province_id.numeric' => __('province_required'),
+            'district_id.numeric' => __('district_numeric'),
+            'ward_id.numeric' => __('ward_numeric'),
+            'phone.numeric' => __('phone_numeric'),
+            'email.email' => __('email_format'),
+            'full_name.min' => __('full_name_min'),
         ];
     }
 }

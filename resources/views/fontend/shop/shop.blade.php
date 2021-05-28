@@ -55,8 +55,8 @@
                         <aside class="wedget__categories sidebar--banner">
                             <img src="{{asset('fontend/images/others/banner_left.jpg')}}" alt="banner images">
                             <div class="text">
-                                <h2>new products</h2>
-                                <h6>save up to <br> <strong>40%</strong>off</h6>
+                                <h2>{{__('new_product')}}</h2>
+                                {!! __('product_banner') !!}
                             </div>
                         </aside>
                     </div>

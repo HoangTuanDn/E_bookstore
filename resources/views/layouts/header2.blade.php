@@ -59,9 +59,12 @@
                                     </strong>
                                     <div class="switcher-options">
                                         <div class="switcher-currency-trigger">
-                                            @if(Route::currentRouteName() === 'home.shop.single_product' || Route::currentRouteName() === 'home.blog.detail')
+                                            @if(Route::currentRouteName() === 'home.shop.single_product' || Route::currentRouteName() === 'home.blog.detail' || Route::currentRouteName() === 'home.checkout')
                                                 <span class="currency-trigger"><a href="{{route(Route::currentRouteName(), ['language' => 'vn', 'slug'=> request()->slug])}}">{{__('vn_language')}}</a></span>
                                                 <span class="currency-trigger"><a href="{{route(Route::currentRouteName(), ['language' => 'en', 'slug'=> request()->slug])}}">{{__('en_language')}}</a></span>
+                                            @elseif(Route::currentRouteName()  === 'password.reset')
+                                                <span class="currency-trigger"><a href="{{route(Route::currentRouteName(), ['language' => 'vn', 'token'=> request()->token])}}">{{__('vn_language')}}</a></span>
+                                                <span class="currency-trigger"><a href="{{route(Route::currentRouteName(), ['language' => 'en', 'token'=> request()->token])}}">{{__('en_language')}}</a></span>
                                             @else
                                                 <span class="currency-trigger"><a href="{{route(Route::currentRouteName(), ['language' => 'vn'])}}">{{__('vn_language')}}</a></span>
                                                 <span class="currency-trigger"><a href="{{route(Route::currentRouteName(), ['language' => 'en'])}}">{{__('en_language')}}</a></span>

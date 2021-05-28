@@ -62,7 +62,7 @@ class BlogPolicy
         return auth()
             ->guard('admin')
             ->user()
-            ->checkPermissionAccess(config('permission.blogs.edit.delete'));
+            ->checkPermissionAccess(config('permission.blogs.edit'));
     }
 
     /**

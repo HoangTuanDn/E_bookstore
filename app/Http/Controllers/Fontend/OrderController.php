@@ -97,13 +97,11 @@ class OrderController extends Controller
         $orderCode = $this->hashids->encode($unixTime);
         $cartData = session('cart');
 
-        $orderData = $request->only(['full_name', 'address', 'phone', 'email']);
-        session()->put('orderData', $orderData);
-
         if ($request->input('coupon_code')) {
             $coupon = $this->coupon->where('code', $request->input('coupon_code'))->first();
             if ($coupon) {
                 $dataOrderInsert ['coupon_id'] = $coupon->id;
+                $coupon->decrement('number');
             }
         }
 

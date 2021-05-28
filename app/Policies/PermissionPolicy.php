@@ -78,6 +78,7 @@ class PermissionPolicy
             ->guard('admin')
             ->user()
             ->checkPermissionAccess(config('permission.permissions.delete'));
+
     }
 
     /**

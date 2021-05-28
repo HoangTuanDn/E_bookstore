@@ -39,10 +39,16 @@ class BlogController extends Controller
     public function show(Request $request, $language, $slug)
     {
 
-        if (app()->getLocale() === 'vn') {
+        if (app()->getLocale() == 'vn') {
             $blog = $this->blog->where('slug->vn', $slug)->first();
+            $blog = $blog ?? $this->blog->where('slug->en', $slug)->first();
         }else{
             $blog = $this->blog->where('slug->en', $slug)->first();
+            $blog = $blog ?? $this->blog->where('slug->vn', $slug)->first();
+        }
+
+        if (!$blog){
+            return view('fontend.error_404');
         }
 
         $sessionPost = session('recent_posts');

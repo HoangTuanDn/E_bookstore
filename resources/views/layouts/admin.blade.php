@@ -21,12 +21,20 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link href="{{asset('/common/toastr.min.css')}}" rel='stylesheet' type='text/css' />
     <!-- custom css -->
     <link href="{{asset('backend/common/common.css')}}" rel='stylesheet' type='text/css' />
+    <link href="{{asset('backend/common/loader.css')}}" rel='stylesheet' type='text/css' />
+
     @hasSection('css')
         @yield('css')
     @endif
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
+
+    <div class="loader">
+        <img src="{{asset('backend/common/Gear-0.2s-200px.gif')}}" alt="Loading..." />
+        <h3>Loading..</h3>
+    </div>
+
     @include('partials.header')
     @include('partials.siderbar')
 
@@ -39,7 +47,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <!-- ./wrapper -->
 
 <!-- REQUIRED SCRIPTS -->
-
+<script src="{{asset('backend/common/loader.js')}}"></script>
 <!-- jQuery -->
 <script src="{{asset('backend/plugins/jquery/jquery.min.js')}}"></script>
 <!-- Bootstrap 4 -->

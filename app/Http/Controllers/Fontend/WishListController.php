@@ -22,7 +22,7 @@ class WishListController extends Controller
 
     public function index()
     {
-        $allProducts = $this->product->get(['id'])->toArray();
+        $allProducts = $this->product->where('quantity' , '!=', 0)->get(['id'])->toArray();
         $allProducts = array_column($allProducts,'id');
         $allProducts = implode(',', $allProducts);
 

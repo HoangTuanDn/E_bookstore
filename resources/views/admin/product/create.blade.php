@@ -101,7 +101,7 @@
                                                class="form-control mr-1"
                                                placeholder="Nhập số lượng có"
                                                class="form-control"
-                                               min="1"
+                                               min="0"
                                                required
                                                aria-label="Amount (to the nearest dollar)"
                                         >

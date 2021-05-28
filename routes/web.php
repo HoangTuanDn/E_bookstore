@@ -17,6 +17,8 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\Fontend\CartController;
 use App\Http\Controllers\Fontend\CheckOutController;
 use App\Http\Controllers\Fontend\ContactController;
+use App\Http\Controllers\Fontend\CustomerForgotPasswordController;
+use App\Http\Controllers\Fontend\CustomerResetPasswordController;
 use App\Http\Controllers\Fontend\HomeController;
 use App\Http\Controllers\Fontend\OrderController;
 use App\Http\Controllers\Fontend\PaypalController;
@@ -451,6 +453,22 @@ Route::Group(['prefix' => '{language}'], function () {
 
             Route::post('/logout', [CustomerController::class, 'logout'])
                 ->name('account.logout');
+
+            Route::post('/update', [CustomerController::class, 'update'])
+                ->name('account.update');
+
+            Route::get('/forgot', [CustomerForgotPasswordController::class, 'showLinkRequestForm'])
+                ->name('account.forgot');
+
+            Route::post('/forgot', [CustomerForgotPasswordController::class, 'sendResetLinkEmail'])
+                ->name('account.sendLink');
+
+            Route::get('/reset-password/{token}', function ($token) {
+                return view('fontend.customer.reset_password', ['token' => $token]);
+            })->middleware('guest')->name('password.reset');
+
+            Route::post('/reset-password', [CustomerResetPasswordController::class, 'reset'])
+                ->name('password.do_reset');
         });
 
         /*shop*/

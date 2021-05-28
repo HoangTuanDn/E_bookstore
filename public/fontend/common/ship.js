@@ -231,6 +231,9 @@ $(function () {
         })
 
     })
+
+
+
     $(document).on('click', '*[data-action="payment-checkout"]', function (e) {
         event.preventDefault()
         let currentElement = $(this);
@@ -282,5 +285,69 @@ $(function () {
 
         })
 
+    })
+
+    $(document).on('change', '*[data-action="update-account"]', function (e) {
+        if (this.checked) {
+            let currentElement = $(this);
+
+            let url = currentElement.attr('data-url');
+            let data = {
+                'full_name'      : currentElement.closest('#wrapper').find('input[name="full_name"]').val(),
+                'province_id'      : currentElement.closest('#wrapper').find('#province').val(),
+                'district_id'      : currentElement.closest('#wrapper').find('#district').val(),
+                'ward_id'      : currentElement.closest('#wrapper').find('#ward').val(),
+                'address'      : currentElement.closest('#wrapper').find('input[name="address"]').val(),
+                'phone'      : currentElement.closest('#wrapper').find('input[name="phone"]').val(),
+                'email'      : currentElement.closest('#wrapper').find('input[name="email"]').val(),
+            }
+
+            console.log({
+                'url' : url,
+                'data' : data
+            })
+
+            $.ajax({
+                url     : url,
+                type    : 'post',
+                data    : data,
+                dataType: 'json',
+                headers : {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success : function (json) {
+                    if (json['success'] === true){
+                        var toastConfig = {
+                            message : json['data']['message'],
+                            type    : json['data']['type'],
+                            duration: 3000
+                        }
+                        toast(toastConfig)
+                    }
+                },
+
+                error   : function (json) {
+                    if (json['responseJSON'] !== undefined) {
+                        let errors = Object.values(json['responseJSON']['errors']);
+
+                        let errormessage = [];
+                        console.log(errors);
+                        errormessage = errors.map(function (element, index) {
+                            return  element[0]
+                        })
+
+                        var toastConfig = {
+                            message : errormessage[0],
+                            type    : 'error',
+                            duration: 3000
+                        }
+                        toast(toastConfig)
+
+                    }
+                }
+
+            })
+
+        }
     })
 })
